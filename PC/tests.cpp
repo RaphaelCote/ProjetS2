@@ -1,8 +1,14 @@
 #include "tests.h"
 
+void Tests::test_unitaire_Controls()
+{
+   // Tests unitraires de la classe Controls
+}
+
 void Tests::tests_unitaires()
 {
    // Fait tous les tests unitaires
+   test_unitaire_Controls();
 }
 
 void Tests::tests_application()
