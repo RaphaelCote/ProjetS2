@@ -17,7 +17,8 @@ using json = nlohmann::json;
 
 /*-------------------------- Other file include -----------------------------*/
 #include "tests.h"
-#include "controlEvents.h"
+#include "Controls/controlEvents.h"
+#include "Controls/EventManager.h"
 
 /*------------------------------ Constantes ---------------------------------*/
 #define BAUD 9600         // Frequence de transmission serielle
@@ -35,7 +36,6 @@ SerialPort *arduino; // doit etre un objet global!
 int main()
 {
     InitializeSerial();
-    ControlEvents controlEvents;
 
     Tests tests;
 
