@@ -2,6 +2,7 @@
  * Auteurs: Jean-Samuel Lauzon
  * Date: Fevrier 2022
  * Modif : Janvier 2023, Compatible VisualStudio, JpGouin
+ * Modif : S2-H24, Équipe P-20
  */
 
 /*------------------------------ Librairies ---------------------------------*/
@@ -16,6 +17,8 @@ using json = nlohmann::json;
 
 /*-------------------------- Other file include -----------------------------*/
 #include "tests.h"
+#include "Controls/controlEvents.h"
+#include "Controls/EventManager.h"
 
 /*------------------------------ Constantes ---------------------------------*/
 #define BAUD 9600         // Frequence de transmission serielle
@@ -33,6 +36,7 @@ SerialPort *arduino; // doit etre un objet global!
 int main()
 {
     InitializeSerial();
+
     Tests tests;
 
     tests.tests_unitaires();
