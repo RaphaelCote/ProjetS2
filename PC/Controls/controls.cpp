@@ -1,42 +1,41 @@
 #include "controls.h"
-#include "controlEvents.h"
 
-// Controls::Controls(ControlEvents ce)
-// {
-//     this->controlEvents = ce;
-// }
+Controls::Controls(EventManager *em)
+{
+    this->eventManager = em;
+}
 
-// void Controls::MainAction()
-// {
-//     __raise controlEvents.MainAction();
-// }
+void Controls::MainAction()
+{
+    eventManager->emit("event", 100);
+}
 
-// void Controls::Back()
-// {
-//     __raise controlEvents.Back();
-// }
+void Controls::Back()
+{
+    eventManager->emit("event", 100);
+}
 
-// void Controls::NextSelection()
-// {
-//     __raise controlEvents.NextSelection();
-// }
+void Controls::NextSelection()
+{
+    eventManager->emit("event", 100);
+}
 
-// void Controls::PreviousSelection()
-// {
-//     __raise controlEvents.PreviousSelection();
-// }
+void Controls::PreviousSelection()
+{
+    eventManager->emit("event", 100);
+}
 
-// void Controls::Menu()
-// {
-//     __raise controlEvents.Menu();
-// }
+void Controls::Menu()
+{
+    eventManager->emit("event", 100);
+}
 
-// void Controls::Joystick(float x, float y)
-// {
-//     __raise controlEvents.Joystick(x, y);
-// }
+void Controls::Joystick(float x, float y)
+{
+    eventManager->emit("event", 100);
+}
 
-// void Controls::Angle(float angle)
-// {
-//     __raise controlEvents.Angle(angle);
-// }
+void Controls::Angle(float angle)
+{
+    eventManager->emit("event", 100);
+}

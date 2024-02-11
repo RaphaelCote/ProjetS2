@@ -17,7 +17,7 @@ using json = nlohmann::json;
 
 /*-------------------------- Other file include -----------------------------*/
 #include "tests.h"
-#include "Controls/controlEvents.h"
+#include "Controls/controls.h"
 #include "Controls/EventManager.h"
 
 /*------------------------------ Constantes ---------------------------------*/
@@ -35,13 +35,27 @@ SerialPort *arduino; // doit etre un objet global!
 /*----------------------------- Fonction "Main" -----------------------------*/
 int main()
 {
-    InitializeSerial();
+    // === Event manager tests ===
+    EventManager *event_manager = new EventManager();
+    Controls controls(event_manager);
+    event_manager->on("event", callback1)->on("event", callback2);
 
-    Tests tests;
+    int eventA = event_manager->emit("event", 100);
+    int eventB = event_manager->emit("bad_event", 200);
 
-    tests.tests_unitaires();
+    std::cout << "\n";
+    std::cout << eventA << " " << eventB << "\n";
+    // === Event manager tests ===
 
     return 0;
+
+    // InitializeSerial();
+
+    // Tests tests;
+
+    // tests.tests_unitaires();
+
+    // return 0;
 }
 
 /*---------------------------Definition de fonctions ------------------------*/
