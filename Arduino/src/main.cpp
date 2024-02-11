@@ -9,7 +9,7 @@
 
 /*------------------------------ Constantes ---------------------------------*/
 
-#define BAUD 9600        // Frequence de transmission serielle
+#define BAUD 115200        // Frequence de transmission serielle
 
 /*---------------------------- Variables globales ---------------------------*/
 
