@@ -1,4 +1,5 @@
-#include <arduino.h>
+
+#include "projectile.h"
 
 /*DIMENSIONS MAXIMALES DE L'ÉCRAN*/
 #define HAUTEUR_ECRAN 1000  //Ordonnée
@@ -18,31 +19,17 @@
 #define EAU_X4 -200
 #define EAU_Y4 -200
 
-struct Vitesse
-{
-    float module;
-    float orientation; // L'angle est en degrés.
-};
 
 
 
 
 
-class Projectile
-{
-    /*Attributs*/
-    private:
-    float x;
-    float y;
-    Vitesse vitesse;
-    float degats;
-    bool etat;
+
 
 
     /*Méthodes*/
-    public:
     /*Constructeur (État Initial)*/
-    Projectile(float abscisse, float ordonnee, float velocite, float dommages)
+    Projectile::Projectile(float abscisse, float ordonnee, float velocite, float dommages)
         {
             x = abscisse; 
             y = ordonnee;
@@ -52,16 +39,16 @@ class Projectile
 
         }
 
-    void ModifierPosition(float nova_abscisse, float nova_ordonnee, float nova_velocite, float nova_tiempo)
+    void Projectile::ModifierPosition(float nova_abscisse, float nova_ordonnee, float nova_velocite, float nova_tiempo)
         {
             
         }
-    void ModifierDegats(float dommages)
+    void Projectile::ModifierDegats(float dommages)
         {
             degats = dommages;
         }
 
-    void Hors_jeu()
+    void Projectile::Hors_jeu()
     {
        
 
@@ -102,4 +89,3 @@ class Projectile
             Serial.print("Le projectile est dans l'eau !(HAUTEUR) ! 
             Sortez-le de l'eau en ajustant son abscisse et son ordonnée!");
         }
-};
