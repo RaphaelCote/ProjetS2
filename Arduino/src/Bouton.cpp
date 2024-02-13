@@ -16,10 +16,10 @@ Boutton::~Boutton()
 {
 }
 
-void Boutton::Update()
+etatBoutton Boutton::Update()
 {
     if(etat == etatBoutton::BouttonDisabled)
-        return;
+        return etat;
 
     oldEtat = etat;
     
@@ -31,7 +31,7 @@ void Boutton::Update()
 
     if(millis()- timer >=  DEBOUNCE_TIME_MS)//if debounce finished
     {
-        if(digitalRead(pin) == ETAT_ON)
+        if(digitalRead(pin) == ETAT_ON)//change l'etat du boutton
         {
             etat = etatBoutton::BouttonAppuyer;
         }
@@ -40,7 +40,7 @@ void Boutton::Update()
             etat = etatBoutton::BouttonRelacher;
         }
     }
-    
+    return etat;
 }
 
 
