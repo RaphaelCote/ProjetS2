@@ -13,18 +13,17 @@ public:
     ~Boat();
     int getNbCharacters();
     int getCapacite();
-    bool addCharacter(Character* characterAdded);
+    bool addCharacter(charachters* characterAdded);
     list<Vector*> characterPositions;
-    list<Characters*> characters;
-    Character* removeCharacters(int index);
-    removePosition(int index);
+    list<Charachters*> characters;
+    charachters* removeCharacters(int index);
+    bool removePosition(int index);
     void affichageJoueur(ostream & s);
     void affichageAdversaire(ostream & s);
 
 private:
     int nbCharacters;
     int capacite;
-
 };
 
 #endif

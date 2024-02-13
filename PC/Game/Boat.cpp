@@ -1,9 +1,9 @@
 #include "Boat.h"
+#include "charachters.h"
 
 Boat::Boat(int n){
     nbCharacters = 0;
     capacite = n;
-    boat = new character* [capacite];
 }
 
 int Boat::getNbCharacters()  // pour vérifier s'il reste des adversaires ou non
@@ -15,43 +15,43 @@ int Boat::getCapacite(){
     return capacite;
 }
 
-bool Boat::addCharacter(Characters* characterAdded) // pour initialiser le jeu: créer les personnages
+bool Boat::addCharacter(charachters* characterAdded) // pour initialiser le jeu: créer les personnages
 {
     if (characterAdded == NULL){
         return false;
     }
 
     else{
-        boat[nbCharacters] = characterAdded;
+        characters[nbCharacters] = characterAdded;
         nbCharacters++;
         return true;
     }
 }
 
-Characters* Boat::removeCharacter(int index) // retirer les personnages lorsqu'ils sont morts
+charachters* Boat::removeCharacters(int index) // retirer les personnages lorsqu'ils sont morts
 {
 	if (index >= nbCharacters || index < 0){
 		return nullptr;
 	}
 
     else{
-        Characters* characterRemoved = boat[index];
+        charachters* characterRemoved = characters[index];
         if (index == (nbCharacters-1)){
-            boat[nbCharacters-1] = NULL;
+            characters[nbCharacters-1] = NULL;
         }
 
         else{
             for (int i = index; i < (nbCharacters-1); i++){
-                boat[i] = bat[i + 1];
+                characters[i] = characters[i + 1];
             }
-            boat[nbCharacters-1] = nullptr;
+            characters[nbCharacters-1] = nullptr;
         }
         nbCharacters--;
         return characterRemoved;
     }
 }
 
-/*POINTEUR DU PERSONNAGE RETIRÉ*/ Boat::removePosition(int index){
+bool Boat::removePosition(int index){
     /*list<Vector*> characterPositions;
     list<Characters*> characters;
     removePosition(int index);
@@ -87,6 +87,5 @@ void Boat::affichageAdversaire(ostream & s) // affichage pour les joueurs
 }
 
 Boat::~Boat(){
-    taille = 0;
-    delete [] boat;
+    nbCharacters = 0;
 }
