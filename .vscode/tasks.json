@@ -8,11 +8,11 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "${workspaceFolder}\\PC\\*.cpp",
-                "${workspaceFolder}\\PC\\include\\serial\\*.cpp",
-                "${workspaceFolder}\\PC\\Controls\\*.cpp",
-                "${workspaceFolder}\\PC\\Game\\*.cpp",
-                "${workspaceFolder}\\PC\\Menus\\*.cpp",
+                "${workspaceFolder}/PC/*.cpp",
+                "${workspaceFolder}/PC/include/serial/*.cpp",
+                "${workspaceFolder}/PC/Controls/*.cpp",
+                "${workspaceFolder}/PC/Game/*.cpp",
+                "${workspaceFolder}/PC/Menus/*.cpp",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],
