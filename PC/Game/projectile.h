@@ -1,6 +1,8 @@
 #include <iostream>
 
 using namespace std;
+
+
 struct Vitesse
 {
     float module;
@@ -19,10 +21,17 @@ class Projectile
 
     public:
     /*Constructeur (État Initial)*/
-    Projectile(float abscisse, float ordonnee, float velocite, float dommages);
+    Projectile(float abscisse, float ordonnee, Vitesse velocite, float dommages);
     void ModifierPosition(float nova_abscisse, float nova_ordonnee, float nova_velocite, float nova_tiempo);
     void ModifierDegats(float dommages);
     void Hors_jeu();
     void AngleDroit();
         
 };
+
+/***********************************MESSAGES D'ERREURS (PROTOTYPE)************************************/
+void MessagesErreur1();
+void MessagesErreur2();
+void MessagesErreur3();
+
+

@@ -1,5 +1,4 @@
 #include "projectile.h"
-
 /*DIMENSIONS MAXIMALES DE L'ÉCRAN*/
 #define HAUTEUR_ECRAN 1000  //Ordonnée
 #define LONGUEUR_ECRAN 1000  //Abscisse
@@ -20,11 +19,12 @@
 
     /*Méthodes*/
     /*Constructeur (État Initial)*/
-    Projectile::Projectile(float abscisse, float ordonnee, float velocite, float dommages)
+    Projectile::Projectile(float abscisse, float ordonnee, Vitesse velocite, float dommages)
         {
             x = abscisse; 
             y = ordonnee;
-            vitesse = velocite;
+            vitesse.module = velocite.module;
+            vitesse.orientation = velocite.orientation;
             degats = dommages;
             etat = 1;
 
@@ -46,7 +46,7 @@
         if (x<LONGUEUR_MINIMALE|| x>LONGUEUR_ECRAN)
             {   
                 etat = 0;
-                MessagesErreur1()
+                MessagesErreur1();
             }
 
         if (y<HAUTEUR_MINIMALE || y>HAUTEUR_ECRAN)
@@ -64,7 +64,6 @@
     }
 
     /***********************************MESSAGES D'ERREURS************************************/
-    
     void MessagesErreur1()
         {
             cout <<"Le projectile est hors-jeu (LONGUEUR) ! Veuillez ajuster son abscisse !"<< endl;
@@ -80,3 +79,4 @@
             cout << "Le projectile est dans l'eau !(HAUTEUR) !"<< endl; 
             cout << "Sortez-le de l'eau en ajustant son abscisse et son ordonnée!"<< endl;
         }
+ 
