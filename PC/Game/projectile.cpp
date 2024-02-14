@@ -1,4 +1,3 @@
-
 #include "projectile.h"
 
 /*DIMENSIONS MAXIMALES DE L'ÉCRAN*/
@@ -18,14 +17,6 @@
 #define EAU_Y3 -200
 #define EAU_X4 -200
 #define EAU_Y4 -200
-
-
-
-
-
-
-
-
 
     /*Méthodes*/
     /*Constructeur (État Initial)*/
@@ -65,7 +56,7 @@
             }
 
         if ((x>EAU_X1 && x<EAU_X2) && (x>EAU_X3 && x<EAU_X4) && (y>EAU_Y1 && y<EAU_Y2) && 
-        (y>EAU_Y3 && y<EAU_Y4))
+        (y>EAU_Y3 && y<EAU_Y4)) //Si le projectile est à l'extérieur de l'eau
             {
                 etat = 0;
                 MessagesErreur3();
@@ -76,16 +67,16 @@
     
     void MessagesErreur1()
         {
-            Serial.print("Le projectile est hors-jeu (LONGUEUR) ! Veuillez ajuster son abscisse !");
+            cout <<"Le projectile est hors-jeu (LONGUEUR) ! Veuillez ajuster son abscisse !"<< endl;
         }
 
     void MessagesErreur2()
         {
-            Serial.print("Le projectile est hors-jeu (HAUTEUR) ! Veuillez ajuster son ordonnée !");
+            cout << "Le projectile est hors-jeu (HAUTEUR) ! Veuillez ajuster son ordonnée !"<< endl;
         }
 
     void MessagesErreur3()
         {
-            Serial.print("Le projectile est dans l'eau !(HAUTEUR) ! 
-            Sortez-le de l'eau en ajustant son abscisse et son ordonnée!");
+            cout << "Le projectile est dans l'eau !(HAUTEUR) !"<< endl; 
+            cout << "Sortez-le de l'eau en ajustant son abscisse et son ordonnée!"<< endl;
         }

@@ -35,7 +35,7 @@ SerialPort *arduino; // doit etre un objet global!
 /*----------------------------- Fonction "Main" -----------------------------*/
 int main()
 {
-    InitializeSerial();
+    // InitializeSerial(); 
 
     Tests tests;
 
