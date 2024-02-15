@@ -46,6 +46,8 @@ class Projectile
     float ConversionDegats_Puissance(float Puissance);
     float ConversionPuissance_Degats(float dommage);
     float ConversionDeg_Rad(float Angle_deg);
+    float MRUA_X(float VI_X, float delta_t, float a);
+    float MRUA_Y(float VI_X, float delta_t, float a);
     
         
 };

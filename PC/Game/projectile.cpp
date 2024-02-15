@@ -171,6 +171,14 @@
             
         }
 
+    float MRUA_X(float VI_X, float delta_t, float a)
+        {
+            
+        }
+    float MRUA_Y(float VI_Y, float delta_t, float a)
+        {
+            
+        }
 
 
     /***********************************MESSAGES D'ERREURS************************************/
