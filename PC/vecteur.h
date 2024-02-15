@@ -7,6 +7,8 @@ Raphael Côté : cotr1509
 #ifndef VECTEUR_H
 #define VECTEUR_H
 
+#include <iostream>
+
 using namespace std;
 
 template <class T>

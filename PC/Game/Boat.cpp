@@ -9,32 +9,32 @@ Boat::Boat(int n)
 
 int Boat::getNbCharacters()  // pour vérifier s'il reste des adversaires ou non
 {
-    return characters.Grosseur();
+    return characters.getSize();
 }
 
 int Boat::getCapacite()
 {
-    return characters.Capacite();
+    return characters.getCapacity();
 }
 
 bool Boat::addCharacter(character* characterAdded) // pour initialiser le jeu: créer les personnages
 {
-    return characters.Ajouter(characterAdded);
+    return characters.add(characterAdded);
 }
 
 bool Boat::addPosition(Coordonnee* positionAdded)
 {
-    return characterPositions.Ajouter(positionAdded);
+    return characterPositions.add(positionAdded);
 }
 
 bool Boat::removeCharacters(int index) // retirer les personnages lorsqu'ils sont morts
 {
-    return characters.Retirer(index);
+    return characters.remove(index);
 }
 
 bool Boat::removePosition(int index)
 {
-    return characterPositions.Retirer(index);
+    return characterPositions.remove(index);
 }
 
 void Boat::affichageJoueur(ostream & s) // affichage pour les joueurs 
@@ -69,4 +69,3 @@ Boat::~Boat()
 {
     nbCharacters = 0;
 }
-
