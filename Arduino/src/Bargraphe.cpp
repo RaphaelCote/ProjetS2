@@ -6,7 +6,7 @@ Bargraphe::Bargraphe(int pX, int pY, int pZ)
 {
     for(int i = 0; i < NOMBRE_LED; i++)
     {
-        pinMode(i+STARTING_PIN, OUTPUT);
+        pinMode(i+STARTING_PIN, INPUT);
     }
 }
 
@@ -20,7 +20,16 @@ void Bargraphe::ActualiseBargraphe()
     int masque = 0x01;
     for(int i = 0; i < NOMBRE_LED; i++)
     {
-        digitalWrite(i+STARTING_PIN, barLED&masque);
+        if(barLED&masque)
+        {
+            pinMode(i+STARTING_PIN, INPUT);
+        }
+        else
+        {
+            pinMode(i+STARTING_PIN, OUTPUT);
+            digitalWrite(i+STARTING_PIN, LOW);
+        }
+        
         masque >> 1;
     }
 }
