@@ -3,6 +3,8 @@
 
 #include <ostream>
 #include "charachters.h"
+#include "../Vecteur.h"
+#include "Coordonnees.h"
 
 using namespace std;
 
@@ -13,10 +15,11 @@ public:
     ~Boat();
     int getNbCharacters();
     int getCapacite();
-    bool addCharacter(charachters* characterAdded);
-    list<Vector*> characterPositions;
-    list<Charachters*> characters;
-    charachters* removeCharacters(int index);
+    bool addCharacter(character* characterAdded);
+    bool addPosition(Coordonnee* positionAdded);
+    Vecteur<Coordonnee*> characterPositions;
+    Vecteur<character*> characters;
+    bool removeCharacters(int index);
     bool removePosition(int index);
     void affichageJoueur(ostream & s);
     void affichageAdversaire(ostream & s);
