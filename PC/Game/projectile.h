@@ -41,8 +41,8 @@ class Projectile
     void Hors_jeu();
     void AngleDroit(Vitesse velocite);
     /***********************************CONVERSION************************************/
-    Vitesse ConversionP_Bargrah_Vitesse(float Puissance);
-    float ConversionV_Bargrah_Puissance(Vitesse v);
+    Vitesse ConversionP_Joystick_Vitesse(float Puissance);
+    float ConversionV_Joystick_Puissance(Vitesse v);
     float ConversionDegats_Puissance(float Puissance);
     float ConversionPuissance_Degats(float dommage);
     float ConversionDeg_Rad(float Angle_deg);

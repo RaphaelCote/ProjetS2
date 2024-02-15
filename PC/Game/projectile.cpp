@@ -127,7 +127,7 @@
 
 /***********************************CONVERSION************************************/
 
-    Vitesse Projectile:: ConversionP_Bargrah_Vitesse(float Puissance)
+    Vitesse Projectile:: ConversionP_Joystick_Vitesse(float Puissance)
         {
             Vitesse v; 
             v.module = 1.0;
@@ -138,7 +138,7 @@
             return v;
         }
 
-    float Projectile:: ConversionV_Bargrah_Puissance(Vitesse v)
+    float Projectile:: ConversionV_Joystick_Puissance(Vitesse v)
         {
             float Puissance = 0.0;
             Puissance = v.module * 10.0; // À modifier selon les propriétés du barGraph et les équations MRUA
