@@ -18,7 +18,7 @@ using json = nlohmann::json;
 /*-------------------------- Other file include -----------------------------*/
 #include "tests.h"
 #include "Controls/controls.h"
-#include "Controls/EventManager.h"
+
 
 /*------------------------------ Constantes ---------------------------------*/
 #define BAUD 9600         // Frequence de transmission serielle
@@ -35,17 +35,6 @@ SerialPort *arduino; // doit etre un objet global!
 /*----------------------------- Fonction "Main" -----------------------------*/
 int main()
 {
-    // === Event manager tests ===
-    EventManager *event_manager = new EventManager();
-    Controls controls(event_manager);
-    event_manager->on("event", callback1)->on("event", callback2);
-
-    int eventA = event_manager->emit("event", 100);
-    int eventB = event_manager->emit("bad_event", 200);
-
-    std::cout << "\n";
-    std::cout << eventA << " " << eventB << "\n";
-    // === Event manager tests ===
 
     return 0;
 

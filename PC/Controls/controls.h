@@ -3,15 +3,13 @@
 
 // #include <iostream>
 #include <stdio.h>
-#include "EventManager.h"
+
 
 using namespace std;
 
 class Controls
 {
 public:
-    EventManager *eventManager;
-    Controls(EventManager *em);
     // Pour faire des vrais contrôles (keyboard, manette), il faut juste implémenter cette méthode
     // qui va écouter pour des contrôles (touches, boutons) et appeler la bonne action à exécuter
     virtual void ListenForControls();
