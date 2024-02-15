@@ -23,17 +23,17 @@ class EventManager
 {
 
 private:
-    std::map<std::string, std::vector<void (EventListener::*)(EventParameters)>> events;
+    std::map<std::string, std::vector<void (*)(EventParameters)>> events;
 
 public:
     EventManager() {}
 
-    EventManager *on(std::string event_name, void (EventListener::*callback)(EventParameters))
+    EventManager *on(std::string event_name, void (*callback)(EventParameters))
     {
 
         // we're using a pointer to reference `events[event_name]` so as
         // to get reference to original object and not the copy object.
-        std::vector<void (EventListener::*)(EventParameters)> *listeners = &events[event_name];
+        std::vector<void (*)(EventParameters)> *listeners = &events[event_name];
 
         // if this listener is already registered, we wont add it again
         if (std::find(listeners->begin(), listeners->end(), callback) != listeners->end())
@@ -48,7 +48,7 @@ public:
 
     bool emit(std::string event_name, EventParameters param)
     {
-        std::vector<void (EventListener::*)(EventParameters)> *listeners = &events[event_name];
+        std::vector<void (*)(EventParameters)> *listeners = &events[event_name];
 
         if (listeners->size() == 0)
             return false;
@@ -56,7 +56,7 @@ public:
         // Run all the listeners associated with the event
         for (int idx = 0; idx < listeners->size(); idx += 1)
         {
-            void (EventListener::*func)(EventParameters) = listeners->at(idx);
+            void (*func)(EventParameters) = listeners->at(idx);
 
             func(param);
         }
