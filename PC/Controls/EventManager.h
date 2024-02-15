@@ -4,7 +4,6 @@
  * lien : https://medium.com/@alwayswannaly/applied-event-driven-programming-with-c-b2f6977f0b72
  * Modifié : Raphael Côté, février 2024
  * Modifications : Changer le paramêtre int des fonctions pour un EventParameter
- *                 Changer le type des fonctions de * à EventListener::*
  */
 
 #ifndef EVENTMANAGER_H
@@ -48,17 +47,17 @@ public:
 
     bool emit(std::string event_name, EventParameters param)
     {
-        std::vector<void (*)(EventParameters)> *listeners = &events[event_name];
+        std::vector<void (*)(EventParameters)> listeners = events[event_name];
 
-        if (listeners->size() == 0)
+        if (listeners.size() == 0)
             return false;
 
         // Run all the listeners associated with the event
-        for (int idx = 0; idx < listeners->size(); idx += 1)
+        for (int idx = 0; idx < listeners.size(); idx += 1)
         {
-            void (*func)(EventParameters) = listeners->at(idx);
+            void (*func)(EventParameters) = listeners.at(idx);
 
-            func(param);
+            listeners[idx](param);
         }
 
         return true;
