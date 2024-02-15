@@ -22,10 +22,24 @@ class Projectile
     public:
     /*Constructeur (État Initial)*/
     Projectile(float abscisse, float ordonnee, Vitesse velocite, float dommages);
+
+    /***********************************COLLECTES DES ATTRIBUTS************************************/
+
+    /***********************************MODIFICATIONS DES ATTRIBUTS************************************/
+
     void ModifierPosition(float nova_abscisse, float nova_ordonnee, float nova_velocite, float nova_tiempo);
     void ModifierDegats(float dommages);
+
+
+    /***********************************RESTRICTIONS************************************/
     void Hors_jeu();
-    void AngleDroit();
+    void AngleDroit(Vitesse velocite);
+    /***********************************CONVERSION************************************/
+    Vitesse ConversionP_Bargrah_Vitesse(float Puissance);
+    float ConversionV_Bargrah_Puissance(Vitesse v);
+    float ConversionDegats_Puissance(float Puissance);
+    float ConversionPuissance_Degats(float dommage);
+    
         
 };
 
@@ -33,5 +47,8 @@ class Projectile
 void MessagesErreur1();
 void MessagesErreur2();
 void MessagesErreur3();
+void MessagesErreur4();
 
-
+/***********************************MESSAGES D'APPROBATION (PROTOTYPE)************************************/
+void MessagesApprob1();
+void MessagesApprob2();

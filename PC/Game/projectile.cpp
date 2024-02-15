@@ -30,6 +30,12 @@
 
         }
 
+
+    /***********************************COLLECTES DES ATTRIBUTS************************************/
+
+
+
+    /***********************************MODIFICATIONS DES ATTRIBUTS************************************/
     void Projectile::ModifierPosition(float nova_abscisse, float nova_ordonnee, float nova_velocite, float nova_tiempo)
         {
             
@@ -39,29 +45,88 @@
             degats = dommages;
         }
 
+
+
+/***********************************RESTRICTIONS************************************/
     void Projectile::Hors_jeu()
-    {
-       
+        {
+        
 
-        if (x<LONGUEUR_MINIMALE|| x>LONGUEUR_ECRAN)
-            {   
-                etat = 0;
-                MessagesErreur1();
-            }
+            if (x<LONGUEUR_MINIMALE|| x>LONGUEUR_ECRAN)
+                {   
+                    etat = 0;
+                    MessagesErreur1();
+                }
 
-        if (y<HAUTEUR_MINIMALE || y>HAUTEUR_ECRAN)
+            if (y<HAUTEUR_MINIMALE || y>HAUTEUR_ECRAN)
+                {
+                    etat = 0;
+                    MessagesErreur2();
+                }
+
+            if ((x>EAU_X1 && x<EAU_X2) && (x>EAU_X3 && x<EAU_X4) && (y>EAU_Y1 && y<EAU_Y2) && 
+            (y>EAU_Y3 && y<EAU_Y4)) //Si le projectile est à l'extérieur de l'eau
+                {
+                    etat = 0;
+                    MessagesErreur3();
+                }
+                
+        }
+    void Projectile::AngleDroit(Vitesse velocite)
+        {
+            if (velocite.orientation > 90.0)
+                {
+                    MessagesErreur4();
+                }
+            else 
             {
-                etat = 0;
-                MessagesErreur2();
-            }
+                MessagesApprob1();
+            } 
+        }
 
-        if ((x>EAU_X1 && x<EAU_X2) && (x>EAU_X3 && x<EAU_X4) && (y>EAU_Y1 && y<EAU_Y2) && 
-        (y>EAU_Y3 && y<EAU_Y4)) //Si le projectile est à l'extérieur de l'eau
-            {
-                etat = 0;
-                MessagesErreur3();
-            }
-    }
+/***********************************CONVERSION************************************/
+
+    Vitesse ConversionP_Bargrah_Vitesse(float Puissance)
+        {
+            Vitesse v; 
+            v.module = 1.0;
+            v.orientation = 0.0;
+            v.module = Puissance/10.0; // À modifier selon les propriétés du barGraph et les équations MRUA
+            
+            cout << "Le niveau de puissance " << Puissance << " correspond à une vitesse de module " << v.module << " et d'orientation de " << v.orientation << " degrés" << endl;
+            return v;
+        }
+
+    float ConversionV_Bargrah_Puissance(Vitesse v)
+        {
+            float Puissance = 0.0;
+            Puissance = v.module * 10.0; // À modifier selon les propriétés du barGraph et les équations MRUA
+            
+            cout << "La vitesse" << v.module << " correspond à un niveau de puissance " << Puissance << endl;
+            return Puissance;
+        }
+
+    float ConversionDegats_Puissance(float Puissance)
+        {
+            float dommage = 0.0;
+
+            dommage = Puissance * 2.0; // À Ajuster selon les décisions de l'équipe
+
+            cout << "Le niveau de puissance" << Puissance << " Correspond à un niveau de dommages de " << dommage << endl;
+            return dommage;
+        }
+    float ConversionPuissance_Degats(float dommage)
+        {
+            float Puissance = 0.0;
+
+            Puissance = dommage/2.0; // À Ajuster selon les décisions de l'équipe
+
+            cout << "Le niveau de dommages" << dommage << " Correspond à un niveau puissance de " << Puissance << endl;
+            return dommage;
+        }
+
+
+
 
     /***********************************MESSAGES D'ERREURS************************************/
     void MessagesErreur1()
@@ -79,4 +144,17 @@
             cout << "Le projectile est dans l'eau !(HAUTEUR) !"<< endl; 
             cout << "Sortez-le de l'eau en ajustant son abscisse et son ordonnée!"<< endl;
         }
+    void MessagesErreur4()
+        {
+            cout << "Votre angle n'est pas situé entre 0 et 90 degrés. Veuillez rentrer un angle valide !"<< endl; 
+        }
  
+/***********************************MESSAGES D'APPROBATION************************************/
+    void MessagesApprob1()
+        {
+            cout << "Votre angle est valide !"<< endl;
+        }
+    void MessagesApprob1()
+        {
+            
+        }
