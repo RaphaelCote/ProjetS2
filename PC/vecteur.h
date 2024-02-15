@@ -7,8 +7,7 @@ Raphael Côté : cotr1509
 #ifndef VECTEUR_H
 #define VECTEUR_H
 
-#include <iostream>
-
+#include "iostream"
 using namespace std;
 
 template <class T>
@@ -39,13 +38,13 @@ public:
 	// Méthode pour afficher un seul item
 	void show(int i, ostream &s)
 	{
-		T obj = get(i); // Récupérer l'obj de type T
+		// T obj = get(i); // Récupérer l'obj de type T
 
-		if (obj != T{})
-		{
-			if constexpr (std::is_pointer_v<T>) // S'assurer que get n'a pas retourné un objet null
-				obj->show(s);
-		}
+		// if (obj != T{})
+		// {
+		// 	if constexpr (std::is_pointer_v<T>) // S'assurer que get n'a pas retourné un objet null
+		// 		obj->show(s);
+		// }
 	}
 
 	// Méthode pour afficher tous les items
