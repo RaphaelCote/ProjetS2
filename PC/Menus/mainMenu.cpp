@@ -76,3 +76,35 @@ void Menu::menuPause()
     }
 
 }
+
+void Menu::menuFin()
+{
+
+    cout << "-------------------------------------------------------------------" << endl;
+    cout << "Bravo, vous avez réussi le niveau!" << endl;
+    cout << " 1. Prochain niveau" << endl;
+    cout << " 2. Recommencer le niveau" << endl;
+    cout << "3. Revenir au menu principal" << endl;
+    cout << "-------------------------------------------------------------------" << endl;
+    cout << "Veuillez entrer votre selection :";
+    cin >> choix;
+
+    switch (choix){
+
+        case 1:
+               system("cls");           //clear la command prompt
+                //appeler la fonction qui va au next level
+
+        case 2:
+                system("cls");
+                //appeler la fonction du choix de niveau (si on fait plusieurs niveaux)
+        
+        case SORTIR: 
+                system("cls");
+                afficherMenu();
+        default:
+                cout << "Option incorrecte...";
+
+    }
+
+}

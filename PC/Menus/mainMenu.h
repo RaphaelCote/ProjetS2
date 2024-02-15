@@ -10,6 +10,7 @@ class Menu {
 public:
     void afficherMenu();
     void menuPause();
+    void menuFin();
 
 private:
     int choix = 0;
