@@ -6,7 +6,7 @@
 
 using namespace std;
 
-class Tests
+class Tests : public EventListener
 {
 public:
    // Methodes pour EventListener
@@ -15,6 +15,7 @@ public:
 
    // Methodes pour les tests unitaires des classes
    void test_unitaire_Controls();
+   friend void test_unitaire_Controls_OnEventCall(EventParameters);
    void OnEvent1(EventParameters);
    void tests_unitaires(); // Appel de tous les tests unitaires
 

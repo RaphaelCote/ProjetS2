@@ -14,14 +14,15 @@ void Tests::test_unitaire_Controls()
    // Tests unitraires de la classe Controls
 
    // Add eventListener
-   eventManager->on("event", OnEvent1);
+   eventManager->on("event", test_unitaire_Controls_OnEventCall);
 
    // Call events
    controls->MainAction();
 }
 
-void test_unitaire_Controls_OnEventCall(Tests caller, int num)
+void test_unitaire_Controls_OnEventCall(EventParameters ep)
 {
+   tests->OnEvent1(ep);
 }
 
 void Tests::OnEvent1(EventParameters ep)
