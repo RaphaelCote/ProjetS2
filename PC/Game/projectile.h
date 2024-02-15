@@ -54,6 +54,7 @@ void MessagesErreur1();
 void MessagesErreur2();
 void MessagesErreur3();
 void MessagesErreur4();
+void MessagesErreur5();
 
 /***********************************MESSAGES D'APPROBATION (PROTOTYPE)************************************/
 void MessagesApprob1();

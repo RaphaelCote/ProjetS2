@@ -78,6 +78,17 @@
 
 
 /***********************************RESTRICTIONS************************************/
+    void Projectile::On_Off()
+        {
+            if (getEtat() == 1)
+                {
+                    MessagesApprob2();
+                }
+            else 
+                {
+                    MessagesErreur5();
+                }
+        }
     void Projectile::Hors_jeu()
         {
         
@@ -178,13 +189,16 @@
         {
             cout << "Votre angle n'est pas situé entre 0 et 90 degrés. Veuillez rentrer un angle valide !"<< endl; 
         }
- 
+    void MessagesErreur5()
+        {
+            cout << "Le projectile est INACTIF (État = 0). Veuillez modifier son état"<< endl; 
+        }
 /***********************************MESSAGES D'APPROBATION************************************/
     void MessagesApprob1()
         {
             cout << "Votre angle est valide !"<< endl;
         }
-    void MessagesApprob1()
+    void MessagesApprob2()
         {
-            
+            cout << "Le projectile est ACTIF (État = 1)."<< endl;
         }
