@@ -74,11 +74,11 @@
         {
             degats = dommages;
         }
-    float MRUA_X(float VI_X, float delta_t, float a) 
+    float MRUA_X(float VI_X, float delta_t, float a) //Exclusivement pour Victor
         {
             
         }
-    float MRUA_Y(float VI_Y, float delta_t, float a)
+    float MRUA_Y(float VI_Y, float delta_t, float a) //Exclusivement pour Victor
         {
             
         }
