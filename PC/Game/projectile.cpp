@@ -1,4 +1,11 @@
 #include "projectile.h"
+
+/*CONSTANTE PIXEL*/
+#define CONST_PIXEL -1000
+
+/*VITESSE MAXIMALE*/
+#define VITESSE_MAX 2828
+
 /*DIMENSIONS MAXIMALES DE L'ÉCRAN*/
 #define HAUTEUR_ECRAN 1000  //Ordonnée
 #define LONGUEUR_ECRAN 1000  //Abscisse
@@ -74,11 +81,11 @@
         {
             degats = dommages;
         }
-    float MRUA_X(float VI_X, float delta_t, float a) //Exclusivement pour Victor
+    float MRUA_X(float VI_X, float delta_t) //Exclusivement pour Victor
         {
             
         }
-    float MRUA_Y(float VI_Y, float delta_t, float a) //Exclusivement pour Victor
+    float MRUA_Y(float VI_Y, float delta_t) //Exclusivement pour Victor
         {
             
         }
@@ -134,7 +141,7 @@
 
 /***********************************CONVERSION************************************/
 
-    Vitesse Projectile:: ConversionP_Joystick_Vitesse(float Puissance) //Pour Victor
+    Vitesse Projectile:: ConversionPuissance_Joystick_Vitesse(float Puissance) //Pour Victor
         {
             Vitesse v; 
             v.module = 1.0;
@@ -171,11 +178,6 @@
 
             cout << "Le niveau de puissance" << Puissance << " Correspond à un niveau de dommage de " << dommage << endl;
             return Puissance;
-        }
-
-    float Projectile:: ConversionDeg_Rad(float Angle_deg) //À faire avec Victor
-        {
-            
         }
 
     

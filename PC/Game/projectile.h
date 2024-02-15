@@ -30,6 +30,7 @@ class Projectile
     float getOrientation() const;
     float getDegats() const;
     bool getEtat() const;
+
     /***********************************MODIFICATIONS DES ATTRIBUTS************************************/
 
     void ModifierPosition(float nova_abscisse, float nova_ordonnee, float nova_velocite, float nova_tiempo);
@@ -40,16 +41,15 @@ class Projectile
     void On_Off();
     void Hors_jeu();
     void AngleDroit(Vitesse velocite);
+
     /***********************************CONVERSION************************************/
-    Vitesse ConversionP_Joystick_Vitesse(float Puissance);
+    Vitesse ConversionPuissance_Joystick_Vitesse(float Puissance);
     float ConversionV_Joystick_Puissance(Vitesse v);
     float ConversionDegats_Puissance_Joystick(float Puissance);
     float ConversionPuissance_Joystick_Degats(float dommage);
-    float ConversionDeg_Rad(float Angle_deg);
-    float MRUA_X(float VI_X, float delta_t, float a);
-    float MRUA_Y(float VI_X, float delta_t, float a);
-    
-        
+    float MRUA_X(float VI_X, float delta_t);
+    float MRUA_Y(float VI_X, float delta_t);
+ 
 };
 
 /***********************************MESSAGES D'ERREURS (PROTOTYPE)************************************/
