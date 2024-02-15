@@ -24,7 +24,12 @@ class Projectile
     Projectile(float abscisse, float ordonnee, Vitesse velocite, float dommages);
 
     /***********************************COLLECTES DES ATTRIBUTS************************************/
-
+    float getAbscisse () const;
+    float getOrdonnee() const;
+    float getModule() const;
+    float getOrientation() const;
+    float getDegats() const;
+    bool getEtat() const;
     /***********************************MODIFICATIONS DES ATTRIBUTS************************************/
 
     void ModifierPosition(float nova_abscisse, float nova_ordonnee, float nova_velocite, float nova_tiempo);
@@ -32,6 +37,7 @@ class Projectile
 
 
     /***********************************RESTRICTIONS************************************/
+    void On_Off();
     void Hors_jeu();
     void AngleDroit(Vitesse velocite);
     /***********************************CONVERSION************************************/

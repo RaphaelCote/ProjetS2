@@ -32,7 +32,37 @@
 
 
     /***********************************COLLECTES DES ATTRIBUTS************************************/
-
+    
+    float Projectile::getAbscisse() const
+        {
+            cout << "L'attribut Abscisse est égal à"<< x << endl;
+            return x;
+        }
+    float Projectile::getOrdonnee() const
+        {
+            cout << "L'attribut Ordonnée est égal à"<< y << endl;
+            return y;
+        }
+    float Projectile::getModule() const
+        {
+            cout << "L'attribut Module est égal à"<< vitesse.module << endl;
+            return vitesse.module;
+        }
+    float Projectile::getOrientation() const
+        {
+            cout << "L'attribut Orientation est égal à"<< vitesse.orientation << endl;
+            return vitesse.orientation;
+        }
+    float Projectile::getDegats() const
+        {
+            cout << "L'attribut Dégâts est égal à"<< degats << endl;
+            return degats;
+        }
+    bool Projectile::getEtat() const
+        {
+            cout << "L'attribut Etat est égal à"<< etat << endl;
+            return etat;
+        }
 
 
     /***********************************MODIFICATIONS DES ATTRIBUTS************************************/
