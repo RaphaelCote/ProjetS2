@@ -253,7 +253,7 @@ class Vecteur
         {
             for (int i = 0; i < vecteur.Grosseur(); ++i) {
 
-                if constexpr TYPE_EST_UN_POINTEUR
+                if (constexpr TYPE_EST_UN_POINTEUR)
                 {
                     os << vecteur[i] << "\n"; // Of course constexpr couldnt help. FUCK
                 }
