@@ -74,7 +74,14 @@
         {
             degats = dommages;
         }
-
+    float MRUA_X(float VI_X, float delta_t, float a) 
+        {
+            
+        }
+    float MRUA_Y(float VI_Y, float delta_t, float a)
+        {
+            
+        }
 
 
 /***********************************RESTRICTIONS************************************/
@@ -127,7 +134,7 @@
 
 /***********************************CONVERSION************************************/
 
-    Vitesse Projectile:: ConversionP_Joystick_Vitesse(float Puissance)
+    Vitesse Projectile:: ConversionP_Joystick_Vitesse(float Puissance) //Pour Victor
         {
             Vitesse v; 
             v.module = 1.0;
@@ -138,7 +145,7 @@
             return v;
         }
 
-    float Projectile:: ConversionV_Joystick_Puissance(Vitesse v)
+    float Projectile:: ConversionV_Joystick_Puissance(Vitesse v) //Pour Victor
         {
             float Puissance = 0.0;
             Puissance = v.module * 10.0; // À modifier selon les propriétés du barGraph et les équations MRUA
@@ -147,38 +154,31 @@
             return Puissance;
         }
 
-    float Projectile:: ConversionDegats_Puissance(float Puissance)
+    float Projectile:: ConversionDegats_Puissance_Joystick(float Puissance) //À faire avec Frank
         {
             float dommage = 0.0;
 
             dommage = Puissance * 2.0; // À Ajuster selon les décisions de l'équipe
 
-            cout << "Le niveau de puissance" << Puissance << " Correspond à un niveau de dommages de " << dommage << endl;
+            cout << "Le niveau de dommage " << dommage << " Correspond à un niveau de dommages de " << Puissance << endl;
             return dommage;
         }
-    float Projectile:: ConversionPuissance_Degats(float dommage)
+    float Projectile:: ConversionPuissance_Joystick_Degats(float dommage) // À faire avec Frank
         {
             float Puissance = 0.0;
 
             Puissance = dommage/2.0; // À Ajuster selon les décisions de l'équipe
 
-            cout << "Le niveau de dommages" << dommage << " Correspond à un niveau puissance de " << Puissance << endl;
-            return dommage;
+            cout << "Le niveau de puissance" << Puissance << " Correspond à un niveau de dommage de " << dommage << endl;
+            return Puissance;
         }
 
-    float Projectile:: ConversionDeg_Rad(float Angle_deg)
+    float Projectile:: ConversionDeg_Rad(float Angle_deg) //À faire avec Victor
         {
             
         }
 
-    float MRUA_X(float VI_X, float delta_t, float a)
-        {
-            
-        }
-    float MRUA_Y(float VI_Y, float delta_t, float a)
-        {
-            
-        }
+    
 
 
     /***********************************MESSAGES D'ERREURS************************************/
