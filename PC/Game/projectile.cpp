@@ -127,7 +127,7 @@
 
 /***********************************CONVERSION************************************/
 
-    Vitesse ConversionP_Bargrah_Vitesse(float Puissance)
+    Vitesse Projectile:: ConversionP_Bargrah_Vitesse(float Puissance)
         {
             Vitesse v; 
             v.module = 1.0;
@@ -138,7 +138,7 @@
             return v;
         }
 
-    float ConversionV_Bargrah_Puissance(Vitesse v)
+    float Projectile:: ConversionV_Bargrah_Puissance(Vitesse v)
         {
             float Puissance = 0.0;
             Puissance = v.module * 10.0; // À modifier selon les propriétés du barGraph et les équations MRUA
@@ -147,7 +147,7 @@
             return Puissance;
         }
 
-    float ConversionDegats_Puissance(float Puissance)
+    float Projectile:: ConversionDegats_Puissance(float Puissance)
         {
             float dommage = 0.0;
 
@@ -156,7 +156,7 @@
             cout << "Le niveau de puissance" << Puissance << " Correspond à un niveau de dommages de " << dommage << endl;
             return dommage;
         }
-    float ConversionPuissance_Degats(float dommage)
+    float Projectile:: ConversionPuissance_Degats(float dommage)
         {
             float Puissance = 0.0;
 
@@ -166,6 +166,10 @@
             return dommage;
         }
 
+    float Projectile:: ConversionDeg_Rad(float Angle_deg)
+        {
+            
+        }
 
 
 
