@@ -32,13 +32,14 @@ bool RcvFromSerial(SerialPort *arduino, string &msg);
 /*---------------------------- Variables globales ---------------------------*/
 SerialPort *arduino; // doit etre un objet global!
 EventManager *eventManager;
+Controls *controls;
 
 /*----------------------------- Fonction "Main" -----------------------------*/
 int main()
 {
     // === Event manager tests ===
     eventManager = new EventManager();
-    Controls controls(eventManager);
+    controls = new Controls(eventManager);
 
     Tests tests;
 

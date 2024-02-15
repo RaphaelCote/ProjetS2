@@ -7,7 +7,7 @@ Controls::Controls(EventManager *em)
 
 void Controls::MainAction()
 {
-    eventManager->emit("event", EventParameters());
+    eventManager->emit("event", EventParameters(15));
 }
 
 void Controls::Back()

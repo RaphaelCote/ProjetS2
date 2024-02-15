@@ -12,20 +12,21 @@ void Tests::OnDisable()
 void Tests::test_unitaire_Controls()
 {
    // Tests unitraires de la classe Controls
-   // eventManager->on("event", test_unitaire_Controls_OnEvent);
 
-   eventManager->on("event", test_unitaire_Controls_OnEvent);
+   // Add eventListener
+   eventManager->on("event", OnEvent1);
+
+   // Call events
+   controls->MainAction();
 }
 
 void test_unitaire_Controls_OnEventCall(Tests caller, int num)
 {
-   caller.test_unitaire_Controls_OnEvent(num);
 }
 
-void Tests::test_unitaire_Controls_OnEvent(EventParameters)
+void Tests::OnEvent1(EventParameters ep)
 {
-   std::cout << "\n";
-   std::cout << "callback1-" << num * 2;
+   std::cout << ep.parameter1;
 }
 
 void Tests::tests_unitaires()

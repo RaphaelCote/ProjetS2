@@ -2,10 +2,11 @@
 #define TESTS_H
 
 #include <iostream>
+#include "Controls/EventParameters.h"
 
 using namespace std;
 
-class Tests : public EventListener
+class Tests
 {
 public:
    // Methodes pour EventListener
@@ -14,8 +15,7 @@ public:
 
    // Methodes pour les tests unitaires des classes
    void test_unitaire_Controls();
-   friend void test_unitaire_Controls_OnEventCall(Tests caller, int num);
-   void test_unitaire_Controls_OnEvent(int num);
+   void OnEvent1(EventParameters);
    void tests_unitaires(); // Appel de tous les tests unitaires
 
    // Methodes pour les tests unitaires des classes
