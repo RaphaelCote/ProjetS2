@@ -130,5 +130,4 @@ etatJoystick Joystick::updateJoystickMenuY()
         }
     }
     return etat;
-
 }

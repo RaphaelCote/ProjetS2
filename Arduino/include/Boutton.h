@@ -30,7 +30,7 @@ private:
 public:
     Boutton(int p);
     ~Boutton();
-    void Update();
+    etatBoutton Update();
     etatBoutton GetEtat();
     void SetEtat(etatBoutton etatVoulu);
 };

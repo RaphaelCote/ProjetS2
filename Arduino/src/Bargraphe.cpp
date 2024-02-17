@@ -30,7 +30,7 @@ void Bargraphe::ActualiseBargraphe()
             digitalWrite(i+STARTING_PIN, LOW);
         }
         
-        masque >> 1;
+        masque = masque >> 1;
     }
 }
 
