@@ -5,37 +5,41 @@ Controls::Controls(EventManager *em)
     this->eventManager = em;
 }
 
+void Controls::ListenForControls()
+{
+}
+
 void Controls::MainAction()
 {
-    eventManager->emit("event", EventParameters(15));
+    eventManager->emit("MainAction", EventParameters());
 }
 
 void Controls::Back()
 {
-    eventManager->emit("event", EventParameters());
+    eventManager->emit("Back", EventParameters());
 }
 
 void Controls::NextSelection()
 {
-    eventManager->emit("event", EventParameters());
+    eventManager->emit("NextSelection", EventParameters());
 }
 
 void Controls::PreviousSelection()
 {
-    eventManager->emit("event", EventParameters());
+    eventManager->emit("PreviousSelection", EventParameters());
 }
 
 void Controls::Menu()
 {
-    eventManager->emit("event", EventParameters());
+    eventManager->emit("Menu", EventParameters());
 }
 
 void Controls::Joystick(float x, float y)
 {
-    eventManager->emit("event", EventParameters());
+    eventManager->emit("Joystick", EventParameters(x, y));
 }
 
 void Controls::Angle(float angle)
 {
-    eventManager->emit("event", EventParameters());
+    eventManager->emit("Angle", EventParameters(angle));
 }

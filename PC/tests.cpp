@@ -1,8 +1,9 @@
 #include "tests.h"
-#include "raftWars.cpp"
+#include "raftWars.h"
 
 void Tests::OnEnable()
 {
+   eventManager->on("event", test_unitaire_Controls_OnEventCall);
 }
 
 void Tests::OnDisable()
@@ -19,7 +20,8 @@ void Tests::test_unitaire_Controls()
    // Tests unitraires de la classe Controls
 
    // Add eventListener
-   eventManager->on("event", test_unitaire_Controls_OnEventCall);
+   cout << "Assigning on event" << endl;
+   //
 
    // Call events
    controls->MainAction();
@@ -27,12 +29,13 @@ void Tests::test_unitaire_Controls()
 
 void Tests::OnEvent1(EventParameters ep)
 {
-   std::cout << ep.parameter1;
+   std::cout << ep.parameter1 << endl;
 }
 
 void Tests::tests_unitaires()
 {
    // Fait tous les tests unitaires
+   cout << "Début des tests unitaires" << endl;
    test_unitaire_Controls();
 }
 

@@ -4,6 +4,7 @@
  * lien : https://medium.com/@alwayswannaly/applied-event-driven-programming-with-c-b2f6977f0b72
  * Modifié : Raphael Côté, février 2024
  * Modifications : Changer le paramêtre int des fonctions pour un EventParameter
+ *                 Ajout de la fonction off qui retire un listener de la liste
  */
 
 #ifndef EVENTMANAGER_H

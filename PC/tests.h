@@ -1,8 +1,8 @@
 #ifndef TESTS_H
 #define TESTS_H
 
-#include <iostream>
 #include "Controls/EventParameters.h"
+#include "Controls/EventListener.h"
 
 using namespace std;
 

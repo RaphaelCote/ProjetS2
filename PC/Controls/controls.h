@@ -4,6 +4,7 @@
 // #include <iostream>
 #include <stdio.h>
 #include "EventManager.h"
+#include "EventParameters.h"
 
 using namespace std;
 
