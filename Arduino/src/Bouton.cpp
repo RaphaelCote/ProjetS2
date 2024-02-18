@@ -14,6 +14,7 @@ Boutton::Boutton(int p)
 
 Boutton::~Boutton()
 {
+    
 }
 
 etatBoutton Boutton::Update()
