@@ -9,6 +9,9 @@
 #include "Boutton.h"
 #include "EcranLCD.h"
 #include "Joystick.h"
+#include "Accelerometre.h"
+#include "Moteur.h"
+#include "Bargraphe.h"
 
 /*------------------------------ Constantes ---------------------------------*/
 
@@ -22,16 +25,26 @@ volatile bool shouldRead_ = false;  // Drapeau prêt à lire un message
 int ledState = 0;
 int potValue = 0;
 int pinLED = 7;
-int pinPOT = A0;
+int pinPOT = A7;
 
 
 
 
 EcranLCD LCD;
 Joystick joystick(A3, A4);
+Accelerometre Acc(A0, A1, A2);
+Moteur Mot(9);
+Bargraphe Bar;
+
 Boutton b1(34);
+Boutton b2(35);
+Boutton b3(36);
+Boutton b4(37);
+Boutton b5(38);
 
 int positionMenu = 0;
+int oldPositionMenu = -1;
+bool AfficheMenuPrincipal = true;
 int Menu = 0;
 int oldMenu = -1;
 
@@ -48,8 +61,8 @@ char MenuPrincipal[MENUHEIGHT][16] = {"1 - Accel      ",
 char TabMenuAccel[2][16] = {"Accel   X:     ",
                             "Y:      Z:     "};
 
-char TabMenuBoutton[2][16] = {"B1:     B2:    ",
-                              "B3:     B4:    "};
+char TabMenuBoutton[2][16] = {"B2:     B3:    ",
+                              "B4:     B5:    "};
 
 char tabMenuBargraphe[2][16] = {"Bargraphe      ",
                                 "               "};
@@ -85,22 +98,26 @@ void setup() {
   //digitalWrite(pinLED, ledState);
   LCD.Initialisation();
   //LCD.EcrireCommande(0x00);
+  LCD.Cursor(true, 0, 0);
   // LCD.EcrireData('A');
   // LCD.EcrireData('L');
   // LCD.EcrireData('L');
   // LCD.EcrireData('O');
-  delay(3000);
+  // delay(2000);
 
-  AfficheValDec(1000,9,2);
-  delay(1000);
-  AfficheValDec(1234,2,2);
-  delay(5000);
+  // LCD.ClearLCD();
+  // AfficheValDec(1000,9,1);
+  // delay(1000);
+  // AfficheValDec(1234,2,1);
+  // delay(1000);
   //LCD.EcrireTableau(MenuPrincipal,15,2);
 }
 
 
 void loop() 
 {
+  //delay(1000);
+  
   switch (Menu)
   {
   case 0://menu principal
@@ -116,6 +133,7 @@ void loop()
     if(oldMenu != Menu)
     {
       oldMenu = Menu;
+      AfficheMenuPrincipal = true;
       LCD.Cursor(false,0,0);
       LCD.EcrireTableau(TabMenuAccel, 15, 2);
     }
@@ -127,6 +145,7 @@ void loop()
     if(oldMenu != Menu)
     {
       oldMenu = Menu;
+      AfficheMenuPrincipal = true;
       LCD.Cursor(false,0,0);
       LCD.EcrireTableau(TabMenuBoutton, 15, 2);
     }
@@ -138,6 +157,7 @@ void loop()
     if(oldMenu != Menu)
     {
       oldMenu = Menu;
+      AfficheMenuPrincipal = true;
       LCD.Cursor(false,0,0);
       LCD.EcrireTableau(tabMenuBargraphe, 15, 2);
     }
@@ -149,6 +169,7 @@ void loop()
     if(oldMenu != Menu)
     {
       oldMenu = Menu;
+      AfficheMenuPrincipal = true;
       LCD.Cursor(false,0,0);
       LCD.EcrireTableau(tabMenuMoteur, 15, 2);
     }
@@ -160,6 +181,7 @@ void loop()
     if(oldMenu != Menu)
     {
       oldMenu = Menu;
+      AfficheMenuPrincipal = true;
       LCD.Cursor(false,0,0);
       LCD.EcrireTableau(tabMenuJoystick, 15, 2);
     }
@@ -191,38 +213,73 @@ void MenuPrincipalGestion()
 {
   GestionJoystick();
   GestionBouttonMenu();
+  
   switch (positionMenu)
   {
   case 0:
-    LCD.EcrireLigne(MenuPrincipal[0],15,0);
-    LCD.EcrireLigne(MenuPrincipal[1],15,1);
+    if(positionMenu != oldPositionMenu || AfficheMenuPrincipal)
+    {
+      oldPositionMenu = positionMenu;
+      AfficheMenuPrincipal = false;
+      LCD.EcrireLigne(MenuPrincipal[0],15,0);
+      LCD.EcrireLigne(MenuPrincipal[1],15,1);
+      LCD.Cursor(true, 0, 0);
+    }
+    
+    
     break;
 
   case 1:
-    LCD.EcrireLigne(MenuPrincipal[1],15,0);
-    LCD.EcrireLigne(MenuPrincipal[2],15,1);
+    if(positionMenu != oldPositionMenu || AfficheMenuPrincipal)
+    {
+      oldPositionMenu = positionMenu;
+      AfficheMenuPrincipal = false;
+      LCD.EcrireLigne(MenuPrincipal[1],15,0);
+      LCD.EcrireLigne(MenuPrincipal[2],15,1);
+      LCD.Cursor(true, 0, 0);
+    }
+    
   break;
 
   case 2:
-    LCD.EcrireLigne(MenuPrincipal[2],15,0);
-    LCD.EcrireLigne(MenuPrincipal[3],15,1);
+    if(positionMenu != oldPositionMenu || AfficheMenuPrincipal)
+    {
+      oldPositionMenu = positionMenu;
+      AfficheMenuPrincipal = false;
+      LCD.EcrireLigne(MenuPrincipal[2],15,0);
+      LCD.EcrireLigne(MenuPrincipal[3],15,1);
+      LCD.Cursor(true, 0, 0);
+    }
+    
   break;
 
   case 3:
-    LCD.EcrireLigne(MenuPrincipal[3],15,0);
-    LCD.EcrireLigne(MenuPrincipal[4],15,1);
+    if(positionMenu != oldPositionMenu || AfficheMenuPrincipal)
+    {
+      oldPositionMenu = positionMenu;
+      AfficheMenuPrincipal = false;
+      LCD.EcrireLigne(MenuPrincipal[3],15,0);
+      LCD.EcrireLigne(MenuPrincipal[4],15,1);
+      LCD.Cursor(true, 0, 0);
+    }
+    
   break;
 
   case 4:
-    LCD.EcrireLigne(MenuPrincipal[4],15,0);
-    LCD.EcrireLigne(MenuPrincipal[0],15,1);
+    if(positionMenu != oldPositionMenu || AfficheMenuPrincipal)
+    {
+      oldPositionMenu = positionMenu;
+      AfficheMenuPrincipal = false;
+      LCD.EcrireLigne(MenuPrincipal[4],15,0);
+      LCD.EcrireLigne(MenuPrincipal[0],15,1);
+      LCD.Cursor(true, 0, 0);
+    }
+    
   break;
   
   default:
     break;
   }
-  LCD.Cursor(true, 0, 0);
-  delay(10);
 }
 
 void MenuJoystick()
@@ -232,29 +289,134 @@ void MenuJoystick()
 
   joystick.GetAll(&joyx, &joyy);
 
-  AfficheValDec(joyx, 2, 2);
-  AfficheValDec(joyy, 9, 2);
+  AfficheValDec(joyx, 2, 1);
+  AfficheValDec(joyy, 9, 1);
 
 }
 
 void MenuBouton()
 {
   GestionBouttonMenu();
+
+  if(b2.Update() == etatBoutton::BouttonAppuyer)
+  {
+    LCD.EcrireCharactere('1', 3, 0); 
+  }
+  else
+  {
+    LCD.EcrireCharactere('0', 3, 0); 
+  }
+
+
+  if(b3.Update() == etatBoutton::BouttonAppuyer)
+  {
+    LCD.EcrireCharactere('1', 11, 0); 
+  }
+  else
+  {
+    LCD.EcrireCharactere('0', 11, 0); 
+  }
+
+
+  if(b4.Update() == etatBoutton::BouttonAppuyer)
+  {
+    LCD.EcrireCharactere('1', 3, 1); 
+  }
+  else
+  {
+    LCD.EcrireCharactere('0', 3, 1); 
+  }
+
+
+  if(b5.Update() == etatBoutton::BouttonAppuyer)
+  {
+    LCD.EcrireCharactere('1', 11, 1); 
+  }
+  else
+  {
+    LCD.EcrireCharactere('0', 11, 1); 
+  }
 }
 
 void MenuAccelerometre()
 {
   GestionBouttonMenu();
+  int xVal, yVal, zVal;
+
+  Acc.GetAll(&xVal, &yVal, &zVal);
+
+  AfficheValDec(xVal, 10, 0);
+  AfficheValDec(yVal, 2, 1);
+  AfficheValDec(zVal, 10, 1);
+
+  
 }
 
 void MenuMoteur()
 {
+  static int puissance = 0;
+  static int timer = millis();
+  static bool sense = false;
   GestionBouttonMenu();
+
+  if(millis() - timer >= 20)
+  {
+    timer = millis();
+    if(puissance >= 255 || puissance <= 0)
+      sense = !sense;
+
+    if(sense)
+      puissance++;
+    else
+      puissance--;
+
+    Mot.ActualiseMoteur(puissance);
+    AfficheValDec(puissance, 11, 0);
+  }
 }
 
 void MenuBargraphe()
 {
+  static int puissance = 0;
+  static int timer = millis();
+  static int temps = 20;
+  static bool sense = false;
+  static int barLED = 0x00;
+  static int mode = 0;
   GestionBouttonMenu();
+
+  if(millis() - timer >= temps)
+  {
+    timer = millis();
+    if(mode == 0)
+    {
+      temps = 20;
+
+      if(puissance >= 255) sense = false;
+      else if(puissance <= 0) sense = true;
+
+      if(sense) puissance++;
+      else puissance--;
+
+      Bar.AllumeBargraphePuissance(puissance);
+      AfficheValDec(puissance, 11, 0);
+    }
+    else if(mode == 1)//petit probleme
+    {
+      temps = 500; 
+      barLED = barLED << 1;
+      
+      if((barLED & 0x2F) >= 0x2F) sense = false;
+      else if((barLED & 0x2F) <= 0x01) sense = true;
+      
+      if(sense) barLED += 1;
+
+      Bar.AllumeBits(barLED);
+      AfficheValDec(barLED, 11, 0);
+    }
+    
+  }
+
 }
 
 
@@ -269,8 +431,9 @@ void GestionBouttonMenu()
     {
       Menu = positionMenu+1;
     }
-    else
+    else//revient au menu principal
     {
+      Mot.ActualiseMoteur(0);
       Menu = 0;
     }
   }
@@ -318,7 +481,7 @@ void GestionJoystick()
 }
 
 
-void AfficheValDec(int val, int x, int y)
+void AfficheValDec(int val, int xValue, int yValue)
 {
   int offset = 0, valTemp = val;
   for(int i = 1000; i >= 1; i=i/10)
@@ -329,15 +492,15 @@ void AfficheValDec(int val, int x, int y)
     {
       valTemp = valTemp - i;
       compt++;
-      Serial.print("i: ");
-      Serial.print(i);
-      Serial.print("  valTemp: ");
-      Serial.print(valTemp);
-      Serial.print("  compt: ");
-      Serial.println(compt);
+      // Serial.print("i: ");
+      // Serial.print(i);
+      // Serial.print("  valTemp: ");
+      // Serial.print(valTemp);
+      // Serial.print("  compt: ");
+      // Serial.println(compt);
     }
     valTemp = val - i*compt;
-    LCD.EcrireData(compt+0x30, x+offset, y); 
+    LCD.EcrireCharactere(compt+0x30, xValue+offset, yValue); 
     offset++;   
   }
 }

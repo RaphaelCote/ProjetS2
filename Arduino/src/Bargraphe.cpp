@@ -2,7 +2,7 @@
 #include<Arduino.h>
 #include"Bargraphe.h"
 
-Bargraphe::Bargraphe(int pX, int pY, int pZ)
+Bargraphe::Bargraphe()
 {
     for(int i = 0; i < NOMBRE_LED; i++)
     {
@@ -45,4 +45,22 @@ void Bargraphe::SetEtat(etatBargraphe etatVoulu)
     etat = etatVoulu;
 }
 
+void Bargraphe::AllumeBargraphePuissance(int puissance)
+{
+    int i = 10;
+    barLED = 0x00;
 
+    while (i <= puissance)
+    {
+        barLED = barLED << 1;
+        barLED += 1;
+        i+=10;
+    }
+    ActualiseBargraphe();
+}
+
+void Bargraphe::AllumeBits(int value)
+{
+    barLED = value;
+    ActualiseBargraphe();
+}

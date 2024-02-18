@@ -97,10 +97,10 @@ bool EcranLCD::EcrireLigne(char *tab, int length, int height)
     return true;
 }
 
-bool EcranLCD::EcrireData(char data, int x, int y)
+bool EcranLCD::EcrireCharactere(char data, int x, int y)
 {
-    char c = y*0x40;
-    EcrireCommande(c+0x80+x);
+    char c = y*0x40+x;
+    EcrireCommande(c+0x80);
     EcrireData(data);
     return true;
 }
@@ -134,7 +134,7 @@ bool EcranLCD::EcrireCommande(char c)
     digitalWrite(pinRS, LOW);
     digitalWrite(pinRW, LOW);
     digitalWrite(pinENABLE,HIGH);
-    delayMicroseconds(500);
+    delayMicroseconds(1000);
     digitalWrite(pinENABLE, LOW);
     
     return true;
@@ -167,7 +167,7 @@ bool EcranLCD::EcrireData(char c)
     digitalWrite(pinRS, HIGH);
     digitalWrite(pinRW, LOW);
     digitalWrite(pinENABLE,HIGH);
-    delayMicroseconds(500);
+    delayMicroseconds(1000);
     digitalWrite(pinENABLE, LOW);
     
     return true;

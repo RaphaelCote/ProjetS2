@@ -16,14 +16,14 @@ class Bargraphe
 {
 private:
     etatBargraphe etat;
-    int pin1, pin2, pin3, pin4, pin5, pin6;
+    
     int barLED;
     //int valueX, valueY, valueZ;
     void ActualiseBargraphe();
 
 
 public:
-    Bargraphe(int pX, int pY, int pZ);
+    Bargraphe();
     ~Bargraphe();
     
     etatBargraphe GetEtat();
@@ -31,6 +31,7 @@ public:
 
 
     void AllumeBargraphePuissance(int puissance);
+    void AllumeBits(int value);
 
     
 };

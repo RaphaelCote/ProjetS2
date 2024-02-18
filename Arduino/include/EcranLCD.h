@@ -7,16 +7,6 @@
 #define pinENABLE 53
 
 
-#define pinData1 30
-#define pinData2 30
-#define pinData3 30
-#define pinData4 30
-#define pinData5 30
-#define pinData6 30
-#define pinData7 30
-#define pinData8 30
-
-
 #define STARTING_PIN_LCD 43
 
 
@@ -49,7 +39,7 @@ public:
     bool EcrireTableau(char tab[2][16], int length, int height);
     bool EcrireLigne(char *tab, int length, int height);
 
-    bool EcrireData(char data, int x, int y);
+    bool EcrireCharactere(char data, int x, int y);
 
     bool EcrireCommande(char c);
     bool EcrireData(char c);
