@@ -382,15 +382,24 @@ void MenuBargraphe()
   static unsigned long temps = 50;
   static bool sense = false;
   static int barLED = 0x00;
-  static int mode = 1;
+  static int mode = 0;
   GestionBouttonMenu();
+
+  if(b2.Update() == etatBoutton::BouttonAppuyer)
+  {
+    mode = 1;
+  }
+  else
+  {
+    mode = 0;
+  }
 
   if(millis() - timer >= temps)
   {
     timer = millis();
     if(mode == 0)
     {
-      temps = 50;
+      temps = 25;
 
       if(puissance >= 100) sense = false;
       else if(puissance <= 0) sense = true;
@@ -403,7 +412,7 @@ void MenuBargraphe()
     }
     else if(mode == 1)//petit probleme
     {
-      temps = 500; 
+      temps = 25; 
       barLED = barLED << 1;
       
       if((barLED & 0x0200) == 0x00) barLED += 1;
@@ -489,12 +498,12 @@ void AfficheValDec(int val, int xValue, int yValue)
     {
       valTemp = valTemp - i;
       compt++;
-      Serial.print("i: ");
-      Serial.print(i);
-      Serial.print("  valTemp: ");
-      Serial.print(valTemp);
-      Serial.print("  compt: ");
-      Serial.println(compt);
+      // Serial.print("i: ");
+      // Serial.print(i);
+      // Serial.print("  valTemp: ");
+      // Serial.print(valTemp);
+      // Serial.print("  compt: ");
+      // Serial.println(compt);
     }
     valTemp = val - i*compt;
     LCD.EcrireCharactere(compt+0x30, xValue+offset, yValue); 
