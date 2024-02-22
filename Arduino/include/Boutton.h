@@ -23,7 +23,7 @@ class Boutton
 private:
     etatBoutton etat;
     etatBoutton oldEtat;
-    int timer;
+    unsigned long timer;
     int pin;
 
 

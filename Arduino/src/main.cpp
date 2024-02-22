@@ -378,11 +378,11 @@ void MenuMoteur()
 void MenuBargraphe()
 {
   static int puissance = 0;
-  static int timer = millis();
-  static int temps = 20;
+  static unsigned long timer = millis();
+  static unsigned long temps = 50;
   static bool sense = false;
   static int barLED = 0x00;
-  static int mode = 0;
+  static int mode = 1;
   GestionBouttonMenu();
 
   if(millis() - timer >= temps)
@@ -390,9 +390,9 @@ void MenuBargraphe()
     timer = millis();
     if(mode == 0)
     {
-      temps = 20;
+      temps = 50;
 
-      if(puissance >= 255) sense = false;
+      if(puissance >= 100) sense = false;
       else if(puissance <= 0) sense = true;
 
       if(sense) puissance++;
@@ -406,13 +406,10 @@ void MenuBargraphe()
       temps = 500; 
       barLED = barLED << 1;
       
-      if((barLED & 0x2F) >= 0x2F) sense = false;
-      else if((barLED & 0x2F) <= 0x01) sense = true;
-      
-      if(sense) barLED += 1;
+      if((barLED & 0x0200) == 0x00) barLED += 1;
 
       Bar.AllumeBits(barLED);
-      AfficheValDec(barLED, 11, 0);
+      AfficheValDec(barLED & 0x03FF, 11, 0);
     }
     
   }
@@ -492,12 +489,12 @@ void AfficheValDec(int val, int xValue, int yValue)
     {
       valTemp = valTemp - i;
       compt++;
-      // Serial.print("i: ");
-      // Serial.print(i);
-      // Serial.print("  valTemp: ");
-      // Serial.print(valTemp);
-      // Serial.print("  compt: ");
-      // Serial.println(compt);
+      Serial.print("i: ");
+      Serial.print(i);
+      Serial.print("  valTemp: ");
+      Serial.print(valTemp);
+      Serial.print("  compt: ");
+      Serial.println(compt);
     }
     valTemp = val - i*compt;
     LCD.EcrireCharactere(compt+0x30, xValue+offset, yValue); 

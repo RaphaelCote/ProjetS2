@@ -25,7 +25,7 @@ class Joystick
 private:
     etatJoystick etat;
     etatJoystick oldEtat;
-    int timer;
+    unsigned long timer;
     int pinX, pinY;
     //int valueX, valueY, valueZ;
 

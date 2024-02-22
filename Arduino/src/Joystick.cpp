@@ -107,15 +107,10 @@ etatJoystick Joystick::updateJoystickMenuY()
         return etat;
 
     oldEtat = etat;
-    
-
-    if(etat != oldEtat)//changement d'etat
-    {
-        timer = millis();//reset timer
-    }
 
     if(millis()- timer >=  DEBOUNCE_TIME_MS)//if debounce finished
     {
+        timer = millis();//reset timer
         if(analogRead(pinX) >= MIDDLE+TRESHOLD)//update valueX
         {
             etat = etatJoystick::JoystickUp;
