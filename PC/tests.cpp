@@ -47,6 +47,23 @@ void Tests::test_unitaire_Controls()
    cout << "Unassigning some controls" << endl;
 }
 
+void Tests::OnMainAction(EventParameters ep)
+{
+   std::cout << "Main action called" << endl;
+}
+
+void Tests::OnJoystick(EventParameters ep)
+{
+   std::cout << "Joystick X : " << ep.parameter1 << " | Y : " << ep.parameter2 << endl;
+}
+
+void Tests::OnAngle(EventParameters ep)
+{
+   std::cout << "Angle : " << ep.parameter1 << endl;
+}
+
+//==== FIN Controls ====
+
 void Tests::test_unitaire_levels(){
    Niveau* ptrlevls;
    ptrlevls=new Niveau;
@@ -71,22 +88,6 @@ void Tests::test_unitaire_games(){
    cout << ptrgame->levels[2]->wight << endl;
    delete ptrgame;
 }
-void Tests::OnMainAction(EventParameters ep)
-{
-   std::cout << "Main action called" << endl;
-}
-
-void Tests::OnJoystick(EventParameters ep)
-{
-   std::cout << "Joystick X : " << ep.parameter1 << " | Y : " << ep.parameter2 << endl;
-}
-
-void Tests::OnAngle(EventParameters ep)
-{
-   std::cout << "Angle : " << ep.parameter1 << endl;
-}
-
-//==== FIN Controls ====
 
 void Tests::tests_unitaires()
 {
