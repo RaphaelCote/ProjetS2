@@ -1,17 +1,28 @@
 #ifndef TESTS_H
 #define TESTS_H
 
-#include <iostream>
+#include "Controls/EventParameters.h"
+#include "Controls/EventListener.h"
 
 using namespace std;
 
-class Tests
+class Tests : public EventListener
 {
 public:
+   // Methodes pour EventListener
+   void OnEnable();
+   void OnDisable();
+
    // Methodes pour les tests unitaires des classes
    void test_unitaire_Controls();
    void test_unitaire_levels();
    void test_unitaire_games();
+   friend void test_unitaire_Controls_OnMainActionCall(EventParameters);
+   friend void test_unitaire_Controls_OnJoystickCall(EventParameters);
+   friend void test_unitaire_Controls_OnAngleCall(EventParameters);
+   void OnMainAction(EventParameters);
+   void OnJoystick(EventParameters);
+   void OnAngle(EventParameters);
    void tests_unitaires(); // Appel de tous les tests unitaires
 
    // Methodes pour les tests unitaires des classes

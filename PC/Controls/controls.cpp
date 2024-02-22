@@ -1,42 +1,45 @@
 #include "controls.h"
-#include "controlEvents.h"
 
-// Controls::Controls(ControlEvents ce)
-// {
-//     this->controlEvents = ce;
-// }
+Controls::Controls(EventManager *em)
+{
+    this->eventManager = em;
+}
 
-// void Controls::MainAction()
-// {
-//     __raise controlEvents.MainAction();
-// }
+void Controls::ListenForControls()
+{
+}
 
-// void Controls::Back()
-// {
-//     __raise controlEvents.Back();
-// }
+void Controls::MainAction()
+{
+    eventManager->emit("MainAction", EventParameters());
+}
 
-// void Controls::NextSelection()
-// {
-//     __raise controlEvents.NextSelection();
-// }
+void Controls::Back()
+{
+    eventManager->emit("Back", EventParameters());
+}
 
-// void Controls::PreviousSelection()
-// {
-//     __raise controlEvents.PreviousSelection();
-// }
+void Controls::NextSelection()
+{
+    eventManager->emit("NextSelection", EventParameters());
+}
 
-// void Controls::Menu()
-// {
-//     __raise controlEvents.Menu();
-// }
+void Controls::PreviousSelection()
+{
+    eventManager->emit("PreviousSelection", EventParameters());
+}
 
-// void Controls::Joystick(float x, float y)
-// {
-//     __raise controlEvents.Joystick(x, y);
-// }
+void Controls::Menu()
+{
+    eventManager->emit("Menu", EventParameters());
+}
 
-// void Controls::Angle(float angle)
-// {
-//     __raise controlEvents.Angle(angle);
-// }
+void Controls::Joystick(float x, float y)
+{
+    eventManager->emit("Joystick", EventParameters(x, y));
+}
+
+void Controls::Angle(float angle)
+{
+    eventManager->emit("Angle", EventParameters(angle));
+}

@@ -35,8 +35,8 @@ public:
 		objPtrs = new T[capacity];
 	}
 
-	// Méthode pour afficher un seul item
-	void show(int i, ostream &s)
+	// Méthode pour afficher un seul item void
+	show(int i, ostream &s)
 	{
 		// T obj = get(i); // Récupérer l'obj de type T
 
