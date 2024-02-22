@@ -6,6 +6,7 @@
 /*------------------------------ Librairies ---------------------------------*/
 #include <Arduino.h>
 #include <ArduinoJson.h>
+#include "Boutton.h"
 
 /*------------------------------ Constantes ---------------------------------*/
 
