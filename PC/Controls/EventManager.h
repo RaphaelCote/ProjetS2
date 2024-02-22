@@ -46,6 +46,22 @@ public:
         return this;
     }
 
+    bool off(std::string event_name, void (*callback)(EventParameters))
+    {
+
+        // we're using a pointer to reference `events[event_name]` so as
+        // to get reference to original object and not the copy object.
+        std::vector<void (*)(EventParameters)> *listeners = &events[event_name];
+
+        // if this listener is already registered, we wont add it again
+        if (std::find(listeners->begin(), listeners->end(), callback) != listeners->end())
+        {
+            return true;
+        }
+
+        return false;
+    }
+
     bool emit(std::string event_name, EventParameters param)
     {
         std::vector<void (*)(EventParameters)> listeners = events[event_name];

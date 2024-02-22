@@ -15,8 +15,12 @@ public:
 
    // Methodes pour les tests unitaires des classes
    void test_unitaire_Controls();
-   friend void test_unitaire_Controls_OnEventCall(EventParameters);
-   void OnEvent1(EventParameters);
+   friend void test_unitaire_Controls_OnMainActionCall(EventParameters);
+   friend void test_unitaire_Controls_OnJoystickCall(EventParameters);
+   friend void test_unitaire_Controls_OnAngleCall(EventParameters);
+   void OnMainAction(EventParameters);
+   void OnJoystick(EventParameters);
+   void OnAngle(EventParameters);
    void tests_unitaires(); // Appel de tous les tests unitaires
 
    // Methodes pour les tests unitaires des classes

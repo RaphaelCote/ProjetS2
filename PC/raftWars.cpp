@@ -47,10 +47,6 @@ int main()
     tests = new Tests();
     tests->tests_unitaires();
 
-    // std::cout << "\n";
-    // std::cout << eventA << " " << eventB << "\n";
-    // === Event manager tests ===
-
     return 0;
 
     // InitializeSerial();
