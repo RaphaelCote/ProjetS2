@@ -1,4 +1,6 @@
 #include "game.h"
+#include "raftWars.h"
+
 #define MAX_LEVEL 5
 /*Méthodes*/
 /*Constructeur (État Initial)*/
@@ -24,6 +26,11 @@ void Game::OnEnable()
 bool Game::StartGame()
 {
     Active = true;
+
+    cout << "Stating game ..." << endl;
+
+    menu->menuController();
+
     return Active;
 }
 

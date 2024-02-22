@@ -3,11 +3,15 @@
 
 #include "Controls/EventParameters.h"
 #include "Controls/EventListener.h"
+#include "Controls/controls.h"
 
 using namespace std;
 
 class Tests : public EventListener
 {
+private:
+   Controls *testControls;
+
 public:
    // Methodes pour EventListener
    void OnEnable();

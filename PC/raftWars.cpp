@@ -17,9 +17,10 @@ using json = nlohmann::json;
 
 /*-------------------------- Other file include -----------------------------*/
 #include "raftWars.h"
-#include "Controls/controls.h"
 #include "Controls/EventManager.h"
 #include "tests.h"
+#include "Menus/menu.h"
+#include "game/game.h"
 
 /*------------------------------ Constantes ---------------------------------*/
 #define BAUD 9600         // Frequence de transmission serielle
@@ -34,18 +35,28 @@ bool RcvFromSerial(SerialPort *arduino, string &msg);
 SerialPort *arduino; // doit etre un objet global!
 
 EventManager *eventManager;
-Controls *controls;
 Tests *tests;
+KeyboardControls *controls;
+Menu *menu;
+Game *game;
 
 /*----------------------------- Fonction "Main" -----------------------------*/
 int main()
 {
     // === Event manager tests ===
     eventManager = new EventManager();
-    controls = new Controls(eventManager);
 
     tests = new Tests();
     tests->tests_unitaires();
+
+    game = new Game();
+
+    menu = new Menu();
+
+    // while (true)
+    // {
+        menu->menuController();
+    // }
 
     return 0;
 
