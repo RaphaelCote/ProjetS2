@@ -12,11 +12,11 @@ class Game
         int actualLevel;
         bool actualTurn; 
         bool Pause;
-        Vecteur<Niveau*> levels;
+        
         /*PERSONNAGE 1 ET PERSONNAGE 2*/
         /*ne pas oublier d'inclure vecteur et le const (si nécessaire)*/
         public:
-
+        Vecteur<Niveau*> levels;
         Game();
         int activeLevel();
         bool IsPlayerTurn();

@@ -17,5 +17,5 @@ Niveau::~Niveau()
 }
 
 void Niveau::creerListeRfat(){
-    //raft listeraft[nbraft];
+    //Boat listeraft[nbraft];
 }
