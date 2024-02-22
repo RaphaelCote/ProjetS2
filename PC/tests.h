@@ -10,6 +10,8 @@ class Tests
 public:
    // Methodes pour les tests unitaires des classes
    void test_unitaire_Controls();
+   void test_unitaire_levels();
+   void test_unitaire_games();
    void tests_unitaires(); // Appel de tous les tests unitaires
 
    // Methodes pour les tests unitaires des classes

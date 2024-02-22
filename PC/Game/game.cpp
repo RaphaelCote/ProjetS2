@@ -8,6 +8,9 @@ Game::Game()
         actualLevel = 1;
         actualTurn = true;
         Pause = false;
+        levels[0] = new Niveau;
+        levels[1] = new Niveau;
+        levels[2] = new Niveau;
     }
 void Game:: OnDisable()
     {

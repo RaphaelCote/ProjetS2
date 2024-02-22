@@ -1,10 +1,21 @@
 #include "tests.h"
+#include "Game/niveau.h"
+#include "Game/game.h"
 
 void Tests::test_unitaire_Controls()
 {
    // Tests unitraires de la classe Controls
 }
 
+void Tests::test_unitaire_levels(){
+   Niveau* ptrlevls;
+   ptrlevls=new Niveau;
+   cout <<ptrlevls->hight << endl;
+   cout <<ptrlevls->wight << endl;
+}
+void Tests::test_unitaire_games(){
+
+}
 void Tests::tests_unitaires()
 {
    // Fait tous les tests unitaires

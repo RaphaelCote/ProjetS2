@@ -1,4 +1,6 @@
 #include <iostream>
+#include "../vecteur.h"
+#include "niveau.h"
 
 using namespace std;
 
@@ -10,6 +12,7 @@ class Game
         int actualLevel;
         bool actualTurn; 
         bool Pause;
+        Vecteur<Niveau*> levels;
         /*PERSONNAGE 1 ET PERSONNAGE 2*/
         /*ne pas oublier d'inclure vecteur et le const (si nécessaire)*/
         public:
