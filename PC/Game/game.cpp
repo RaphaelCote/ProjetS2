@@ -1,5 +1,5 @@
 #include "game.h"
-#include "raftWars.h"
+#include "../raftWars.h"
 
 #define MAX_LEVEL 5
 /*Méthodes*/
@@ -29,7 +29,7 @@ bool Game::StartGame()
 
     cout << "Stating game ..." << endl;
 
-    menu->menuController();
+    system("PAUSE");
 
     return Active;
 }

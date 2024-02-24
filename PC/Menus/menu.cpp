@@ -4,6 +4,7 @@
 
 #include "../raftWars.h"
 #include "../controls/EventManager.h"
+#include "../Controls/keyboardControls.h"
 
 using namespace std;
 
@@ -32,6 +33,7 @@ void Menu::OnEnable()
 {
         eventManager->on("MainAction", OnMainActionCall);
         eventManager->on("Joystick", OnJoystickCall);
+        // cout << "did on Enable" << endl;
 }
 
 void Menu::OnDisable()
@@ -56,16 +58,19 @@ void Menu::changeSelection(EventParameters ep)
         }
 }
 
-void Menu::menuController()
+void Menu::menuController(int menu)
 {
         OnEnable();
-        afficherMenuPrincipal();
-        controls->ListenForControls();
+        while (true) {
+                afficherMenuPrincipal();
+                controls->ListenForControls();
+        }
 }
 
 void Menu::afficherMenuPrincipal()
 {
         // menu utilisateur
+        system("cls");
         lastActiveMenu = 0;
         cout << "-------------------------------------------------------------------" << endl;
         cout << "Bienvenue au menu du jeu Raft Wars" << endl;
@@ -73,7 +78,6 @@ void Menu::afficherMenuPrincipal()
         // cout << " 2. Choisir un niveau." << endl;
         cout << "-" << (choix >= 1 ? "O" : "-") << "- Sortir" << endl;
         cout << "-------------------------------------------------------------------" << endl;
-        cout << "Veuillez entrer votre action : ";
 }
 
 void Menu::selectionMenuPrincipal()

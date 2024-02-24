@@ -45,9 +45,10 @@ int main()
 {
     // === Event manager tests ===
     eventManager = new EventManager();
+    controls = new KeyboardControls(eventManager);
 
     tests = new Tests();
-    tests->tests_unitaires();
+    // tests->tests_unitaires();
 
     game = new Game();
 
@@ -55,7 +56,7 @@ int main()
 
     // while (true)
     // {
-    menu->menuController();
+    menu->menuController(0);
     // }
 
     return 0;

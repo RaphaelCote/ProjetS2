@@ -18,7 +18,7 @@ public:
     void OnDisable();
 
     void changeSelection(EventParameters ep);
-    void menuController();
+    void menuController(int menu);
     void afficherMenuPrincipal();
     void selectionMenuPrincipal();
     void afficherMenuPause();

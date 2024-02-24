@@ -1,11 +1,16 @@
 #include "keyboardControls.h"
 
+KeyboardControls::KeyboardControls(EventManager *em):Controls(em)
+{
+}
+
 void KeyboardControls::ListenForControls()
 {
+    cout << "Veuillez entrer votre action : ";
     string input;
     cin >> input;
 
-    if (input == " ")
+    if (input == "l")
     {
         MainAction();
     }
