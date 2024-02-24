@@ -4,15 +4,15 @@
         {
             "type": "cppbuild",
             "label": "C/C++: g++.exe build active file",
-            "command": "C:\\MinGW\\bin\\g++.exe",
+            "command": "g++",
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "${workspaceFolder}/PC/*.cpp",
-                "${workspaceFolder}/PC/include/serial/*.cpp",
-                "${workspaceFolder}/PC/Controls/*.cpp",
-                "${workspaceFolder}/PC/Game/*.cpp",
-                "${workspaceFolder}/PC/Menus/*.cpp",
+                "./*.cpp",
+                "./include/serial/*.cpp",
+                "./Controls/*.cpp",
+                "./Game/*.cpp",
+                "./Menus/*.cpp",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],
