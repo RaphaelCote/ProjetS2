@@ -65,9 +65,9 @@ bool Accelerometre::GetAll(int * valX, int* valY, int* valZ)
     if(etat == etatAccelerometre::AccelerometreDisabled)
         return false;
     
-    // *valX = analogRead(pinX);
-    // *valY = analogRead(pinY);
-    // *valZ = analogRead(pinZ);
+    *valX = analogRead(pinX);
+    *valY = analogRead(pinY);
+    *valZ = analogRead(pinZ);
     // Serial.print("x: ");
     // Serial.print(*valX);
     // Serial.print("   y: ");
