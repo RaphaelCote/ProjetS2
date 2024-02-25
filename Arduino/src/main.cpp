@@ -357,7 +357,6 @@ void MenuMoteur()
   static int puissance = 0;
   static int timer = millis();
   static bool sense = false;
-  GestionBouttonMenu();
 
   if(millis() - timer >= 20)
   {
@@ -373,6 +372,7 @@ void MenuMoteur()
     Mot.ActualiseMoteur(puissance);
     AfficheValDec(puissance, 11, 0);
   }
+  GestionBouttonMenu();
 }
 
 void MenuBargraphe()
