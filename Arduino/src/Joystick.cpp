@@ -80,7 +80,7 @@ etatJoystick Joystick::updateJoystickMenuX()
         timer = millis();//reset timer
     }
 
-    if(millis()- timer >=  DEBOUNCE_TIME_MS)//if debounce finished
+    if(millis()- timer >=  DEBOUNCE_TIME_MS_JOY)//if debounce finished
     {
         if(analogRead(pinX) >= MIDDLE+TRESHOLD)//update valueX
         {
@@ -108,20 +108,28 @@ etatJoystick Joystick::updateJoystickMenuY()
 
     oldEtat = etat;
 
-    if(millis()- timer >=  DEBOUNCE_TIME_MS)//if debounce finished
+    if(millis()- timer >=  DEBOUNCE_TIME_MS_JOY)//if debounce finished
     {
-        timer = millis();//reset timer
-        if(analogRead(pinX) >= MIDDLE+TRESHOLD)//update valueX
+        
+        if(analogRead(pinY) >= MIDDLE+TRESHOLD)//update valueY
         {
             etat = etatJoystick::JoystickUp;
+            // Serial.println("UP");
         }
-        else if(analogRead(pinX) <= MIDDLE-TRESHOLD)
+        else if(analogRead(pinY) <= MIDDLE-TRESHOLD)
         {
             etat = etatJoystick::JoystickDown;
+            // Serial.println("DOWN");
         }
         else
         {
             etat = etatJoystick::JoystickMiddle;
+            // Serial.println("MIDDLE");
+        }
+
+        if(oldEtat != etat)
+        {
+            timer = millis();//reset timer
         }
     }
     return etat;

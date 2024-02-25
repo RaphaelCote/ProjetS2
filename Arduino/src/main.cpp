@@ -15,7 +15,7 @@
 
 /*------------------------------ Constantes ---------------------------------*/
 
-#define BAUD 9600        // Frequence de transmission serielle
+#define BAUD 115200        // Frequence de transmission serielle
 #define MENUHEIGHT 5
 
 /*---------------------------- Variables globales ---------------------------*/
@@ -452,10 +452,13 @@ void GestionBouttonMenu()
 void GestionJoystick()
 {
   static etatJoystick oldEtat;
+  static etatJoystick etatJoy;
 
-  if(joystick.updateJoystickMenuY() == etatJoystick::JoystickDown && (oldEtat == etatJoystick::JoystickMiddle || oldEtat == etatJoystick::JoystickUp))
+  etatJoy = joystick.updateJoystickMenuY();
+
+  if(etatJoy == etatJoystick::JoystickDown && oldEtat != etatJoystick::JoystickDown)
   {
-    oldEtat = etatJoystick::JoystickDown;
+    
     if(positionMenu >= MENUHEIGHT -1)
     {
       positionMenu = 0;
@@ -466,9 +469,9 @@ void GestionJoystick()
     }
 
   }
-  else if(joystick.updateJoystickMenuY() == etatJoystick::JoystickUp && (oldEtat == etatJoystick::JoystickMiddle || oldEtat == etatJoystick::JoystickDown))
+  else if(etatJoy == etatJoystick::JoystickUp && oldEtat != etatJoystick::JoystickUp)
   {
-    oldEtat = etatJoystick::JoystickUp;
+    
     if(positionMenu <= 0)
     {
       positionMenu = MENUHEIGHT-1;
@@ -477,13 +480,8 @@ void GestionJoystick()
     {
       positionMenu--;
     }
-    
-
   }
-  else
-  {
-    oldEtat = joystick.updateJoystickMenuY();
-  }
+  oldEtat = etatJoy;
 }
 
 

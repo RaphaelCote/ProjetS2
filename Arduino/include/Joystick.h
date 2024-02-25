@@ -4,8 +4,8 @@
 
 
 #define MIDDLE 512
-#define TRESHOLD 100
-#define DEBOUNCE_TIME_MS 5
+#define TRESHOLD 200
+#define DEBOUNCE_TIME_MS_JOY 3
 
 
 enum etatJoystick
