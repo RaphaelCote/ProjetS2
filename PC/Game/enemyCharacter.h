@@ -13,8 +13,10 @@ class EnemyCharacter : public Character
         void enemyShoot(Projectile* projectile);
         //void playerShoot(Projectile* projectile);
 
-        Coordonnee getPosition();
-         //les mettre privée faire un getFunction idéalement
+        Coordonnee getPosition(){
+            return position;
+        }
+         
         Coordonnee getWeaponPosition() override{
             return WeaponPosition;
         }

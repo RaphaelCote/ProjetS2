@@ -4,6 +4,18 @@
 #include "Controls/EventParameters.h"
 #include "Controls/EventListener.h"
 
+//INCLUDE POUR LES TESTS DE PERSONNAGES/PROJECTILES
+#include "Game/character.h"
+#include "Game/playerCharacter.h"
+#include "Game/enemyCharacter.h"
+
+#include "Game/projectile.h"
+#include "Game/canonball.h"
+#include "Game/rocket.h"
+#include "Game/grenade.h"
+
+#include <iostream>
+#include <iomanip>
 using namespace std;
 
 class Tests : public EventListener
@@ -23,6 +35,7 @@ public:
    void OnAngle(EventParameters);
    void test_unitaire_levels();
    void test_unitaire_games();
+   void test_unitaire_characterAndprojectile();
    void tests_unitaires(); // Appel de tous les tests unitaires
 
    // Methodes pour les tests unitaires des classes

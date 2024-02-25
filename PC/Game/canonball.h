@@ -5,15 +5,13 @@
 #include <iostream>
 class Canonball: public Projectile{
     private:
-        int damage=10; //le dégat le + petit que il peux faire (si hit les pieds par exemple)
-        //Velocity projectileSpeed;
+        
         int canonballMaxSpeed=2828;
     public:
         Canonball(Character& character):Projectile(character) {}
-        int getDamage() override
-        {
-            return damage;
-        }
+        Canonball(Coordonnee positionInitialeTir):Projectile( positionInitialeTir){}
+        int damageReceived(Character& character) override;
+        
 
         int getProjectileMaxSpeed() override
         {

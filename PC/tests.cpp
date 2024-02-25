@@ -88,6 +88,72 @@ void Tests::test_unitaire_games(){
    cout << ptrgame->levels[2]->wight << endl;
    delete ptrgame;
 }
+void Tests::test_unitaire_characterAndprojectile(){
+   std::cout << "-------------RAFT WARS-------------\n";
+    
+
+    
+ 
+    EnemyCharacter enemy(2000,100);
+    PlayerCharacter player(0,100);
+    cout << fixed << setprecision(2);
+    int choix = 0;
+
+    Projectile* p;
+    cout << "Entrez la valeur 1 pour lancer une balle et 2 pour lancer une roquette." << endl;
+    cin >> choix;
+    while (choix != 1 && choix != 2)
+      {
+        cout << "Choix invalide. Entrez la valeur 1 pour lancer une balle et 2 pour lancer une roquette." << endl;
+        cin>>choix;
+      }
+    if (choix == 1)
+    {
+        //p = new Canonball(player); //avec l'ancien constructeur 
+        p= new Canonball(player.getWeaponPosition());
+    }
+  
+    if(choix==2)
+    {
+        //p = new Rocket(player); //avec l'ancien constructeur
+         p= new Rocket(player.getWeaponPosition());
+    }
+
+  
+  
+    cout<<"Entrez une puissance (entre 0 et 1)"<<endl;
+    float puissance;
+    cin>>puissance;
+    while (puissance < 0 || puissance > 1)
+    {
+      cout << "Choix invalide. Entrez une puissance (entre 0 et 1)." << endl;
+      cin>>puissance;
+    }
+    p->setPuissance(puissance);
+    cout<<"Entrez un angle (en degrés)."<<endl;
+    float angle;
+    cin>>angle;
+    while (angle < 0 || angle > 90)
+    {
+      cout << "Choix invalide. Entrez un angle (en degrés)." << endl;
+      cin>>angle;
+    }
+    p->setAngleDegre(angle);
+
+     cout << "\n" "-------FORMULE DE LA PARABOLE-------" << endl;
+     cout << "y = g"<<"x^2 / (2("<<puissance<<"Vmax)^2 · cos^2("<< angle*PI/180<<") ) + xtan("<<angle*PI/180<<")" << "\n" << endl;
+         
+    if(p->checkIfCharacterHit(enemy))
+    {
+        
+        cout<<" ("<<p->getBulletEndPosition().x<<", "<<p->getBulletEndPosition().y<<")"<<endl;
+    }
+    else
+    {
+        
+        cout<<"Le projectile n'a pas atteint l'adversaire. Il a atteri a la position: ("<<p->getBulletEndPosition().x<<", "<<p->getBulletEndPosition().y<<")"<<endl;
+    }
+}
 
 void Tests::tests_unitaires()
 {
@@ -95,6 +161,7 @@ void Tests::tests_unitaires()
    cout << "Début des tests unitaires" << endl;
    test_unitaire_Controls();
    test_unitaire_games();
+   test_unitaire_characterAndprojectile();
    test_unitaire_levels();
 }
 

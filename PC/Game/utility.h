@@ -15,10 +15,6 @@
 //     unsigned long interval;
 // };
 
-
-
-
-
 struct Coordonnee
 {
      int x;

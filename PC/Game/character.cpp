@@ -1,4 +1,3 @@
-//character.cpp
 #include "character.h"
 Character::Character(int posx,int posy){
     this->position.x=posx;
@@ -7,18 +6,14 @@ Character::Character(int posx,int posy){
     
     this->hitbox.height=100;//px
     this->hitbox.width=100;//px
-    //std::cout<< "creation d'un Character"<<std::endl;
+    
 }
-Character::~Character(){
-    //std::cout<< "destruction d'un Character"<<std::endl;
-}
+Character::~Character(){}
  
 int Character::getHealthPoint(){
  return healthPoint;
 }
-// void Character::setProjectileType(ProjectileType projectile){
-//     this->projectile=projectile;
-// }
+
 void Character::setHealthPoint(int healthPoint){
     this->healthPoint=healthPoint;
 }
@@ -27,12 +22,6 @@ int Character::getHitboxWidth(){
 }
 int Character::getHitboxHeight(){
     return hitbox.height;
-}
-ProjectileType Character::getProjectileType(){
-    return projectile;
-}
-void Character::setProjectileType(ProjectileType projectile){
-    this->projectile=projectile;
 }
 float Character:: Aim(float angledeg){
     //éventuellement, ce sera la méthode qui calculera l'angle a partir de l'accéléromètre, et qui le retournera en rad

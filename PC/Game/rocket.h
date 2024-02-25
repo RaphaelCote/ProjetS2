@@ -5,14 +5,14 @@
 #include <iostream>
 class Rocket: public Projectile{
     private:
-        int damage=20; //le dégat le + petit que il peux faire (si hit les pieds par exemple)
-        //Velocity projectileSpeed;
+        
         int rocketMaxSpeed=3000;
     public:
         Rocket(Character& character):Projectile(character) {}
-        int getDamage() override{
-            return damage;
-        }
+        Rocket(Coordonnee positionInitialeTir):Projectile( positionInitialeTir){}
+
+        int damageReceived(Character& character) override;
+        
         int getProjectileMaxSpeed() override {
             return rocketMaxSpeed;
         }
