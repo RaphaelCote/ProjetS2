@@ -23,7 +23,7 @@ Projectile* EnemyCharacter::createEnemyProjectile()
 
     float random_angledeg=(float)(coor(generator))/100.0;
     float random_puissance=(float)(coor(generator))/100.0;
-    p->setAngleDegre(45.0*random_angledeg);
+    p->setAngleDegre(-45.0*random_angledeg);
     p->setPuissance(0.5*random_puissance);
     return p;
     
