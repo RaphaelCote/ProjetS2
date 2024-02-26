@@ -56,6 +56,7 @@ public:
         // if this listener is already registered, we wont add it again
         if (std::find(listeners->begin(), listeners->end(), callback) != listeners->end())
         {
+            listeners->erase(std::find(listeners->begin(), listeners->end(), callback));
             return true;
         }
 

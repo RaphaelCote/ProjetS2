@@ -8,7 +8,11 @@
 
 using namespace std;
 
-void OnMainActionCall(EventParameters ep)
+Menu::Menu()
+{
+}
+
+void OnMenuMainActionCall(EventParameters ep)
 {
         if (menu->lastActiveMenu == 0)
         {
@@ -24,22 +28,22 @@ void OnMainActionCall(EventParameters ep)
         }
 }
 
-void OnJoystickCall(EventParameters ep)
+void OnMenuJoystickCall(EventParameters ep)
 {
         menu->changeSelection(ep);
 }
 
 void Menu::OnEnable()
 {
-        eventManager->on("MainAction", OnMainActionCall);
-        eventManager->on("Joystick", OnJoystickCall);
+        eventManager->on("MainAction", OnMenuMainActionCall);
+        eventManager->on("Joystick", OnMenuJoystickCall);
         // cout << "did on Enable" << endl;
 }
 
 void Menu::OnDisable()
 {
-        eventManager->off("MainAction", OnMainActionCall);
-        eventManager->off("Joystick", OnJoystickCall);
+        eventManager->off("MainAction", OnMenuMainActionCall);
+        eventManager->off("Joystick", OnMenuJoystickCall);
 }
 
 void Menu::changeSelection(EventParameters ep)
@@ -61,8 +65,22 @@ void Menu::changeSelection(EventParameters ep)
 void Menu::menuController(int menu)
 {
         OnEnable();
-        while (true) {
-                afficherMenuPrincipal();
+        if (menu == 0)
+        {
+                while (true)
+                {
+                        afficherMenuPrincipal();
+                        controls->ListenForControls();
+                }
+        }
+        else if (menu == 1)
+        {
+                afficherMenuPause();
+                controls->ListenForControls();
+        }
+        else if (menu == 2)
+        {
+                afficherMenuFin("Test");
                 controls->ListenForControls();
         }
 }
@@ -86,7 +104,8 @@ void Menu::selectionMenuPrincipal()
         {
 
                 system("cls"); // clear la command prompt
-                game->StartGame();
+                OnDisable();
+                game->PlayGame();
         }
         else if (choix >= 1)
         {
@@ -100,12 +119,12 @@ void Menu::selectionMenuPrincipal()
 
 void Menu::afficherMenuPause()
 {
+        system("cls");
         lastActiveMenu = 1;
         cout << "-------------------------------------------------------------------" << endl;
         cout << "MENU PAUSE" << endl;
-        cout << "0. Reprendre" << endl;
-        cout << "1. Recommencer le niveau" << endl;
-        cout << "2. Revenir au menu principal" << endl;
+        cout << "-" << (choix == 0 ? "O" : "-") << "- Reprendre" << endl;
+        cout << "-" << (choix == 0 ? "O" : "-") << "- Revenir au menu principal" << endl;
         cout << "-------------------------------------------------------------------" << endl;
         cout << "Veuillez entrer votre selection :";
         cin >> choix;
@@ -132,17 +151,17 @@ void Menu::selectionMenuPause()
         }
 }
 
-void Menu::afficherMenuFin()
+void Menu::afficherMenuFin(string message)
 {
+        system("cls");
         lastActiveMenu = 2;
         cout << "-------------------------------------------------------------------" << endl;
-        cout << "Bravo, vous avez réussi le niveau!" << endl;
-        cout << "0. Prochain niveau" << endl;
-        cout << "1. Recommencer le niveau" << endl;
-        cout << "2. Revenir au menu principal" << endl;
+        //"Bravo, vous avez réussi le niveau!"
+        cout << message << endl;
+        cout << "-" << (choix == 0 ? "O" : "-") << "- Prochain niveau" << endl;
+        cout << "-" << (choix == 0 ? "O" : "-") << "- Recommencer le niveau" << endl;
+        cout << "-" << (choix == 0 ? "O" : "-") << "- Revenir au menu principal" << endl;
         cout << "-------------------------------------------------------------------" << endl;
-        cout << "Veuillez entrer votre selection :";
-        cin >> choix;
 }
 
 void Menu::selectionMenuFin()

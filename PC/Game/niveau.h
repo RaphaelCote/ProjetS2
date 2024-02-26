@@ -8,17 +8,20 @@ class Niveau
 {
 private:
     int nbraft;
-    Vecteur<Character *> characters;
 
 public:
     Niveau();
     Niveau(int);
     ~Niveau();
-    int hight = 1080;
-    int wight = 3000;
+
+    int height = 1080;
+    int weight = 3000;
+    Vecteur<Character *> characters;
 
     int backimge[1];
+
     void creerListeRaft();
+    void ShowCharacterInfo();
 };
 
 #endif

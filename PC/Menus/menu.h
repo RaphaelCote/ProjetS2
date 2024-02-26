@@ -11,8 +11,9 @@ class Menu : public EventListener
 {
 
 public:
-    friend void OnMainActionCall(EventParameters);
-    friend void OnJoystickCall(EventParameters);
+    Menu();
+    friend void OnMenuMainActionCall(EventParameters);
+    friend void OnMenuJoystickCall(EventParameters);
 
     void OnEnable();
     void OnDisable();
@@ -23,7 +24,7 @@ public:
     void selectionMenuPrincipal();
     void afficherMenuPause();
     void selectionMenuPause();
-    void afficherMenuFin();
+    void afficherMenuFin(string message);
     void selectionMenuFin();
 
 private:
