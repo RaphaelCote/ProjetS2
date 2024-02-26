@@ -18,6 +18,7 @@ using json = nlohmann::json;
 /*-------------------------- Other file include -----------------------------*/
 #include "raftWars.h"
 #include "Controls/EventManager.h"
+#include "Controls/keyboardControls.h"
 #include "tests.h"
 #include "Menus/menu.h"
 #include "game/game.h"
@@ -36,7 +37,7 @@ SerialPort *arduino; // doit etre un objet global!
 
 EventManager *eventManager;
 Tests *tests;
-KeyboardControls *controls;
+Controls *controls;
 Menu *menu;
 Game *game;
 
