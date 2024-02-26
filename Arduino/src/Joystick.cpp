@@ -73,26 +73,29 @@ etatJoystick Joystick::updateJoystickMenuX()
         return etat;
 
     oldEtat = etat;
-    
-
-    if(etat != oldEtat)//changement d'etat
-    {
-        timer = millis();//reset timer
-    }
 
     if(millis()- timer >=  DEBOUNCE_TIME_MS_JOY)//if debounce finished
     {
-        if(analogRead(pinX) >= MIDDLE+TRESHOLD)//update valueX
+        
+        if(analogRead(pinX) >= MIDDLE+TRESHOLD)//update valueY
         {
-            etat = etatJoystick::JoystickLeft;
+            etat = etatJoystick::JoystickUp;
+            // Serial.println("UP");
         }
         else if(analogRead(pinX) <= MIDDLE-TRESHOLD)
         {
-            etat = etatJoystick::JoystickRight;
+            etat = etatJoystick::JoystickDown;
+            // Serial.println("DOWN");
         }
         else
         {
             etat = etatJoystick::JoystickMiddle;
+            // Serial.println("MIDDLE");
+        }
+
+        if(oldEtat != etat)
+        {
+            timer = millis();//reset timer
         }
     }
     return etat;

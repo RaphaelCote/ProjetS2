@@ -75,6 +75,7 @@ char tabMenuJoystick[2][16] = {"Joystick       ",
 
 
 /*------------------------- Prototypes de fonctions -------------------------*/
+void MainAffichage();
 void MenuPrincipalGestion();
 void MenuJoystick();
 void MenuBouton();
@@ -97,27 +98,26 @@ void setup() {
   //pinMode(pinLED, OUTPUT);
   //digitalWrite(pinLED, ledState);
   LCD.Initialisation();
-  //LCD.EcrireCommande(0x00);
   LCD.Cursor(true, 0, 0);
-  // LCD.EcrireData('A');
-  // LCD.EcrireData('L');
-  // LCD.EcrireData('L');
-  // LCD.EcrireData('O');
-  // delay(2000);
-
-  // LCD.ClearLCD();
-  // AfficheValDec(1000,9,1);
-  // delay(1000);
-  // AfficheValDec(1234,2,1);
-  // delay(1000);
-  //LCD.EcrireTableau(MenuPrincipal,15,2);
 }
 
 
 void loop() 
 {
-  //delay(1000);
+  MainAffichage();
   
+  // if(shouldRead_){
+  //   readMsg();
+  //   sendMsg();
+  // }
+
+  // potValue = analogRead(pinPOT);
+  // //Serial.println(potValue);          // debug
+  // delay(10);  // delais de 10 ms
+}
+
+void MainAffichage()
+{
   switch (Menu)
   {
   case 0://menu principal
@@ -192,21 +192,7 @@ void loop()
   default:
     break;
   }
-  
-
-
-
-
-  // if(shouldRead_){
-  //   readMsg();
-  //   sendMsg();
-  // }
-
-  // potValue = analogRead(pinPOT);
-  // //Serial.println(potValue);          // debug
-  // delay(10);  // delais de 10 ms
 }
-
 
 
 void MenuPrincipalGestion()
