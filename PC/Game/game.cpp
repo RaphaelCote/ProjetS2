@@ -56,13 +56,13 @@ void Game::ChangeProjectileType(int type)
     if (type == 0)
     {
         Niveau *level = levels[currentLevel];
-        projectile = new Canonball(level->characters[0]->getPosition());
+        projectile = new Canonball(level->characters[0]->getWeaponPosition());
         projectileType = 0;
     }
     else if (type == 1)
     {
         Niveau *level = levels[currentLevel];
-        projectile = new Rocket(level->characters[0]->getPosition());
+        projectile = new Rocket(level->characters[0]->getWeaponPosition());
         projectileType = 1;
     }
 }
@@ -151,7 +151,7 @@ void Game::PlayTurn()
     OnEnable();
     projectileType = 0;
     Niveau *level = levels[currentLevel];
-    projectile = new Canonball(level->characters[0]->getPosition());
+    projectile = new Canonball(level->characters[0]->getWeaponPosition());
     while (isPlayerTurn)
     {
         system("cls");
@@ -166,6 +166,14 @@ void Game::PlayTurn()
             cout << "Votre projectile : rocket" << endl;
         }
         cout << "Votre angle : " << projectile->getAngleDegre() << " | Votre puissance : " << projectile->getPuissance() << endl;
+
+        cout << "\n"
+                "-------FORMULE DE LA PARABOLE-------"
+                << endl;
+        cout << "y = g"
+                << "x^2 / (2(" << projectile->getPuissance() << "Vmax)^2 · cos^2(" << projectile->getAngleDegre() * PI / 180 << ") ) + xtan(" << projectile->getAngleDegre() * PI / 180 << ")"
+                << "\n"
+                << endl;
         controls->ListenForControls();
     }
     system("PAUSE");

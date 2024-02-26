@@ -48,13 +48,13 @@ int main()
     controls = new KeyboardControls(eventManager);
 
     tests = new Tests();
-    tests->tests_unitaires();
+    // tests->tests_unitaires();
 
     game = new Game();
 
     menu = new Menu();
 
-    // menu->menuController(0);
+    menu->menuController(0);
 
     return 0;
 
