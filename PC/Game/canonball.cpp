@@ -10,17 +10,17 @@ int Canonball::damageReceived(Character& character){
     if (bulletEndPosition.y < character.getPosition().y + character.getHitboxHeight() / 3.0) 
     {
         D=30;  
-        cout<<"Ennemi touché aux pieds!"<<endl;
+        cout<<"Ennemi touche aux pieds!"<<endl;
     } 
     else if (bulletEndPosition.y  >= character.getPosition().y + character.getHitboxHeight() / 3.0 && bulletEndPosition.y < character.getPosition().y + character.getHitboxHeight()*2.0 / 3.0) 
     {
         D=50;  
-        cout<<"Ennemi touché au corps!"<<endl;
+        cout<<"Ennemi touche au corps!"<<endl;
     } 
     else if(bulletEndPosition.y >= character.getPosition().y + (character.getHitboxHeight()*2.0 / 3.0) && bulletEndPosition.y <= character.getPosition().y +character.getHitboxHeight())
     {
         D=80;  
-        cout<<"Ennemi touché à la tête!"<<endl;
+        cout<<"Ennemi touche a la tete!"<<endl;
     }
     int directDamage= round(Vf/canonballMaxSpeed*D);
     
@@ -29,6 +29,6 @@ int Canonball::damageReceived(Character& character){
     {
         character.setHealthPoint(0);
     }
-    cout << "L'ennemi a actuellement " <<character.getHealthPoint() << " points de vie. Il a été frappé à une vitesse de " << Vf << " pixels/s à la position:";
+    cout << "L'ennemi a actuellement " <<character.getHealthPoint() << " points de vie. Il a ete frappe a une vitesse de " << Vf << " pixels/s a la position:";
     return directDamage;
 }

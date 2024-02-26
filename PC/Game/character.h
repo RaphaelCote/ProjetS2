@@ -19,6 +19,7 @@ class Character{
         virtual float Aim(float angle);
         virtual Coordonnee getWeaponPosition()=0;
         virtual void setWeaponPosition(Coordonnee WeaponPosition)=0;
+        
     protected:
         int healthPoint;
         Coordonnee position;   

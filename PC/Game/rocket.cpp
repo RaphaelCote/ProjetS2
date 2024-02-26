@@ -9,17 +9,17 @@ int Rocket::damageReceived(Character& character){
     if (bulletEndPosition.y < 100 + character.getHitboxHeight() / 3.0) 
     {
         D=70;  
-        cout<<"L'ennemi a été frappé au pied!"<<endl;
+        cout<<"L'ennemi a ete frappe au pied!"<<endl;
     } 
     else if (bulletEndPosition.y  >= character.getPosition().y + character.getHitboxHeight() / 3.0 && bulletEndPosition.y < character.getPosition().y + character.getHitboxHeight()*2.0 / 3.0) 
     {
         D=100;  
-        cout<<"L'ennemi a été touché au corps!"<<endl;
+        cout<<"L'ennemi a ete touche au corps!"<<endl;
     } 
     else if(bulletEndPosition.y >= character.getPosition().y + (character.getHitboxHeight()*2.0 / 3.0) && bulletEndPosition.y <= character.getPosition().y +character.getHitboxHeight())
     {
         D=120;  
-        cout<<"L'ennemi a été touché à la tête!"<<endl;
+        cout<<"L'ennemi a ete touche a la tete!"<<endl;
     }
     int directDamage= round(Vf/rocketMaxSpeed*D);
     //if(character)
@@ -28,6 +28,6 @@ int Rocket::damageReceived(Character& character){
     {
         character.setHealthPoint(0);
     }
-    cout << "L'ennemi a actuellement " <<character.getHealthPoint() << " points de vie. Il a été frappé à une vitesse de " << Vf << " pixels/s à la position:";
+    cout << "L'ennemi a actuellement " <<character.getHealthPoint() << " points de vie. Il a ete frappe a une vitesse de " << Vf << " pixels/s a la position:";
     return directDamage;
 }

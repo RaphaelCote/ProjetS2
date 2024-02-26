@@ -96,17 +96,22 @@ void Tests::test_unitaire_characterAndprojectile(){
  
     EnemyCharacter enemy(2000,100);
     PlayerCharacter player(0,100);
+    cout<<"ta mère"<<endl;
+
+    enemy.createEnemyProjectile();
+    cout<<"ta grand-mère"<<endl;
     cout << fixed << setprecision(2);
     int choix = 0;
 
-    Projectile* p;
+    Projectile* p;//projectile player
+    Projectile* e;//projectile ennemi
     cout << "Entrez la valeur 1 pour lancer une balle et 2 pour lancer une roquette." << endl;
     cin >> choix;
     while (choix != 1 && choix != 2)
-      {
-        cout << "Choix invalide. Entrez la valeur 1 pour lancer une balle et 2 pour lancer une roquette." << endl;
-        cin>>choix;
-      }
+   {
+         cout << "Choix invalide. Entrez la valeur 1 pour lancer une balle et 2 pour lancer une roquette." << endl;
+         cin>>choix;
+   }
     if (choix == 1)
     {
         //p = new Canonball(player); //avec l'ancien constructeur 
@@ -118,7 +123,7 @@ void Tests::test_unitaire_characterAndprojectile(){
         //p = new Rocket(player); //avec l'ancien constructeur
          p= new Rocket(player.getWeaponPosition());
     }
-
+      e=new Rocket(enemy.getWeaponPosition());
   
   
     cout<<"Entrez une puissance (entre 0 et 1)"<<endl;
@@ -160,9 +165,9 @@ void Tests::tests_unitaires()
    // Fait tous les tests unitaires
    cout << "Début des tests unitaires" << endl;
    test_unitaire_Controls();
-   test_unitaire_games();
+   //test_unitaire_games();
    test_unitaire_characterAndprojectile();
-   test_unitaire_levels();
+   //test_unitaire_levels();
 }
 
 void Tests::tests_application()

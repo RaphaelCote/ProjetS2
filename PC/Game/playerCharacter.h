@@ -15,7 +15,7 @@ class PlayerCharacter : public Character{
         ~PlayerCharacter();
         int findBulletPositionY(float puissance,float angledeg,int deltax);
         int findBulletPositionX(float puissance,float angledeg,int deltay);
-        void playerShoot(Projectile* projectile);
+        
         
         Coordonnee getWeaponPosition() override{
             return WeaponPosition;
