@@ -20,20 +20,20 @@
 
 struct Coordonnee
 {
-    int x;
-    int y;
+    int x = 0;
+    int y = 0;
 };
 
 struct Hitbox
 {
-    int height;
-    int width;
+    int height = 0;
+    int width = 0;
 };
 
 struct Velocity 
 {
-    float puissance;
-    float angledeg;
+    float puissance = 0;
+    float angledeg = 0;
 };
 
 #endif

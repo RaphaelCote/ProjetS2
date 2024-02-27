@@ -8,18 +8,14 @@
 
 #include "utility.h"
 #include "character.h"
-#include "canonball.h"
-#include "grenade.h"
-#include "rocket.h"
 
 const double g=-1000;
 
 #define PI 3.14159265358979323846
 
-class Projectile{
+class Projectile {
 
         public:
-                Projectile(){};
                 Projectile(Character& character);
                 Projectile(Coordonnee bulletStartPosition);
         
@@ -51,9 +47,7 @@ class Projectile{
                 //time_t temps
                 Coordonnee bulletStartPosition;//coordonnée de départ du projectile
                 
-                
                 Coordonnee bulletEndPosition;//coordonnée de fin du projectile
-                
                 
                 float puissance;
                 float angledeg;

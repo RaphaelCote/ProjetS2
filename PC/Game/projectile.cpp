@@ -2,33 +2,37 @@
 #include "projectile.h"
 using namespace std;
 
-Projectile::Projectile(Character& character){
+Projectile::Projectile(Character& character)
+{
     
+    angledeg = 0;
+    puissance = 0;
     this->bulletStartPosition=character.getWeaponPosition();
     
 }
-Projectile::Projectile(Coordonnee bulletStartPosition){
 
+Projectile::Projectile(Coordonnee bulletStartPosition)
+{
+    angledeg = 0;
+    puissance = 0;
     this->bulletStartPosition=bulletStartPosition;
 
 }
-int Projectile::findBulletPositionY(int positionX){
-    
+
+int Projectile::findBulletPositionY(int positionX)
+{
     V0=puissance*getProjectileMaxSpeed();
     
-    
     rad=angledeg*PI/180;
-    
-    
     
     float deltax= (positionX - (bulletStartPosition.x));
     double positionY = ((g * deltax * deltax) / (2 * V0 * V0 * pow(cos(rad), 2)) + deltax * tan(rad)) + bulletStartPosition.y;
    
-    
     return round(positionY);
 }
 
-int Projectile::findBulletPositionX(int positionY){
+int Projectile::findBulletPositionX(int positionY)
+{
     V0=puissance*getProjectileMaxSpeed();
     int positionX=0;
     
@@ -53,7 +57,9 @@ int Projectile::findBulletPositionX(int positionY){
     }
     return positionX;
 }
-bool Projectile::checkIfCharacterHit(Character& character){
+
+bool Projectile::checkIfCharacterHit(Character& character)
+{
     
     Coordonnee characterPosition =character.getPosition();
     
@@ -73,7 +79,6 @@ bool Projectile::checkIfCharacterHit(Character& character){
         damageReceived(character);
         return true;
     }
-
     else if(findBulletPositionY(characterPosition.x+character.getHitboxWidth())>(characterPosition.y+character.getHitboxHeight()))
     {   //on sait qu'il ne touchera pas l'ennemie directement (passer par dessus l'ennemie)
         //pour les coordonnées de la balle, ce sera a changé éventuellement (vérifier si cela a touché bateau ou l'eau)
@@ -97,7 +102,6 @@ bool Projectile::checkIfCharacterHit(Character& character){
         damageReceived(character);
         return true;
     }
-        
     else{
         //THÉORIQUEMENT rien passe dans le false, mais je le garde pour le déboguage 
         
@@ -106,6 +110,8 @@ bool Projectile::checkIfCharacterHit(Character& character){
         return false;
     }
 }
-Coordonnee Projectile::getBulletEndPosition(){
+
+Coordonnee Projectile::getBulletEndPosition()
+{
     return bulletEndPosition;
 }

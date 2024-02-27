@@ -6,6 +6,8 @@
 #include "utility.h"
 using namespace std;
 
+EnemyCharacter::~EnemyCharacter(){}
+
 EnemyCharacter:: EnemyCharacter(int posx,int posy): Character(posx,posy)
 {
     WeaponPosition.x=posx;
@@ -19,7 +21,7 @@ Projectile* EnemyCharacter::createEnemyProjectile()
 	uniform_int_distribution<int> coor(70, 130);// marquer en int les bornes et diviser par après /100
     Projectile* p;
 
-    p= new Canonball(this->getWeaponPosition());
+    p = new Canonball(this->getWeaponPosition());
 
     float random_angledeg=(float)(coor(generator))/100.0;
     float random_puissance=(float)(coor(generator))/100.0;
@@ -28,8 +30,6 @@ Projectile* EnemyCharacter::createEnemyProjectile()
     return p;
     
 }
-EnemyCharacter::~EnemyCharacter(){}
-
 
 // Projectile EnemyCharacter::EnemyShoot(Projectile* projectile){
 //     //on inverse l'angle et on fait le randomizer 

@@ -20,12 +20,12 @@ class EnemyCharacter : public Character
         Coordonnee getWeaponPosition() override{
             return WeaponPosition;
         }
-        Projectile* createEnemyProjectile();
         //Projectile EnemyShoot(Projectile* projectile);
-        void setWeaponPosition(Coordonnee WeaponPosition) override
+        void setWeaponPosition(Coordonnee weaponPosition) override
         {
-            this->WeaponPosition=WeaponPosition;
+            this->WeaponPosition=weaponPosition;
         }
+        Projectile* createEnemyProjectile();
     private:
         Coordonnee WeaponPosition;
 };

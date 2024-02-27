@@ -5,6 +5,7 @@
 #include "../raftWars.h"
 #include "rocket.h"
 #include "canonball.h"
+#include "enemyCharacter.h"
 
 /*Méthodes*/
 /*Constructeur (État Initial)*/
@@ -171,7 +172,7 @@ void Game::PlayTurn()
                 "-------FORMULE DE LA PARABOLE-------"
                 << endl;
         cout << "y = g"
-                << "x^2 / (2(" << projectile->getPuissance() << "Vmax)^2 · cos^2(" << projectile->getAngleDegre() * PI / 180 << ") ) + xtan(" << projectile->getAngleDegre() * PI / 180 << ")"
+                << "x^2 / (2(" << projectile->getPuissance() << "Vmax)^2 . cos^2(" << projectile->getAngleDegre() * PI / 180 << ") ) + xtan(" << projectile->getAngleDegre() * PI / 180 << ")"
                 << "\n"
                 << endl;
         controls->ListenForControls();
@@ -181,6 +182,21 @@ void Game::PlayTurn()
     system("cls");
     ShowGameInfo();
     cout << "Tour enemi :" << endl;
+
+    EnemyCharacter *ec = (EnemyCharacter *) level->characters[0];
+    Projectile *enemyProjectile = ec->createEnemyProjectile();
+
+    cout << "Angle : " << enemyProjectile->getAngleDegre() << " | Puissance : " << enemyProjectile->getPuissance() << endl;
+
+    if (enemyProjectile->checkIfCharacterHit(*(level->characters[0])))
+    {
+        cout << " (" << enemyProjectile->getBulletEndPosition().x << ", " << enemyProjectile->getBulletEndPosition().y << ")" << endl;
+    }
+    else
+    {
+        cout << "Le projectile ne vous a pas atteint. Il a atteri a la position: (" << enemyProjectile->getBulletEndPosition().x;
+        cout << ", " << enemyProjectile->getBulletEndPosition().y << ")" << endl;
+    }
 
     system("PAUSE");
     isPlayerTurn = true;
