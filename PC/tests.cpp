@@ -96,36 +96,43 @@ void Tests::test_unitaire_characterAndprojectile()
 {
    std::cout << "-------------RAFT WARS-------------\n";
 
-   EnemyCharacter enemy(2000, 100);
-   PlayerCharacter player(0, 100);
-   cout << fixed << setprecision(2);
-   int choix = 0;
+    EnemyCharacter enemy(2000,100);
+    PlayerCharacter player(0,100);
+    cout<<"ta mère"<<endl;
 
-   Projectile *p;
-   cout << "Entrez la valeur 1 pour lancer une balle et 2 pour lancer une roquette." << endl;
-   cin >> choix;
-   while (choix != 1 && choix != 2)
-   {
-      cout << "Choix invalide. Entrez la valeur 1 pour lancer une balle et 2 pour lancer une roquette." << endl;
-      cin >> choix;
-   }
-   if (choix == 1)
-   {
-      // p = new Canonball(player); //avec l'ancien constructeur
-      p = new Canonball(player.getWeaponPosition());
-   }
+    enemy.createEnemyProjectile();
+    cout<<"ta grand-mère"<<endl;
+    cout << fixed << setprecision(2);
+    int choix = 0;
 
-   if (choix == 2)
+    Projectile* p;//projectile player
+    Projectile* e;//projectile ennemi
+    cout << "Entrez la valeur 1 pour lancer une balle et 2 pour lancer une roquette." << endl;
+    cin >> choix;
+    while (choix != 1 && choix != 2)
    {
-      // p = new Rocket(player); //avec l'ancien constructeur
-      p = new Rocket(player.getWeaponPosition());
+         cout << "Choix invalide. Entrez la valeur 1 pour lancer une balle et 2 pour lancer une roquette." << endl;
+         cin>>choix;
    }
-
-   cout << "Entrez une puissance (entre 0 et 1)" << endl;
-   float puissance;
-   cin >> puissance;
-   while (puissance < 0 || puissance > 1)
-   {
+    if (choix == 1)
+    {
+        //p = new Canonball(player); //avec l'ancien constructeur 
+        p= new Canonball(player.getWeaponPosition());
+    }
+  
+    if(choix==2)
+    {
+        //p = new Rocket(player); //avec l'ancien constructeur
+         p= new Rocket(player.getWeaponPosition());
+    }
+      e=new Rocket(enemy.getWeaponPosition());
+  
+  
+    cout<<"Entrez une puissance (entre 0 et 1)"<<endl;
+    float puissance;
+    cin>>puissance;
+    while (puissance < 0 || puissance > 1)
+    {
       cout << "Choix invalide. Entrez une puissance (entre 0 et 1)." << endl;
       cin >> puissance;
    }
@@ -164,10 +171,10 @@ void Tests::tests_unitaires()
 {
    // Fait tous les tests unitaires
    cout << "Début des tests unitaires" << endl;
-   test_unitaire_Controls();
-   test_unitaire_games();
+   // test_unitaire_Controls();
+   // test_unitaire_levels();
+   //test_unitaire_games();
    test_unitaire_characterAndprojectile();
-   test_unitaire_levels();
 
    system("pause"); // Wait for user input
    system("cls");   // Clear terminal

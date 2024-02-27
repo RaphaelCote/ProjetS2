@@ -1,6 +1,9 @@
 #ifndef UTILITY_H
 #define UTILITY_H
 #include <iostream>
+#include <random>
+#include <cstdlib>
+#include <ctime>
 //Class Timer
 
 //timer fonctionnel, il sufit juste de décommenter le code correspondant dans le utility.h et utility.cpp (et inclure "#include <Arduino.h>")
@@ -17,8 +20,8 @@
 
 struct Coordonnee
 {
-     int x;
-     int y;
+    int x;
+    int y;
 };
 
 struct Hitbox

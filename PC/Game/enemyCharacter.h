@@ -3,6 +3,7 @@
 #define ENEMYCHARACTER_H
 #include "character.h"
 #include "projectile.h"
+
 #include <iostream> 
 //faire un randomize pour savoir s'il hit ou pas 
 class EnemyCharacter : public Character
@@ -16,10 +17,11 @@ class EnemyCharacter : public Character
         Coordonnee getPosition(){
             return position;
         }
-         
         Coordonnee getWeaponPosition() override{
             return WeaponPosition;
         }
+        Projectile* createEnemyProjectile();
+        //Projectile EnemyShoot(Projectile* projectile);
         void setWeaponPosition(Coordonnee WeaponPosition) override
         {
             this->WeaponPosition=WeaponPosition;
