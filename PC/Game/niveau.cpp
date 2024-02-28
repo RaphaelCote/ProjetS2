@@ -30,11 +30,11 @@ void Niveau::ShowCharacterInfo()
     {
         if (i == 0)
         {
-            cout << "Player character :" << endl;
+            cout << "Joueur :" << endl;
         }
         else
         {
-            cout << "Enemy character " << i << " :" << endl;
+            cout << "Ennemi " << i << " :" << endl;
         }
         characters[i]->ShowInfo();
     }
