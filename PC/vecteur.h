@@ -18,14 +18,14 @@ public:
 	// Constructeur
 	Vecteur() : capacity(2), size(0), objPtrs(nullptr)
 	{
-		cout << "Construction du vecteur" << endl;
+		// cout << "Construction du vecteur" << endl;
 		initialize();
 	}
 
 	// Destructeur
 	~Vecteur()
 	{
-		cout << "Destruction du vecteur" << endl;
+		// cout << "Destruction du vecteur" << endl;
 		clear(true);
 	}
 

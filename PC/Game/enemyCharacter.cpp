@@ -6,33 +6,31 @@
 #include "utility.h"
 using namespace std;
 
-EnemyCharacter::~EnemyCharacter(){}
+EnemyCharacter::~EnemyCharacter() {}
 
-EnemyCharacter:: EnemyCharacter(int posx,int posy): Character(posx,posy)
+EnemyCharacter::EnemyCharacter(int posx, int posy) : Character(posx, posy)
 {
-    WeaponPosition.x=posx;
-    WeaponPosition.y=posy+hitbox.height/2;
+    WeaponPosition.x = posx;
+    WeaponPosition.y = posy + hitbox.height / 2;
 }
 
-Projectile* EnemyCharacter::createEnemyProjectile()
+Projectile *EnemyCharacter::createEnemyProjectile()
 {
-	random_device r;
-	default_random_engine generator(r());
-	uniform_int_distribution<int> coor(70, 130);// marquer en int les bornes et diviser par après /100
-    Projectile* p;
+    Projectile *p;
 
     p = new Canonball(this->getWeaponPosition());
 
-    float random_angledeg=(float)(coor(generator))/100.0;
-    float random_puissance=(float)(coor(generator))/100.0;
-    p->setAngleDegre(-45.0*random_angledeg);
-    p->setPuissance(0.5*random_puissance);
+    srand(time(0));
+    float random_angledeg = (float)(60 + rand() % (140 - 60)) / 100;
+    srand(time(0) + 071234263);
+    float random_puissance = (float)(70 + rand() % (130 - 70)) / 100;
+    cout << "random angleDeg : " << random_angledeg << endl;
+    cout << "random puissance : " << random_puissance << endl;
+    p->setAngleDegre(-45.0 * random_angledeg);
+    p->setPuissance(0.5 * random_puissance);
     return p;
-    
 }
 
 // Projectile EnemyCharacter::EnemyShoot(Projectile* projectile){
-//     //on inverse l'angle et on fait le randomizer 
+//     //on inverse l'angle et on fait le randomizer
 // }
-
-
