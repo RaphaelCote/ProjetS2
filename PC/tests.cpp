@@ -174,9 +174,9 @@ void Tests::test_unitaire_Boat()
    cout << "TESTS UNITAIRES BOAT" << endl << endl;
    // création des personnages et du bateau
    cout << "créer les personnages et les bateaux" << endl;
-   character* pers1 = new PlayerCharacter();
-   character* pers2 = new PlayerCharacter();
-   character* adv1 = new EnemyCharacter();
+   Character* pers1 = new PlayerCharacter(1,0);
+   Character* pers2 = new PlayerCharacter(3,0);
+   Character* adv1 = new EnemyCharacter(10,0);
    Boat joueur(3);
    Boat adversaire(3);
 

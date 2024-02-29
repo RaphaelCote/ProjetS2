@@ -1,5 +1,5 @@
 #include "Boat.h"
-#include "charachters.h"
+#include "character.h"
 
 Boat::Boat(int n)
 {
@@ -7,7 +7,7 @@ Boat::Boat(int n)
     capacite = n;
 }
 
-int Boat::getNbCharacters()  // pour vérifier s'il reste des adversaires ou non
+int Boat::getNbCharacters()  // pour vérifier s'il reste des personnages vivants
 {
     return characters.getSize();
 }
@@ -17,10 +17,10 @@ int Boat::getCapacite()
     return characters.getCapacity();
 }
 
-bool Boat::addCharacter(character* characterAdded) // pour initialiser le jeu: créer les personnages
+bool Boat::addCharacter(Character* characterAdded) // pour initialiser le jeu: créer les personnages
 {
-    // mettre la fonction pour ajouter la coordonnée du pers. ajouté
-    // addPosition(COORDONNEES DU PERSO);
+    
+    addPosition(&characterAdded->getPosition());
     return characters.add(characterAdded);
 }
 

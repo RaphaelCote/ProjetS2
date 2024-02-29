@@ -2,9 +2,9 @@
 #define BOAT_H
 
 #include <ostream>
-#include "charachters.h"
+#include "character.h"
 #include "../Vecteur.h"
-#include "Coordonnees.h"
+#include "utility.h"
 
 using namespace std;
 
@@ -15,10 +15,10 @@ public:
     ~Boat();
     int getNbCharacters();
     int getCapacite();
-    bool addCharacter(character* characterAdded);
+    bool addCharacter(Character* characterAdded);
     bool addPosition(Coordonnee* positionAdded);
     Vecteur<Coordonnee*> characterPositions;
-    Vecteur<character*> characters;
+    Vecteur<Character*> characters;
     bool removeCharacters(int index);
     bool removePosition(int index);
     void affichageJoueur(ostream & s);
