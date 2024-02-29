@@ -16,8 +16,8 @@ public:
     virtual void ShowMenu() = 0;
     virtual void Selection() = 0;
 
-private:
-    int choix = 0;
+protected:
+    int choice = 0;
 };
 
 #endif

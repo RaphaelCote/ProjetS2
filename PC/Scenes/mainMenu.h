@@ -15,7 +15,7 @@ class MainMenu : public Menu
 
     void changeSelection(EventParameters ep);
     void ShowMenu();
-    bool Selection();
+    void Selection();
 };
 
 #endif

@@ -8,26 +8,16 @@
 
 void OnMenuMainActionCall(EventParameters ep)
 {
-    if (menu->lastActiveMenu == 0)
-    {
-        menu->selectionMenuPrincipal();
-    }
-    else if (menu->lastActiveMenu == 1)
-    {
-        menu->selectionMenuPause();
-    }
-    else if (menu->lastActiveMenu == 2)
-    {
-        menu->selectionMenuFin();
-    }
+
+    activeMenu->Selection();
 }
 
 void OnMenuJoystickCall(EventParameters ep)
 {
-    menu->changeSelection(ep);
+    activeMenu->changeSelection(ep);
 }
 
-void Main : Menu::OnEnable()
+void MainMenu::OnEnable()
 {
     eventManager->on("MainAction", OnMenuMainActionCall);
     eventManager->on("Joystick", OnMenuJoystickCall);
@@ -44,14 +34,22 @@ void MainMenu::changeSelection(EventParameters ep)
 {
     if (ep.parameter2 > 0.5)
     {
-        choix--;
-        if (choix < 0)
+        choice--;
+        if (choice < 0)
         {
-            choix = 0;
+            choice = 0;
         }
     }
     else if (ep.parameter2 < -0.5)
     {
-        choix++;
+        choice++;
     }
+}
+
+void MainMenu::ShowMenu()
+{
+}
+
+void MainMenu::Selection()
+{
 }

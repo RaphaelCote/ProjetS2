@@ -5,12 +5,12 @@
 #include "Controls/Controls.h"
 #include "tests.h"
 #include "Scenes/menu.h"
-#include "game/game.h"
+#include "Scenes/game.h"
 
 extern EventManager *eventManager;
 extern Controls *controls;
 extern Tests *tests;
-extern Menu *menu;
+extern Menu *activeMenu;
 extern Game *game;
 
 #endif
