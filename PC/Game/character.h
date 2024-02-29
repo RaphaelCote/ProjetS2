@@ -20,6 +20,7 @@ public:
     virtual void setWeaponPosition(Coordonnee WeaponPosition) = 0;
     int getHitboxWidth();
     int getHitboxHeight();
+    Coordonnee* PointeurPosition();
 
     virtual float Aim(float angle);
     void ShowInfo();
