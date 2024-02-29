@@ -7,15 +7,15 @@
 class Niveau
 {
 private:
-    int nbraft;
+
 
 public:
     Niveau();
-    Niveau(int);
+    Niveau(int,int,int);
     ~Niveau();
 
-    int height = 1080;
-    int weight = 3000;
+    int height;
+    int width;
     Vecteur<Character *> characters;
 
     int backimge[1];

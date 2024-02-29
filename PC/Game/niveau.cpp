@@ -2,14 +2,9 @@
 #include "playerCharacter.h"
 #include "enemyCharacter.h"
 
-Niveau::Niveau()
+
+Niveau::Niveau(int width,int height,int backimge)
 {
-    nbraft = 2;
-    creerListeRaft();
-}
-Niveau::Niveau(int t)
-{
-    nbraft = t;
     creerListeRaft();
 }
 
