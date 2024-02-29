@@ -117,7 +117,7 @@ bool Projectile::checkIfCharacterHit(Character& character)
             damageReceived(character);
             return true;
         }
-        else if(findBulletPositionY(characterPosition.x+character.getHitboxWidth())<(characterPosition.y+character.getHitboxHeight()))
+        else if(findBulletPositionY(characterPosition.x+character.getHitboxWidth())<=(characterPosition.y+character.getHitboxHeight()))
         {
             //on sait qu'il a touché l'ennemie entre son coin supérieur gauche et supérieur droit excluant 
             //cout<<"Quatrième else if angle positif"<<endl;
@@ -171,7 +171,7 @@ bool Projectile::checkIfCharacterHit(Character& character)
             damageReceived(character);
             return true;
         }
-        else if(findBulletPositionY(characterPosition.x)<(characterPosition.y+character.getHitboxHeight()))
+        else if(findBulletPositionY(characterPosition.x)<=(characterPosition.y+character.getHitboxHeight()))
         {
             //on sait qu'il a touché l'ennemie entre son coin supérieur gauche et supérieur droit excluant 
             //cout<<"Quatrième else if angle négatif"<<endl;
