@@ -170,11 +170,11 @@ void Game::PlayTurn()
 
         cout << "\n"
                 "-------FORMULE DE LA PARABOLE-------"
-                << endl;
+             << endl;
         cout << "y = g"
-                << "x^2 / (2(" << projectile->getPuissance() << "Vmax)^2 . cos^2(" << projectile->getAngleDegre() * PI / 180 << ") ) + xtan(" << projectile->getAngleDegre() * PI / 180 << ")"
-                << "\n"
-                << endl;
+             << "x^2 / (2(" << projectile->getPuissance() << "Vmax)^2 . cos^2(" << projectile->getAngleDegre() * PI / 180 << ") ) + xtan(" << projectile->getAngleDegre() * PI / 180 << ")"
+             << "\n"
+             << endl;
         controls->ListenForControls();
     }
     system("PAUSE");
@@ -183,7 +183,7 @@ void Game::PlayTurn()
     ShowGameInfo();
     cout << "Tour enemi :" << endl;
 
-    EnemyCharacter *ec = (EnemyCharacter *) level->characters[0];
+    EnemyCharacter *ec = (EnemyCharacter *)level->characters[1];
     Projectile *enemyProjectile = ec->createEnemyProjectile();
 
     cout << "Angle : " << enemyProjectile->getAngleDegre() << " | Puissance : " << enemyProjectile->getPuissance() << endl;
