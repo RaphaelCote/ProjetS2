@@ -20,7 +20,8 @@ int Boat::getCapacite()
 bool Boat::addCharacter(Character* characterAdded) // pour initialiser le jeu: créer les personnages
 {
     
-    addPosition(&characterAdded->getPosition());
+    addPosition(characterAdded->PointeurPosition());
+    nbCharacters++;
     return characters.add(characterAdded);
 }
 
@@ -32,7 +33,9 @@ bool Boat::addPosition(Coordonnee* positionAdded)
 bool Boat::removeCharacters(int index) // retirer les personnages lorsqu'ils sont morts
 {
     removePosition(index);
+    nbCharacters--;
     return characters.remove(index);
+
 }
 
 bool Boat::removePosition(int index)
@@ -50,14 +53,15 @@ void Boat::affichageJoueur(ostream & s) // affichage pour les joueurs
 
     else{
         for (int i = 0; i < nbCharacters; i++){
-            s << "La position du joueur " << i+1 << " est " << characterPositions[i] << "." << endl;
+            Coordonnee *c =characterPositions[i];
+            s << "La position du joueur " << i+1 << " est (" << c->x << "," << c->y << ")." << endl;
         }
     }  
 }
 
 void Boat::affichageAdversaire(ostream & s) // affichage pour les joueurs
 {
-    s << "Il vous reste " << nbCharacters << "adversaires" << endl;
+    s << "Il vous reste " << nbCharacters << " adversaires" << endl;
     
     if (nbCharacters == 0){
         s << "Bravo!!!" << endl;
@@ -66,7 +70,8 @@ void Boat::affichageAdversaire(ostream & s) // affichage pour les joueurs
     else{
         // pour l'audit 1
         for (int i = 0; i < nbCharacters; i++){
-            s << "La position de l'adversaire " << i+1 << " est " << characterPositions[i] << "." << endl;
+            Coordonnee *c =characterPositions[i];
+            s << "La position de l'adversaire " << i+1 << " est (" << c->x << "," << c->y << ")." << endl;
         }
         // *****
         s << "Essayer de nouveau" << endl;

@@ -183,6 +183,7 @@ void Tests::test_unitaire_Boat()
    // ajouter adversaire
    cout << "ajouter les ennemis" << endl;
    adversaire.addCharacter(adv1);
+   cout << "size a :" << adversaire.getNbCharacters() << endl;
    adversaire.affichageAdversaire(cout);
 
    // ajouter les personnages
@@ -192,17 +193,17 @@ void Tests::test_unitaire_Boat()
 
    // retourner les informations des bateaux
    joueur.affichageJoueur(cout);
-   cout << "size: " << joueur.getNbCharacters()<< endl;
-   cout << "capacité: " << joueur.getCapacite() << endl;
+   cout << "size j: " << joueur.getNbCharacters()<< endl;
+   cout << "capacité j: " << joueur.getCapacite() << endl;
 
    // retirer le personnage 0
-   cout << "retirer index 0" << endl;
+   cout << "retirer index 0 de joueur" << endl;
    joueur.removeCharacters(0);
 
    // retourner les informations du bateau
    joueur.affichageJoueur(cout);
-   cout << "size: " << joueur.getNbCharacters()<< endl;
-   cout << "capacité: " << joueur.getCapacite() << endl;
+   cout << "size j: " << joueur.getNbCharacters()<< endl;
+   cout << "capacité j: " << joueur.getCapacite() << endl;
 
    // delete
    delete pers1;
