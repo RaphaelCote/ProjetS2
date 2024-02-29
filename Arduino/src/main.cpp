@@ -509,16 +509,34 @@ Sortie : Aucun
 Traitement : Envoi du message
 -----------------------------------------------------------------------------*/
 void sendMsg() {
+
+  if(!shouldSend_)
+    return;
+
+
   StaticJsonDocument<500> doc;
   // Elements du message
   doc["time"] = millis();
-  doc["analog"] = potValue;
+
+  int val1, val2;
+  joystick.GetAll(&val1, &val2);
+
+  doc["JoyX"] = val1;//map -1 a 1
+  doc["JoyY"] = val2;//map -1 a 1
+
+  doc["B1"] = b1.Update();
+  doc["B2"] = b2.Update();
+  doc["B3"] = b3.Update();
+  doc["B4"] = b4.Update();
+  doc["B5"] = b5.Update();
+
+  Acc.GetX(&val1);
+  doc["Angle"] = val1;//map 0 a 359
+
 
   // Serialisation
   serializeJson(doc, Serial);
 
-  // Envoie
-  Serial.println();
   shouldSend_ = false;
 }
 
@@ -539,6 +557,7 @@ void readMsg(){
 
   // Si erreur dans le message
   if (error) {
+    
     Serial.print("deserialize() failed: ");
     Serial.println(error.c_str());
     return;
