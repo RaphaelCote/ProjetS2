@@ -7,15 +7,15 @@ using namespace std;
 
 class MainMenu : public Menu
 {
-    friend void OnMenuMainActionCall(EventParameters);
-    friend void OnMenuJoystickCall(EventParameters);
+    friend void OnMainMenuMainActionCall(EventParameters);
+    friend void OnMainMenuJoystickCall(EventParameters);
 
     void OnEnable();
     void OnDisable();
 
     void changeSelection(EventParameters ep);
     void ShowMenu();
-    bool Selection();
+    void Selection();
 };
 
 #endif

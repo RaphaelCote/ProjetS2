@@ -6,52 +6,72 @@
 #include "../controls/EventManager.h"
 #include "../Controls/keyboardControls.h"
 
-void OnMenuMainActionCall(EventParameters ep)
+void OnMainMenuMainActionCall(EventParameters ep)
 {
-    if (menu->lastActiveMenu == 0)
-    {
-        menu->selectionMenuPrincipal();
-    }
-    else if (menu->lastActiveMenu == 1)
-    {
-        menu->selectionMenuPause();
-    }
-    else if (menu->lastActiveMenu == 2)
-    {
-        menu->selectionMenuFin();
-    }
+
+    activeMenu->Selection();
 }
 
-void OnMenuJoystickCall(EventParameters ep)
+void OnMainMenuJoystickCall(EventParameters ep)
 {
-    menu->changeSelection(ep);
+    activeMenu->changeSelection(ep);
 }
 
-void Main : Menu::OnEnable()
+void MainMenu::OnEnable()
 {
-    eventManager->on("MainAction", OnMenuMainActionCall);
-    eventManager->on("Joystick", OnMenuJoystickCall);
-    // cout << "did on Enable" << endl;
+    eventManager->on("MainAction", OnMainMenuMainActionCall);
+    eventManager->on("Joystick", OnMainMenuJoystickCall);
 }
 
 void MainMenu::OnDisable()
 {
-    eventManager->off("MainAction", OnMenuMainActionCall);
-    eventManager->off("Joystick", OnMenuJoystickCall);
+    eventManager->off("MainAction", OnMainMenuMainActionCall);
+    eventManager->off("Joystick", OnMainMenuJoystickCall);
 }
 
 void MainMenu::changeSelection(EventParameters ep)
 {
     if (ep.parameter2 > 0.5)
     {
-        choix--;
-        if (choix < 0)
+        choice--;
+        if (choice < 0)
         {
-            choix = 0;
+            choice = 0;
         }
     }
     else if (ep.parameter2 < -0.5)
     {
-        choix++;
+        choice++;
+    }
+}
+
+void MainMenu::ShowMenu()
+{
+    // menu utilisateur
+    system("cls");
+    cout << "-------------------------------------------------------------------" << endl;
+    cout << "Bienvenue au menu du jeu Raft Wars" << endl;
+    cout << "-" << (choice == 0 ? "O" : "-") << "- Commencer." << endl;
+    // cout << " 2. Choisir un niveau." << endl;
+    cout << "-" << (choice >= 1 ? "O" : "-") << "- Sortir" << endl;
+    cout << "-------------------------------------------------------------------" << endl;
+}
+
+void MainMenu::Selection()
+{
+    if (choice == 0)
+    {
+
+        system("cls"); // clear la command prompt
+        OnDisable();
+        game->PlayGame();
+    }
+    else if (choice >= 1)
+    {
+
+        system("cls"); // clear la command prompt
+        cout << "Au plaisir.." << endl;
+        system("PAUSE");
+        exit(0);
     }
 }
