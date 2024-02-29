@@ -23,14 +23,14 @@ class Boutton
 private:
     etatBoutton etat;
     etatBoutton oldEtat;
-    int timer;
+    unsigned long timer;
     int pin;
 
 
 public:
     Boutton(int p);
     ~Boutton();
-    void Update();
+    etatBoutton Update();
     etatBoutton GetEtat();
     void SetEtat(etatBoutton etatVoulu);
 };

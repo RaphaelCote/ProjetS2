@@ -68,6 +68,12 @@ bool Accelerometre::GetAll(int * valX, int* valY, int* valZ)
     *valX = analogRead(pinX);
     *valY = analogRead(pinY);
     *valZ = analogRead(pinZ);
+    // Serial.print("x: ");
+    // Serial.print(*valX);
+    // Serial.print("   y: ");
+    // Serial.print(*valY);
+    // Serial.print("   z: ");
+    // Serial.println(*valZ);
 
     return true;
 
