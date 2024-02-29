@@ -21,7 +21,6 @@ using json = nlohmann::json;
 #include "Controls/keyboardControls.h"
 #include "tests.h"
 #include "Scenes/menu.h"
-#include "./Scenes/game.h"
 
 /*------------------------------ Constantes ---------------------------------*/
 #define BAUD 9600         // Frequence de transmission serielle
@@ -40,6 +39,7 @@ Tests *tests;
 Controls *controls;
 Menu *activeMenu;
 Game *game;
+Vecteur<Scene *> *scenes;
 
 /*----------------------------- Fonction "Main" -----------------------------*/
 int main()

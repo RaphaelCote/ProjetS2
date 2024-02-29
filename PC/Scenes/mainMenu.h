@@ -7,8 +7,8 @@ using namespace std;
 
 class MainMenu : public Menu
 {
-    friend void OnMenuMainActionCall(EventParameters);
-    friend void OnMenuJoystickCall(EventParameters);
+    friend void OnMainMenuMainActionCall(EventParameters);
+    friend void OnMainMenuJoystickCall(EventParameters);
 
     void OnEnable();
     void OnDisable();

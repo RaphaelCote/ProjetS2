@@ -6,11 +6,14 @@
 #include "tests.h"
 #include "Scenes/menu.h"
 #include "Scenes/game.h"
+#include "vecteur.h"
+#include "./Scenes/scene.h"
 
 extern EventManager *eventManager;
 extern Controls *controls;
 extern Tests *tests;
 extern Menu *activeMenu;
 extern Game *game;
+Vecteur<Scene *> *scenes;
 
 #endif
