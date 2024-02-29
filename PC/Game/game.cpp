@@ -129,7 +129,6 @@ void Game::PauseGame()
     isPause = true;
     while (isPause)
     {
-        menu->menuController(1);
     }
 }
 
