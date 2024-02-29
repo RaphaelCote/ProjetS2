@@ -177,8 +177,10 @@ void Tests::test_unitaire_Boat()
    Character* pers1 = new PlayerCharacter(1,0);
    Character* pers2 = new PlayerCharacter(3,0);
    Character* adv1 = new EnemyCharacter(10,0);
-   Boat joueur(3);
-   Boat adversaire(3);
+   Boat joueur(3,0,0);
+   Boat adversaire(3,10,0);
+   cout << "position j: (" << joueur.getPositionBoat().x << "," << joueur.getPositionBoat().y << ")" << endl;
+   cout << "position a:(" << adversaire.getPositionBoat().x << "," << adversaire.getPositionBoat().y << ")" << endl;
 
    // ajouter adversaire
    cout << "ajouter les ennemis" << endl;

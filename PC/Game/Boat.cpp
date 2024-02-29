@@ -1,10 +1,12 @@
 #include "Boat.h"
 #include "character.h"
 
-Boat::Boat(int n)
+Boat::Boat(int n,int posx, int posy)
 {
     nbCharacters = 0;
     capacite = n;
+    positionBoat.x = posx;
+    positionBoat.y = posy;
 }
 
 int Boat::getNbCharacters()  // pour vérifier s'il reste des personnages vivants
@@ -15,6 +17,11 @@ int Boat::getNbCharacters()  // pour vérifier s'il reste des personnages vivant
 int Boat::getCapacite()
 {
     return characters.getCapacity();
+}
+
+Coordonnee Boat::getPositionBoat()
+{
+    return positionBoat;
 }
 
 bool Boat::addCharacter(Character* characterAdded) // pour initialiser le jeu: créer les personnages
@@ -45,7 +52,9 @@ bool Boat::removePosition(int index)
 
 void Boat::affichageJoueur(ostream & s) // affichage pour les joueurs 
 {
-	s << "Il vous reste " << nbCharacters << " joueurs." << endl;
+	s << "position boat j : (" << positionBoat.x << "," << positionBoat.y << ")"<<endl;
+    
+    s << "Il vous reste " << nbCharacters << " joueurs." << endl;
     
     if (nbCharacters == 0){
         s << "GAME OVER" << endl;
@@ -61,6 +70,7 @@ void Boat::affichageJoueur(ostream & s) // affichage pour les joueurs
 
 void Boat::affichageAdversaire(ostream & s) // affichage pour les joueurs
 {
+    	s << "position boat a : (" << positionBoat.x << "," << positionBoat.y << ")"<<endl;
     s << "Il vous reste " << nbCharacters << " adversaires" << endl;
     
     if (nbCharacters == 0){

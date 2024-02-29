@@ -11,10 +11,11 @@ using namespace std;
 class Boat
 {
 public:
-    Boat(int n);
+    Boat(int n, int posx, int posy);
     ~Boat();
     int getNbCharacters();
     int getCapacite();
+    Coordonnee getPositionBoat();
     bool addCharacter(Character* characterAdded);
     bool addPosition(Coordonnee* positionAdded);
     Vecteur<Coordonnee*> characterPositions;
@@ -27,6 +28,7 @@ public:
 private:
     int nbCharacters;
     int capacite;
+    Coordonnee positionBoat;
 };
 
 #endif
