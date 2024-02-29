@@ -18,6 +18,9 @@ void Niveau::creerListeRaft()
 
     characters.add(new EnemyCharacter(2000, 100));
 }
+void Niveau::addRaft(int raftwidth, int raftheight,int corodoneeX,int corodoneeY,int imgeraft){
+
+}
 
 void Niveau::ShowCharacterInfo()
 {

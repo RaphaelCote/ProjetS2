@@ -10,7 +10,7 @@ private:
 
 
 public:
-    Niveau();
+
     Niveau(int,int,int);
     ~Niveau();
 
@@ -22,6 +22,7 @@ public:
 
     void creerListeRaft();
     void ShowCharacterInfo();
+    void addRaft(int,int,int,int,int);
 };
 
 #endif
