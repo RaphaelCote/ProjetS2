@@ -1,19 +1,26 @@
 #include "PauseMenu.h"
+#include "../raftWars.h"
 
 PauseMenu::PauseMenu()
 {}
 
 void PauseMenu::Update()
 {
-
+    system("cls");
+    cout << "-------------------------------------------------------------------" << endl;
+    cout << "Pause" << endl;
+    cout << "-" << (choice == 0 ? "O" : "-") << "- Continuer." << endl;
+    cout << "-" << (choice == 1 ? "O" : "-") << "- Menu." << endl;
+    cout << "-------------------------------------------------------------------" << endl;
+    controls->ListenForControls();
 }
 
 void PauseMenu::Continu()
 {
-    // sélectionner le bon index dans scenes pour retourner dans la game (1)
+    activeScene = 1;
 }
 
 void PauseMenu::ReturnToMenu()
 {
-    // sélectionner le bon index dans scenes pour retourner dans le main menu (0)
+    activeScene = 0;
 }

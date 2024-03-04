@@ -50,7 +50,10 @@ void MainMenu::changeSelection(EventParameters ep)
     }
     else if (ep.parameter2 < -0.5)
     {
-        choice++;
+        if (choice < 3)
+        {
+            choice++;
+        }
     }
 }
 
@@ -60,9 +63,10 @@ void MainMenu::ShowMenu()
     system("cls");
     cout << "-------------------------------------------------------------------" << endl;
     cout << "Bienvenue au menu du jeu Raft Wars" << endl;
-    cout << "-" << (choice == 0 ? "O" : "-") << "- Commencer." << endl;
-    // cout << " 2. Choisir un niveau." << endl;
-    cout << "-" << (choice >= 1 ? "O" : "-") << "- Sortir" << endl;
+    cout << "-" << (choice == 0 ? "O" : "-") << "- Commencer" << endl;
+    cout << "-" << (choice == 1 ? "O" : "-") << "- Niveaux" << endl;
+    cout << "-" << (choice == 2 ? "O" : "-") << "- Magasin" << endl;
+    cout << "-" << (choice >= 3 ? "O" : "-") << "- Sortir" << endl;
     cout << "-------------------------------------------------------------------" << endl;
 }
 
@@ -87,23 +91,25 @@ void MainMenu::Selection()
 void MainMenu::Update()
 {
     ShowMenu();
+    controls->ListenForControls();
 }
 
 void MainMenu::PlayGame()
 {
-    game->PlayGame();
+    activeScene = 1;
+
 }
 
 void MainMenu::GotoLevelSelect()
 {
     LevelSelectionMenu *lsm = (LevelSelectionMenu *)scenes->get(2);
     lsm->lastMenu = 0; 
-    // sélectionner le bon index dans scenes 
+    activeScene = 2;
 }
 
 void MainMenu::GotoShop()
 {
-    // sélectionner le bon index dans scenes
+    activeScene = 5;
 }
 
 void MainMenu::ExitGame()
