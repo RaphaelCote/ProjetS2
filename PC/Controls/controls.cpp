@@ -36,7 +36,6 @@ void Controls::Menu()
 
 void Controls::Joystick(float x, float y)
 {
-    cout << "calling joystick" << endl;
     eventManager->emit("Joystick", EventParameters(x, y));
 }
 

@@ -12,8 +12,7 @@
 extern EventManager *eventManager;
 extern Controls *controls;
 extern Tests *tests;
-extern Menu *activeMenu;
-extern Game *game;
-Vecteur<Scene *> *scenes;
+extern Vecteur<Scene *> *scenes;
+extern int activeScene;
 
 #endif
