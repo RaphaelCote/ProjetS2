@@ -11,19 +11,17 @@ using namespace std;
 class Boat
 {
 public:
+    Vecteur<Character *> characters;
+
     Boat(int n, int posx, int posy);
     ~Boat();
+
     int getNbCharacters();
     int getCapacite();
     Coordonnee getPositionBoat();
-    bool addCharacter(Character* characterAdded);
-    bool addPosition(Coordonnee* positionAdded);
-    Vecteur<Coordonnee*> characterPositions;
-    Vecteur<Character*> characters;
+    bool addCharacter(Character *characterAdded);
     bool removeCharacters(int index);
-    bool removePosition(int index);
-    void affichageJoueur(ostream & s);
-    void affichageAdversaire(ostream & s);
+    void ShowInfo(ostream &s);
 
 private:
     int nbCharacters;
