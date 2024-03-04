@@ -33,11 +33,6 @@ MainMenu::MainMenu()
 {
 }
 
-void MainMenu::Update()
-{
-    ShowMenu();
-}
-
 void MainMenu::changeSelection(EventParameters ep)
 {
     if (ep.parameter2 > 0.5)
@@ -97,7 +92,6 @@ void MainMenu::Update()
 void MainMenu::PlayGame()
 {
     activeScene = 1;
-
 }
 
 void MainMenu::GotoLevelSelect()

@@ -21,7 +21,6 @@ public:
     void ShowMenu();
     void Selection();
 
-    void Update();
     void PlayGame();
     void GotoLevelSelect();
     void GotoShop();

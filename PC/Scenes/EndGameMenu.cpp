@@ -30,7 +30,6 @@ void EndGameMenu::GotoLevelSelect()
     LevelSelectionMenu *lsm = (LevelSelectionMenu *)scenes->get(2);
     lsm->lastMenu = 0; 
     activeScene = 2;
-
 }
 
 void ReturnToMenu()
