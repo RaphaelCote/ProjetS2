@@ -229,5 +229,5 @@ bool Game::CheckLoseCondition()
 void Game::ShowGameInfo()
 {
     // Show player positions and health
-    levels[currentLevel]->ShowCharacterInfo();
+    levels[currentLevel]->ShowCharacterInfo(cout);
 }
