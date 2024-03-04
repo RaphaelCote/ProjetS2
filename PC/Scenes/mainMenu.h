@@ -2,6 +2,7 @@
 #define MAINMENU_H
 
 #include "menu.h"
+#include "LevelSelectionMenu.h"
 
 using namespace std;
 
@@ -19,6 +20,11 @@ public:
     void changeSelection(EventParameters ep);
     void ShowMenu();
     void Selection();
+
+    void PlayGame();
+    void GotoLevelSelect();
+    void GotoShop();
+    void ExitGame();
 };
 
 #endif

@@ -7,7 +7,7 @@ int Canonball::damageReceived(Character& character){
     int D=0;
 
     
-    if (bulletEndPosition.y < character.getPosition().y + character.getHitboxHeight() / 3.0) 
+    if (bulletEndPosition.y >= character.getPosition().y && bulletEndPosition.y < character.getPosition().y + character.getHitboxHeight() / 3.0) 
     {
         D=30;  
         cout<<"Cible touche aux pieds!"<<endl;
