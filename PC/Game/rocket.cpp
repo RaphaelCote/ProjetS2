@@ -31,3 +31,7 @@ int Rocket::damageReceived(Character& character){
     cout << "L'ennemi a actuellement " <<character.getHealthPoint() << " points de vie. Il a ete frappe a une vitesse de " << Vf << " pixels/s a la position:";
     return directDamage;
 }
+int Rocket::getProjectileMaxSpeed()
+{
+    return rocketMaxSpeed;
+}

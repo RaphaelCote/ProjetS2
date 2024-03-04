@@ -18,6 +18,24 @@ Projectile::Projectile(Coordonnee bulletStartPosition)
     this->bulletStartPosition=bulletStartPosition;
 
 }
+float Projectile::getPuissance(){
+    return puissance;
+}
+void Projectile::setPuissance(float puissance){
+    this->puissance=puissance;
+}
+float Projectile::getAngleDegre(){
+    return angledeg;
+}
+void Projectile::setAngleDegre(float angledeg){
+    this->angledeg=angledeg;
+}
+Coordonnee Projectile::getbulletStartPosition(){
+    return bulletStartPosition;
+}
+void Projectile::setbulletStartPosition(Coordonnee bulletStartPosition){
+    this->bulletStartPosition=bulletStartPosition;
+}
 
 int Projectile::findBulletPositionY(int positionX)
 {

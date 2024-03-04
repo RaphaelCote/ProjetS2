@@ -2,6 +2,7 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 #include "utility.h"
+#include "shield.h"
 // #include "projectile.h"
 #include <iostream>
 
@@ -20,6 +21,7 @@ public:
     virtual void setWeaponPosition(Coordonnee WeaponPosition) = 0;
     int getHitboxWidth();
     int getHitboxHeight();
+    void applyShield(Shield& shield);
 
     virtual float Aim(float angle);
     void ShowInfo();
@@ -29,6 +31,7 @@ protected:
     Coordonnee position;
     Coordonnee WeaponPosition;
     Hitbox hitbox;
+    Shield shield;
 };
 
 #endif

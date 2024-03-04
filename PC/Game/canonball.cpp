@@ -32,3 +32,9 @@ int Canonball::damageReceived(Character& character){
     cout << "La cible a actuellement " <<character.getHealthPoint() << " points de vie. Il a ete frappe a une vitesse de " << Vf << " pixels/s a la position:";
     return directDamage;
 }
+
+
+int Canonball:: getProjectileMaxSpeed() 
+{
+    return canonballMaxSpeed;
+}

@@ -19,24 +19,12 @@ class Projectile {
                 Projectile(Character& character);
                 Projectile(Coordonnee bulletStartPosition);
         
-                float getPuissance(){
-                        return puissance;
-                }
-                void setPuissance(float puissance){
-                        this->puissance=puissance;
-                }
-                float getAngleDegre(){
-                        return angledeg;
-                }
-                void setAngleDegre(float angledeg){
-                        this->angledeg=angledeg;
-                }
-                Coordonnee getbulletStartPosition(){
-                        return bulletStartPosition;
-                }
-                void setbulletStartPosition(Coordonnee bulletStartPosition){
-                        this->bulletStartPosition=bulletStartPosition;
-                }
+                float getPuissance();
+                void setPuissance(float puissance);
+                float getAngleDegre();
+                void setAngleDegre(float angledeg);
+                Coordonnee getbulletStartPosition();
+                void setbulletStartPosition(Coordonnee bulletStartPosition);
                 Coordonnee getBulletEndPosition();
                 virtual int getProjectileMaxSpeed() = 0;
 

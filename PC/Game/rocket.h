@@ -13,8 +13,6 @@ class Rocket: public Projectile{
 
         int damageReceived(Character& character) override;
         
-        int getProjectileMaxSpeed() override {
-            return rocketMaxSpeed;
-        }
+        int getProjectileMaxSpeed();
 };
 #endif
