@@ -37,6 +37,26 @@ void Projectile::setbulletStartPosition(Coordonnee bulletStartPosition){
     this->bulletStartPosition=bulletStartPosition;
 }
 
+int Projectile::findBulletPositionYTime(float time)
+{
+    //une grenade explose après 3 secondes donc entré 3 sec en paramètre
+    rad=angledeg*PI/180;
+    cout<<"radian: "<<rad<<endl;
+    V0=puissance*getProjectileMaxSpeed();
+    cout<<"V0 :"<<V0<<endl;
+    float num= pow((g*time +V0*sin(rad)),2)- pow((V0*sin(rad)),2);
+    float denum =2.0f*g;
+    int positionfinaleY= round(num/denum+ bulletStartPosition.y);
+    cout<<"Position finale y avant condition: "<<positionfinaleY<<endl;
+    if(positionfinaleY<100) 
+    {
+        positionfinaleY=100;
+    }
+    cout<<"Position finale y apres condition: "<<positionfinaleY<<endl;
+        
+    return positionfinaleY;
+    
+}
 int Projectile::findBulletPositionY(int positionX)
 {
     V0=puissance*getProjectileMaxSpeed();
@@ -97,16 +117,20 @@ int Projectile::findBulletPositionX(int positionY)
 bool Projectile::checkIfCharacterHit(Character& character)
 {
 
-    //vérifier si c'est un friendly ou un ennemie
+    
     Coordonnee characterPosition =character.getPosition();
+    //on sait que c'est l'ennemie qui se fait tirer dessus
     if(angledeg>0)
     {
         if(findBulletPositionX(characterPosition.y)<characterPosition.x && findBulletPositionY(characterPosition.x) < characterPosition.y){
         //on sait qu'il n'a pas toucher directement l'ennemie
         //pour les coordonnées de la balle, ce sera a changé éventuellement (vérifier si cela a touché bateau ou l'eau)
             //cout<<"Premier if angle positif"<<endl;
+
+            //il va falloir modifier cette condition (si elle touche le bateau ou non)
             bulletEndPosition.x=findBulletPositionX(characterPosition.y);
             bulletEndPosition.y=characterPosition.y;
+            damageReceived(character);
             return false;
         }
         else if(findBulletPositionY(characterPosition.x)<=(characterPosition.y+character.getHitboxHeight()))    
@@ -122,8 +146,11 @@ bool Projectile::checkIfCharacterHit(Character& character)
         {   //on sait qu'il ne touchera pas l'ennemie directement (passer par dessus l'ennemie)
             //pour les coordonnées de la balle, ce sera a changé éventuellement (vérifier si cela a touché bateau ou l'eau)
             //cout<<"Deuxième else if angle positif"<<endl;
+            
+            //il va falloir modifier cette condition (si elle touche le bateau ou non)
             bulletEndPosition.x=findBulletPositionX(characterPosition.y);
             bulletEndPosition.y=characterPosition.y;
+            damageReceived(character);
             return false;
         }
         else if(findBulletPositionY(characterPosition.x+character.getHitboxWidth())==(characterPosition.y+character.getHitboxHeight()))
