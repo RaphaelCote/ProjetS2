@@ -24,6 +24,14 @@ float PlayerCharacter:: Aim(float angledeg){
     return rad;
 
 }
+Coordonnee PlayerCharacter::getWeaponPosition()
+{
+    return WeaponPosition;
+}
+void PlayerCharacter::setWeaponPosition(Coordonnee WeaponPosition)
+{
+    this->WeaponPosition=WeaponPosition;
+}
 
 
 

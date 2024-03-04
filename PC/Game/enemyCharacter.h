@@ -14,17 +14,10 @@ class EnemyCharacter : public Character
         void enemyShoot(Projectile* projectile);
         //void playerShoot(Projectile* projectile);
 
-        Coordonnee getPosition(){
-            return position;
-        }
-        Coordonnee getWeaponPosition() override{
-            return WeaponPosition;
-        }
+        Coordonnee getPosition();
+        Coordonnee getWeaponPosition() override;
         //Projectile EnemyShoot(Projectile* projectile);
-        void setWeaponPosition(Coordonnee weaponPosition) override
-        {
-            this->WeaponPosition=weaponPosition;
-        }
+        void setWeaponPosition(Coordonnee weaponPosition) override;
         Projectile* createEnemyProjectile();
     private:
         Coordonnee WeaponPosition;

@@ -14,8 +14,6 @@ class Grenade : public Projectile{
         Grenade(Coordonnee positionInitialeTir):Projectile( positionInitialeTir){}
         int damageReceived(Character& character) override;
         
-        int getProjectileMaxSpeed() override{
-            return grenadeMaxSpeed;
-        }
+        int getProjectileMaxSpeed() override;
 };
 #endif
