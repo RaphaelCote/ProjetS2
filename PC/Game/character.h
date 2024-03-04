@@ -21,11 +21,7 @@ public:
     virtual void setWeaponPosition(Coordonnee WeaponPosition) = 0;
     int getHitboxWidth();
     int getHitboxHeight();
-<<<<<<< HEAD
     void applyShield(Shield& shield);
-=======
-    Coordonnee* PointeurPosition();
->>>>>>> Branche-de-magouille(ur)
 
     virtual float Aim(float angle);
     void ShowInfo();

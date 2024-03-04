@@ -4,16 +4,13 @@
 #include "Controls/EventManager.h"
 #include "Controls/Controls.h"
 #include "tests.h"
-#include "Scenes/menu.h"
-#include "Scenes/game.h"
-#include "vecteur.h"
-#include "./Scenes/scene.h"
+#include "Menus/menu.h"
+#include "game/game.h"
 
 extern EventManager *eventManager;
 extern Controls *controls;
 extern Tests *tests;
-extern Menu *activeMenu;
+extern Menu *menu;
 extern Game *game;
-Vecteur<Scene *> *scenes;
 
 #endif

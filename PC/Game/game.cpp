@@ -2,9 +2,10 @@
 
 #include "game.h"
 #include "../raftWars.h"
-#include "../Game/rocket.h"
-#include "../Game/canonball.h"
-#include "../Game/enemyCharacter.h"
+#include "../raftWars.h"
+#include "rocket.h"
+#include "canonball.h"
+#include "enemyCharacter.h"
 
 /*Méthodes*/
 /*Constructeur (État Initial)*/
@@ -128,6 +129,7 @@ void Game::PauseGame()
     isPause = true;
     while (isPause)
     {
+        menu->menuController(1);
     }
 }
 

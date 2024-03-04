@@ -3,8 +3,8 @@
 
 #include <iostream>
 #include "../vecteur.h"
-#include "../Game/niveau.h"
-#include "../Game/projectile.h"
+#include "niveau.h"
+#include "projectile.h"
 #include "../controls/EventParameters.h"
 
 using namespace std;
