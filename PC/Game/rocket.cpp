@@ -22,7 +22,7 @@ int Rocket::damageReceived(Character& character){
         cout<<"L'ennemi a ete touche a la tete!"<<endl;
     }
     int directDamage= round(Vf/rocketMaxSpeed*D);
-    //if(character)
+    
     character.setHealthPoint(character.getHealthPoint()-directDamage);
     if(character.getHealthPoint()<=0)
     {
