@@ -122,7 +122,7 @@ void loop()
 
   // potValue = analogRead(pinPOT);
   // //Serial.println(potValue);          // debug
-  delay(1000);  // delais de 10 ms
+  //delay(1000);  // delais de 10 ms
 }
 
 void MainAffichage()
@@ -549,6 +549,7 @@ void SetupJson()
 void readPC()
 {
   int ledvalue;
+  comPC.readMsg();
   
   if (comPC.GetValue("led", &ledvalue)) {
     // mettre la led a la valeur doc["led"]
