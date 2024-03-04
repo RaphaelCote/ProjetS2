@@ -1,7 +1,7 @@
 #include "Boat.h"
 #include "character.h"
 
-Boat::Boat(int n,int posx, int posy)
+Boat::Boat(int n, int posx, int posy)
 {
     nbCharacters = 0;
     capacite = n;
@@ -9,7 +9,7 @@ Boat::Boat(int n,int posx, int posy)
     positionBoat.y = posy;
 }
 
-int Boat::getNbCharacters()  // pour vérifier s'il reste des personnages vivants
+int Boat::getNbCharacters() // pour vérifier s'il reste des personnages vivants
 {
     return characters.getSize();
 }
@@ -24,67 +24,26 @@ Coordonnee Boat::getPositionBoat()
     return positionBoat;
 }
 
-bool Boat::addCharacter(Character* characterAdded) // pour initialiser le jeu: créer les personnages
+bool Boat::addCharacter(Character *characterAdded) // pour initialiser le jeu: créer les personnages
 {
-    
-    addPosition(characterAdded->PointeurPosition());
     nbCharacters++;
     return characters.add(characterAdded);
 }
 
-bool Boat::addPosition(Coordonnee* positionAdded)
-{
-    return characterPositions.add(positionAdded);
-}
-
 bool Boat::removeCharacters(int index) // retirer les personnages lorsqu'ils sont morts
 {
-    removePosition(index);
     nbCharacters--;
     return characters.remove(index);
-
 }
 
-bool Boat::removePosition(int index)
+void Boat::ShowInfo(ostream &s)
 {
-    return characterPositions.remove(index);
-}
+    s << "Position du bateau : (" << positionBoat.x << "," << positionBoat.y << ")" << endl;
 
-void Boat::affichageJoueur(ostream & s) // affichage pour les joueurs 
-{
-	s << "position boat j : (" << positionBoat.x << "," << positionBoat.y << ")"<<endl;
-    
-    s << "Il vous reste " << nbCharacters << " joueurs." << endl;
-    
-    if (nbCharacters == 0){
-        s << "GAME OVER" << endl;
-    }
-
-    else{
-        for (int i = 0; i < nbCharacters; i++){
-            Coordonnee *c =characterPositions[i];
-            s << "La position du joueur " << i+1 << " est (" << c->x << "," << c->y << ")." << endl;
-        }
-    }  
-}
-
-void Boat::affichageAdversaire(ostream & s) // affichage pour les joueurs
-{
-    	s << "position boat a : (" << positionBoat.x << "," << positionBoat.y << ")"<<endl;
-    s << "Il vous reste " << nbCharacters << " adversaires" << endl;
-    
-    if (nbCharacters == 0){
-        s << "Bravo!!!" << endl;
-    }
-
-    else{
-        // pour l'audit 1
-        for (int i = 0; i < nbCharacters; i++){
-            Coordonnee *c =characterPositions[i];
-            s << "La position de l'adversaire " << i+1 << " est (" << c->x << "," << c->y << ")." << endl;
-        }
-        // *****
-        s << "Essayer de nouveau" << endl;
+    for (int i = 0; i < characters.getSize(); i++)
+    {
+        s << "Personnage " << i + 1 << " :" << endl;
+        characters[i]->ShowInfo();
     }
 }
 
