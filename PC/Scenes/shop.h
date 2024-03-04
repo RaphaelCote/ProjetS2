@@ -30,7 +30,7 @@ private:
     int lastActiveMenu = 0;
     int nbRoquettes = 0;
     int nbGrenades = 0;
-    int nbArmor = 0;
+    int nbShield = 0;
     int money = 0;
 };
 

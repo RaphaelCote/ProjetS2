@@ -20,13 +20,13 @@ void shop::afficherShop()
         cout << "BOUTIQUE" << endl;
         cout << "-" << (choix == 0 ? "O" : "-") << "- Acheter une roquette : 100$" << endl;
         cout << "-" << (choix == 1 ? "O" : "-") << "- Acheter une grenade : 150$" << endl;
-        cout << "-" << (choix > 1 ? "O" : "-") << "- Acheter une armure : 100$" << endl;
+        cout << "-" << (choix > 1 ? "O" : "-") << "- Acheter une protetion : 100$" << endl;
         cout << "-------------------------------------------------------------------" << endl;
         cout << "-------------------------------------------------------------------" << endl;
         cout << "INVENTAIRE" << endl;
         cout << "Roquettes :" << nbRoquettes << endl;
         cout << "Grenades :" << nbGrenades << endl;
-        cout << "Armures :" << nbArmor << endl;
+        cout << "Armures :" << nbShield << endl;
         cout << "-------------------------------------------------------------------" << endl;
         cout << "Veuillez entrer votre selection :";
         cin >> choix;
@@ -52,7 +52,7 @@ void shop::selectionShop()
         }
         else if (choix > 1)
         {
-            nbArmor++;
+            nbShield++;
             money = money-100;
        
         }
