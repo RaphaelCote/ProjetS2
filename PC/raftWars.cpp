@@ -21,6 +21,7 @@ using json = nlohmann::json;
 #include "Controls/keyboardControls.h"
 #include "tests.h"
 #include "Scenes/menu.h"
+#include "Scenes/mainMenu.h"
 
 /*------------------------------ Constantes ---------------------------------*/
 #define BAUD 9600         // Frequence de transmission serielle
@@ -37,9 +38,17 @@ SerialPort *arduino; // doit etre un objet global!
 EventManager *eventManager;
 Tests *tests;
 Controls *controls;
-Menu *activeMenu;
-Game *game;
 Vecteur<Scene *> *scenes;
+int activeScene;
+/*
+Scenes index:
+0 : Main menu
+1 : Game
+2 : Level Selection menu
+3 : End game menu
+4 : Pause menu
+5 : Shop
+*/
 
 /*----------------------------- Fonction "Main" -----------------------------*/
 int main()
@@ -51,7 +60,16 @@ int main()
     tests = new Tests();
     // tests->tests_unitaires();
 
-    game = new Game();
+    activeScene = 1;
+
+    scenes = new Vecteur<Scene *>;
+    scenes->add(new MainMenu());
+    scenes->add(new Game());
+
+    while (true)
+    {
+        scenes->get(activeScene)->Update();
+    }
 
     return 0;
 

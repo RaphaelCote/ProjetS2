@@ -6,14 +6,16 @@
 #include "../Game/niveau.h"
 #include "../Game/projectile.h"
 #include "../controls/EventParameters.h"
+#include "scene.h"
 
 using namespace std;
 
-class Game
+class Game : public Scene
 {
 private:
-    bool isActive;
+    bool isPause;
     int turn;
+    int oldLevel;
     bool isPlayerTurn;
     int projectileType;
     Projectile *projectile;
@@ -22,7 +24,6 @@ private:
     /*ne pas oublier d'inclure vecteur et le const (si nécessaire)*/
 public:
     int currentLevel;
-    bool isPause;
     Vecteur<Niveau *> levels;
     Game();
 
@@ -40,15 +41,13 @@ public:
     void OnDisable();
     void OnEnable();
 
+    void Update();
     bool CreateLevels();
-    bool PlayGame();
-    void PauseGame();
-    bool NextLevel();
-    bool EndGame();
     void PlayTurn();
     void PlayerShoot();
-    bool CheckWinCondition();
-    bool CheckLoseCondition();
+    void PauseGame();
+    void EndGame();
+    bool CheckEndCondition();
     void ShowGameInfo();
 };
 
