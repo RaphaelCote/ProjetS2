@@ -30,7 +30,7 @@ bool ControllerControls::SendToSerial()
 {
     // Return 0 if error
     string msg = message_to_send.dump();
-    cout << "Message: " << msg << endl;
+    //cout << "Message: " << msg << endl;
     bool ret = arduino->writeSerialPort(msg.c_str(), msg.length());
     message_to_send.clear();
     messageReceived.clear(); // effacer le message precedent

@@ -117,7 +117,7 @@ void loop()
     readPC();
     SetupJson();
     comPC.shouldRead_ = false;
-    Serial.flush();
+    //Serial.flush();
   }
 
   // potValue = analogRead(pinPOT);
@@ -540,8 +540,8 @@ void SetupJson()
   comPC.AddMessage("B5", b5.Update());
 
   Acc.GetX(&val1);
-  fal1 = map(val1, 250, 400, 0, 1200);
-  comPC.AddMessage("Angle", fal1/100.0f);//map 0 a 359
+  fal1 = map(val1, 425, 285, -900, 900);
+  comPC.AddMessage("Angle", fal1/10.0f);//map 0 a 359
 
   comPC.sendMsg();
 }
