@@ -11,10 +11,7 @@ class Canonball : public Projectile{
     public:
         Canonball(Character& character):Projectile(character) {}
         Canonball(Coordonnee positionInitialeTir):Projectile( positionInitialeTir){}
-        
         int getProjectileMaxSpeed() override;
-        
-
         int damageReceived(Character& character) override;
 };
 
