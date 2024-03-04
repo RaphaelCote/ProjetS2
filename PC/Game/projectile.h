@@ -9,9 +9,9 @@
 #include "utility.h"
 #include "character.h"
 
-const double g=-1000;
+const float g=-1000;
 
-#define PI 3.14159265358979323846
+const double  PI = 3.14159265358979323846;
 
 class Projectile {
 
@@ -42,6 +42,7 @@ class Projectile {
         
         int findBulletPositionX(int positionY);
         int findBulletPositionY(int positionX);
+        int findBulletPositionYTime(float time);
 };
 
 #endif

@@ -11,7 +11,7 @@ class Shield
         void setShieldPoint(int shieldpoint);
 
     private:
-        int shieldLevel;
+        int shieldLevel;// pense pas que cv être géré là finalement 
         int shieldPoint;
    
 };

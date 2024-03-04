@@ -45,17 +45,18 @@ Game *game;
 int main()
 {
     // === Event manager tests ===
-    eventManager = new EventManager();
-    controls = new KeyboardControls(eventManager);
+    // eventManager = new EventManager();
+    // controls = new KeyboardControls(eventManager);
 
+    
+    // game = new Game();
+
+    // menu = new Menu();
+
+    // menu->menuController(0);
     tests = new Tests();
-    // tests->tests_unitaires();
+    tests->test_unitaire_characterAndprojectile();
 
-    game = new Game();
-
-    menu = new Menu();
-
-    menu->menuController(0);
 
     return 0;
 
