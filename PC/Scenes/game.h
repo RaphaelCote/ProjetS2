@@ -13,7 +13,6 @@ class Game
 {
 private:
     bool isActive;
-    int currentLevel;
     int turn;
     bool isPlayerTurn;
     int projectileType;
@@ -22,6 +21,7 @@ private:
     /*PERSONNAGE 1 ET PERSONNAGE 2*/
     /*ne pas oublier d'inclure vecteur et le const (si nécessaire)*/
 public:
+    int currentLevel;
     bool isPause;
     Vecteur<Niveau *> levels;
     Game();

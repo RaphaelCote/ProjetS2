@@ -75,3 +75,30 @@ void MainMenu::Selection()
         exit(0);
     }
 }
+
+void MainMenu::Update()
+{
+    ShowMenu();
+}
+
+void MainMenu::PlayGame()
+{
+    game->PlayGame();
+}
+
+void MainMenu::GotoLevelSelect()
+{
+    LevelSelectionMenu *lsm = (LevelSelectionMenu *)scenes->get(2);
+    lsm->lastMenu = 0; 
+    // sélectionner le bon index dans scenes 
+}
+
+void MainMenu::GotoShop()
+{
+    // sélectionner le bon index dans scenes
+}
+
+void MainMenu::ExitGame()
+{
+    exit(0);
+}
