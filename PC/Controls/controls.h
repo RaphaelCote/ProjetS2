@@ -16,6 +16,9 @@ public:
     // Pour faire des vrais contrôles (keyboard, manette), il faut juste implémenter cette méthode
     // qui va écouter pour des contrôles (touches, boutons) et appeler la bonne action à exécuter
     virtual void ListenForControls();
+    virtual void AddMessage(string name, int value){}
+    virtual bool SendMessageJson(){return true;}
+
 
     // Actions
     void MainAction();

@@ -12,6 +12,7 @@
 #include "Accelerometre.h"
 #include "Moteur.h"
 #include "Bargraphe.h"
+#include "ComJson.h"
 
 /*------------------------------ Constantes ---------------------------------*/
 
@@ -41,6 +42,8 @@ Boutton b2(35);
 Boutton b3(36);
 Boutton b4(37);
 Boutton b5(38);
+
+ComJson comPC(BAUD);
 
 int positionMenu = 0;
 int oldPositionMenu = -1;
@@ -91,6 +94,8 @@ void AfficheValDec(int val, int x, int y);
 void sendMsg(); 
 void readMsg();
 void serialEvent();
+void SetupJson();
+void readPC();
 /*---------------------------- Fonctions "Main" -----------------------------*/
 
 void setup() {
@@ -105,15 +110,19 @@ void setup() {
 void loop() 
 {
   MainAffichage();
+
   
-  // if(shouldRead_){
-  //   readMsg();
-  //   sendMsg();
-  // }
+  
+  if(comPC.shouldRead_){
+    readPC();
+    SetupJson();
+    comPC.shouldRead_ = false;
+    Serial.flush();
+  }
 
   // potValue = analogRead(pinPOT);
   // //Serial.println(potValue);          // debug
-  // delay(10);  // delais de 10 ms
+  delay(1000);  // delais de 10 ms
 }
 
 void MainAffichage()
@@ -499,7 +508,11 @@ void AfficheValDec(int val, int xValue, int yValue)
 
 /*---------------------------Definition de fonctions ------------------------*/
 
-void serialEvent() { shouldRead_ = true; }
+void serialEvent() 
+{
+  //Serial.println("NNNNNNNNNNNNNNNNNNNNNNEEEEEEEEEEEEEEEEEEEEEEEEEEEWWWWWWWWWWWWWWWWWWWWW DDDDDDDDDDDDAAAAAAAAAAAATTTTTTTTTTTAAAAAAAAAAA");
+   comPC.shouldRead_ = true; 
+}
 
 
 /*---------------------------Definition de fonctions ------------------------
@@ -508,65 +521,39 @@ Entrée : Aucun
 Sortie : Aucun
 Traitement : Envoi du message
 -----------------------------------------------------------------------------*/
-void sendMsg() {
-
-  if(!shouldSend_)
-    return;
 
 
-  StaticJsonDocument<500> doc;
-  // Elements du message
-  doc["time"] = millis();
-
+void SetupJson()
+{
+  comPC.AddMessage("time", millis());
   int val1, val2;
   joystick.GetAll(&val1, &val2);
+  float fal1 = map(val1, 0, 1023, -100, 100);
+  float fal2 = map(val2, 0, 1023, -100, 100);
+  comPC.AddMessage("JoyX", fal1/100.0f);//map -1 a 1
+  comPC.AddMessage("JoyY", fal2/100.0f);//map -1 a 1
 
-  doc["JoyX"] = val1;//map -1 a 1
-  doc["JoyY"] = val2;//map -1 a 1
-
-  doc["B1"] = b1.Update();
-  doc["B2"] = b2.Update();
-  doc["B3"] = b3.Update();
-  doc["B4"] = b4.Update();
-  doc["B5"] = b5.Update();
+  comPC.AddMessage("B1", b1.Update());
+  comPC.AddMessage("B2", b2.Update());
+  comPC.AddMessage("B3", b3.Update());
+  comPC.AddMessage("B4", b4.Update());
+  comPC.AddMessage("B5", b5.Update());
 
   Acc.GetX(&val1);
-  doc["Angle"] = val1;//map 0 a 359
+  fal1 = map(val1, 250, 400, 0, 1200);
+  comPC.AddMessage("Angle", fal1/100.0f);//map 0 a 359
 
-
-  // Serialisation
-  serializeJson(doc, Serial);
-
-  shouldSend_ = false;
+  comPC.sendMsg();
 }
 
-/*---------------------------Definition de fonctions ------------------------
-Fonction de reception
-Entrée : Aucun
-Sortie : Aucun
-Traitement : Réception du message
------------------------------------------------------------------------------*/
-void readMsg(){
-  // Lecture du message Json
-  StaticJsonDocument<500> doc;
-  JsonVariant parse_msg;
-
-  // Lecture sur le port Seriel
-  DeserializationError error = deserializeJson(doc, Serial);
-  shouldRead_ = false;
-
-  // Si erreur dans le message
-  if (error) {
-    
-    Serial.print("deserialize() failed: ");
-    Serial.println(error.c_str());
-    return;
-  }
+void readPC()
+{
+  int ledvalue;
   
-  // Analyse des éléments du message message
-  parse_msg = doc["led"];
-  if (!parse_msg.isNull()) {
+  if (comPC.GetValue("led", &ledvalue)) {
     // mettre la led a la valeur doc["led"]
-    digitalWrite(pinLED,doc["led"].as<bool>());
+    Bar.AllumeBits(ledvalue);
   }
 }
+
+
