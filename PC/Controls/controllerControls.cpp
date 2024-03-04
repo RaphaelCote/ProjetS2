@@ -38,7 +38,7 @@ bool ControllerControls::SendToSerial()
     {
         cerr << "Erreur lors de la reception du message. " << endl;
     }
-
+    //cout << "Message de l'Arduino: " << raw_msg << endl;
     // Impression du message de l'Arduino si valide
     if (raw_msg.size() > 0)
     {
