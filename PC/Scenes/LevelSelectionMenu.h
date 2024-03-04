@@ -16,4 +16,4 @@ public:
     int lastMenu;
 };
 
-#endif 
+#endif

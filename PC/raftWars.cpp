@@ -22,6 +22,9 @@ using json = nlohmann::json;
 #include "tests.h"
 #include "Scenes/menu.h"
 #include "Scenes/mainMenu.h"
+#include "Scenes/pauseMenu.h"
+#include "Scenes/endGameMenu.h"
+#include "Scenes/levelSelectionMenu.h"
 
 /*------------------------------ Constantes ---------------------------------*/
 #define BAUD 9600         // Frequence de transmission serielle
@@ -60,11 +63,15 @@ int main()
     tests = new Tests();
     // tests->tests_unitaires();
 
-    activeScene = 1;
+    activeScene = 0;
 
     scenes = new Vecteur<Scene *>;
     scenes->add(new MainMenu());
     scenes->add(new Game());
+    // scenes->add(new LevelSelectionMenu());
+    // scenes->add(new EndGameMenu());
+    // scenes->add(new Pause());
+    // scenes->add(new Shop());
 
     while (true)
     {
