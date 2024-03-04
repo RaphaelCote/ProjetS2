@@ -97,8 +97,8 @@ void MainMenu::PlayGame()
 void MainMenu::GotoLevelSelect()
 {
     LevelSelectionMenu *lsm = (LevelSelectionMenu *)scenes->get(2);
-    lsm->lastMenu = 0; 
-    // sélectionner le bon index dans scenes 
+    lsm->lastMenu = 0;
+    // sélectionner le bon index dans scenes
 }
 
 void MainMenu::GotoShop()
