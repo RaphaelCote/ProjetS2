@@ -20,13 +20,17 @@ void shop::afficherShop()
         cout << "BOUTIQUE" << endl;
         cout << "-" << (choix == 0 ? "O" : "-") << "- Acheter une roquette : 100$" << endl;
         cout << "-" << (choix == 1 ? "O" : "-") << "- Acheter une grenade : 150$" << endl;
-        cout << "-" << (choix > 1 ? "O" : "-") << "- Acheter une protetion : 100$" << endl;
+        cout << "-" << (choix == 2 ? "O" : "-") << "- Acheter une petite armure : 100$" << endl;
+        cout << "-" << (choix == 3 ? "O" : "-") << "- Acheter une moyenne armure : 250$" << endl;
+        cout << "-" << (choix == 4 ? "O" : "-") << "- Acheter une grande armure : 500$" << endl;
         cout << "-------------------------------------------------------------------" << endl;
         cout << "-------------------------------------------------------------------" << endl;
         cout << "INVENTAIRE" << endl;
         cout << "Roquettes :" << nbRoquettes << endl;
         cout << "Grenades :" << nbGrenades << endl;
-        cout << "Armures :" << nbShield << endl;
+        cout << "Petites armures : " << nbLittleShield << endl;
+        cout << "Moyennes armures : " << nbMidShield << endl;
+        cout << "Grandes armures : " << nbBigShield << endl;
         cout << "-------------------------------------------------------------------" << endl;
         cout << "Veuillez entrer votre selection :";
         cin >> choix;
@@ -34,28 +38,41 @@ void shop::afficherShop()
 
 void shop::selectionShop()
 {
-     if (choix == 0)
-        {
-            nbRoquettes++;
-            money = money - 100;
-
-                OnDisable();
-              
-        }
+    if (choix == 0)
+    {
+        nbRoquettes++;
+        money = money - 100;
+        OnDisable();
+    }
     else if (choix == 1)
-        {
-            nbGrenades++;
-            money = money - 150;
+    {
+        nbGrenades++;
+        money = money - 150;
+        OnDisable();
+    }
+    else if (choix > 1)
+    {
+        int cost = 0;
 
-                OnDisable();
-              
-        }
-        else if (choix > 1)
+        
+        if (choix == 2)
         {
-            nbShield++;
-            money = money-100;
-       
+            nbLittleShield++;
+            cost = 100;
         }
+        else if (choix == 3)
+        {
+            nbMidShield++;
+            cost = 250;
+        }
+        else if (choix == 4)
+        {
+            nbBigShield++;
+            cost = 500;
+        }
+
+        money = money - cost;
+    }
 }
 
 void shop::afficherInventaire()
