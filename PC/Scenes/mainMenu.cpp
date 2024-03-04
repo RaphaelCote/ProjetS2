@@ -9,12 +9,12 @@
 void OnMainMenuMainActionCall(EventParameters ep)
 {
 
-    activeMenu->Selection();
+    // activeMenu->Selection();
 }
 
 void OnMainMenuJoystickCall(EventParameters ep)
 {
-    activeMenu->changeSelection(ep);
+    // activeMenu->changeSelection(ep);
 }
 
 void MainMenu::OnEnable()
@@ -27,6 +27,15 @@ void MainMenu::OnDisable()
 {
     eventManager->off("MainAction", OnMainMenuMainActionCall);
     eventManager->off("Joystick", OnMainMenuJoystickCall);
+}
+
+MainMenu::MainMenu()
+{
+}
+
+void MainMenu::Update()
+{
+    ShowMenu();
 }
 
 void MainMenu::changeSelection(EventParameters ep)
@@ -64,7 +73,6 @@ void MainMenu::Selection()
 
         system("cls"); // clear la command prompt
         OnDisable();
-        game->PlayGame();
     }
     else if (choice >= 1)
     {

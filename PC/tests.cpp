@@ -2,7 +2,7 @@
 
 #include "tests.h"
 #include "Game/niveau.h"
-#include "Game/game.h"
+#include "Scenes/game.h"
 #include "raftWars.h"
 #include "Game/enemyCharacter.h"
 
