@@ -12,8 +12,6 @@ public:
     Scene();
     ~Scene();
     virtual void Update() = 0;
-
-private:
 };
 
 #endif

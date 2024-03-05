@@ -15,7 +15,7 @@ public:
     Controls(EventManager *em);
     // Pour faire des vrais contrôles (keyboard, manette), il faut juste implémenter cette méthode
     // qui va écouter pour des contrôles (touches, boutons) et appeler la bonne action à exécuter
-    virtual void ListenForControls();
+    virtual void ListenForControls() = 0;
 
     // Actions
     void MainAction();

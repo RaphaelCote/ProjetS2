@@ -10,19 +10,18 @@ using namespace std;
 class EndGameMenu : public Menu
 {
 public:
-    EndGameMenu();
-
     friend void OnEndGameMenuMainActionCall(EventParameters);
     friend void OnEndGameMenuJoystickCall(EventParameters);
 
     void OnEnable();
     void OnDisable();
 
+    EndGameMenu();
     void changeSelection(EventParameters ep);
+    void Update();
     void ShowMenu();
     void Selection();
 
-    void Update();
     void NextLevel();
     void GotoShop();
     void GotoLevelSelect();

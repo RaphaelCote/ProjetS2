@@ -19,10 +19,10 @@ public:
 
     LevelSelectionMenu();
     void changeSelection(EventParameters ep);
+    void Update();
     void ShowMenu();
     void Selection();
 
-    void Update();
     void SelectLevel(int level);
     void Back();
 };
