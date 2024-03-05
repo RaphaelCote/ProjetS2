@@ -12,28 +12,25 @@ class shop : public Menu
 {
 
 public:
-    shop();
-    friend void OnShopActionCall(EventParameters);
+    friend void OnShopMainActionCall(EventParameters);
     friend void OnShopJoystickCall(EventParameters);
 
     void OnEnable();
     void OnDisable();
 
+    shop();
     void changeSelection(EventParameters ep);
-    void menuController(int menu);
-    void afficherShop();
-    void selectionShop();
-    void afficherInventaire();
+    void Update();
+    void ShowMenu();
+    void Selection();
 
 private:
-    int choix = 0;
-    int lastActiveMenu = 0;
     int nbRoquettes = 0;
     int nbGrenades = 0;
     int nbShield = 0;
-    int nbLittleShield=0;
-    int nbMidShield=0;
-    int nbBigShield=0;
+    int nbLittleShield = 0;
+    int nbMidShield = 0;
+    int nbBigShield = 0;
     int money = 0;
 };
 
