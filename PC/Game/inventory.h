@@ -1,21 +1,43 @@
 #ifndef INVENTORY_H
 #define INVENTORY_H
-#include "Scenes/shopMenu.h"
+#include "../Scenes/shopMenu.h"
 #include <iostream>
 
 using namespace std;
+#define PrixPetitShield 200
+#define PrixMoyenShield 300
+#define PrixGrosShield 500
+#define PrixRocket 100
+#define PrixGrenade 200
+
 
 class Inventory: public ShopMenu
 {
     public:
+        Inventory();
+
+        int getGold();
+        void addGold(int Gold);
+        void removeGold(int Gold);
+
+        int getRockets();
+        void addRockets();
+        void removeRockets();
+        
+        int getShield();
+        void setShield(int Shield);
+        void addShield(int level);
+        
+        int getGrenade();
+        void addGrenade();
+        void removeGrenade();
+        
+
     private:
-        int nbRoquettes = 0;
-        int nbGrenades = 0;
-        int nbShield = 0;
-        int nbLittleShield = 0;
-        int nbMidShield = 0;
-        int nbBigShield = 0;
-        int money = 0;
+        int nbRockets;
+        int nbGrenades;
+        int shield;
+        int gold;
 };
 
 #endif

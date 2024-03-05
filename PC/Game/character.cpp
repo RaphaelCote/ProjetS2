@@ -8,7 +8,6 @@ Character::Character(int posx, int posy)
 
     this->hitbox.height = 100; // px
     this->hitbox.width = 100;  // px
-    shield.setShieldPoint(0);
 }
 
 Character::~Character() {}
@@ -32,10 +31,7 @@ int Character::getHitboxHeight()
 {
     return hitbox.height;
 }
-void Character::applyShield(Shield &shield)
-{
-    healthPoint += shield.getShieldPoint();
-}
+
 
 Coordonnee *Character::PointeurPosition()
 {
