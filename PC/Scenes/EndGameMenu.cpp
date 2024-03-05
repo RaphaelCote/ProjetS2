@@ -5,6 +5,7 @@
 #include "../raftWars.h"
 #include "../controls/EventManager.h"
 #include "../Controls/keyboardControls.h"
+#include "shopMenu.h"
 
 EndGameMenu::EndGameMenu()
 {
@@ -107,8 +108,8 @@ void EndGameMenu::NextLevel()
 void EndGameMenu::GotoShop()
 {
     choice = 0;
-    // ShopMenu *shop = (ShopMenu *)scenes->get(2);
-    // shop->lastMenu = 3;
+    ShopMenu *shop = (ShopMenu *)scenes->get(5);
+    shop->lastMenu = 3;
     activeScene = 5;
 }
 

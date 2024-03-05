@@ -9,7 +9,7 @@ using namespace std;
 class LevelSelectionMenu : public Menu
 {
 public:
-    LevelSelectionMenu();
+    int lastMenu = 0;
 
     friend void OnLevelSelectionMenuMainActionCall(EventParameters);
     friend void OnLevelSelectionMenuJoystickCall(EventParameters);
@@ -17,6 +17,7 @@ public:
     void OnEnable();
     void OnDisable();
 
+    LevelSelectionMenu();
     void changeSelection(EventParameters ep);
     void ShowMenu();
     void Selection();
@@ -24,7 +25,6 @@ public:
     void Update();
     void SelectLevel(int level);
     void Back();
-    int lastMenu;
 };
 
 #endif

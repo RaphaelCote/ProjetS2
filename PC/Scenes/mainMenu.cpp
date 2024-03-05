@@ -5,6 +5,7 @@
 #include "../raftWars.h"
 #include "../controls/EventManager.h"
 #include "LevelSelectionMenu.h"
+#include "shopMenu.h"
 
 void OnMainMenuMainActionCall(EventParameters ep)
 {
@@ -38,7 +39,7 @@ void MainMenu::changeSelection(EventParameters ep)
 {
     // Ajout de délai entre les changements de sélection de menu
     // à rajouter dans tout les menus
-    int millis = 0;
+    int millis = 600;
     if (millis < lastMove + 500)
     {
         return;
@@ -124,8 +125,8 @@ void MainMenu::GotoLevelSelect()
 void MainMenu::GotoShop()
 {
     choice = 0;
-    // ShopMenu *shop = (ShopMenu *)scenes->get(2);
-    // shop->lastMenu = 0;
+    ShopMenu *shop = (ShopMenu *)scenes->get(5);
+    shop->lastMenu = 0;
     activeScene = 5;
 }
 

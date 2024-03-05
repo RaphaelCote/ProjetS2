@@ -1,4 +1,4 @@
-#include "shop.h"
+#include "shopMenu.h"
 #include "../raftWars.h"
 #include "../controls/EventManager.h"
 
@@ -14,23 +14,23 @@ void OnShopJoystickCall(EventParameters ep)
     menu->changeSelection(ep);
 }
 
-void shop::OnEnable()
+void ShopMenu::OnEnable()
 {
     eventManager->on("MainAction", OnShopMainActionCall);
     eventManager->on("Joystick", OnShopJoystickCall);
 }
 
-void shop::OnDisable()
+void ShopMenu::OnDisable()
 {
     eventManager->off("MainAction", OnShopMainActionCall);
     eventManager->off("Joystick", OnShopJoystickCall);
 }
 
-shop::shop()
+ShopMenu::ShopMenu()
 {
 }
 
-void shop::changeSelection(EventParameters ep)
+void ShopMenu::changeSelection(EventParameters ep)
 {
     if (ep.parameter2 > 0.5)
     {
@@ -42,21 +42,21 @@ void shop::changeSelection(EventParameters ep)
     }
     else if (ep.parameter2 < -0.5)
     {
-        if (choice < 4)
+        if (choice < 5)
         {
             choice++;
         }
     }
 }
 
-void shop::Update()
+void ShopMenu::Update()
 {
     OnEnable();
     ShowMenu();
     controls->ListenForControls();
 }
 
-void shop::ShowMenu()
+void ShopMenu::ShowMenu()
 {
     system("cls");
     // récupérer les qté et les prix dans inventaire, afficher l'argent
@@ -67,6 +67,7 @@ void shop::ShowMenu()
     cout << "-" << (choice == 2 ? "O" : "-") << "- Acheter une petite armure : 100$" << endl;
     cout << "-" << (choice == 3 ? "O" : "-") << "- Acheter une moyenne armure : 250$" << endl;
     cout << "-" << (choice == 4 ? "O" : "-") << "- Acheter une grande armure : 500$" << endl;
+    cout << "-" << (choice == 5 ? "O" : "-") << "- Retour" << endl;
     cout << "-------------------------------------------------------------------" << endl;
     cout << "-------------------------------------------------------------------" << endl;
     cout << "INVENTAIRE" << endl;
@@ -78,7 +79,7 @@ void shop::ShowMenu()
     cout << "-------------------------------------------------------------------" << endl;
 }
 
-void shop::Selection()
+void ShopMenu::Selection()
 {
     // Vérifier si le joeur a assez d'argent
     if (choice == 0)
@@ -93,7 +94,7 @@ void shop::Selection()
         money = money - 150;
         OnDisable();
     }
-    else if (choice > 1)
+    else if (choice > 1 && choice < 5)
     {
         int cost = 0;
 
@@ -115,4 +116,15 @@ void shop::Selection()
 
         money = money - cost;
     }
+    else if (choice == 5)
+    {
+        OnDisable();
+        Back();
+    }
+}
+
+void ShopMenu::Back()
+{
+    choice = 0;
+    activeScene = lastMenu;
 }
