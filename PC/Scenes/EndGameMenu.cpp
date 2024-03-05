@@ -67,7 +67,8 @@ void EndGameMenu::ShowMenu()
     cout << "Fin du niveau" << endl;
     cout << "-" << (choice == 0 ? "O" : "-") << "- Prochain niveau" << endl;
     cout << "-" << (choice == 1 ? "O" : "-") << "- Selectionner un niveau" << endl;
-    cout << "-" << (choice == 2 ? "O" : "-") << "- Retour au menu" << endl;
+    cout << "-" << (choice == 2 ? "O" : "-") << "- Magasin" << endl;
+    cout << "-" << (choice == 3 ? "O" : "-") << "- Retour au menu" << endl;
     cout << "-------------------------------------------------------------------" << endl;
 }
 
@@ -86,6 +87,11 @@ void EndGameMenu::Selection()
     else if (choice == 2)
     {
         OnDisable();
+        GotoShop();
+    }
+    else if (choice == 3)
+    {
+        OnDisable();
         ReturnToMenu();
     }
 }
@@ -96,6 +102,14 @@ void EndGameMenu::NextLevel()
     Game *game = (Game *)scenes->get(2);
     game->currentLevel++;
     activeScene = 1;
+}
+
+void EndGameMenu::GotoShop()
+{
+    choice = 0;
+    // ShopMenu *shop = (ShopMenu *)scenes->get(2);
+    // shop->lastMenu = 3;
+    activeScene = 5;
 }
 
 void EndGameMenu::GotoLevelSelect()

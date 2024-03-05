@@ -24,6 +24,7 @@ public:
 
     void Update();
     void NextLevel();
+    void GotoShop();
     void GotoLevelSelect();
     void ReturnToMenu();
 };
