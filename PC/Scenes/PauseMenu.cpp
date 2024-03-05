@@ -86,11 +86,13 @@ void PauseMenu::Selection()
 
 void PauseMenu::Continu()
 {
+    choice = 0;
     activeScene = 1;
 }
 
 void PauseMenu::ReturnToMenu()
 {
+    choice = 0;
     Game *game = (Game *)scenes->get(1);
     game->StopGame();
     activeScene = 0;

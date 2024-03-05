@@ -102,11 +102,13 @@ void MainMenu::Selection()
 
 void MainMenu::PlayGame()
 {
+    choice = 0;
     activeScene = 1;
 }
 
 void MainMenu::GotoLevelSelect()
 {
+    choice = 0;
     LevelSelectionMenu *lsm = (LevelSelectionMenu *)scenes->get(2);
     lsm->lastMenu = 0;
     activeScene = 2;
@@ -114,6 +116,7 @@ void MainMenu::GotoLevelSelect()
 
 void MainMenu::GotoShop()
 {
+    choice = 0;
     activeScene = 5;
 }
 

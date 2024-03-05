@@ -86,7 +86,7 @@ void LevelSelectionMenu::Selection()
 
 void LevelSelectionMenu::SelectLevel(int level)
 {
-
+    choice = 0;
     system("cls");
     Game *game = (Game *)scenes->get(1);
     game->currentLevel == level;
@@ -95,5 +95,6 @@ void LevelSelectionMenu::SelectLevel(int level)
 
 void LevelSelectionMenu::Back()
 {
+    choice = 0;
     activeScene = lastMenu;
 }

@@ -92,15 +92,15 @@ void EndGameMenu::Selection()
 
 void EndGameMenu::NextLevel()
 {
-    Game *g = (Game *)scenes->get(2);
-    int level = g->currentLevel + 1;
-    LevelSelectionMenu *lsm = (LevelSelectionMenu *)scenes->get(2);
-    lsm->SelectLevel(level);
+    choice = 0;
+    Game *game = (Game *)scenes->get(2);
+    game->currentLevel++;
     activeScene = 1;
 }
 
 void EndGameMenu::GotoLevelSelect()
 {
+    choice = 0;
     LevelSelectionMenu *lsm = (LevelSelectionMenu *)scenes->get(2);
     lsm->lastMenu = 3;
     activeScene = 2;
@@ -108,5 +108,6 @@ void EndGameMenu::GotoLevelSelect()
 
 void EndGameMenu::ReturnToMenu()
 {
+    choice = 0;
     activeScene = 0;
 }
