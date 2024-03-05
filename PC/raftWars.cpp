@@ -17,7 +17,7 @@ using json = nlohmann::json;
 
 /*-------------------------- Other file include -----------------------------*/
 #include "raftWars.h"
-#include "Controls/EventManager.h"
+#include "Controls/eventManager.h"
 #include "Controls/keyboardControls.h"
 #include "tests.h"
 #include "Scenes/menu.h"

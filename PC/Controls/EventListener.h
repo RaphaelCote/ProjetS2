@@ -1,7 +1,7 @@
 #ifndef EVENTLISTENER_H
 #define EVENTLISTENER_H
 
-#include "EventParameters.h"
+#include "eventParameters.h"
 
 class EventListener
 {
