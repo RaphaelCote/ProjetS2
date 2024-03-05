@@ -6,7 +6,36 @@
 LevelSelectionMenu::LevelSelectionMenu()
 {}
 
-void LevelSelectionMenu::Update()
+void OnLevelSelectionMenuMainActionCall(EventParameters ep)
+{
+    Menu *menu = (Menu *)scenes->get(activeScene);
+    menu->Selection();
+}
+
+void OnLevelSelectionMenuJoystickCall(EventParameters ep)
+{
+    Menu *menu = (Menu *)scenes->get(activeScene);
+    menu->changeSelection(ep);
+}
+
+void LevelSelectionMenu::OnEnable()
+{
+    eventManager->on("MainAction", OnLevelSelectionMenuMainActionCall);
+    eventManager->on("Joystick", OnLevelSelectionMenuJoystickCall);
+}
+
+void LevelSelectionMenu::OnDisable()
+{
+    eventManager->off("MainAction", OnLevelSelectionMenuMainActionCall);
+    eventManager->off("Joystick", OnLevelSelectionMenuJoystickCall);
+}
+
+void LevelSelectionMenu::changeSelection(EventParameters ep) /*****/
+{
+
+}
+
+void LevelSelectionMenu::ShowMenu() /****/
 {
     Game *g = (Game *)scenes->get(2);
     system("cls");
@@ -17,6 +46,18 @@ void LevelSelectionMenu::Update()
     // cout << "-" << (g->currentLevel == 3 ? "O" : "-") << "- Niveau 3" << endl;
     // cout << "-" << (g->currentLevel >= 4 ? "O" : "-") << "- Retour" << endl;
     cout << "------------------------------------------------------" << endl;
+}
+
+void LevelSelectionMenu::Selection() /*****/
+{
+    OnDisable();
+    SelectLevel(choice);
+}
+
+void LevelSelectionMenu::Update()
+{
+    OnDisable();
+    ShowMenu();
     controls->ListenForControls();
 }
 

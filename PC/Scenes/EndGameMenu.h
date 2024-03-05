@@ -11,6 +11,17 @@ class EndGameMenu : public Menu
 {
 public:
     EndGameMenu();
+
+    friend void OnEndGameMenuMainActionCall(EventParameters);
+    friend void OnEndGameMenuJoystickCall(EventParameters);
+
+    void OnEnable();
+    void OnDisable();
+
+    void changeSelection(EventParameters ep);
+    void ShowMenu();
+    void Selection();
+
     void Update();
     void NextLevel();
     void GotoLevelSelect();

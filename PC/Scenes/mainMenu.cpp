@@ -93,7 +93,6 @@ void MainMenu::Selection()
     }
     else if (choice >= 3)
     {
-
         system("cls"); // clear la command prompt
         cout << "Au plaisir.." << endl;
         system("PAUSE");
