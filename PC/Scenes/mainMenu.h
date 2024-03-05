@@ -2,7 +2,7 @@
 #define MAINMENU_H
 
 #include "menu.h"
-#include "eventParameters.h"
+#include "../Controls/eventParameters.h"
 
 using namespace std;
 

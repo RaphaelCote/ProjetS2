@@ -25,6 +25,7 @@ using json = nlohmann::json;
 #include "Scenes/pauseMenu.h"
 #include "Scenes/endGameMenu.h"
 #include "Scenes/levelSelectionMenu.h"
+#include "Scenes/shopMenu.h"
 
 /*------------------------------ Constantes ---------------------------------*/
 #define BAUD 9600         // Frequence de transmission serielle
@@ -71,7 +72,7 @@ int main()
     scenes->add(new LevelSelectionMenu());
     scenes->add(new EndGameMenu());
     scenes->add(new PauseMenu());
-    // scenes->add(new Shop());
+    scenes->add(new ShopMenu());
 
     while (true)
     {

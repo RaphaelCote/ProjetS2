@@ -8,21 +8,25 @@
 
 using namespace std;
 
-class shop : public Menu
+class ShopMenu : public Menu
 {
 
 public:
+    int lastMenu = 0;
+
     friend void OnShopMainActionCall(EventParameters);
     friend void OnShopJoystickCall(EventParameters);
 
     void OnEnable();
     void OnDisable();
 
-    shop();
+    ShopMenu();
     void changeSelection(EventParameters ep);
     void Update();
     void ShowMenu();
     void Selection();
+
+    void Back();
 
 private:
     int nbRoquettes = 0;
