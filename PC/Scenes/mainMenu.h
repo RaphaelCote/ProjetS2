@@ -2,7 +2,7 @@
 #define MAINMENU_H
 
 #include "menu.h"
-#include "LevelSelectionMenu.h"
+#include "eventParameters.h"
 
 using namespace std;
 
@@ -16,8 +16,8 @@ public:
     void OnDisable();
 
     MainMenu();
-    void Update();
     void changeSelection(EventParameters ep);
+    void Update();
     void ShowMenu();
     void Selection();
 

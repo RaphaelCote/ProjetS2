@@ -4,12 +4,11 @@
 #include "mainMenu.h"
 #include "../raftWars.h"
 #include "../controls/EventManager.h"
-#include "../Controls/keyboardControls.h"
+#include "LevelSelectionMenu.h"
 
 void OnMainMenuMainActionCall(EventParameters ep)
 {
     Menu *menu = (Menu *)scenes->get(activeScene);
-
     menu->Selection();
 }
 
