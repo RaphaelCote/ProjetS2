@@ -37,6 +37,13 @@ void Character::applyShield(Shield& shield)
     healthPoint+= shield.getShieldPoint();
 }
 
+Coordonnee *Character::PointeurPosition()
+{
+    Coordonnee *Positionptr = nullptr;
+    Positionptr = &position;
+    return Positionptr;
+}
+
 float Character::Aim(float angledeg)
 {
     // éventuellement, ce sera la méthode qui calculera l'angle a partir de l'accéléromètre, et qui le retournera en rad

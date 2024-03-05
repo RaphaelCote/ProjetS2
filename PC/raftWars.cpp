@@ -17,11 +17,15 @@ using json = nlohmann::json;
 
 /*-------------------------- Other file include -----------------------------*/
 #include "raftWars.h"
-#include "Controls/EventManager.h"
+#include "Controls/eventManager.h"
 #include "Controls/keyboardControls.h"
 #include "tests.h"
-#include "Menus/menu.h"
-#include "game/game.h"
+#include "Scenes/menu.h"
+#include "Scenes/mainMenu.h"
+#include "Scenes/pauseMenu.h"
+#include "Scenes/endGameMenu.h"
+#include "Scenes/levelSelectionMenu.h"
+#include "Scenes/shopMenu.h"
 
 /*------------------------------ Constantes ---------------------------------*/
 #define BAUD 9600         // Frequence de transmission serielle
@@ -38,25 +42,42 @@ SerialPort *arduino; // doit etre un objet global!
 EventManager *eventManager;
 Tests *tests;
 Controls *controls;
-Menu *menu;
-Game *game;
+Vecteur<Scene *> *scenes;
+int activeScene;
+/*
+Scenes index:
+0 : Main menu
+1 : Game
+2 : Level Selection menu
+3 : End game menu
+4 : Pause menu
+5 : Shop
+*/
 
 /*----------------------------- Fonction "Main" -----------------------------*/
 int main()
 {
     // === Event manager tests ===
-    // eventManager = new EventManager();
-    // controls = new KeyboardControls(eventManager);
+    eventManager = new EventManager();
+    controls = new KeyboardControls(eventManager);
 
-    
-    // game = new Game();
-
-    // menu = new Menu();
-
-    // menu->menuController(0);
     tests = new Tests();
-    tests->test_unitaire_characterAndprojectile();
+    // tests->tests_unitaires();
 
+    activeScene = 0;
+
+    scenes = new Vecteur<Scene *>;
+    scenes->add(new MainMenu());
+    scenes->add(new Game());
+    scenes->add(new LevelSelectionMenu());
+    scenes->add(new EndGameMenu());
+    scenes->add(new PauseMenu());
+    scenes->add(new ShopMenu());
+
+    while (true)
+    {
+        scenes->get(activeScene)->Update();
+    }
 
     return 0;
 
