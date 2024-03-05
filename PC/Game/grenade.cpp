@@ -27,31 +27,40 @@ int Grenade::damageReceived(Character& character){
 
     //--------------------Gestion des dégats explosion----------------------//
     
-    int positionFinaleGrenandeY=findBulletPositionYTime(TempsGrenade);
-    int positionFinaleGrenadeX=findBulletPositionX(positionFinaleGrenandeY);
+    int positionFinaleGrenadeY=findBulletPositionYTime(TempsGrenade);
+    int positionFinaleGrenadeX=findBulletPositionX(positionFinaleGrenadeY);
+    
     //check up grenade pour si l'ennemie est touché
     
     int tableauDistance[7];
     //coin inférieur gauche
-    tableauDistance[0]=pythagore(positionFinaleGrenadeX,character.getPosition().x,positionFinaleGrenandeY,character.getPosition().y); 
+    tableauDistance[0]=pythagore(positionFinaleGrenadeX,character.getPosition().x,positionFinaleGrenadeY,character.getPosition().y); 
     //a gauche du personnage dans le milieu
-    tableauDistance[1]=pythagore(positionFinaleGrenadeX, character.getPosition().x, positionFinaleGrenandeY, character.getPosition().y+character.getHitboxHeight()/2 );
+    tableauDistance[1]=pythagore(positionFinaleGrenadeX, character.getPosition().x, positionFinaleGrenadeY, character.getPosition().y+character.getHitboxHeight()/2 );
     
     //coin supérieur gauche
-    tableauDistance[2]=pythagore(positionFinaleGrenadeX, character.getPosition().x, positionFinaleGrenandeY, character.getPosition().y+character.getHitboxHeight());
+    tableauDistance[2]=pythagore(positionFinaleGrenadeX, character.getPosition().x, positionFinaleGrenadeY, character.getPosition().y+character.getHitboxHeight());
     //Milieu supérieur 
-    tableauDistance[3]=pythagore(positionFinaleGrenadeX,character.getPosition().x+character.getHitboxWidth()/2,positionFinaleGrenandeY, character.getPosition().y+character.getHitboxHeight());
+    tableauDistance[3]=pythagore(positionFinaleGrenadeX,character.getPosition().x+character.getHitboxWidth()/2,positionFinaleGrenadeY, character.getPosition().y+character.getHitboxHeight());
     //coin supérieur droit
-    tableauDistance[4]=pythagore(positionFinaleGrenadeX,character.getPosition().x+character.getHitboxWidth(),positionFinaleGrenandeY, character.getPosition().y+character.getHitboxHeight());
+    tableauDistance[4]=pythagore(positionFinaleGrenadeX,character.getPosition().x+character.getHitboxWidth(),positionFinaleGrenadeY, character.getPosition().y+character.getHitboxHeight());
     //a droite du personnage dans le milieu
-    tableauDistance[5]=pythagore(positionFinaleGrenadeX,character.getPosition().x+character.getHitboxWidth(),positionFinaleGrenandeY, character.getPosition().y+character.getHitboxHeight()/2);
+    tableauDistance[5]=pythagore(positionFinaleGrenadeX,character.getPosition().x+character.getHitboxWidth(),positionFinaleGrenadeY, character.getPosition().y+character.getHitboxHeight()/2);
     //coin inférieur droit
-    tableauDistance[6]=pythagore(positionFinaleGrenadeX,character.getPosition().x+character.getHitboxWidth(),positionFinaleGrenandeY, character.getPosition().y);
+    tableauDistance[6]=pythagore(positionFinaleGrenadeX,character.getPosition().x+character.getHitboxWidth(),positionFinaleGrenadeY, character.getPosition().y);
     
     int distanceMin=tableauDistance[0];
-    if(bulletEndPosition.x==character.getPosition().x ||bulletEndPosition.y==character.getPosition().y +character.getHitboxHeight())
+    if((positionFinaleGrenadeX>=character.getPosition().x && positionFinaleGrenadeX<=character.getPosition().x+ character.getHitboxWidth()) && (positionFinaleGrenadeY>=character.getPosition().y && positionFinaleGrenadeY<=character.getPosition().y+character.getHitboxHeight()))
     {
         explosionDamage=120;
+    }
+    else if(positionFinaleGrenadeY<=100)
+    {
+        if(positionFinaleGrenadeX<character.getPosition().x|| positionFinaleGrenadeX>character.getPosition().x+character.getHitboxWidth())
+        {
+            explosionDamage=0;
+            
+        }
     }
     else
     {

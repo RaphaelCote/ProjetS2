@@ -5,7 +5,7 @@
 #include <iostream>
 #define RayonCercleExplosion 175
 #define MaxDamage 120
-const float TempsGrenade =3.271;
+const float TempsGrenade =2;
 class Grenade : public Projectile{
     private: 
         

@@ -47,13 +47,7 @@ int Projectile::findBulletPositionYTime(float time)
     float num= pow((g*time +V0*sin(rad)),2)- pow((V0*sin(rad)),2);
     float denum =2.0f*g;
     int positionfinaleY= round(num/denum+ bulletStartPosition.y);
-    cout<<"Position finale y avant condition: "<<positionfinaleY<<endl;
-    if(positionfinaleY<100) 
-    {
-        positionfinaleY=100;
-    }
-    cout<<"Position finale y apres condition: "<<positionfinaleY<<endl;
-        
+    cout<<"Position finale y avant condition: "<<positionfinaleY<<endl;    
     return positionfinaleY;
     
 }
