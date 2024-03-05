@@ -71,7 +71,7 @@ void ShopMenu::ShowMenu()
     cout << "-------------------------------------------------------------------" << endl;
     cout << "-------------------------------------------------------------------" << endl;
     cout << "INVENTAIRE" << endl;
-    cout<< "Argent : "<<inventory->getGold()<<endl;
+    cout << "Argent : " << inventory->getGold() << endl;
     cout << "Roquettes : " << inventory->getRockets() << endl;
     cout << "Grenades : " << inventory->getGrenade() << endl;
     cout << "Shield : " << inventory->getShield() << endl;
@@ -106,7 +106,6 @@ void ShopMenu::Selection()
         {
             inventory->addShield(3);
         }
-
     }
     else if (choice == 5)
     {

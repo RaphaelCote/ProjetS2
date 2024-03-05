@@ -27,9 +27,6 @@ public:
     void Selection();
 
     void Back();
-
-private:
-    
 };
 
 #endif
