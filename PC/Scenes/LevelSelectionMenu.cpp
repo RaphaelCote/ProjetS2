@@ -59,45 +59,41 @@ void LevelSelectionMenu::Update()
 
 void LevelSelectionMenu::ShowMenu()
 {
-    Game *g = (Game *)scenes->get(2);
     system("cls");
+    // Boucler au travers des ficher de niveaux pour afficher les choix
     cout << "------------------------------------------------------" << endl;
-    // cout << "Sélectionner un niveau" << endl;
-    cout << "-" << (g->currentLevel == 0 ? "O" : "-") << "- Niveau 1" << endl;
-    // cout << "-" << (g->currentLevel == 1 ? "O" : "-") << "- Niveau 2" << endl;
-    // cout << "-" << (g->currentLevel == 3 ? "O" : "-") << "- Niveau 3" << endl;
-    cout << "-" << (g->currentLevel >= 1 ? "O" : "-") << "- Retour" << endl;
+    cout << "Selectionner un niveau" << endl;
+    cout << "-" << (choice == 0 ? "O" : "-") << "- Niveau 1" << endl;
+    // cout << "-" << (choice == 1 ? "O" : "-") << "- Niveau 2" << endl;
+    // cout << "-" << (choice == 3 ? "O" : "-") << "- Niveau 3" << endl;
+    cout << "-" << (choice >= 1 ? "O" : "-") << "- Retour" << endl;
     cout << "------------------------------------------------------" << endl;
 }
 
 void LevelSelectionMenu::Selection()
 {
-    if (choice == 1)
+    if (choice == 0)
     {
+        OnDisable();
         SelectLevel(choice);
     }
-    else
+    else if (choice == 1)
     {
+        OnDisable();
         Back();
     }
 }
 
-void LevelSelectionMenu::SelectLevel(int Level)
+void LevelSelectionMenu::SelectLevel(int level)
 {
-    OnDisable();
+
     system("cls");
-    if (Level == 1)
-    {
-        // sélectionner niveau 1
-    }
-    else if (Level == 2)
-    {
-        // sélectionner niveau 2
-    }
+    Game *game = (Game *)scenes->get(1);
+    game->currentLevel == level;
+    activeScene = 1;
 }
 
 void LevelSelectionMenu::Back()
 {
     activeScene = lastMenu;
-    OnDisable();
 }

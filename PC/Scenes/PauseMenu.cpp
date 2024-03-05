@@ -91,5 +91,7 @@ void PauseMenu::Continu()
 
 void PauseMenu::ReturnToMenu()
 {
+    Game *game = (Game *)scenes->get(1);
+    game->StopGame();
     activeScene = 0;
 }

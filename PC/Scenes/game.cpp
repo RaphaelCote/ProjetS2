@@ -165,12 +165,10 @@ void Game::PlayTurn()
              << "\n"
              << endl;
         controls->ListenForControls();
+        system("PAUSE");
     }
     else
     {
-
-        system("PAUSE");
-
         system("cls");
         ShowGameInfo();
         cout << "Tour enemi :" << endl;
@@ -228,7 +226,16 @@ void Game::PauseGame()
 void Game::EndGame()
 {
     OnDisable();
+    StopGame();
     activeScene = 3;
+}
+
+void Game::StopGame()
+{
+    turn = 0;
+    isPlayerTurn = true;
+    isPause = false;
+    projectileType = 0;
 }
 
 bool Game::CheckEndCondition()

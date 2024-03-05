@@ -47,6 +47,7 @@ public:
     void PlayerShoot();
     void PauseGame();
     void EndGame();
+    void StopGame();
     bool CheckEndCondition();
     void ShowGameInfo();
 };
