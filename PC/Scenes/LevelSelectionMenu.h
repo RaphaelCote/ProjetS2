@@ -10,6 +10,17 @@ class LevelSelectionMenu : public Menu
 {
 public:
     LevelSelectionMenu();
+
+    friend void OnLevelSelectionMenuMainActionCall(EventParameters);
+    friend void OnLevelSelectionMenuJoystickCall(EventParameters);
+
+    void OnEnable();
+    void OnDisable();
+
+    void changeSelection(EventParameters ep);
+    void ShowMenu();
+    void Selection();
+
     void Update();
     void SelectLevel(int level);
     void Back();
