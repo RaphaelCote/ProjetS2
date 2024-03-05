@@ -37,6 +37,14 @@ MainMenu::MainMenu()
 
 void MainMenu::changeSelection(EventParameters ep)
 {
+    // Ajout de délai entre les changements de sélection de menu
+    // à rajouter dans tout les menus
+    int millis = 0;
+    if (millis < lastMove + 500)
+    {
+        return;
+    }
+
     if (ep.parameter2 > 0.5)
     {
         choice--;
@@ -117,6 +125,8 @@ void MainMenu::GotoLevelSelect()
 void MainMenu::GotoShop()
 {
     choice = 0;
+    // ShopMenu *shop = (ShopMenu *)scenes->get(2);
+    // shop->lastMenu = 0;
     activeScene = 5;
 }
 
