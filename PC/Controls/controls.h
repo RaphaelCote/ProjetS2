@@ -18,6 +18,7 @@ public:
     virtual void ListenForControls();
     virtual void AddMessage(string name, int value){}
     virtual bool SendMessageJson(){return true;}
+    virtual void GetValue(string name, float* value){}
 
 
     // Actions

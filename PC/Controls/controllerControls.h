@@ -14,6 +14,27 @@ using json = nlohmann::json;
 
 using namespace std;
 
+enum etatBoutton
+{
+    BouttonAppuyer = 1,
+    BouttonRelacher = 0,
+    BouttonTenuAppuyer = 2,
+    BouttonEnabled = 3,
+    BouttonDisabled = 4
+};
+
+enum etatJoystick
+{
+    JoystickEnabled = 1,
+    JoystickDisabled = 2,
+    JoystickMiddle = 3,
+    JoystickRight = 4,
+    JoystickUp = 5,
+    JoystickLeft = 6,
+    JoystickDown = 7
+};
+
+
 class ControllerControls : public Controls
 {
     string comPort;
@@ -25,6 +46,9 @@ class ControllerControls : public Controls
     
     bool SendToSerial();
     bool RcvFromSerial();
+    etatJoystick GetJoyXMenu0();
+    etatJoystick GetJoyYMenu0();
+    etatBoutton GetB1Menu0();
 
 public:
     ControllerControls(EventManager *em, string com);
@@ -41,6 +65,8 @@ public:
     void GetValue(string name, float* value);
 
     bool SendMessageJson();
+
+    
     
     
 };

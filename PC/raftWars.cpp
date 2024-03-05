@@ -43,7 +43,8 @@ int main()
 {
     // === Event manager tests ===
     eventManager = new EventManager();
-    controls = new ControllerControls(eventManager, "COM3");
+    //controls = new KeyboardControls(eventManager);
+     controls = new ControllerControls(eventManager, "COM3");
 
     tests = new Tests();
     // tests->tests_unitaires();
@@ -52,27 +53,32 @@ int main()
 
     menu = new Menu();
 
-    //menu->menuController(0);
+    menu->menuController(0);
 
-    int led_state = 0;
+    // int led_state = 0;
+    // float valX = 0;
     
 
-    // Boucle pour tester la communication bidirectionnelle Arduino-PC
-    for (int i = 0; i < 1110; i++)
-    {
-        if(i%10 == 0)
-            led_state = 0;
-        //cout << "Sending a message" << endl;
-        controls->AddMessage("led", led_state);
-        controls->SendMessageJson();
-        //cout << "Message sent: " << led_state << endl;
-        // Changement de l'etat led
-        led_state = led_state >> 1;
-        led_state += 512;
+    // // Boucle pour tester la communication bidirectionnelle Arduino-PC
+    // for (int i = 0; i < 1110; i++)
+    // {
+    //     if(i%10 == 0)
+    //         led_state = 0;
+    //     //cout << "Sending a message" << endl;
+    //     controls->AddMessage("led", led_state);
+    //     if(!controls->SendMessageJson())
+    //         continue;
+    //     //cout << "Message sent: " << led_state << endl;
+    //     // Changement de l'etat led
+    //     led_state = led_state >> 1;
+    //     led_state += 512;
 
-        // Bloquer le fil pour environ 1 sec
-        Sleep(100); // 1000ms
-    }
+    //     controls->GetValue("JoyX", &valX);
+    //     cout << valX << endl;
+
+    //     // Bloquer le fil pour environ 1 sec
+    //     Sleep(100); // 1000ms
+    // }
 
     return 0;
 }
