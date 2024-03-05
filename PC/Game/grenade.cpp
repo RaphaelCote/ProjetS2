@@ -22,10 +22,6 @@ int Grenade::damageReceived(Character& character){
     float dy=bulletEndPosition.y-character.getPosition().y;
     float Vf= sqrt( pow(V0*cos(rad),2) + pow(V0*sin(rad),2) +2*g*dy);
     int explosionDamage=0;
-    //float damageMultiplierExplosion=exp(-0.03*x);// la variable x est la distance (entre 100 et 0, soit 100 le max), que tu es par rapport au centre de l'explosion
-    
-
-    //--------------------Gestion des dégats explosion----------------------//
     
     //---------------------bulletEndPosition en fonction du temps-----------//
     int positionFinaleGrenadeYTemps=findBulletPositionYTime(TempsGrenade);
