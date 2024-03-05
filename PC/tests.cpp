@@ -158,17 +158,18 @@ void Tests::test_unitaire_characterAndprojectile()
         << "x^2 / (2(" << puissance << "Vmax)^2 · cos^2(" << angle * PI / 180 << ") ) + xtan(" << angle * PI / 180 << ")"
         << "\n"
         << endl;
-
+   
    if (p->checkIfCharacterHit(enemy))
    {
-
-      cout << " (" << p->getBulletEndPosition().x << ", " << p->getBulletEndPosition().y << ")" << endl;
+      cout << "Le projectile a atteint directement l'adversaire. Il a atteri a la position: (" << p->getBulletEndPosition().x << ", " << p->getBulletEndPosition().y << ")" << endl;
+     
    }
    else
    {
-
-      cout << "Le projectile n'a pas atteint l'adversaire. Il a atteri a la position: (" << p->getBulletEndPosition().x << ", " << p->getBulletEndPosition().y << ")" << endl;
+      cout << "Le projectile n'a pas atteint directement l'adversaire. Il a atteri a la position: (" << p->getBulletEndPosition().x << ", " << p->getBulletEndPosition().y << ")" << endl;
    }
+   cout<<"le personnage vise a actuellement : "<<enemy.getHealthPoint()<<" point de vie"<<endl;
+   
 }
 
 void Tests::tests_unitaires()

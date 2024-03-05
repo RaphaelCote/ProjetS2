@@ -13,17 +13,18 @@ int Canonball::damageReceived(Character& character){
         if (bulletEndPosition.y >= character.getPosition().y && bulletEndPosition.y < character.getPosition().y + character.getHitboxHeight() / 3.0) 
         {
             D=30;  
-            cout<<"Cible touche aux pieds!"<<endl;
+            //cout<<"Cible touche aux pieds!Elle a ete frappe a une vitesse de "<<V0<<"pixels/s à la position ("<<bulletEndPosition.x<<", "<<bulletEndPosition.y<<")"<<endl;
         } 
         else if (bulletEndPosition.y  >= character.getPosition().y + character.getHitboxHeight() / 3.0 && bulletEndPosition.y < character.getPosition().y + character.getHitboxHeight()*2.0 / 3.0) 
         {
             D=50;  
-            cout<<"Cible touche au corps!"<<endl;
+            //cout<<"Cible touche au corps! Elle a ete frappe a une vitesse de "<<V0<<"pixels/s à la position ("<<bulletEndPosition.x<<", "<<bulletEndPosition.y<<")"<<endl;
         } 
         else if(bulletEndPosition.y >= character.getPosition().y + (character.getHitboxHeight()*2.0 / 3.0) && bulletEndPosition.y <= character.getPosition().y +character.getHitboxHeight())
         {
             D=80;  
-            cout<<"Cible touche a la tete!"<<endl;
+            //cout<<"Cible touche a la tete!. Elle a ete frappe a une vitesse de "<<V0<<"pixels/s à la position ("<<bulletEndPosition.x<<", "<<bulletEndPosition.y<<")"<<endl;
+            
         }
     }
     
@@ -34,7 +35,7 @@ int Canonball::damageReceived(Character& character){
     {
         character.setHealthPoint(0);
     }
-    cout << "La cible a actuellement " <<character.getHealthPoint() << " points de vie. Il a ete frappe a une vitesse de " << Vf << " pixels/s a la position:";
+    //cout<<"La cible a actuellement : "<<character.getHealthPoint()<<"Point de vie"<<endl;
     return directDamage;
 }
 

@@ -113,7 +113,11 @@ bool Projectile::checkIfCharacterHit(Character& character)
 
     
     Coordonnee characterPosition =character.getPosition();
-    //on sait que c'est l'ennemie qui se fait tirer dessus
+    /*on sait que c'est l'ennemie qui se fait tirer dessus
+    ---------------------IMPORTANT-----------------
+    le bulletEndPosition de la grenade est actualisé dans, damageReceived
+    ça fonctionne mais idéalement cela pourrait être plus prore */
+
     if(angledeg>0)
     {
         if(findBulletPositionX(characterPosition.y)<characterPosition.x && findBulletPositionY(characterPosition.x) < characterPosition.y){
@@ -129,7 +133,7 @@ bool Projectile::checkIfCharacterHit(Character& character)
         }
         else if(findBulletPositionY(characterPosition.x)<=(characterPosition.y+character.getHitboxHeight()))    
         {
-            //on sait qu'il a toucher a la position du projectile en Y
+            //on sait qu'il a toucher a la position du projectile en X
             //cout<<"Premier else if angle positif"<<endl;
             bulletEndPosition.x=characterPosition.x;
             bulletEndPosition.y=findBulletPositionY(characterPosition.x);
@@ -171,6 +175,7 @@ bool Projectile::checkIfCharacterHit(Character& character)
             
             bulletEndPosition.x=findBulletPositionX(characterPosition.y);
             bulletEndPosition.y=characterPosition.y;
+            damageReceived(character);
             return false;
         }
     }
@@ -182,15 +187,17 @@ bool Projectile::checkIfCharacterHit(Character& character)
             //cout<<"Premier if angle négatif"<<endl;
             bulletEndPosition.x=findBulletPositionX(characterPosition.y);
             bulletEndPosition.y=characterPosition.y;
+            damageReceived(character);
             return false;
         }
         else if(findBulletPositionY(characterPosition.x+character.getHitboxWidth())<=(characterPosition.y+character.getHitboxHeight()))    
         {
-            //on sait qu'il a toucher a la position du projectile en Y
+            //on sait qu'il a toucher a la position du projectile en X
             //cout<<"Premier else if angle négatif"<<endl;
             bulletEndPosition.x=characterPosition.x+character.getHitboxWidth() ;
             bulletEndPosition.y=findBulletPositionY(characterPosition.x + character.getHitboxWidth());
             damageReceived(character);
+            
             return true;
         }
         else if(findBulletPositionY(characterPosition.x)>(characterPosition.y+character.getHitboxHeight()))
@@ -199,6 +206,7 @@ bool Projectile::checkIfCharacterHit(Character& character)
             //cout<<"Deuxième else if angle négatif"<<endl;
             bulletEndPosition.x=findBulletPositionX(characterPosition.y);
             bulletEndPosition.y=characterPosition.y;
+            damageReceived(character);
             return false;
         }
         else if(findBulletPositionY(characterPosition.x)==(characterPosition.y+character.getHitboxHeight()))
@@ -225,6 +233,7 @@ bool Projectile::checkIfCharacterHit(Character& character)
             
             bulletEndPosition.x=findBulletPositionX(characterPosition.y);
             bulletEndPosition.y=characterPosition.y;
+            damageReceived(character);
             return false;
         }
     }
