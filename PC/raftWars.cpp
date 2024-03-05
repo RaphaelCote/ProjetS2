@@ -44,6 +44,7 @@ Tests *tests;
 Controls *controls;
 Vecteur<Scene *> *scenes;
 int activeScene;
+LevelGetter *levelGetter;
 /*
 Scenes index:
 0 : Main menu

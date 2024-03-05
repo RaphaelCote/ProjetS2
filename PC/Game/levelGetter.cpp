@@ -2,7 +2,7 @@
 
 #include "levelGetter.h"
 
-levelGetter::levelGetter()
+LevelGetter::LevelGetter()
 {
      const char * folderPath = "path/to/your/folder";
     WIN32_FIND_DATAA findData;

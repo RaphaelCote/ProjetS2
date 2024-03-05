@@ -8,10 +8,10 @@
 
 using namespace std;
 
-class levelGetter
+class LevelGetter
 {
 public: 
-    levelGetter();
+    LevelGetter();
     Vecteur<string> levels;
     int nbLevel = 0;
 };
