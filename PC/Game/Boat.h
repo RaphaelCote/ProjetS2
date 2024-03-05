@@ -12,18 +12,17 @@ class Boat
 {
 public:
     Boat(int n, int posx, int posy, int height, int width, int image);
+    Vecteur<Character *> characters;
+
+    
     ~Boat();
+
     int getNbCharacters();
     int getCapacite();
     Coordonnee getPositionBoat();
-    bool addCharacter(Character* characterAdded);
-    bool addPosition(Coordonnee* positionAdded);
-    Vecteur<Coordonnee*> characterPositions;
-    Vecteur<Character*> characters;
+    bool addCharacter(Character *characterAdded);
     bool removeCharacters(int index);
-    bool removePosition(int index);
-    void affichageJoueur(ostream & s);
-    void affichageAdversaire(ostream & s);
+    void ShowInfo(ostream &s);
 
 private:
     int nbCharacters;

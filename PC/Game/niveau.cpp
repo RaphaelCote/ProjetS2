@@ -29,11 +29,11 @@ boat[i] = new Boat(capacite, corodoneeX, corodoneeY, raftwidth, raftheight, imag
     {
         if (i == 0)
         {
-            cout << "Joueur :" << endl;
+            s << "Joueur :" << endl;
         }
         else
         {
-            cout << "Ennemi " << i << " :" << endl;
+            s << "Ennemi " << i << " :" << endl;
         }
         characters[i]->ShowInfo();
     }

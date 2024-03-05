@@ -6,7 +6,7 @@ int Rocket::damageReceived(Character& character){
     int D=0;
 
 
-    if (bulletEndPosition.y < 100 + character.getHitboxHeight() / 3.0) 
+    if (bulletEndPosition.y >= character.getPosition().y && bulletEndPosition.y < character.getPosition().y + character.getHitboxHeight() / 3.0) 
     {
         D=70;  
         cout<<"L'ennemi a ete frappe au pied!"<<endl;
