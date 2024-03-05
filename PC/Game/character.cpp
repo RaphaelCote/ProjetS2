@@ -32,9 +32,9 @@ int Character::getHitboxHeight()
 {
     return hitbox.height;
 }
-void Character::applyShield(Shield& shield)
+void Character::applyShield(Shield &shield)
 {
-    healthPoint+= shield.getShieldPoint();
+    healthPoint += shield.getShieldPoint();
 }
 
 Coordonnee *Character::PointeurPosition()

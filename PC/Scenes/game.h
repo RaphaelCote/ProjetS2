@@ -42,7 +42,7 @@ public:
     void OnEnable();
 
     void Update();
-    bool CreateLevels();
+    void CreateLevels();
     void PlayTurn();
     void PlayerShoot();
     void PauseGame();
