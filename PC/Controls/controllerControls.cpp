@@ -1,38 +1,92 @@
 #include "controllerControls.h"
+#include <windows.h>
+
 
 float TRESHOLD = 0.25;
 
 int led_state = 0;
 long index = 0;
 
-etatBoutton etatB1 = etatBoutton::BouttonEnabled;
-etatBoutton oldEtatB1 = etatBoutton::BouttonEnabled;
-
-etatJoystick etatJoyX = etatJoystick::JoystickEnabled;
-etatJoystick etatJoyY = etatJoystick::JoystickEnabled;
-etatJoystick oldEtatJoyX = etatJoystick::JoystickEnabled;
-etatJoystick oldEtatJoyY = etatJoystick::JoystickEnabled;
-
+static DWORD WINAPI ThreadEntry(LPVOID lpParam) {
+        auto* data = reinterpret_cast<std::pair<ControllerControls*, int>*>(lpParam);
+        if (data) {
+            data->first->ThreadReceiveSerial();
+            delete data;
+        }
+        return 0;
+    }
 
 ControllerControls::ControllerControls(EventManager *em, string com) : Controls(em)
 {
     comPort = com;
     InitializeSerial();
+    etatB1 = etatBoutton::BouttonEnabled;
+    oldEtatB1 = etatBoutton::BouttonEnabled;
+    etatJoyX = etatJoystick::JoystickEnabled;
+    etatJoyY = etatJoystick::JoystickEnabled;
+    oldEtatJoyX = etatJoystick::JoystickEnabled;
+    oldEtatJoyY = etatJoystick::JoystickEnabled;
+    ready_to_send = true;
+    Thread_Actif = true;
+
+    // Create a lambda function to capture the instance of MyClass and call its member function
+    auto lambda = [&](int arg) {
+        this->ThreadReceiveSerial();
+    };
+
+    // Create a pair to store MyClass instance and the argument
+    auto* data = new std::pair<ControllerControls*, int>(this,42);
+
+    // Create a thread and pass the entry point function
+    HANDLE threadHandle = CreateThread(nullptr, 0, ThreadEntry, data, 0, nullptr);
+
+    if (threadHandle == nullptr) {
+        std::cerr << "Error creating thread.\n";
+    }
+}
+
+
+
+void ControllerControls::ThreadReceiveSerial()
+{
+    while(Thread_Actif)
+    {
+        while(ready_to_read == false)
+        {Sleep(1);}
+        Sleep(100);
+        cout << "Thread is life" << endl;
+        messageReceived.clear(); // effacer le message precedent
+        if (!RcvFromSerial())
+        {
+            cerr << "Erreur lors de la reception du message. " << endl;
+        }
+        
+        
+        // cout << "raw_msg: " << raw_msg << endl;  // debug
+        //  Transfert du message en json
+        try
+        {
+            cout << "Arduino: " << raw_msg << endl;
+            messageReceived = json::parse(raw_msg);
+            //cout << "Message de l'Arduino: " << messageReceived << endl;
+        }
+        catch(nlohmann::detail::parse_error e)
+        {
+            cout << "Erreur Parse: " << e.what() << '\n';
+        }
+        ready_to_read = false;
+    }
 }
 
 
 void ControllerControls::ListenForControls()
 {
-    if(index%10 == 0)
-        led_state = 0;
+    
 
-    this->AddMessage("led", led_state);
+    this->AddMessage("Moteur", 0);
     if(!this->SendMessageJson())
         return;
     Sleep(10);
-
-    led_state = led_state >> 1;
-    led_state += 512;
 
     cout << "Veuillez lancer: ";
     
@@ -40,20 +94,19 @@ void ControllerControls::ListenForControls()
     
     etatJoyX = GetJoyXMenu0();
     etatJoyY = GetJoyYMenu0();
-    etatB1 = GetB1Menu0();
+    etatB1 = GetBouttonMenu0(1);
     float angle;
-        float joystickX;
-        float joystickY;
-        index = 0;
-        this->GetValue("Angle", &angle);
-        this->GetValue("JoyY", &joystickY);
-        this->GetValue("JoyY", &joystickX);
-        Angle(angle);
-        Joystick(joystickX, joystickY);
+    float joystickX;
+    float joystickY;
+
+    this->GetValue("Angle", &angle);
+    this->GetValue("JoyY", &joystickY);
+    this->GetValue("JoyY", &joystickX);
+    Angle(angle);
+    Joystick(joystickX, joystickY);
 
     if (etatB1 == etatBoutton::BouttonAppuyer && etatB1 != oldEtatB1)
     {
-        
         MainAction();
     }
     else if (etatJoyX == etatJoystick::JoystickUp && etatJoyX != oldEtatJoyX)
@@ -151,11 +204,11 @@ etatJoystick ControllerControls::GetJoyYMenu0()
 
 }
 
-etatBoutton ControllerControls::GetB1Menu0()
+etatBoutton ControllerControls::GetBouttonMenu0(int boutton)
 {
     int B1;
 
-    this->GetValue("B1", &B1);
+    this->GetValue("B" + to_string(boutton), &B1);
 
     if(B1 == 1)
     {
@@ -183,36 +236,14 @@ void ControllerControls::InitializeSerial()
 
 bool ControllerControls::SendToSerial()
 {
+    if(!ready_to_send)
+        return false;
     // Return 0 if error
     string msg = message_to_send.dump();
     //cout << "Message: " << msg << endl;
     bool ret = arduino->writeSerialPort(msg.c_str(), msg.length());
     message_to_send.clear();
-    messageReceived.clear(); // effacer le message precedent
-    if (!RcvFromSerial())
-    {
-        cerr << "Erreur lors de la reception du message. " << endl;
-    }
-    //cout << "Message de l'Arduino: " << raw_msg << endl;
-    // Impression du message de l'Arduino si valide
-    if (raw_msg.size() <= 0)
-    {
-        return false;
-    }
-        // cout << "raw_msg: " << raw_msg << endl;  // debug
-        //  Transfert du message en json
-        try
-        {
-            messageReceived = json::parse(raw_msg);
-            //cout << "Message de l'Arduino: " << messageReceived << endl;
-        }
-        catch(nlohmann::detail::parse_error e)
-        {
-            cout << "Erreur Parse: " << e.what() << '\n';
-            return false;
-        }
-        
-        
+    ready_to_read = true;
     
     return ret;
 }
@@ -242,7 +273,6 @@ bool ControllerControls::RcvFromSerial()
     */
 
     // Version fonctionnelle dans VScode et Visual Studio
-    Sleep(100);
     buffer_size = arduino->readSerialPort(char_buffer, MSG_MAX_SIZE);
     str_buffer.assign(char_buffer, buffer_size);
     raw_msg.append(str_buffer);

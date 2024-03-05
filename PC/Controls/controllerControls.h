@@ -7,6 +7,8 @@
 #include "controls.h"
 #include "../include/serial/SerialPort.hpp"
 #include "../include/json.hpp"
+
+
 using json = nlohmann::json;
 
 #define BAUD 115200         // Frequence de transmission serielle
@@ -37,21 +39,38 @@ enum etatJoystick
 
 class ControllerControls : public Controls
 {
+    bool Thread_Actif;
+    etatBoutton etatB1;
+    etatBoutton oldEtatB1;
+
+    etatJoystick etatJoyX;
+    etatJoystick etatJoyY;
+    etatJoystick oldEtatJoyX;
+    etatJoystick oldEtatJoyY;
+
     string comPort;
     string raw_msg;
-    SerialPort *arduino; // doit etre un objet global!
+    SerialPort *arduino;
     json messageReceived;
     json message_to_send;
 
+    
+
+    
+    DWORD WINAPI threadFunction(LPVOID lpParam);
     
     bool SendToSerial();
     bool RcvFromSerial();
     etatJoystick GetJoyXMenu0();
     etatJoystick GetJoyYMenu0();
-    etatBoutton GetB1Menu0();
+    etatBoutton GetBouttonMenu0(int boutton);
 
 public:
+    bool ready_to_send;
+    bool ready_to_read;
+
     ControllerControls(EventManager *em, string com);
+    void ThreadReceiveSerial();
     void InitializeSerial();
     void ListenForControls();
     void AddMessage(string name, int value);
