@@ -7,7 +7,8 @@
 #include "../Controls/keyboardControls.h"
 
 EndGameMenu::EndGameMenu()
-{}
+{
+}
 
 void OnEndGameMenuMainActionCall(EventParameters ep)
 {
@@ -52,14 +53,21 @@ void EndGameMenu::changeSelection(EventParameters ep)
     }
 }
 
+void EndGameMenu::Update()
+{
+    OnEnable();
+    ShowMenu();
+    controls->ListenForControls();
+}
+
 void EndGameMenu::ShowMenu()
 {
     system("cls");
     cout << "-------------------------------------------------------------------" << endl;
     cout << "Fin du niveau" << endl;
     cout << "-" << (choice == 0 ? "O" : "-") << "- Prochain niveau" << endl;
-    cout << "-" << (choice == 1 ? "O" : "-") << "- Sélectionner un niveau" << endl;
-    cout << "-" << (choice == 2 ? "O" : "-") << "- Menu" << endl;
+    cout << "-" << (choice == 1 ? "O" : "-") << "- Selectionner un niveau" << endl;
+    cout << "-" << (choice == 2 ? "O" : "-") << "- Retour au menu" << endl;
     cout << "-------------------------------------------------------------------" << endl;
 }
 
@@ -82,13 +90,6 @@ void EndGameMenu::Selection()
     }
 }
 
-void EndGameMenu::Update()
-{
-    OnEnable();
-    ShowMenu();
-    controls->ListenForControls();
-}
-
 void EndGameMenu::NextLevel()
 {
     Game *g = (Game *)scenes->get(2);
@@ -101,7 +102,7 @@ void EndGameMenu::NextLevel()
 void EndGameMenu::GotoLevelSelect()
 {
     LevelSelectionMenu *lsm = (LevelSelectionMenu *)scenes->get(2);
-    lsm->lastMenu = 0; 
+    lsm->lastMenu = 3;
     activeScene = 2;
 }
 

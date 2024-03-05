@@ -3,9 +3,6 @@
 #include "../controls/EventManager.h"
 #include "../Controls/keyboardControls.h"
 
-LevelSelectionMenu::LevelSelectionMenu()
-{}
-
 void OnLevelSelectionMenuMainActionCall(EventParameters ep)
 {
     Menu *menu = (Menu *)scenes->get(activeScene);
@@ -30,39 +27,64 @@ void LevelSelectionMenu::OnDisable()
     eventManager->off("Joystick", OnLevelSelectionMenuJoystickCall);
 }
 
-void LevelSelectionMenu::changeSelection(EventParameters ep) /*****/
+LevelSelectionMenu::LevelSelectionMenu()
 {
-
 }
 
-void LevelSelectionMenu::ShowMenu() /****/
+void LevelSelectionMenu::changeSelection(EventParameters ep)
+{
+    if (ep.parameter2 > 0.5)
+    {
+        choice--;
+        if (choice < 0)
+        {
+            choice = 0;
+        }
+    }
+    else if (ep.parameter2 < -0.5)
+    {
+        if (choice < 1)
+        {
+            choice++;
+        }
+    }
+}
+
+void LevelSelectionMenu::Update()
+{
+    OnEnable();
+    ShowMenu();
+    controls->ListenForControls();
+}
+
+void LevelSelectionMenu::ShowMenu()
 {
     Game *g = (Game *)scenes->get(2);
     system("cls");
     cout << "------------------------------------------------------" << endl;
     // cout << "Sélectionner un niveau" << endl;
-    // cout << "-" << (g->currentLevel == 0 ? "O" : "-") << "- Niveau 1" << endl;
+    cout << "-" << (g->currentLevel == 0 ? "O" : "-") << "- Niveau 1" << endl;
     // cout << "-" << (g->currentLevel == 1 ? "O" : "-") << "- Niveau 2" << endl;
     // cout << "-" << (g->currentLevel == 3 ? "O" : "-") << "- Niveau 3" << endl;
-    // cout << "-" << (g->currentLevel >= 4 ? "O" : "-") << "- Retour" << endl;
+    cout << "-" << (g->currentLevel >= 1 ? "O" : "-") << "- Retour" << endl;
     cout << "------------------------------------------------------" << endl;
 }
 
-void LevelSelectionMenu::Selection() /*****/
+void LevelSelectionMenu::Selection()
 {
-    OnDisable();
-    SelectLevel(choice);
-}
-
-void LevelSelectionMenu::Update()
-{
-    OnDisable();
-    ShowMenu();
-    controls->ListenForControls();
+    if (choice == 1)
+    {
+        SelectLevel(choice);
+    }
+    else
+    {
+        Back();
+    }
 }
 
 void LevelSelectionMenu::SelectLevel(int Level)
 {
+    OnDisable();
     system("cls");
     if (Level == 1)
     {
@@ -72,13 +94,10 @@ void LevelSelectionMenu::SelectLevel(int Level)
     {
         // sélectionner niveau 2
     }
-    else
-    {
-        Back();
-    }
 }
 
 void LevelSelectionMenu::Back()
 {
     activeScene = lastMenu;
+    OnDisable();
 }

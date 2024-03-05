@@ -7,7 +7,8 @@
 #include "../Controls/keyboardControls.h"
 
 PauseMenu::PauseMenu()
-{}
+{
+}
 
 void OnPauseMenuMainActionCall(EventParameters)
 {
@@ -36,20 +37,27 @@ void PauseMenu::OnDisable()
 void PauseMenu::changeSelection(EventParameters ep)
 {
     if (ep.parameter2 > 0.5)
+    {
+        choice--;
+        if (choice < 0)
         {
-            choice--;
-            if (choice < 0)
-            {
-                choice = 0;
-            }
+            choice = 0;
         }
-        else if (ep.parameter2 < -0.5)
+    }
+    else if (ep.parameter2 < -0.5)
+    {
+        if (choice < 1)
         {
-            if (choice < 1)
-            {
-                choice++;
-            }
+            choice++;
         }
+    }
+}
+
+void PauseMenu::Update()
+{
+    OnEnable();
+    ShowMenu();
+    controls->ListenForControls();
 }
 
 void PauseMenu::ShowMenu()
@@ -58,7 +66,7 @@ void PauseMenu::ShowMenu()
     cout << "-------------------------------------------------------------------" << endl;
     cout << "Pause" << endl;
     cout << "-" << (choice == 0 ? "O" : "-") << "- Continuer." << endl;
-    cout << "-" << (choice == 1 ? "O" : "-") << "- Menu." << endl;
+    cout << "-" << (choice == 1 ? "O" : "-") << "- Retour au menu." << endl;
     cout << "-------------------------------------------------------------------" << endl;
 }
 
@@ -74,13 +82,6 @@ void PauseMenu::Selection()
         OnDisable();
         ReturnToMenu();
     }
-}
-
-void PauseMenu::Update()
-{
-    OnEnable();
-    ShowMenu();
-    controls->ListenForControls();
 }
 
 void PauseMenu::Continu()

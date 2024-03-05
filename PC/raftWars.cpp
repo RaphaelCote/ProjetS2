@@ -68,9 +68,9 @@ int main()
     scenes = new Vecteur<Scene *>;
     scenes->add(new MainMenu());
     scenes->add(new Game());
-    // scenes->add(new LevelSelectionMenu());
-    // scenes->add(new EndGameMenu());
-    // scenes->add(new Pause());
+    scenes->add(new LevelSelectionMenu());
+    scenes->add(new EndGameMenu());
+    scenes->add(new PauseMenu());
     // scenes->add(new Shop());
 
     while (true)
