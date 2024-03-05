@@ -2,6 +2,7 @@
 #include "../raftWars.h"
 #include "../controls/EventManager.h"
 #include "../Controls/keyboardControls.h"
+#include "../Game/levelGetter.h"
 
 void OnLevelSelectionMenuMainActionCall(EventParameters ep)
 {
