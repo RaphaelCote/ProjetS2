@@ -8,13 +8,15 @@
 
 void OnMainMenuMainActionCall(EventParameters ep)
 {
+    Menu *menu = (Menu *)scenes->get(activeScene);
 
-    activeMenu->Selection();
+    menu->Selection();
 }
 
 void OnMainMenuJoystickCall(EventParameters ep)
 {
-    activeMenu->changeSelection(ep);
+    Menu *menu = (Menu *)scenes->get(activeScene);
+    menu->changeSelection(ep);
 }
 
 void MainMenu::OnEnable()
@@ -29,6 +31,10 @@ void MainMenu::OnDisable()
     eventManager->off("Joystick", OnMainMenuJoystickCall);
 }
 
+MainMenu::MainMenu()
+{
+}
+
 void MainMenu::changeSelection(EventParameters ep)
 {
     if (ep.parameter2 > 0.5)
@@ -41,8 +47,18 @@ void MainMenu::changeSelection(EventParameters ep)
     }
     else if (ep.parameter2 < -0.5)
     {
-        choice++;
+        if (choice < 3)
+        {
+            choice++;
+        }
     }
+}
+
+void MainMenu::Update()
+{
+    OnEnable();
+    ShowMenu();
+    controls->ListenForControls();
 }
 
 void MainMenu::ShowMenu()
@@ -51,9 +67,10 @@ void MainMenu::ShowMenu()
     system("cls");
     cout << "-------------------------------------------------------------------" << endl;
     cout << "Bienvenue au menu du jeu Raft Wars" << endl;
-    cout << "-" << (choice == 0 ? "O" : "-") << "- Commencer." << endl;
-    // cout << " 2. Choisir un niveau." << endl;
-    cout << "-" << (choice >= 1 ? "O" : "-") << "- Sortir" << endl;
+    cout << "-" << (choice == 0 ? "O" : "-") << "- Commencer" << endl;
+    cout << "-" << (choice == 1 ? "O" : "-") << "- Niveaux" << endl;
+    cout << "-" << (choice == 2 ? "O" : "-") << "- Magasin" << endl;
+    cout << "-" << (choice >= 3 ? "O" : "-") << "- Sortir" << endl;
     cout << "-------------------------------------------------------------------" << endl;
 }
 
@@ -61,12 +78,20 @@ void MainMenu::Selection()
 {
     if (choice == 0)
     {
-
-        system("cls"); // clear la command prompt
         OnDisable();
-        game->PlayGame();
+        PlayGame();
     }
-    else if (choice >= 1)
+    else if (choice == 1)
+    {
+        OnDisable();
+        GotoLevelSelect();
+    }
+    else if (choice == 2)
+    {
+        OnDisable();
+        GotoShop();
+    }
+    else if (choice >= 3)
     {
 
         system("cls"); // clear la command prompt
@@ -74,4 +99,26 @@ void MainMenu::Selection()
         system("PAUSE");
         exit(0);
     }
+}
+
+void MainMenu::PlayGame()
+{
+    activeScene = 1;
+}
+
+void MainMenu::GotoLevelSelect()
+{
+    LevelSelectionMenu *lsm = (LevelSelectionMenu *)scenes->get(2);
+    lsm->lastMenu = 0;
+    activeScene = 2;
+}
+
+void MainMenu::GotoShop()
+{
+    activeScene = 5;
+}
+
+void MainMenu::ExitGame()
+{
+    exit(0);
 }

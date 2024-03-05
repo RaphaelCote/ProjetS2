@@ -35,7 +35,7 @@ int Character::getHitboxHeight()
 Coordonnee *Character::PointeurPosition()
 {
     Coordonnee *Positionptr = nullptr;
-    *Positionptr = position;
+    Positionptr = &position;
     return Positionptr;
 }
 

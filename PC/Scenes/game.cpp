@@ -12,30 +12,47 @@ Game::Game()
 {
     currentLevel = 0;
     turn = 0;
-    isActive = false;
     isPlayerTurn = true;
     isPause = false;
     projectileType = 0;
     CreateLevels();
+    Niveau *level = levels[currentLevel];
+    projectile = new Canonball(level->characters[0]->getWeaponPosition());
 }
 
 void OnGameMainActionCall(EventParameters ep)
 {
+    Game *game = (Game *)scenes->get(1);
     game->PlayerShoot();
 }
 
 void OnGameNextSelectionCall(EventParameters ep)
 {
-    game->ChangeProjectileType(1);
+    Game *game = (Game *)scenes->get(1);
+    int newType = game->projectileType;
+    if (newType < 1)
+    {
+        newType++;
+    }
+
+    game->ChangeProjectileType(newType);
 }
 
 void OnGamePreviousSelectionCall(EventParameters ep)
 {
-    game->ChangeProjectileType(0);
+    Game *game = (Game *)scenes->get(1);
+    int newType = game->projectileType;
+    if (newType > 0)
+    {
+        newType--;
+    }
+
+    game->ChangeProjectileType(newType);
 }
 
 void OnGameJoystickCall(EventParameters ep)
 {
+    Game *game = (Game *)scenes->get(1);
     float a = ep.parameter1;
     float strength = sqrt(a * a);
     game->ChangeProjectileStrength(strength);
@@ -43,11 +60,13 @@ void OnGameJoystickCall(EventParameters ep)
 
 void OnGameAngleCall(EventParameters ep)
 {
+    Game *game = (Game *)scenes->get(1);
     game->ChangeProjectileAngle(ep.parameter1);
 }
 
 void OnGameMenuCall(EventParameters ep)
 {
+    Game *game = (Game *)scenes->get(1);
     game->PauseGame();
 }
 
@@ -97,6 +116,21 @@ void Game::OnDisable()
     eventManager->off("Menu", OnGameMenuCall);
 }
 
+void Game::Update()
+{
+    OnEnable();
+
+    if (isPause)
+    {
+        // Load level from start
+        turn == 0;
+    }
+    isPause = false;
+    // Else, just continu with active level
+
+    PlayTurn();
+}
+
 bool Game::CreateLevels()
 {
     levels[0] = new Niveau;
@@ -104,54 +138,11 @@ bool Game::CreateLevels()
     levels[2] = new Niveau;
 }
 
-bool Game::PlayGame()
-{
-    isActive = true;
-    isPause = false;
-
-    cout << "Stating game ..." << endl;
-
-    system("PAUSE");
-
-    // 1 boucle = 1 tour
-    while (isActive)
-    {
-        PlayTurn();
-    }
-
-    return isActive;
-}
-
-void Game::PauseGame()
-{
-    OnDisable();
-    isPause = true;
-    while (isPause)
-    {
-    }
-}
-
-bool Game::NextLevel()
-{
-    if (currentLevel < levels.getSize())
-    {
-        currentLevel++;
-    }
-}
-
-bool Game::EndGame()
-{
-    isActive = false;
-    return isActive;
-}
-
 void Game::PlayTurn()
 {
-    OnEnable();
-    projectileType = 0;
+    turn++;
     Niveau *level = levels[currentLevel];
-    projectile = new Canonball(level->characters[0]->getWeaponPosition());
-    while (isPlayerTurn)
+    if (isPlayerTurn)
     {
         system("cls");
         ShowGameInfo();
@@ -175,29 +166,39 @@ void Game::PlayTurn()
              << endl;
         controls->ListenForControls();
     }
-    system("PAUSE");
-
-    system("cls");
-    ShowGameInfo();
-    cout << "Tour enemi :" << endl;
-
-    EnemyCharacter *ec = (EnemyCharacter *)level->characters[1];
-    Projectile *enemyProjectile = ec->createEnemyProjectile();
-
-    cout << "Angle : " << enemyProjectile->getAngleDegre() << " | Puissance : " << enemyProjectile->getPuissance() << endl;
-
-    if (enemyProjectile->checkIfCharacterHit(*(level->characters[0])))
-    {
-        cout << " (" << enemyProjectile->getBulletEndPosition().x << ", " << enemyProjectile->getBulletEndPosition().y << ")" << endl;
-    }
     else
     {
-        cout << "Le projectile ne vous a pas atteint. Il a atteri a la position: (" << enemyProjectile->getBulletEndPosition().x;
-        cout << ", " << enemyProjectile->getBulletEndPosition().y << ")" << endl;
+
+        system("PAUSE");
+
+        system("cls");
+        ShowGameInfo();
+        cout << "Tour enemi :" << endl;
+
+        EnemyCharacter *ec = (EnemyCharacter *)level->characters[1];
+        Projectile *enemyProjectile = ec->createEnemyProjectile();
+
+        cout << "Angle : " << enemyProjectile->getAngleDegre() << " | Puissance : " << enemyProjectile->getPuissance() << endl;
+
+        if (enemyProjectile->checkIfCharacterHit(*(level->characters[0])))
+        {
+            cout << " (" << enemyProjectile->getBulletEndPosition().x << ", " << enemyProjectile->getBulletEndPosition().y << ")" << endl;
+        }
+        else
+        {
+            cout << "Le projectile ne vous a pas atteint. Il a atteri a la position: (" << enemyProjectile->getBulletEndPosition().x;
+            cout << ", " << enemyProjectile->getBulletEndPosition().y << ")" << endl;
+        }
+
+        system("PAUSE");
+        isPlayerTurn = true;
+        projectile = new Canonball(level->characters[0]->getWeaponPosition());
     }
 
-    system("PAUSE");
-    isPlayerTurn = true;
+    if (CheckEndCondition())
+    {
+        EndGame();
+    }
 }
 
 void Game::PlayerShoot()
@@ -213,21 +214,37 @@ void Game::PlayerShoot()
         cout << "Le projectile n'a pas atteint l'adversaire. Il a atteri a la position: (" << projectile->getBulletEndPosition().x;
         cout << ", " << projectile->getBulletEndPosition().y << ")" << endl;
     }
+
     isPlayerTurn = false;
 }
 
-bool Game::CheckWinCondition()
+void Game::PauseGame()
 {
-    /*Voir avec la classe Personnage*/
+    OnDisable();
+    isPause = true;
+    activeScene = 4;
 }
 
-bool Game::CheckLoseCondition()
+void Game::EndGame()
 {
-    /*Voir avec la classe Personnage*/
+    OnDisable();
+    activeScene = 3;
+}
+
+bool Game::CheckEndCondition()
+{
+    Niveau *level = levels[currentLevel];
+
+    if (level->characters[0]->getHealthPoint() == 0 || level->characters[1]->getHealthPoint() == 0)
+    {
+        return true;
+    }
+
+    return false;
 }
 
 void Game::ShowGameInfo()
 {
     // Show player positions and health
-    levels[currentLevel]->ShowCharacterInfo();
+    levels[currentLevel]->ShowCharacterInfo(cout);
 }

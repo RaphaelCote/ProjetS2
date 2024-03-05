@@ -10,6 +10,7 @@ class Scene : public EventListener
 
 public:
     Scene();
+    ~Scene();
     virtual void Update() = 0;
 
 private:
