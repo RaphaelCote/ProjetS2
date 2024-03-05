@@ -11,7 +11,7 @@ using namespace std;
 class Boat
 {
 public:
-    Boat(int n, int posx, int posy);
+    Boat(int n, int posx, int posy, int height, int width, int image);
     ~Boat();
     int getNbCharacters();
     int getCapacite();
@@ -28,6 +28,9 @@ public:
 private:
     int nbCharacters;
     int capacite;
+    int imageboat;
+    int widthBoat;
+    int heightBoat;
     Coordonnee positionBoat;
 };
 

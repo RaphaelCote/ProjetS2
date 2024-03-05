@@ -3,26 +3,27 @@
 #include "enemyCharacter.h"
 
 
-Niveau::Niveau(int width,int height,int backimge)
+Niveau::Niveau(int width,int height,int image)
 {
     creerListeRaft();
+    widthlevels=width;
+    heightlevels=height;
+    backimage=image; 
+
 }
 
 Niveau::~Niveau()
 {
 }
 
-void Niveau::creerListeRaft()
-{
-    characters.add(new PlayerCharacter(0, 100));
 
-    characters.add(new EnemyCharacter(2000, 100));
-}
-void Niveau::addRaft(int raftwidth, int raftheight,int corodoneeX,int corodoneeY,int imgeraft){
+void Niveau::addRaft(int raftwidth, int raftheight,int corodoneeX,int corodoneeY,int imageraft, int capacite, int i){
+
+boat[i] = new Boat(capacite, corodoneeX, corodoneeY, raftwidth, raftheight, imageraft);
 
 }
 
-void Niveau::ShowCharacterInfo()
+/*void Niveau::ShowCharacterInfo()
 {
     for (int i = 0; i < characters.getSize(); i++)
     {
@@ -36,4 +37,4 @@ void Niveau::ShowCharacterInfo()
         }
         characters[i]->ShowInfo();
     }
-}
+}*/

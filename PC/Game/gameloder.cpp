@@ -21,7 +21,11 @@ ptrniveau= new Niveau(gamedata["niveau"]["wight"],gamedata["niveau"]["hieght"],g
 for(int i=0; i<gamedata["niveau"]["frendlylisteboat"].size();i++){
     ptrniveau->addRaft(gamedata["niveau"]["frendlylisteboat"]["wight"],
                         gamedata["niveau"]["frendlylisteboat"]["hieght"],gamedata["niveau"]["frendlylisteboat"]["corodoneeX"],
-                        gamedata["niveau"]["frendlylisteboat"]["corodoneeX"],gamedata["niveau"]["frendlylisteboat"]["image"]);
-    
+                        gamedata["niveau"]["frendlylisteboat"]["corodoneeX"],gamedata["niveau"]["frendlylisteboat"]["image"],
+                        gamedata["niveau"]["frendlylisteboat"]["listeplayer"],i);
+    for(int j=0; j<gamedata["niveau"]["frendlylisteboat"]["listeplayer"].size();j++){
+
+
+    }
 }
 }
