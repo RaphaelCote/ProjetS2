@@ -32,6 +32,7 @@ int Character::getHitboxHeight()
     return hitbox.height;
 }
 
+
 Coordonnee *Character::PointeurPosition()
 {
     Coordonnee *Positionptr = nullptr;
@@ -56,3 +57,9 @@ Coordonnee Character::getPosition()
 {
     return position;
 }
+
+// void Character::applyShield(Shield& shield){
+//     //présentement elle est vide, mais il faudrait vérifier quel shield
+//     //a été achetée dans le shop et attribué des points de vie supplémentaire au joueur
+//     //pt a coder directement dans playerCharacter
+// }

@@ -13,17 +13,8 @@ class PlayerCharacter : public Character{
         
         PlayerCharacter(int posx,int posy);
         ~PlayerCharacter();
-        int findBulletPositionY(float puissance,float angledeg,int deltax);
-        int findBulletPositionX(float puissance,float angledeg,int deltay);
-        
-        
-        Coordonnee getWeaponPosition() override{
-            return WeaponPosition;
-        }
-        void setWeaponPosition(Coordonnee WeaponPosition) override
-        {
-            this->WeaponPosition=WeaponPosition;
-        }
+        Coordonnee getWeaponPosition() override;
+        void setWeaponPosition(Coordonnee WeaponPosition);
         float Aim(float angle) override;
     private:
         Coordonnee WeaponPosition;

@@ -131,7 +131,7 @@ void Game::Update()
     PlayTurn();
 }
 
-bool Game::CreateLevels()
+void Game::CreateLevels()
 {
     levels[0] = new Niveau;
     levels[1] = new Niveau;

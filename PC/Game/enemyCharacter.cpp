@@ -33,6 +33,15 @@ Projectile *EnemyCharacter::createEnemyProjectile()
     return p;
 }
 
-// Projectile EnemyCharacter::EnemyShoot(Projectile* projectile){
-//     //on inverse l'angle et on fait le randomizer
-// }
+Coordonnee EnemyCharacter::getPosition()
+{
+    return position;
+}
+Coordonnee EnemyCharacter::getWeaponPosition()
+{
+    return WeaponPosition;
+}
+void EnemyCharacter::setWeaponPosition(Coordonnee weaponPosition)
+{
+    this->WeaponPosition=weaponPosition;
+}
