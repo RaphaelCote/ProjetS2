@@ -63,7 +63,8 @@ int main()
     controls = new KeyboardControls(eventManager);
 
     tests = new Tests();
-    // tests->tests_unitaires();
+
+    tests->tests_unitaires_levelGetter();
 
     activeScene = 0;
 
