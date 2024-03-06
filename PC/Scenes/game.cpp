@@ -14,6 +14,7 @@ Game::Game()
     turn = 0;
     isPlayerTurn = true;
     isPause = false;
+    isNewLevel = true;
     projectileType = 0;
     CreateLevels();
     Niveau *level = levels[currentLevel];
@@ -120,14 +121,25 @@ void Game::Update()
 {
     OnEnable();
 
-    if (isPause)
+    if (isNewLevel)
     {
         // Load level from start
         turn == 0;
-    }
-    isPause = false;
-    // Else, just continu with active level
+        isPlayerTurn = true;
+        projectileType = 0;
+        CreateLevels();
 
+        // Ajouter le shield au joueur
+        Niveau *level = levels[currentLevel];
+        // cout << "Shield : " << inventory->getShield() << endl;
+        int newHealthPoints = level->characters[0]->getHealthPoint() + inventory->getShield();
+        // cout << "newHealthPoints : " << newHealthPoints << endl;
+        level->characters[0]->setHealthPoint(newHealthPoints);
+        // cout << "Current healthPoints : " << level->characters[0]->getHealthPoint() << endl;
+        // system("PAUSE");
+    }
+
+    isNewLevel = false;
     PlayTurn();
 }
 
@@ -202,6 +214,11 @@ void Game::PlayTurn()
 
 void Game::PlayerShoot()
 {
+    if (!isPlayerTurn)
+    {
+        return;
+    }
+
     Niveau *level = levels[currentLevel];
 
     if (projectile->checkIfCharacterHit(*(level->characters[1])))
@@ -220,25 +237,55 @@ void Game::PlayerShoot()
 void Game::PauseGame()
 {
     OnDisable();
-    isPause = true;
     activeScene = 4;
 }
 
 void Game::EndGame()
 {
+    PayPlayer();
     system("PAUSE");
     OnDisable();
     StopGame();
     activeScene = 3;
 }
 
+void Game::PayPlayer()
+{
+    Niveau *level = levels[currentLevel];
+
+    if (level->characters[0]->getHealthPoint() == 0)
+    {
+        // Player dead
+        inventory->addGold(200);
+        cout << "-------------------------------------------------------------------" << endl;
+        cout << "Vous avec reçu 200$" << endl;
+        cout << "-------------------------------------------------------------------" << endl;
+    }
+    else
+    {
+        // Enemy dead
+        inventory->addGold(1200);
+        cout << "-------------------------------------------------------------------" << endl;
+        cout << "Vous avec reçu 1200$" << endl;
+        cout << "-------------------------------------------------------------------" << endl;
+    }
+}
+
+void Game::StoreShield()
+{
+    Niveau *level = levels[currentLevel];
+
+    int playerHealth = level->characters[0]->getHealthPoint();
+
+    if (playerHealth > 100)
+    {
+        inventory->setShield(playerHealth - 100);
+    }
+}
+
 void Game::StopGame()
 {
-    turn = 0;
-    isPlayerTurn = true;
-    isPause = false;
-    projectileType = 0;
-    CreateLevels();
+    StoreShield();
 }
 
 bool Game::CheckEndCondition()

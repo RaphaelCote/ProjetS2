@@ -90,6 +90,7 @@ void LevelSelectionMenu::SelectLevel(int level)
     system("cls");
     Game *game = (Game *)scenes->get(1);
     game->currentLevel == level;
+    game->isNewLevel = true;
     activeScene = 1;
 }
 

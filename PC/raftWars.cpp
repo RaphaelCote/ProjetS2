@@ -66,11 +66,11 @@ int main()
     // tests->tests_unitaires();
 
     inventory = new Inventory();
-    inventory->addGold(2000);
+    // inventory->addGold(2000);
 
     activeScene = 0;
 
-    scenes = new Vecteur<Scene *>;
+    scenes = new Vecteur<Scene *>();
     scenes->add(new MainMenu());
     scenes->add(new Game());
     scenes->add(new LevelSelectionMenu());

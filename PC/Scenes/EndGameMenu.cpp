@@ -47,7 +47,7 @@ void EndGameMenu::changeSelection(EventParameters ep)
     }
     else if (ep.parameter2 < -0.5)
     {
-        if (choice < 2)
+        if (choice < 3)
         {
             choice++;
         }
@@ -63,6 +63,7 @@ void EndGameMenu::Update()
 
 void EndGameMenu::ShowMenu()
 {
+    // Vérifier qu'on est pas au dernier niveau
     system("cls");
     cout << "-------------------------------------------------------------------" << endl;
     cout << "Fin du niveau" << endl;
@@ -102,6 +103,7 @@ void EndGameMenu::NextLevel()
     choice = 0;
     Game *game = (Game *)scenes->get(2);
     game->currentLevel++;
+    game->isNewLevel = true;
     activeScene = 1;
 }
 

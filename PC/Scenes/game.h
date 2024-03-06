@@ -23,6 +23,7 @@ private:
     /*PERSONNAGE 1 ET PERSONNAGE 2*/
     /*ne pas oublier d'inclure vecteur et le const (si nécessaire)*/
 public:
+    bool isNewLevel;
     int currentLevel;
     Vecteur<Niveau *> levels;
     Game();
@@ -47,6 +48,8 @@ public:
     void PlayerShoot();
     void PauseGame();
     void EndGame();
+    void PayPlayer();
+    void StoreShield();
     void StopGame();
     bool CheckEndCondition();
     void ShowGameInfo();
