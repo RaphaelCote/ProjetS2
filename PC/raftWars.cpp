@@ -45,6 +45,7 @@ Controls *controls;
 Vecteur<Scene *> *scenes;
 Inventory *inventory;
 int activeScene;
+LevelGetter *levelGetter;
 /*
 Scenes index:
 0 : Main menu
@@ -63,7 +64,8 @@ int main()
     controls = new KeyboardControls(eventManager);
 
     tests = new Tests();
-    // tests->tests_unitaires();
+
+    tests->tests_unitaires_levelGetter();
 
     inventory = new Inventory();
     // inventory->addGold(2000);
@@ -77,6 +79,7 @@ int main()
     scenes->add(new EndGameMenu());
     scenes->add(new PauseMenu());
     scenes->add(new ShopMenu());
+    levelGetter = new LevelGetter();
 
     while (true)
     {

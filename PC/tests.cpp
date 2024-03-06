@@ -215,6 +215,18 @@ void Tests::test_unitaire_Boat()
    delete adv1;
 }
 
+void Tests::tests_unitaires_levelGetter()
+{
+   cout << endl << "TESTS UNITAIRES levelGetter" << endl
+      << "-----------------------------------------------------"
+        << endl;
+   LevelGetter *listlevels = new LevelGetter();
+   string a = listlevels->levels[0];
+   cout << "Level 0 : " << a << endl;
+   cout << "Level 1" << listlevels->levels[1] << endl;
+   cout << "nb level: " << listlevels->nbLevel << endl;
+}
+
 void Tests::tests_unitaires()
 {
    // Fait tous les tests unitaires

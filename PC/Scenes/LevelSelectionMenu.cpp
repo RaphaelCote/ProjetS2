@@ -2,6 +2,7 @@
 #include "../raftWars.h"
 #include "../controls/EventManager.h"
 #include "../Controls/keyboardControls.h"
+#include "../Game/levelGetter.h"
 
 void OnLevelSelectionMenuMainActionCall(EventParameters ep)
 {
@@ -43,7 +44,7 @@ void LevelSelectionMenu::changeSelection(EventParameters ep)
     }
     else if (ep.parameter2 < -0.5)
     {
-        if (choice < 1)
+        if (choice < levelGetter->nbLevel + 1)
         {
             choice++;
         }
@@ -60,24 +61,24 @@ void LevelSelectionMenu::Update()
 void LevelSelectionMenu::ShowMenu()
 {
     system("cls");
-    // Boucler au travers des ficher de niveaux pour afficher les choix
     cout << "------------------------------------------------------" << endl;
-    cout << "Selectionner un niveau" << endl;
-    cout << "-" << (choice == 0 ? "O" : "-") << "- Niveau 1" << endl;
-    // cout << "-" << (choice == 1 ? "O" : "-") << "- Niveau 2" << endl;
-    // cout << "-" << (choice == 3 ? "O" : "-") << "- Niveau 3" << endl;
-    cout << "-" << (choice >= 1 ? "O" : "-") << "- Retour" << endl;
+    cout << "Sélectionner un niveau" << endl;
+    for (int i = 0; i < levelGetter->nbLevel; i++)
+    {
+        cout << (choice == i ? "O" : "-") << "- Niveau " << i << endl;
+    }
+    cout << "-" << (choice >= levelGetter->nbLevel ? "O" : "-") << "- Retour" << endl;
     cout << "------------------------------------------------------" << endl;
 }
 
 void LevelSelectionMenu::Selection()
 {
-    if (choice == 0)
+    if (choice < levelGetter->nbLevel)
     {
         OnDisable();
         SelectLevel(choice);
     }
-    else if (choice == 1)
+    else if (choice == levelGetter->nbLevel)
     {
         OnDisable();
         Back();

@@ -14,7 +14,8 @@ extern EventManager *eventManager;
 extern Controls *controls;
 extern Tests *tests;
 extern Vecteur<Scene *> *scenes;
-extern Inventory* inventory;
+extern Inventory *inventory;
 extern int activeScene;
+extern LevelGetter *levelGetter;
 
 #endif
