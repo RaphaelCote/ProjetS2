@@ -21,6 +21,16 @@ Game::Game()
     projectile = new Canonball(level->characters[0]->getWeaponPosition());
 }
 
+int Game::GetLevel()
+{
+    return currentLevel;
+}
+
+void Game::SetLevel(int level)
+{
+    currentLevel = level;
+}
+
 void OnGameMainActionCall(EventParameters ep)
 {
     Game *game = (Game *)scenes->get(1);
@@ -121,6 +131,8 @@ void Game::Update()
 {
     OnEnable();
 
+    cout << currentLevel << endl;
+    system("PAUSE");
     if (isNewLevel)
     {
         // Load level from start
@@ -258,7 +270,7 @@ void Game::PayPlayer()
         // Player dead
         inventory->addGold(200);
         cout << "-------------------------------------------------------------------" << endl;
-        cout << "Vous avec reçu 200$" << endl;
+        cout << "Vous avec recu 200$" << endl;
         cout << "-------------------------------------------------------------------" << endl;
     }
     else
@@ -266,7 +278,7 @@ void Game::PayPlayer()
         // Enemy dead
         inventory->addGold(1200);
         cout << "-------------------------------------------------------------------" << endl;
-        cout << "Vous avec reçu 1200$" << endl;
+        cout << "Vous avec recu 1200$" << endl;
         cout << "-------------------------------------------------------------------" << endl;
     }
 }
@@ -303,5 +315,6 @@ bool Game::CheckEndCondition()
 void Game::ShowGameInfo()
 {
     // Show player positions and health
+    cout << "Niveau " << currentLevel + 1 << endl;
     levels[currentLevel]->ShowCharacterInfo(cout);
 }

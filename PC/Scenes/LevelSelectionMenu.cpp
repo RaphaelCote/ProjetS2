@@ -62,10 +62,10 @@ void LevelSelectionMenu::ShowMenu()
 {
     system("cls");
     cout << "------------------------------------------------------" << endl;
-    cout << "Sélectionner un niveau" << endl;
+    cout << "Selectionner un niveau" << endl;
     for (int i = 0; i < levelGetter->nbLevel; i++)
     {
-        cout << (choice == i ? "O" : "-") << "- Niveau " << i << endl;
+        cout << "-" << (choice == i ? "O" : "-") << "- Niveau " << i + 1 << endl;
     }
     cout << "-" << (choice >= levelGetter->nbLevel ? "O" : "-") << "- Retour" << endl;
     cout << "------------------------------------------------------" << endl;
@@ -90,7 +90,7 @@ void LevelSelectionMenu::SelectLevel(int level)
     choice = 0;
     system("cls");
     Game *game = (Game *)scenes->get(1);
-    game->currentLevel == level;
+    game->SetLevel(level);
     game->isNewLevel = true;
     activeScene = 1;
 }

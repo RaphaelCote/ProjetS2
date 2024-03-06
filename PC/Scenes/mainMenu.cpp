@@ -75,7 +75,7 @@ void MainMenu::ShowMenu()
     system("cls");
     cout << "-------------------------------------------------------------------" << endl;
     cout << "Bienvenue au menu du jeu Raft Wars" << endl;
-    cout << "-" << (choice == 0 ? "O" : "-") << "- Commencer" << endl;
+    cout << "-" << (choice == 0 ? "O" : "-") << "- Jouer" << endl;
     cout << "-" << (choice == 1 ? "O" : "-") << "- Niveaux" << endl;
     cout << "-" << (choice == 2 ? "O" : "-") << "- Magasin" << endl;
     cout << "-" << (choice >= 3 ? "O" : "-") << "- Sortir" << endl;
