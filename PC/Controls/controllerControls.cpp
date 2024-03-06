@@ -54,7 +54,7 @@ void ControllerControls::ThreadReceiveSerial()
     {
         while(ready_to_read == false)
         {Sleep(1);}
-        Sleep(100);
+        Sleep(10);
         //cout << "Thread is life" << endl;
         messageReceived.clear(); // effacer le message precedent
         if (!RcvFromSerial())
@@ -65,10 +65,10 @@ void ControllerControls::ThreadReceiveSerial()
         {
             try
             {
-                cout << "Arduino: " << raw_msg << endl;
+                //cout << "Arduino: " << raw_msg << endl;
                 messageReceived = json::parse(raw_msg);
                 this->UpdateAllValues();
-                cout << "All values are updated: " << etatB1 << endl;
+                //cout << "All values are updated: " << etatB1 << endl;
                 //cout << "Message de l'Arduino: " << messageReceived << endl;
             }
             catch(nlohmann::detail::parse_error e)
@@ -86,10 +86,25 @@ void ControllerControls::UpdateAllValues()
 {
     //Joystick
     this->etatJoyX = this->GetJoyXMenu0(&(this->JoystickValX));
-    this->etatJoyY = this->GetJoyXMenu0(&(this->JoystickValY));
+    this->etatJoyY = this->GetJoyYMenu0(&(this->JoystickValY));
 
     //Angle
-    this->GetValue("Angle", &(this->AngleManette));
+    float angle;
+    this->GetValue("Angle", &(angle));
+
+    for(int i = GROSSEUR_TAB_ANGLE - 1; i > 0; i--)
+    {
+        Tab_AnglesManette[i] = Tab_AnglesManette[i-1];
+    }
+
+    Tab_AnglesManette[0] = angle;
+
+    for(int i =0; i < GROSSEUR_TAB_ANGLE; i++)
+    {
+        angle += Tab_AnglesManette[i];
+    }
+
+    AngleManette = angle/GROSSEUR_TAB_ANGLE;
 
     //buttons
     this->etatB1 = this->GetBouttonMenu0(1);
@@ -104,64 +119,54 @@ void ControllerControls::ListenForControls()
 {
     if(ready_to_send == true)
     {
-        ready_to_send = false;
+        //cout << "Sending" << endl;
         this->AddMessage("Moteur", 0);
         if(!this->SendMessageJson())
             return;
 
-        cout << "Veuillez lancer: ";
+        //cout << "Veuillez lancer: ";
     }
     
     //cout << "Message: " << messageReceived << endl;
     //cout << "B1: " << this->etatB1 << endl;
     Angle(AngleManette);
-    Joystick(JoystickValX, JoystickValY);
+    Joystick(JoystickValY, 0);
+    //cout << "Sleep for 1" << endl;
+    //Sleep(1000);
+    //cout << " Finished" << endl;
+    //Sleep(100);
 
     if (etatB1 == etatBoutton::BouttonAppuyer && etatB1 != oldEtatB1)
     {
         MainAction();
     }
-    else if (etatJoyX == etatJoystick::JoystickUp && etatJoyX != oldEtatJoyX)
+    else if (etatJoyX == etatJoystick::JoystickUp && oldEtatJoyX != etatJoystick::JoystickUp)
     {
         Joystick(0, 1);
     }
-    else if (etatJoyX == etatJoystick::JoystickDown && etatJoyX != oldEtatJoyX)
+    else if (etatJoyX == etatJoystick::JoystickDown && oldEtatJoyX != etatJoystick::JoystickDown)
     {
         Joystick(0, -1);
     }
-    // else if (input == "n")
-    // {
-    //     PreviousSelection();
-    // }
-    // else if (input == "m")
-    // {
-    //     NextSelection();
-    // }
-    // else if (input == "p")
-    // {
-    //     Menu();
-    // }
-    // else if (input == "u")
-    // {
-    //     float angle;
-    //     cout << "Veuillez entrer un angle : ";
-    //     cin >> angle;
-
-    //     Angle(angle);
-    // }
-    // else if (input == "i")
-    // {
-    //     float joystickX;
-    //     float joystickY;
-    //     cout << "Veuillez entrer un x de Joystick : ";
-    //     cin >> joystickX;
-    //     cout << "Veuillez entrer un y de Joystick : ";
-    //     cin >> joystickY;
-
-    //     Joystick(joystickX, joystickY);
-    // }
+    else if (etatB2 == etatBoutton::BouttonAppuyer && etatB2 != oldEtatB2)
+    {
+        PreviousSelection();
+    }
+    else if (etatB4 == etatBoutton::BouttonAppuyer && etatB4 != oldEtatB4)
+    {
+        NextSelection();
+    }
+    else if (etatB5 == etatBoutton::BouttonAppuyer && etatB5 != oldEtatB5)
+    {
+        Menu();
+    }
+    
 
     oldEtatB1 = etatB1;
+    oldEtatB2 = etatB2;
+    oldEtatB3 = etatB3;
+    oldEtatB4 = etatB4;
+    oldEtatB5 = etatB5;
     oldEtatJoyX = etatJoyX;
     oldEtatJoyY = etatJoyY;
 }

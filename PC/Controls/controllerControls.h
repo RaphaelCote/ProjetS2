@@ -13,6 +13,7 @@ using json = nlohmann::json;
 
 #define BAUD 115200         // Frequence de transmission serielle
 #define MSG_MAX_SIZE 1024 // Longueur maximale d'un message
+#define GROSSEUR_TAB_ANGLE 10
 
 using namespace std;
 
@@ -84,6 +85,7 @@ public:
     float JoystickValY;
 
     float AngleManette;
+    float Tab_AnglesManette[GROSSEUR_TAB_ANGLE];
 
 
     ControllerControls(EventManager *em, string com);

@@ -109,7 +109,7 @@ void setup() {
 
 void loop() 
 {
-  MainAffichage();
+  //MainAffichage();
 
   
   
