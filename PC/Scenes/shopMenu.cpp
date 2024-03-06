@@ -1,6 +1,7 @@
 #include "shopMenu.h"
 #include "../raftWars.h"
 #include "../controls/EventManager.h"
+#include "../Game/inventory.h"
 
 void OnShopMainActionCall(EventParameters ep)
 {
@@ -71,7 +72,7 @@ void ShopMenu::ShowMenu()
     cout << "-------------------------------------------------------------------" << endl;
     cout << "-------------------------------------------------------------------" << endl;
     cout << "INVENTAIRE" << endl;
-    cout<< "Argent : "<<inventory->getGold()<<endl;
+    cout << "Argent : " << inventory->getGold() << endl;
     cout << "Roquettes : " << inventory->getRockets() << endl;
     cout << "Grenades : " << inventory->getGrenade() << endl;
     cout << "Shield : " << inventory->getShield() << endl;
@@ -94,7 +95,7 @@ void ShopMenu::Selection()
 
     else if (choice == 2)
     {
-         inventory->addShield(1);
+        inventory->addShield(1);
     }
 
     else if (choice == 3)
@@ -104,7 +105,7 @@ void ShopMenu::Selection()
 
     else if (choice == 4)
     {
-         inventory->addShield(3);
+        inventory->addShield(3);
     }
 
     else if (choice == 5)
