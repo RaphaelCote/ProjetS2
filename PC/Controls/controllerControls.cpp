@@ -20,13 +20,14 @@ ControllerControls::ControllerControls(EventManager *em, string com) : Controls(
 {
     comPort = com;
     InitializeSerial();
-    etatB1 = etatBoutton::BouttonEnabled;
-    oldEtatB1 = etatBoutton::BouttonEnabled;
-    etatJoyX = etatJoystick::JoystickEnabled;
-    etatJoyY = etatJoystick::JoystickEnabled;
-    oldEtatJoyX = etatJoystick::JoystickEnabled;
-    oldEtatJoyY = etatJoystick::JoystickEnabled;
+    etatB1 = etatBoutton::BouttonRelacher;
+    oldEtatB1 = etatBoutton::BouttonRelacher;
+    etatJoyX = etatJoystick::JoystickMiddle;
+    etatJoyY = etatJoystick::JoystickMiddle;
+    oldEtatJoyX = etatJoystick::JoystickMiddle;
+    oldEtatJoyY = etatJoystick::JoystickMiddle;
     ready_to_send = true;
+    ready_to_read = false;
     Thread_Actif = true;
 
     // Create a lambda function to capture the instance of MyClass and call its member function
@@ -54,56 +55,67 @@ void ControllerControls::ThreadReceiveSerial()
         while(ready_to_read == false)
         {Sleep(1);}
         Sleep(100);
-        cout << "Thread is life" << endl;
+        //cout << "Thread is life" << endl;
         messageReceived.clear(); // effacer le message precedent
         if (!RcvFromSerial())
         {
             cerr << "Erreur lors de la reception du message. " << endl;
         }
-        
-        
-        // cout << "raw_msg: " << raw_msg << endl;  // debug
-        //  Transfert du message en json
-        try
+        else
         {
-            cout << "Arduino: " << raw_msg << endl;
-            messageReceived = json::parse(raw_msg);
-            //cout << "Message de l'Arduino: " << messageReceived << endl;
+            try
+            {
+                cout << "Arduino: " << raw_msg << endl;
+                messageReceived = json::parse(raw_msg);
+                this->UpdateAllValues();
+                cout << "All values are updated: " << etatB1 << endl;
+                //cout << "Message de l'Arduino: " << messageReceived << endl;
+            }
+            catch(nlohmann::detail::parse_error e)
+            {
+                cout << "Erreur Parse: " << e.what() << '\n';
+            }
         }
-        catch(nlohmann::detail::parse_error e)
-        {
-            cout << "Erreur Parse: " << e.what() << '\n';
-        }
+        
         ready_to_read = false;
+        ready_to_send = true;
     }
+}
+
+void ControllerControls::UpdateAllValues()
+{
+    //Joystick
+    this->etatJoyX = this->GetJoyXMenu0(&(this->JoystickValX));
+    this->etatJoyY = this->GetJoyXMenu0(&(this->JoystickValY));
+
+    //Angle
+    this->GetValue("Angle", &(this->AngleManette));
+
+    //buttons
+    this->etatB1 = this->GetBouttonMenu0(1);
+    this->etatB2 = this->GetBouttonMenu0(2);
+    this->etatB3 = this->GetBouttonMenu0(3);
+    this->etatB4 = this->GetBouttonMenu0(4);
+    this->etatB5 = this->GetBouttonMenu0(5);
 }
 
 
 void ControllerControls::ListenForControls()
 {
-    
+    if(ready_to_send == true)
+    {
+        ready_to_send = false;
+        this->AddMessage("Moteur", 0);
+        if(!this->SendMessageJson())
+            return;
 
-    this->AddMessage("Moteur", 0);
-    if(!this->SendMessageJson())
-        return;
-    Sleep(10);
-
-    cout << "Veuillez lancer: ";
+        cout << "Veuillez lancer: ";
+    }
     
-    
-    
-    etatJoyX = GetJoyXMenu0();
-    etatJoyY = GetJoyYMenu0();
-    etatB1 = GetBouttonMenu0(1);
-    float angle;
-    float joystickX;
-    float joystickY;
-
-    this->GetValue("Angle", &angle);
-    this->GetValue("JoyY", &joystickY);
-    this->GetValue("JoyY", &joystickX);
-    Angle(angle);
-    Joystick(joystickX, joystickY);
+    //cout << "Message: " << messageReceived << endl;
+    //cout << "B1: " << this->etatB1 << endl;
+    Angle(AngleManette);
+    Joystick(JoystickValX, JoystickValY);
 
     if (etatB1 == etatBoutton::BouttonAppuyer && etatB1 != oldEtatB1)
     {
@@ -154,23 +166,17 @@ void ControllerControls::ListenForControls()
     oldEtatJoyY = etatJoyY;
 }
 
-etatJoystick ControllerControls::GetJoyXMenu0()
+etatJoystick ControllerControls::GetJoyXMenu0(float* value)
 {
-    float joystickValX;
     
-    
-
-    this->GetValue("JoyX", &joystickValX);
-    
-    
-
+    this->GetValue("JoyX", value);
     //JoyX -1 == en bas
     //JoyY 1 == en haut
-    if(joystickValX >= TRESHOLD)//up
+    if(*value >= TRESHOLD)//up
     {
         return etatJoystick::JoystickUp;
     }
-    else if(joystickValX <= -TRESHOLD)//down
+    else if(*value <= -TRESHOLD)//down
     {
         return etatJoystick::JoystickDown;
     }
@@ -181,19 +187,17 @@ etatJoystick ControllerControls::GetJoyXMenu0()
 
 }
 
-etatJoystick ControllerControls::GetJoyYMenu0()
+etatJoystick ControllerControls::GetJoyYMenu0(float* value)
 {
-    float joystickValY;
-
-    this->GetValue("JoyY", &joystickValY);
+    this->GetValue("JoyY", value);
 
     //////////////////////////////////////
     //
-    if(joystickValY >= TRESHOLD)//up
+    if(*value >= TRESHOLD)//up
     {
         return etatJoystick::JoystickUp;
     }
-    else if(joystickValY <= -TRESHOLD)//down
+    else if(*value <= -TRESHOLD)//down
     {
         return etatJoystick::JoystickDown;
     }
@@ -244,6 +248,9 @@ bool ControllerControls::SendToSerial()
     bool ret = arduino->writeSerialPort(msg.c_str(), msg.length());
     message_to_send.clear();
     ready_to_read = true;
+    ready_to_send = false;
+
+    //cout << "B1 Send: " << this->etatB1 << endl;
     
     return ret;
 }

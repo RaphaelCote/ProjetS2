@@ -40,13 +40,7 @@ enum etatJoystick
 class ControllerControls : public Controls
 {
     bool Thread_Actif;
-    etatBoutton etatB1;
-    etatBoutton oldEtatB1;
-
-    etatJoystick etatJoyX;
-    etatJoystick etatJoyY;
-    etatJoystick oldEtatJoyX;
-    etatJoystick oldEtatJoyY;
+    
 
     string comPort;
     string raw_msg;
@@ -61,16 +55,40 @@ class ControllerControls : public Controls
     
     bool SendToSerial();
     bool RcvFromSerial();
-    etatJoystick GetJoyXMenu0();
-    etatJoystick GetJoyYMenu0();
+    etatJoystick GetJoyXMenu0(float* value);
+    etatJoystick GetJoyYMenu0(float* value);
     etatBoutton GetBouttonMenu0(int boutton);
 
 public:
     bool ready_to_send;
     bool ready_to_read;
 
+
+    etatBoutton etatB1;
+    etatBoutton oldEtatB1;
+    etatBoutton etatB2;
+    etatBoutton oldEtatB2;
+    etatBoutton etatB3;
+    etatBoutton oldEtatB3;
+    etatBoutton etatB4;
+    etatBoutton oldEtatB4;
+    etatBoutton etatB5;
+    etatBoutton oldEtatB5;
+
+    etatJoystick etatJoyX;
+    etatJoystick etatJoyY;
+    etatJoystick oldEtatJoyX;
+    etatJoystick oldEtatJoyY;
+
+    float JoystickValX;
+    float JoystickValY;
+
+    float AngleManette;
+
+
     ControllerControls(EventManager *em, string com);
     void ThreadReceiveSerial();
+    void UpdateAllValues();
     void InitializeSerial();
     void ListenForControls();
     void AddMessage(string name, int value);
