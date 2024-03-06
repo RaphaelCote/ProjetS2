@@ -75,6 +75,7 @@ int main()
     scenes->add(new EndGameMenu());
     scenes->add(new PauseMenu());
     scenes->add(new ShopMenu());
+    levelGetter = new LevelGetter();
 
     while (true)
     {
