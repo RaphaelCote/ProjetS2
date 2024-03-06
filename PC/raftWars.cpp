@@ -43,7 +43,7 @@ EventManager *eventManager;
 Tests *tests;
 Controls *controls;
 Vecteur<Scene *> *scenes;
-Inventory* inventory;
+Inventory *inventory;
 int activeScene;
 /*
 Scenes index:
@@ -63,9 +63,10 @@ int main()
     controls = new KeyboardControls(eventManager);
 
     tests = new Tests();
-    inventory= new Inventory();
-    //inventory->addGold(2000);
     // tests->tests_unitaires();
+
+    inventory = new Inventory();
+    inventory->addGold(2000);
 
     activeScene = 0;
 

@@ -63,11 +63,11 @@ void ShopMenu::ShowMenu()
     // récupérer les qté et les prix dans inventaire, afficher l'argent
     cout << "-------------------------------------------------------------------" << endl;
     cout << "BOUTIQUE" << endl;
-    cout << "-" << (choice == 0 ? "O" : "-") << "- Acheter une roquette : 100$" << endl;
-    cout << "-" << (choice == 1 ? "O" : "-") << "- Acheter une grenade : 200$" << endl;
-    cout << "-" << (choice == 2 ? "O" : "-") << "- Acheter une petite armure : 200$" << endl;
-    cout << "-" << (choice == 3 ? "O" : "-") << "- Acheter une moyenne armure : 300$" << endl;
-    cout << "-" << (choice == 4 ? "O" : "-") << "- Acheter une grande armure : 500$" << endl;
+    cout << "-" << (choice == 0 ? "O" : "-") << "- Acheter une roquette : " << PRIXKROCKET << "$" << endl;
+    cout << "-" << (choice == 1 ? "O" : "-") << "- Acheter une grenade : " << PRIXGRENADE << "$" << endl;
+    cout << "-" << (choice == 2 ? "O" : "-") << "- Acheter 25 bouclier (max 50) : " << PRIXPETITSHIELD << "$" << endl;
+    cout << "-" << (choice == 3 ? "O" : "-") << "- Acheter 50 bouclier (max 100) : " << PRIXMOYENSHIELD << "$" << endl;
+    cout << "-" << (choice == 4 ? "O" : "-") << "- Acheter 100 bouclier (max 100) : " << PRIXGROSSHIELD << "$" << endl;
     cout << "-" << (choice == 5 ? "O" : "-") << "- Retour" << endl;
     cout << "-------------------------------------------------------------------" << endl;
     cout << "-------------------------------------------------------------------" << endl;
@@ -75,13 +75,13 @@ void ShopMenu::ShowMenu()
     cout << "Argent : " << inventory->getGold() << endl;
     cout << "Roquettes : " << inventory->getRockets() << endl;
     cout << "Grenades : " << inventory->getGrenade() << endl;
-    cout << "Shield : " << inventory->getShield() << endl;
+    cout << "Bouclier : " << inventory->getShield() << endl;
     cout << "-------------------------------------------------------------------" << endl;
 }
 
 void ShopMenu::Selection()
 {
-    // Vérifier si le joeur a assez d'argent
+    // Vérifier si le joueur a assez d'argent
     if (choice == 0)
     {
         inventory->addRockets();

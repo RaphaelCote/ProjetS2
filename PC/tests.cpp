@@ -36,7 +36,7 @@ void Tests::OnDisable()
 void Tests::test_unitaire_Controls()
 {
    // Tests unitraires de la classe Controls
-   testControls = new Controls(eventManager);
+   testControls = new KeyboardControls(eventManager);
 
    // Add eventListener
    cout << "Assigning some controls" << endl;
@@ -102,7 +102,7 @@ void Tests::test_unitaire_characterAndprojectile()
    EnemyCharacter enemy(2000, 100);
    PlayerCharacter player(0, 100);
    enemy.createEnemyProjectile();
-  
+
    cout << fixed << setprecision(2);
    int choix = 0;
 
@@ -110,7 +110,7 @@ void Tests::test_unitaire_characterAndprojectile()
    Projectile *e; // projectile ennemi
    cout << "Entrez la valeur 1 pour lancer une balle, 2 pour lancer une roquette et 3 pour la grenade." << endl;
    cin >> choix;
-   while (choix != 1 && choix != 2 && choix!=3)
+   while (choix != 1 && choix != 2 && choix != 3)
    {
       cout << "Choix invalide. Entrez la valeur 1 pour lancer une balle, 2 pour lancer une roquette et 3 pour la grenade." << endl;
       cin >> choix;
@@ -126,9 +126,9 @@ void Tests::test_unitaire_characterAndprojectile()
       // p = new Rocket(player); //avec l'ancien constructeur
       p = new Rocket(player.getWeaponPosition());
    }
-   if(choix==3)
+   if (choix == 3)
    {
-      p=new Grenade(player.getWeaponPosition());
+      p = new Grenade(player.getWeaponPosition());
    }
    e = new Rocket(enemy.getWeaponPosition());
 
@@ -158,18 +158,16 @@ void Tests::test_unitaire_characterAndprojectile()
         << "x^2 / (2(" << puissance << "Vmax)^2 · cos^2(" << angle * PI / 180 << ") ) + xtan(" << angle * PI / 180 << ")"
         << "\n"
         << endl;
-   
+
    if (p->checkIfCharacterHit(enemy))
    {
       cout << "Le projectile a atteint directement l'adversaire. Il a atteri a la position: (" << p->getBulletEndPosition().x << ", " << p->getBulletEndPosition().y << ")" << endl;
-     
    }
    else
    {
       cout << "Le projectile n'a pas atteint directement l'adversaire. Il a atteri a la position: (" << p->getBulletEndPosition().x << ", " << p->getBulletEndPosition().y << ")" << endl;
    }
-   cout<<"le personnage vise a actuellement : "<<enemy.getHealthPoint()<<" point de vie"<<endl;
-   
+   cout << "le personnage vise a actuellement : " << enemy.getHealthPoint() << " point de vie" << endl;
 }
 
 void Tests::test_unitaire_Boat()
