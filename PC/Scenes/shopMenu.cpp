@@ -1,6 +1,7 @@
 #include "shopMenu.h"
 #include "../raftWars.h"
 #include "../controls/EventManager.h"
+#include "../Game/inventory.h"
 
 void OnShopMainActionCall(EventParameters ep)
 {
@@ -91,22 +92,22 @@ void ShopMenu::Selection()
         inventory->addGrenade();
         OnDisable();
     }
-    else if (choice > 1 && choice < 5)
-    {
 
-        if (choice == 2)
-        {
-            inventory->addShield(1);
-        }
-        else if (choice == 3)
-        {
-            inventory->addShield(2);
-        }
-        else if (choice == 4)
-        {
-            inventory->addShield(3);
-        }
+    else if (choice == 2)
+    {
+        inventory->addShield(1);
     }
+
+    else if (choice == 3)
+    {
+        inventory->addShield(2);
+    }
+
+    else if (choice == 4)
+    {
+        inventory->addShield(3);
+    }
+
     else if (choice == 5)
     {
         OnDisable();

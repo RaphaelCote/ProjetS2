@@ -64,6 +64,7 @@ int main()
 
     tests = new Tests();
     inventory= new Inventory();
+    //inventory->addGold(2000);
     // tests->tests_unitaires();
 
     activeScene = 0;
