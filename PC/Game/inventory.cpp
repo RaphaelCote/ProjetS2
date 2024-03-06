@@ -29,8 +29,18 @@ void Inventory::addRockets()
 {
     if(getGold()>=PrixRocket)
     {
-        nbRockets++;
-        removeGold(PrixRocket);
+        if (getRockets() < 2)
+        {
+            nbRockets++;
+            removeGold(PrixRocket);
+        }
+        else
+        {
+            cout << "-------------------------------------------------------------------" << endl;
+            cout<<"Limite de rockets atteinte"<<endl;
+            cout << "-------------------------------------------------------------------" << endl;
+            system("pause");
+        }
     }
     else
     {
@@ -73,7 +83,7 @@ void Inventory::addShield(int level)
             else
             {
                 cout << "-------------------------------------------------------------------" << endl;
-                cout<<"Vous disposez deja du nombre maximum de petit shield possible"<<endl;  
+                cout<<"Limite de petits shields atteinte"<<endl;  
                 cout << "-------------------------------------------------------------------" << endl;
                 system("pause");
             }
@@ -103,7 +113,7 @@ void Inventory::addShield(int level)
             else
             {
                 cout << "-------------------------------------------------------------------" << endl;
-                cout<<"Vous disposez deja du nombre maximum de moyen shield possible"<<endl;  
+                cout<<"Limite de moyens shields atteinte"<<endl;  
                 cout << "-------------------------------------------------------------------" << endl;
                 system("pause");
             }
@@ -136,7 +146,7 @@ void Inventory::addShield(int level)
         }
         else{
             cout << "-------------------------------------------------------------------" << endl;
-            cout<<"Vous disposez deja du nombre maximum de gros shield possible"<<endl;  
+            cout<<"Limite de gros shields atteinte"<<endl;  
             cout << "-------------------------------------------------------------------" << endl;
             system("pause");
         }
@@ -152,8 +162,18 @@ void Inventory::addGrenade()
 {
     if(getGold()>=PrixGrenade)
     {
-        nbGrenades++;
-        removeGold(PrixGrenade);
+        if (getGrenade() < 2)
+        {
+            nbGrenades++;
+            removeGold(PrixGrenade);
+        }
+        else
+        {
+            cout << "-------------------------------------------------------------------" << endl;
+            cout<<"Limite de grenades atteinte"<<endl;
+            cout << "-------------------------------------------------------------------" << endl;
+            system("pause");
+        }
     }
     else{
         cout << "-------------------------------------------------------------------" << endl;
