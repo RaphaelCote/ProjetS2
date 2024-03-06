@@ -15,12 +15,16 @@ using namespace std;
 
 /*-------------------------- Other file include -----------------------------*/
 #include "raftWars.h"
-#include "Controls/EventManager.h"
+#include "Controls/eventManager.h"
 #include "Controls/keyboardControls.h"
 #include "Controls/ControllerControls.h"
 #include "tests.h"
-#include "Menus/menu.h"
-#include "game/game.h"
+#include "Scenes/menu.h"
+#include "Scenes/mainMenu.h"
+#include "Scenes/pauseMenu.h"
+#include "Scenes/endGameMenu.h"
+#include "Scenes/levelSelectionMenu.h"
+#include "Scenes/shopMenu.h"
 
 /*------------------------------ Constantes ---------------------------------*/
 
@@ -34,9 +38,18 @@ using namespace std;
 EventManager *eventManager;
 Tests *tests;
 Controls *controls;
-Menu *menu;
-Game *game;
-
+Vecteur<Scene *> *scenes;
+Inventory *inventory;
+int activeScene;
+/*
+Scenes index:
+0 : Main menu
+1 : Game
+2 : Level Selection menu
+3 : End game menu
+4 : Pause menu
+5 : Shop
+*/
 
 /*----------------------------- Fonction "Main" -----------------------------*/
 int main()
@@ -49,11 +62,23 @@ int main()
     tests = new Tests();
     // tests->tests_unitaires();
 
-    game = new Game();
+    inventory = new Inventory();
+    inventory->addGold(2000);
 
-    menu = new Menu();
+    activeScene = 0;
 
-    //menu->menuController(0);
+    scenes = new Vecteur<Scene *>;
+    scenes->add(new MainMenu());
+    scenes->add(new Game());
+    scenes->add(new LevelSelectionMenu());
+    scenes->add(new EndGameMenu());
+    scenes->add(new PauseMenu());
+    scenes->add(new ShopMenu());
+
+    while (true)
+    {
+        scenes->get(activeScene)->Update();
+    }
 
     int led_state = 0;
     float valX = 0;

@@ -21,16 +21,27 @@ Projectile *EnemyCharacter::createEnemyProjectile()
     p = new Canonball(this->getWeaponPosition());
 
     srand(time(0));
-    float random_angledeg = (float)(60 + rand() % (140 - 60)) / 100;
+    float random_angledeg = (float)(90.0 + (rand() % (15))) / 100;
     srand(time(0) + 071234263);
-    float random_puissance = (float)(70 + rand() % (130 - 70)) / 100;
+    float random_puissance = (float)(90.0 + (rand() % (15))) / 100;
     cout << "random angleDeg : " << random_angledeg << endl;
     cout << "random puissance : " << random_puissance << endl;
     p->setAngleDegre(-45.0 * random_angledeg);
     p->setPuissance(0.5 * random_puissance);
+
+    
     return p;
 }
 
-// Projectile EnemyCharacter::EnemyShoot(Projectile* projectile){
-//     //on inverse l'angle et on fait le randomizer
-// }
+Coordonnee EnemyCharacter::getPosition()
+{
+    return position;
+}
+Coordonnee EnemyCharacter::getWeaponPosition()
+{
+    return WeaponPosition;
+}
+void EnemyCharacter::setWeaponPosition(Coordonnee weaponPosition)
+{
+    this->WeaponPosition=weaponPosition;
+}

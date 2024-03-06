@@ -1,11 +1,13 @@
 #ifndef TESTS_H
 #define TESTS_H
 
+#include <iostream>
+#include "Game/Boat.h"
 #include "Controls/EventParameters.h"
 #include "Controls/EventListener.h"
-#include "Controls/controls.h"
+#include "Controls/keyBoardControls.h"
 
-//INCLUDE POUR LES TESTS DE PERSONNAGES/PROJECTILES
+// INCLUDE POUR LES TESTS DE PERSONNAGES/PROJECTILES
 #include "Game/character.h"
 #include "Game/playerCharacter.h"
 #include "Game/enemyCharacter.h"
@@ -31,6 +33,7 @@ public:
 
    // Methodes pour les tests unitaires des classes
    void test_unitaire_Controls();
+   void test_unitaire_Boat();
    friend void test_unitaire_Controls_OnMainActionCall(EventParameters);
    friend void test_unitaire_Controls_OnJoystickCall(EventParameters);
    friend void test_unitaire_Controls_OnAngleCall(EventParameters);

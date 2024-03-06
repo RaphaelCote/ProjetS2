@@ -16,8 +16,8 @@
 #include <map>
 #include <functional>
 
-#include "EventParameters.h"
-#include "EventListener.h"
+#include "eventParameters.h"
+#include "eventListener.h"
 
 class EventManager
 {

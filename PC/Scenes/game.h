@@ -3,18 +3,19 @@
 
 #include <iostream>
 #include "../vecteur.h"
-#include "niveau.h"
-#include "projectile.h"
+#include "../Game/niveau.h"
+#include "../Game/projectile.h"
 #include "../controls/EventParameters.h"
+#include "scene.h"
 
 using namespace std;
 
-class Game
+class Game : public Scene
 {
 private:
-    bool isActive;
-    int currentLevel;
+    bool isPause;
     int turn;
+    int oldLevel;
     bool isPlayerTurn;
     int projectileType;
     Projectile *projectile;
@@ -22,7 +23,7 @@ private:
     /*PERSONNAGE 1 ET PERSONNAGE 2*/
     /*ne pas oublier d'inclure vecteur et le const (si nécessaire)*/
 public:
-    bool isPause;
+    int currentLevel;
     Vecteur<Niveau *> levels;
     Game();
 
@@ -40,15 +41,14 @@ public:
     void OnDisable();
     void OnEnable();
 
-    bool CreateLevels();
-    bool PlayGame();
-    void PauseGame();
-    bool NextLevel();
-    bool EndGame();
+    void Update();
+    void CreateLevels();
     void PlayTurn();
     void PlayerShoot();
-    bool CheckWinCondition();
-    bool CheckLoseCondition();
+    void PauseGame();
+    void EndGame();
+    void StopGame();
+    bool CheckEndCondition();
     void ShowGameInfo();
 };
 

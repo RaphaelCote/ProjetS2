@@ -2,7 +2,7 @@
 
 #include "tests.h"
 #include "Game/niveau.h"
-#include "Game/game.h"
+#include "Scenes/game.h"
 #include "raftWars.h"
 #include "Game/enemyCharacter.h"
 
@@ -36,7 +36,7 @@ void Tests::OnDisable()
 void Tests::test_unitaire_Controls()
 {
    // Tests unitraires de la classe Controls
-   testControls = new Controls(eventManager);
+   testControls = new KeyboardControls(eventManager);
 
    // Add eventListener
    cout << "Assigning some controls" << endl;
@@ -101,20 +101,18 @@ void Tests::test_unitaire_characterAndprojectile()
 
    EnemyCharacter enemy(2000, 100);
    PlayerCharacter player(0, 100);
-   cout << "ta mère" << endl;
-
    enemy.createEnemyProjectile();
-   cout << "ta grand-mère" << endl;
+
    cout << fixed << setprecision(2);
    int choix = 0;
 
    Projectile *p; // projectile player
    Projectile *e; // projectile ennemi
-   cout << "Entrez la valeur 1 pour lancer une balle et 2 pour lancer une roquette." << endl;
+   cout << "Entrez la valeur 1 pour lancer une balle, 2 pour lancer une roquette et 3 pour la grenade." << endl;
    cin >> choix;
-   while (choix != 1 && choix != 2)
+   while (choix != 1 && choix != 2 && choix != 3)
    {
-      cout << "Choix invalide. Entrez la valeur 1 pour lancer une balle et 2 pour lancer une roquette." << endl;
+      cout << "Choix invalide. Entrez la valeur 1 pour lancer une balle, 2 pour lancer une roquette et 3 pour la grenade." << endl;
       cin >> choix;
    }
    if (choix == 1)
@@ -127,6 +125,10 @@ void Tests::test_unitaire_characterAndprojectile()
    {
       // p = new Rocket(player); //avec l'ancien constructeur
       p = new Rocket(player.getWeaponPosition());
+   }
+   if (choix == 3)
+   {
+      p = new Grenade(player.getWeaponPosition());
    }
    e = new Rocket(enemy.getWeaponPosition());
 
@@ -159,19 +161,65 @@ void Tests::test_unitaire_characterAndprojectile()
 
    if (p->checkIfCharacterHit(enemy))
    {
-
-      cout << " (" << p->getBulletEndPosition().x << ", " << p->getBulletEndPosition().y << ")" << endl;
+      cout << "Le projectile a atteint directement l'adversaire. Il a atteri a la position: (" << p->getBulletEndPosition().x << ", " << p->getBulletEndPosition().y << ")" << endl;
    }
    else
    {
-
-      cout << "Le projectile n'a pas atteint l'adversaire. Il a atteri a la position: (" << p->getBulletEndPosition().x << ", " << p->getBulletEndPosition().y << ")" << endl;
+      cout << "Le projectile n'a pas atteint directement l'adversaire. Il a atteri a la position: (" << p->getBulletEndPosition().x << ", " << p->getBulletEndPosition().y << ")" << endl;
    }
+   cout << "le personnage vise a actuellement : " << enemy.getHealthPoint() << " point de vie" << endl;
+}
+
+void Tests::test_unitaire_Boat()
+{
+   cout << "TESTS UNITAIRES BOAT" << endl
+        << endl;
+   // création des personnages et du bateau
+   cout << "créer les personnages et les bateaux" << endl;
+   Character *pers1 = new PlayerCharacter(1, 0);
+   Character *pers2 = new PlayerCharacter(3, 0);
+   Character *adv1 = new EnemyCharacter(10, 0);
+   Boat joueur(3, 0, 0);
+   Boat adversaire(3, 10, 0);
+   cout << "position j: (" << joueur.getPositionBoat().x << "," << joueur.getPositionBoat().y << ")" << endl;
+   cout << "position a:(" << adversaire.getPositionBoat().x << "," << adversaire.getPositionBoat().y << ")" << endl;
+
+   // ajouter adversaire
+   cout << "ajouter les ennemis" << endl;
+   adversaire.addCharacter(adv1);
+   cout << "size a :" << adversaire.getNbCharacters() << endl;
+   adversaire.ShowInfo(cout);
+
+   // ajouter les personnages
+   cout << "ajouter les deux personnages" << endl;
+   joueur.addCharacter(pers1);
+   joueur.addCharacter(pers2);
+
+   // retourner les informations des bateaux
+   joueur.ShowInfo(cout);
+   cout << "size j: " << joueur.getNbCharacters() << endl;
+   cout << "capacité j: " << joueur.getCapacite() << endl;
+
+   // retirer le personnage 0
+   cout << "retirer index 0 de joueur" << endl;
+   joueur.removeCharacters(0);
+
+   // retourner les informations du bateau
+   joueur.ShowInfo(cout);
+   cout << "size j: " << joueur.getNbCharacters() << endl;
+   cout << "capacité j: " << joueur.getCapacite() << endl;
+
+   // delete
+   delete pers1;
+   delete pers2;
+   delete adv1;
 }
 
 void Tests::tests_unitaires()
 {
    // Fait tous les tests unitaires
+   test_unitaire_Controls();
+   test_unitaire_Boat();
    cout << "Début des tests unitaires" << endl;
    // test_unitaire_Controls();
    // test_unitaire_levels();
