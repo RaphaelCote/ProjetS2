@@ -11,10 +11,10 @@
 enum etatBoutton
 {
     BouttonAppuyer = 1,
-    BouttonRelacher = 2,
-    BouttonTenuAppuyer = 3,
-    BouttonEnabled = 4,
-    BouttonDisabled = 5
+    BouttonRelacher = 0,
+    BouttonTenuAppuyer = 2,
+    BouttonEnabled = 3,
+    BouttonDisabled = 4
 };
 
 
