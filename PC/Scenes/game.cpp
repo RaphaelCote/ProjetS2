@@ -164,10 +164,10 @@ void Game::CreateLevels()
 
 void Game::PlayTurn()
 {
-    turn++;
     Niveau *level = levels[currentLevel];
     if (isPlayerTurn)
     {
+        //turn++;
         system("cls");
         ShowGameInfo();
 
@@ -226,6 +226,7 @@ void Game::PlayTurn()
 
 void Game::PlayerShoot()
 {
+    turn ++;
     if (!isPlayerTurn)
     {
         return;
@@ -264,7 +265,7 @@ void Game::EndGame()
 void Game::PayPlayer()
 {
     Niveau *level = levels[currentLevel];
-
+    cout << "nombre d'essais : " << turn <<endl;
     if (level->characters[0]->getHealthPoint() == 0)
     {
         // Player dead
@@ -275,11 +276,14 @@ void Game::PayPlayer()
     }
     else
     {
-        // Enemy dead
-        inventory->addGold(1200);
-        cout << "-------------------------------------------------------------------" << endl;
-        cout << "Vous avec recu 1200$" << endl;
-        cout << "-------------------------------------------------------------------" << endl;
+        if (turn >=2)
+        {
+            cout << "rentre dans condition" << endl;
+            inventory->addGold(round(1000*pow((turn-1),-0.5)));
+            cout << "-------------------------------------------------------------------" << endl;
+            cout << "Vous avec recu " << round(1000*pow((turn-1),-0.5)) << "$" << endl;
+            cout << "-------------------------------------------------------------------" << endl;
+        }
     }
 }
 

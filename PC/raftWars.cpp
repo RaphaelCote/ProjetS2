@@ -65,7 +65,7 @@ int main()
     tests->tests_unitaires_levelGetter();
 
     inventory = new Inventory();
-    // inventory->addGold(2000);
+    //inventory->addGold(2000);
 
     activeScene = 0;
 
