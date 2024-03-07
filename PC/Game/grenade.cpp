@@ -81,12 +81,12 @@ int Grenade::damageReceived(Character& character){
     {
         explosionDamage=120;
     }
-    else if(positionFinaleGrenadeYTemps<=100)
+    else if(positionFinaleGrenadeYTemps<=HauteurEau)
     {
         if(positionFinaleGrenadeXTemps<character.getPosition().x|| positionFinaleGrenadeXTemps>character.getPosition().x+character.getHitboxWidth())
         {
             explosionDamage=0;
-            positionFinaleGrenadeYTemps=100;
+            positionFinaleGrenadeYTemps=HauteurEau;
             
         }
     }

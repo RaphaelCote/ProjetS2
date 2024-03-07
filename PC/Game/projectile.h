@@ -12,6 +12,7 @@
 const float g=-1000;
 
 const double  PI = 3.14159265358979323846;
+const float masseProjectile = 0.05; // en kg
 
 class Projectile {
 

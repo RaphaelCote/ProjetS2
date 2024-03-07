@@ -276,11 +276,12 @@ void Game::PayPlayer()
     else
     {
         if (turn >=2)
-        {
+        {   
+
             cout << "rentre dans condition" << endl;
-            inventory->addGold(round(1000*pow((turn-1),-0.5)));
+            inventory->addGold(600+ round(700*pow((turn-1),-0.5)));
             cout << "-------------------------------------------------------------------" << endl;
-            cout << "Vous avec recu " << round(1000*pow((turn-1),-0.5)) << "$" << endl;
+            cout << "Vous avec recu " << 600+round(700*pow((turn-1),-0.5)) << "$" << endl;
             cout << "-------------------------------------------------------------------" << endl;
         }
     }

@@ -6,7 +6,7 @@
 #include <ctime>
 //Class Timer
 
-//timer fonctionnel, il sufit juste de décommenter le code correspondant dans le utility.h et utility.cpp (et inclure "#include <Arduino.h>")
+//timer fonctionnel, il sufit juste de decommenter le code correspondant dans le utility.h et utility.cpp (et inclure "#include <Arduino.h>")
 
 // class Timer {
 // public:
@@ -26,6 +26,7 @@ struct Coordonnee
 
 struct Hitbox
 {
+    Coordonnee cordonnees; //en bas a gauche
     int height = 0;
     int width = 0;
 };
