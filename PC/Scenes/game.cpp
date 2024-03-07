@@ -167,7 +167,6 @@ void Game::PlayTurn()
     Niveau *level = levels[currentLevel];
     if (isPlayerTurn)
     {
-        //turn++;
         system("cls");
         ShowGameInfo();
 
