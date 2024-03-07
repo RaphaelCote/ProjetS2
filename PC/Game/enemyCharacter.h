@@ -9,7 +9,7 @@
 class EnemyCharacter : public Character
 {
     public:
-        EnemyCharacter(int posx,int posy);
+        EnemyCharacter(int posx,int posy, int width,int height, int image);
         ~EnemyCharacter();
         void enemyShoot(Projectile* projectile);
         //void playerShoot(Projectile* projectile);

@@ -8,7 +8,7 @@ using namespace std;
 
 EnemyCharacter::~EnemyCharacter() {}
 
-EnemyCharacter::EnemyCharacter(int posx, int posy) : Character(posx, posy)
+EnemyCharacter::EnemyCharacter(int posx, int posy, int width,int height, int image) : Character(posx, posy)
 {
     WeaponPosition.x = posx;
     WeaponPosition.y = posy + hitbox.height / 2;
