@@ -23,16 +23,24 @@ void OnEndGameMenuJoystickCall(EventParameters ep)
     menu->changeSelection(ep);
 }
 
+void OnEndGameMenuBackCall(EventParameters)
+{
+    EndGameMenu *menu = (EndGameMenu *)scenes->get(activeScene);
+    menu->ReturnToMenu();
+}
+
 void EndGameMenu::OnEnable()
 {
     eventManager->on("MainAction", OnEndGameMenuMainActionCall);
     eventManager->on("Joystick", OnEndGameMenuJoystickCall);
+    eventManager->on("Back", OnEndGameMenuBackCall);
 }
 
 void EndGameMenu::OnDisable()
 {
     eventManager->off("MainAction", OnEndGameMenuMainActionCall);
     eventManager->off("Joystick", OnEndGameMenuJoystickCall);
+    eventManager->off("Back", OnEndGameMenuBackCall);
 }
 
 void EndGameMenu::changeSelection(EventParameters ep)

@@ -16,6 +16,7 @@ public:
 
     friend void OnShopMainActionCall(EventParameters);
     friend void OnShopJoystickCall(EventParameters);
+    friend void OnShopBackCall(EventParameters);
 
     void OnEnable();
     void OnDisable();

@@ -16,16 +16,24 @@ void OnLevelSelectionMenuJoystickCall(EventParameters ep)
     menu->changeSelection(ep);
 }
 
+void OnLevelSelectionMenuBackCall(EventParameters)
+{
+    LevelSelectionMenu *menu = (LevelSelectionMenu *)scenes->get(activeScene);
+    menu->Back();
+}
+
 void LevelSelectionMenu::OnEnable()
 {
     eventManager->on("MainAction", OnLevelSelectionMenuMainActionCall);
     eventManager->on("Joystick", OnLevelSelectionMenuJoystickCall);
+    eventManager->on("Back", OnLevelSelectionMenuBackCall);
 }
 
 void LevelSelectionMenu::OnDisable()
 {
     eventManager->off("MainAction", OnLevelSelectionMenuMainActionCall);
     eventManager->off("Joystick", OnLevelSelectionMenuJoystickCall);
+    eventManager->off("Back", OnLevelSelectionMenuBackCall);
 }
 
 LevelSelectionMenu::LevelSelectionMenu()

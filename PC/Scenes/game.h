@@ -36,7 +36,7 @@ public:
     friend void OnGameAngleCall(EventParameters);
     friend void OnGameMenuCall(EventParameters);
 
-    void ChangeProjectileType(int type);
+    void ChangeProjectileType(int typeDef);
     void ChangeProjectileStrength(float strength);
     void ChangeProjectileAngle(float type);
 
@@ -53,6 +53,7 @@ public:
     void StoreShield();
     void StopGame();
     bool CheckEndCondition();
+    bool CheckAvailableProjectile(int type);
     void ShowGameInfo();
 };
 

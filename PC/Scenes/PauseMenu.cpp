@@ -22,16 +22,24 @@ void OnPauseMenuJoystickCall(EventParameters ep)
     menu->changeSelection(ep);
 }
 
+void OnPauseMenuBackCall(EventParameters)
+{
+    PauseMenu *menu = (PauseMenu *)scenes->get(activeScene);
+    menu->Continu();
+}
+
 void PauseMenu::OnEnable()
 {
     eventManager->on("MainAction", OnPauseMenuMainActionCall);
     eventManager->on("Joystick", OnPauseMenuJoystickCall);
+    eventManager->on("Back", OnPauseMenuBackCall);
 }
 
 void PauseMenu::OnDisable()
 {
     eventManager->off("MainAction", OnPauseMenuMainActionCall);
     eventManager->off("Joystick", OnPauseMenuJoystickCall);
+    eventManager->off("Back", OnPauseMenuBackCall);
 }
 
 void PauseMenu::changeSelection(EventParameters ep)

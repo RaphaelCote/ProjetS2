@@ -4,6 +4,7 @@
 #include "../raftWars.h"
 #include "../Game/rocket.h"
 #include "../Game/canonball.h"
+#include "../Game/grenade.h"
 #include "../Game/enemyCharacter.h"
 
 /*Méthodes*/
@@ -40,25 +41,13 @@ void OnGameMainActionCall(EventParameters ep)
 void OnGameNextSelectionCall(EventParameters ep)
 {
     Game *game = (Game *)scenes->get(1);
-    int newType = game->projectileType;
-    if (newType < 1)
-    {
-        newType++;
-    }
-
-    game->ChangeProjectileType(newType);
+    game->ChangeProjectileType(1);
 }
 
 void OnGamePreviousSelectionCall(EventParameters ep)
 {
     Game *game = (Game *)scenes->get(1);
-    int newType = game->projectileType;
-    if (newType > 0)
-    {
-        newType--;
-    }
-
-    game->ChangeProjectileType(newType);
+    game->ChangeProjectileType(-1);
 }
 
 void OnGameJoystickCall(EventParameters ep)
@@ -81,20 +70,49 @@ void OnGameMenuCall(EventParameters ep)
     game->PauseGame();
 }
 
-void Game::ChangeProjectileType(int type)
+void Game::ChangeProjectileType(int typeDif)
 {
-    if (type == 0)
+    if (typeDif > 0)
     {
-        Niveau *level = levels[currentLevel];
+        for (int i = projectileType; i <= 2; i++)
+        {
+            if (CheckAvailableProjectile(i))
+            {
+                projectileType = i;
+            }
+        }
+    }
+    else if (typeDif < 0)
+    {
+        for (int i = projectileType; i >= 0; i--)
+        {
+            if (CheckAvailableProjectile(i))
+            {
+                projectileType = i;
+            }
+        }
+    }
+
+    float angle = projectile->getAngleDegre();
+    float puissance = projectile->getPuissance();
+
+    Niveau *level = levels[currentLevel];
+
+    if (projectileType == 0)
+    {
         projectile = new Canonball(level->characters[0]->getWeaponPosition());
-        projectileType = 0;
     }
-    else if (type == 1)
+    else if (projectileType == 1)
     {
-        Niveau *level = levels[currentLevel];
         projectile = new Rocket(level->characters[0]->getWeaponPosition());
-        projectileType = 1;
     }
+    else if (projectileType == 2)
+    {
+        projectile = new Grenade(level->characters[0]->getWeaponPosition());
+    }
+
+    projectile->setAngleDegre(angle);
+    projectile->setPuissance(puissance);
 }
 
 void Game::ChangeProjectileStrength(float strength)
@@ -131,8 +149,6 @@ void Game::Update()
 {
     OnEnable();
 
-    cout << currentLevel << endl;
-    system("PAUSE");
     if (isNewLevel)
     {
         // Load level from start
@@ -171,14 +187,25 @@ void Game::PlayTurn()
         system("cls");
         ShowGameInfo();
 
+        cout << endl;
+        cout << "Inventaire : " << inventory->getRockets() << " rockets, " << inventory->getGrenade() << " grenades" << endl;
+
+        cout << "Projectile selectionne : ";
         if (projectileType == 0)
         {
-            cout << "Votre projectile : balle" << endl;
+            cout << "Balle" << endl;
         }
-        else
+        else if (projectileType == 1)
         {
-            cout << "Votre projectile : rocket" << endl;
+            cout << "Rocket" << endl;
         }
+        else if (projectileType == 2)
+        {
+            cout << "Grenade" << endl;
+        }
+
+        cout << endl;
+
         cout << "Votre angle : " << projectile->getAngleDegre() << " | Votre puissance : " << projectile->getPuissance() << endl;
 
         cout << "\n"
@@ -241,6 +268,24 @@ void Game::PlayerShoot()
     {
         cout << "Le projectile n'a pas atteint l'adversaire. Il a atteri a la position: (" << projectile->getBulletEndPosition().x;
         cout << ", " << projectile->getBulletEndPosition().y << ")" << endl;
+    }
+
+    // Remove special projectiles if fired, and if no more special projectiles are available, change to previous type
+    if (projectileType == 1)
+    {
+        inventory->removeRockets();
+        if (inventory->getRockets() == 0)
+        {
+            ChangeProjectileType(-1);
+        }
+    }
+    else if (projectileType == 2)
+    {
+        inventory->removeGrenade();
+        if (inventory->getGrenade() == 0)
+        {
+            ChangeProjectileType(-1);
+        }
     }
 
     isPlayerTurn = false;
@@ -312,9 +357,33 @@ bool Game::CheckEndCondition()
     return false;
 }
 
+bool Game::CheckAvailableProjectile(int type)
+{
+    if (type == 0)
+    {
+        return true;
+    }
+    else if (type == 1)
+    {
+        if (inventory->getRockets() > 0)
+        {
+            return true;
+        }
+    }
+    else if (type == 2)
+    {
+        if (inventory->getGrenade() > 0)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 void Game::ShowGameInfo()
 {
     // Show player positions and health
-    cout << "Niveau " << currentLevel + 1 << endl;
+    cout << "-------Niveau " << currentLevel + 1 << "-------" << endl;
     levels[currentLevel]->ShowCharacterInfo(cout);
 }
