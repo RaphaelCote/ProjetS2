@@ -1,6 +1,12 @@
 #include "Boat.h"
 #include "character.h"
 
+
+Boat::Boat()
+{
+    
+};
+
 Boat::Boat(int n, int posx, int posy)
 {
     nbCharacters = 0;

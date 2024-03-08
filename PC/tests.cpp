@@ -168,6 +168,8 @@ void Tests::test_unitaire_characterAndprojectile()
       cout << "Le projectile n'a pas atteint directement l'adversaire. Il a atteri a la position: (" << p->getBulletEndPosition().x << ", " << p->getBulletEndPosition().y << ")" << endl;
    }
    cout << "le personnage vise a actuellement : " << enemy.getHealthPoint() << " point de vie" << endl;
+   delete p;
+   delete e;
 }
 
 void Tests::test_unitaire_Boat()

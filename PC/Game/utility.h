@@ -26,7 +26,7 @@ struct Coordonnee
 
 struct Hitbox
 {
-    Coordonnee cordonnees; //en bas a gauche
+    Coordonnee coordonnees; //en bas a gauche
     int height = 0;
     int width = 0;
 };

@@ -244,3 +244,71 @@ Coordonnee Projectile::getBulletEndPosition()
 {
     return bulletEndPosition;
 }
+
+
+//-------------------BOUNCE-------------------//
+
+void Projectile::BounceVerticale()
+{
+    Game *game = (Game *)scenes->get(1);
+    
+    Niveau* niv= game->levels[game->GetLevel()]; //si erreur avec crochet appeler get dans vecteur.cpp
+    //regarder les bateaux
+    for(int i=0;i<niv->enemyBoats.getSize();i++)
+    {
+         //for pour chaque bateau
+       
+        for(int j=0;j<niv->enemyBoats[i]->hitboxes.getSize();j++)
+        { 
+             //for pour chaque hitbox du bateau (si un bateau a 3 hitboxes, la for ce fait 3X)
+            Coordonnee coordEnemyBoatHitboxes = niv->enemyBoats[i]->hitboxes[j]->coordonnees;
+            int heightEnemy = niv->enemyBoats[i]->hitboxes[j]->height;
+            int widthEnemy = niv->enemyBoats[i]->hitboxes[j]->width;
+            
+            if(findBulletPositionX(coordEnemyBoatHitboxes.y + heightEnemy) >= coordEnemyBoatHitboxes.x && findBulletPositionX(coordEnemyBoatHitboxes.y + heightEnemy) <= coordEnemyBoatHitboxes.x + widthEnemy && vf>0)
+            {
+                
+            }   
+        }
+        
+        
+    }
+    for(int i=0;i<niv->playerBoats.getSize();i++)
+    {
+        //for pour chaque boat
+        for(int j=0;j<niv->playerBoats[i]->hitboxes.getSize();j++)
+        { 
+            //for pour chaque hitbox du bateau (si un bateau a 3 hitboxes, la for ce fait 3X)
+            Coordonnee coordPlayerBoatHitboxes = niv->enemyBoats[i]->hitboxes[j]->coordonnees;
+            int heightPlayer = niv->enemyBoats[i]->hitboxes[j]->height;
+            int widthPlayer = niv->enemyBoats[i]->hitboxes[j]->width;
+             
+            if(findBulletPositionX())
+            
+        }
+    }
+    
+    
+    
+    //regarder les autres joueurs
+    
+        
+}
+void Projectile::BounceHorizontal()
+{
+    if(angledeg>0)
+    {
+
+    }
+
+    else if(angledeg<0)
+    {
+
+    }
+
+
+}
+void Projectile::CheckerBounce()
+{
+
+}

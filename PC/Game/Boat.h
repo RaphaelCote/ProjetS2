@@ -14,6 +14,7 @@ class Boat
         Vecteur<Character *> characters;
         Vecteur<Hitbox*> hitboxes;
 
+        Boat();
         Boat(int n, int posx, int posy);
         ~Boat();
 

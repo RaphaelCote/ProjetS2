@@ -8,6 +8,9 @@
 
 #include "utility.h"
 #include "character.h"
+#include "../Scenes/game.h"
+#include "../raftWars.h"
+#include "niveau.h"
 
 const float g=-1000;
 
@@ -30,6 +33,10 @@ class Projectile {
         virtual int getProjectileMaxSpeed() = 0;
         bool checkIfCharacterHit(Character& character); 
         virtual int damageReceived(Character& character)=0;
+        //-----------BOUNCE-----------//
+        void BounceHorizontal();
+        void BounceVerticale();
+        void CheckerBounce();
         
     protected:
         //time_t temps;
@@ -39,6 +46,7 @@ class Projectile {
         float puissance;
         float angledeg;
         float V0;
+        float Vf;
         float rad;
         
         int findBulletPositionX(int positionY);
