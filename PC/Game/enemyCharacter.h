@@ -11,20 +11,9 @@ class EnemyCharacter : public Character
     public:
         EnemyCharacter(int posx,int posy, int width,int height, int image);
         ~EnemyCharacter();
-        void enemyShoot(Projectile* projectile);
-        //void playerShoot(Projectile* projectile);
-
-        Coordonnee getPosition(){
-            return position;
-        }
-        Coordonnee getWeaponPosition() override{
-            return WeaponPosition;
-        }
-        //Projectile EnemyShoot(Projectile* projectile);
-        void setWeaponPosition(Coordonnee weaponPosition) override
-        {
-            this->WeaponPosition=weaponPosition;
-        }
+        Coordonnee getPosition();
+        Coordonnee getWeaponPosition() override;
+        void setWeaponPosition(Coordonnee weaponPosition) override;
         Projectile* createEnemyProjectile();
     private:
         Coordonnee WeaponPosition;

@@ -52,8 +52,8 @@ void Bargraphe::AllumeBargraphePuissance(int puissance)
 
     while (i <= puissance)
     {
-        barLED = barLED << 1;
-        barLED += 1;
+        barLED = barLED >> 1;
+        barLED += 0x0200;
         i+=10;
     }
     ActualiseBargraphe();

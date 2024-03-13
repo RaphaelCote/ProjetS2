@@ -8,11 +8,14 @@
 #include "Scenes/game.h"
 #include "vecteur.h"
 #include "./Scenes/scene.h"
+#include "Game/inventory.h"
 
 extern EventManager *eventManager;
 extern Controls *controls;
 extern Tests *tests;
 extern Vecteur<Scene *> *scenes;
+extern Inventory *inventory;
 extern int activeScene;
+extern LevelGetter *levelGetter;
 
 #endif

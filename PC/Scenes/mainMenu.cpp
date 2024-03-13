@@ -4,17 +4,19 @@
 #include "mainMenu.h"
 #include "../raftWars.h"
 #include "../controls/EventManager.h"
-#include "../Controls/keyboardControls.h"
+#include "LevelSelectionMenu.h"
+#include "shopMenu.h"
 
 void OnMainMenuMainActionCall(EventParameters ep)
 {
-
-    // activeMenu->Selection();
+    Menu *menu = (Menu *)scenes->get(activeScene);
+    menu->Selection();
 }
 
 void OnMainMenuJoystickCall(EventParameters ep)
 {
-    // activeMenu->changeSelection(ep);
+    Menu *menu = (Menu *)scenes->get(activeScene);
+    menu->changeSelection(ep);
 }
 
 void MainMenu::OnEnable()
@@ -33,13 +35,16 @@ MainMenu::MainMenu()
 {
 }
 
-void MainMenu::Update()
-{
-    ShowMenu();
-}
-
 void MainMenu::changeSelection(EventParameters ep)
 {
+    // Ajout de délai entre les changements de sélection de menu
+    // à rajouter dans tout les menus
+    int millis = 600;
+    if (millis < lastMove + 500)
+    {
+        return;
+    }
+
     if (ep.parameter2 > 0.5)
     {
         choice--;
@@ -50,8 +55,18 @@ void MainMenu::changeSelection(EventParameters ep)
     }
     else if (ep.parameter2 < -0.5)
     {
-        choice++;
+        if (choice < 3)
+        {
+            choice++;
+        }
     }
+}
+
+void MainMenu::Update()
+{
+    OnEnable();
+    ShowMenu();
+    controls->ListenForControls();
 }
 
 void MainMenu::ShowMenu()
@@ -60,9 +75,10 @@ void MainMenu::ShowMenu()
     system("cls");
     cout << "-------------------------------------------------------------------" << endl;
     cout << "Bienvenue au menu du jeu Raft Wars" << endl;
-    cout << "-" << (choice == 0 ? "O" : "-") << "- Commencer." << endl;
-    // cout << " 2. Choisir un niveau." << endl;
-    cout << "-" << (choice >= 1 ? "O" : "-") << "- Sortir" << endl;
+    cout << "-" << (choice == 0 ? "O" : "-") << "- Jouer" << endl;
+    cout << "-" << (choice == 1 ? "O" : "-") << "- Niveaux" << endl;
+    cout << "-" << (choice == 2 ? "O" : "-") << "- Magasin" << endl;
+    cout << "-" << (choice >= 3 ? "O" : "-") << "- Sortir" << endl;
     cout << "-------------------------------------------------------------------" << endl;
 }
 
@@ -70,13 +86,21 @@ void MainMenu::Selection()
 {
     if (choice == 0)
     {
-
-        system("cls"); // clear la command prompt
         OnDisable();
+        PlayGame();
     }
-    else if (choice >= 1)
+    else if (choice == 1)
     {
-
+        OnDisable();
+        GotoLevelSelect();
+    }
+    else if (choice == 2)
+    {
+        OnDisable();
+        GotoShop();
+    }
+    else if (choice >= 3)
+    {
         system("cls"); // clear la command prompt
         cout << "Au plaisir.." << endl;
         system("PAUSE");
@@ -84,26 +108,28 @@ void MainMenu::Selection()
     }
 }
 
-void MainMenu::Update()
-{
-    ShowMenu();
-}
-
 void MainMenu::PlayGame()
 {
-    game->PlayGame();
+    choice = 0;
+    Game *game = (Game *)scenes->get(1);
+    game->isNewLevel = true;
+    activeScene = 1;
 }
 
 void MainMenu::GotoLevelSelect()
 {
+    choice = 0;
     LevelSelectionMenu *lsm = (LevelSelectionMenu *)scenes->get(2);
     lsm->lastMenu = 0;
-    // sélectionner le bon index dans scenes
+    activeScene = 2;
 }
 
 void MainMenu::GotoShop()
 {
-    // sélectionner le bon index dans scenes
+    choice = 0;
+    ShopMenu *shop = (ShopMenu *)scenes->get(5);
+    shop->lastMenu = 0;
+    activeScene = 5;
 }
 
 void MainMenu::ExitGame()

@@ -1,19 +1,107 @@
+#include <iostream>
+#include <string>
+
 #include "PauseMenu.h"
+#include "../raftWars.h"
+#include "../controls/EventManager.h"
+#include "../Controls/keyboardControls.h"
 
 PauseMenu::PauseMenu()
-{}
+{
+}
+
+void OnPauseMenuMainActionCall(EventParameters)
+{
+    Menu *menu = (Menu *)scenes->get(activeScene);
+    menu->Selection();
+}
+
+void OnPauseMenuJoystickCall(EventParameters ep)
+{
+    Menu *menu = (Menu *)scenes->get(activeScene);
+    menu->changeSelection(ep);
+}
+
+void OnPauseMenuBackCall(EventParameters)
+{
+    PauseMenu *menu = (PauseMenu *)scenes->get(activeScene);
+    menu->Continu();
+}
+
+void PauseMenu::OnEnable()
+{
+    eventManager->on("MainAction", OnPauseMenuMainActionCall);
+    eventManager->on("Joystick", OnPauseMenuJoystickCall);
+    eventManager->on("Back", OnPauseMenuBackCall);
+}
+
+void PauseMenu::OnDisable()
+{
+    eventManager->off("MainAction", OnPauseMenuMainActionCall);
+    eventManager->off("Joystick", OnPauseMenuJoystickCall);
+    eventManager->off("Back", OnPauseMenuBackCall);
+}
+
+void PauseMenu::changeSelection(EventParameters ep)
+{
+    if (ep.parameter2 > 0.5)
+    {
+        choice--;
+        if (choice < 0)
+        {
+            choice = 0;
+        }
+    }
+    else if (ep.parameter2 < -0.5)
+    {
+        if (choice < 1)
+        {
+            choice++;
+        }
+    }
+}
 
 void PauseMenu::Update()
 {
+    OnEnable();
+    ShowMenu();
+    controls->ListenForControls();
+}
 
+void PauseMenu::ShowMenu()
+{
+    system("cls");
+    cout << "-------------------------------------------------------------------" << endl;
+    cout << "Pause" << endl;
+    cout << "-" << (choice == 0 ? "O" : "-") << "- Continuer." << endl;
+    cout << "-" << (choice == 1 ? "O" : "-") << "- Retour au menu." << endl;
+    cout << "-------------------------------------------------------------------" << endl;
+}
+
+void PauseMenu::Selection()
+{
+    if (choice == 0)
+    {
+        OnDisable();
+        Continu();
+    }
+    else if (choice == 1)
+    {
+        OnDisable();
+        ReturnToMenu();
+    }
 }
 
 void PauseMenu::Continu()
 {
-    // sélectionner le bon index dans scenes pour retourner dans la game (1)
+    choice = 0;
+    activeScene = 1;
 }
 
 void PauseMenu::ReturnToMenu()
 {
-    // sélectionner le bon index dans scenes pour retourner dans le main menu (0)
+    choice = 0;
+    Game *game = (Game *)scenes->get(1);
+    game->StopGame();
+    activeScene = 0;
 }

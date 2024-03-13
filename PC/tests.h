@@ -5,9 +5,11 @@
 #include "Game/Boat.h"
 #include "Controls/EventParameters.h"
 #include "Controls/EventListener.h"
+#include "Controls/keyBoardControls.h"
 #include "Controls/controls.h"
+#include "Game/levelGetter.h"
 
-//INCLUDE POUR LES TESTS DE PERSONNAGES/PROJECTILES
+// INCLUDE POUR LES TESTS DE PERSONNAGES/PROJECTILES
 #include "Game/character.h"
 #include "Game/playerCharacter.h"
 #include "Game/enemyCharacter.h"
@@ -43,6 +45,7 @@ public:
    void test_unitaire_levels();
    void test_unitaire_games();
    void test_unitaire_characterAndprojectile();
+   void tests_unitaires_levelGetter();
    void tests_unitaires(); // Appel de tous les tests unitaires
 
    // Methodes pour les tests unitaires des classes

@@ -15,7 +15,7 @@ class Game : public Scene
 private:
     bool isPause;
     int turn;
-    int oldLevel;
+    int currentLevel;
     bool isPlayerTurn;
     int projectileType;
     Projectile *projectile;
@@ -23,9 +23,11 @@ private:
     /*PERSONNAGE 1 ET PERSONNAGE 2*/
     /*ne pas oublier d'inclure vecteur et le const (si nécessaire)*/
 public:
-    int currentLevel;
+    bool isNewLevel;
     Vecteur<Niveau *> levels;
     Game();
+    int GetLevel();
+    void SetLevel(int level);
 
     friend void OnGameMainActionCall(EventParameters);
     friend void OnGameNextSelectionCall(EventParameters);
@@ -34,7 +36,7 @@ public:
     friend void OnGameAngleCall(EventParameters);
     friend void OnGameMenuCall(EventParameters);
 
-    void ChangeProjectileType(int type);
+    void ChangeProjectileType(int typeDef);
     void ChangeProjectileStrength(float strength);
     void ChangeProjectileAngle(float type);
 
@@ -42,12 +44,16 @@ public:
     void OnEnable();
 
     void Update();
-    bool CreateLevels();
+    void CreateLevels();
     void PlayTurn();
     void PlayerShoot();
     void PauseGame();
     void EndGame();
+    void PayPlayer();
+    void StoreShield();
+    void StopGame();
     bool CheckEndCondition();
+    bool CheckAvailableProjectile(int type);
     void ShowGameInfo();
 };
 

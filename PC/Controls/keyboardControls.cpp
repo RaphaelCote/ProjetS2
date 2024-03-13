@@ -22,11 +22,11 @@ void KeyboardControls::ListenForControls()
     {
         Joystick(0, -1);
     }
-    else if (input == "n")
+    else if (input == "q")
     {
         PreviousSelection();
     }
-    else if (input == "m")
+    else if (input == "e")
     {
         NextSelection();
     }
@@ -34,7 +34,11 @@ void KeyboardControls::ListenForControls()
     {
         Menu();
     }
-    else if (input == "u")
+    else if (input == "b")
+    {
+        Back();
+    }
+    else if (input == "1")
     {
         float angle;
         cout << "Veuillez entrer un angle : ";
@@ -42,7 +46,7 @@ void KeyboardControls::ListenForControls()
 
         Angle(angle);
     }
-    else if (input == "i")
+    else if (input == "2")
     {
         float joystickX;
         float joystickY;
