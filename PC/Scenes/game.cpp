@@ -72,6 +72,7 @@ void OnGameMenuCall(EventParameters ep)
 
 void Game::ChangeProjectileType(int typeDif)
 {
+    // When we have both rockets and grenade, can only chose grenade
     if (typeDif > 0)
     {
         for (int i = projectileType; i <= 2; i++)
