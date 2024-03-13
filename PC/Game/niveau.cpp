@@ -2,28 +2,27 @@
 #include "playerCharacter.h"
 #include "enemyCharacter.h"
 
-
-Niveau::Niveau(int width,int height,int image)
+Niveau::Niveau()
 {
-    creerListeRaft();
-    widthlevels=width;
-    heightlevels=height;
-    backimage=image; 
-
+    initializeBoats();
 }
 
 Niveau::~Niveau()
 {
 }
 
+void Niveau::initializeBoats()
+{
+    characters.add(new PlayerCharacter(0, 100, 100, 100, 1));
 
-void Niveau::addRaft(int raftwidth, int raftheight,int corodoneeX,int corodoneeY,int imageraft, int capacite, int i){
+    characters.add(new EnemyCharacter(2000, 100, 100, 100, 1));
 
-boat[i] = new Boat(capacite, corodoneeX, corodoneeY, raftwidth, raftheight, imageraft);
+    // playerBoats.add(new Boat());
 
+    // enemyBoats.add(new Boat());
 }
 
-/*void Niveau::ShowCharacterInfo()
+void Niveau::ShowCharacterInfo(ostream &s)
 {
     for (int i = 0; i < characters.getSize(); i++)
     {
@@ -37,4 +36,22 @@ boat[i] = new Boat(capacite, corodoneeX, corodoneeY, raftwidth, raftheight, imag
         }
         characters[i]->ShowInfo();
     }
-}*/
+
+    // s << "Bateaux joueurs : " << endl;
+
+    // for (int i = 0; i < playerBoats.getSize(); i++)
+    // {
+    //     s << "Bateau  " << i + 1 << " :" << endl;
+
+    //     playerBoats[i]->ShowInfo(s);
+    // }
+
+    // s << "Bateaux enemies : " << endl;
+
+    // for (int i = 0; i < enemyBoats.getSize(); i++)
+    // {
+    //     s << "Bateau  " << i + 1 << " :" << endl;
+
+    //     enemyBoats[i]->ShowInfo(s);
+    // }
+}

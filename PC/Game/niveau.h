@@ -2,27 +2,25 @@
 #define NIVEAU_H
 
 #include "../vecteur.h"
+#include "character.h"
 #include "Boat.h"
 
 class Niveau
 {
-private:
-
-
 public:
-
-    Niveau(int width,int height,int image);
+    Niveau();
     ~Niveau();
 
-    int heightlevels;
-    int widthlevels;
-    Vecteur<Boat *> boat;
+    int height = 1080;
+    int weight = 3000;
+    Vecteur<Character *> characters;
+    Vecteur<Boat *> playerBoats;
+    Vecteur<Boat *> enemyBoats;
 
-    int backimage;
+    int backimge[1];
 
-    void creerListeRaft();
-    void ShowCharacterInfo();
-    void addRaft(int raftwidth, int raftheight,int corodoneeX,int corodoneeY,int imageraft, int capacite, int nbDuBateau);
+    void initializeBoats();
+    void ShowCharacterInfo(ostream &s);
 };
 
 #endif
