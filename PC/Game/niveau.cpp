@@ -9,7 +9,9 @@ Niveau::Niveau()
 }
 Niveau::Niveau(int width, int height, int image)
 {
-
+    backimge=image;
+    heightlevels=height;
+    widthlevels=width;
 }
 
 Niveau::~Niveau()
