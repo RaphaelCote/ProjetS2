@@ -75,8 +75,7 @@ void Tests::test_unitaire_levels()
    Niveau *ptrlevls;
    ptrlevls = new Niveau;
    cout << "debut test niveau hauteur (1080) et largeur (3000)" << endl;
-   cout << ptrlevls->height << endl;
-   cout << ptrlevls->weight << endl;
+   ptrlevls->ShowNiveauinfo();
    delete ptrlevls;
 }
 
@@ -86,14 +85,11 @@ void Tests::test_unitaire_games()
    ptrgame = new Game;
    cout << "debut test game" << endl;
    cout << "test sur le niveau 1 hauteur (1080) et largeur (3000) " << endl;
-   cout << ptrgame->levels[0]->height << endl;
-   cout << ptrgame->levels[0]->weight << endl;
+   ptrgame->levels[0]->ShowNiveauinfo();
    cout << "test sur le niveau 2 hauteur (1080) et largeur (3000) " << endl;
-   cout << ptrgame->levels[1]->height << endl;
-   cout << ptrgame->levels[1]->weight << endl;
+   ptrgame->levels[1]->ShowNiveauinfo();
    cout << "test sur le niveau 3 hauteur (1080) et largeur (3000) " << endl;
-   cout << ptrgame->levels[2]->height << endl;
-   cout << ptrgame->levels[2]->weight << endl;
+   ptrgame->levels[2]->ShowNiveauinfo();
    delete ptrgame;
 }
 
@@ -270,5 +266,6 @@ void Tests::testjson()
    niveau->playerBoats[1]->characters[0]->ShowInfo();
    niveau->enemyBoats[0]->characters[1]->ShowInfo();
    niveau->playerBoats[0]->ShowInfo(cout);
-   cout << niveau->height << endl;
+   niveau->ShowCharacterInfo(cout);
+   niveau->ShowNiveauinfo();
 }
