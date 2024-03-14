@@ -184,7 +184,7 @@ void AffichageConsole::ResetUI()
     }
 
 
-    ModificationAFaire = true;
+    ModificationAFaire = false;
 }
 
 
