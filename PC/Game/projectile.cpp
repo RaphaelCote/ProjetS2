@@ -36,7 +36,20 @@ Coordonnee Projectile::getbulletStartPosition(){
 void Projectile::setbulletStartPosition(Coordonnee bulletStartPosition){
     this->bulletStartPosition=bulletStartPosition;
 }
-
+int Projectile::findBulletPositionYAngle(float angle)
+{
+    //courbe rouge desmos
+   
+    return round(( pow((puissance * getProjectileMaxSpeed() *cos(angledeg*PI/180) * tan*(angle*PI/180)),2) - pow(( puissance* getProjectileMaxSpeed() * sin(angledeg*PI/180)),2))/-2000) +150;
+}
+float Projectile::findangleBulletPositionY(int positionY)
+{
+    
+    float num = -sqrt( pow((puissance*getProjectileMaxSpeed() * sin(angledeg * PI/180)), 2) +2*g*(positionY- bulletStartPosition.y) );
+    float denum = puissance*getProjectileMaxSpeed*cos(angledeg*PI/180);
+    float angleFinal = atan(num/denum)*180/PI;
+    //float denum =;
+}
 int Projectile::findBulletPositionYTime(float time)
 {
     //une grenade explose après 3 secondes donc entré 3 sec en paramètre
@@ -357,14 +370,20 @@ void Projectile::BounceVerticale()//si elle frappe un sol (plancher)
     {
         if((findBulletPositionX(allHitboxObject.coordonnees.y)>=allHitboxObject.coordonnees.X && findBulletPositionX(allHitboxObject.coordonnees.y)<=allHitboxObject.coordonnees.x+allHitboxObject.width) && vf>0.02*getProjectileMaxSpeed())
         {
-            if(angledeg>0)
-            {
-                // demandé a Raph si y faut refaire un projectile
-            }   
-            else if(angledeg>0)
-            {
+            //int bulletHitPositionX = findBulletPositionX(allHitboxObject.coordonnees.y +allHitboxObject.height);
+            //int bulletHitPositionY = findBulletPositionY(bulletHitPositionX);
+            //if(bulletHitPositionY > findBulletPositionYAngle(0) )
+            //{
+                //utilise l'équation verte pour trouver l'angle de frappe 
+           // }
+            
+            //else{
+               //utilise l'équation bleu pour trouver l'angle de frappe  
+            //}
                 
-            }   
+            // demandé a Raph si y faut refaire un projectile
+            
+               
         }
     }
 
