@@ -6,6 +6,7 @@
 #include "raftWars.h"
 #include "Game/enemyCharacter.h"
 #include "Game/gameloader.h"
+#include "Game/character.h"
 
 //==== DEBUT Controls ====
 void test_unitaire_Controls_OnMainActionCall(EventParameters ep)
@@ -266,5 +267,8 @@ void Tests::testjson()
 {
    Gameloader *gameloader = new Gameloader();
    gameloader->getLevelsFromJson();
-   cout << gameloader->ptrniveau->height << endl;
+  gameloader->ptrniveau->playerBoats[1]->characters[0]->ShowInfo() ;
+  gameloader->ptrniveau->enemyBoats[0]->characters[1]->ShowInfo();
+  gameloader->ptrniveau->playerBoats[0]->ShowInfo(cout);
+  cout<<gameloader->ptrniveau->height<<endl;
 }
