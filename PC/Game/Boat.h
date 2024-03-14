@@ -20,6 +20,8 @@ public:
     int getNbCharacters();
     int getCapacite();
     Coordonnee getPositionBoat();
+    int getHeight();
+    int getWidth();
     bool addCharacter(Character *characterAdded);
     bool removeCharacters(int index);
     void ShowInfo(ostream &s);
