@@ -69,7 +69,6 @@ void OnGameMenuCall(EventParameters ep)
 
 void Game::ChangeProjectileType(int typeDif)
 {
-    // When we have both rockets and grenade, can only chose grenade
     if (typeDif > 0)
     {
         for (int i = projectileType + 1; i <= 2; i++)
@@ -159,8 +158,14 @@ void Game::Update()
         projectile = new Canonball(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition());
 
         // Ajouter le shield au joueur
-        int newHealthPoints = activeLevel->playerBoats[0]->characters[0]->getHealthPoint() + inventory->getShield();
-        activeLevel->playerBoats[0]->characters[0]->setHealthPoint(newHealthPoints);
+        for (int i = 0; i < activeLevel->playerBoats.getSize(); i++)
+        {
+            for (int j = 0; j < activeLevel->playerBoats[i]->characters.getSize(); j++)
+            {
+                int newHealthPoints = activeLevel->playerBoats[i]->characters[j]->getHealthPoint() + inventory->getShield();
+                activeLevel->playerBoats[i]->characters[j]->setHealthPoint(newHealthPoints);
+            }
+        }
     }
 
     isNewLevel = false;
@@ -230,7 +235,7 @@ void Game::PlayTurn()
 
         system("PAUSE");
         isPlayerTurn = true;
-        projectile = new Canonball(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition());
+        // projectile = new Canonball(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition());
     }
 
     if (CheckEndCondition())
@@ -294,8 +299,22 @@ void Game::EndGame()
 
 void Game::PayPlayer()
 {
+    bool isAllPlayerDead = true;
+
+    for (int i = 0; i < activeLevel->playerBoats.getSize(); i++)
+    {
+        for (int j = 0; j < activeLevel->playerBoats[i]->characters.getSize(); j++)
+        {
+
+            if (activeLevel->playerBoats[i]->characters[j]->getHealthPoint() > 0)
+            {
+                isAllPlayerDead = false;
+            }
+        }
+    }
+
     // Check if all players are dead
-    if (activeLevel->playerBoats[0]->characters[0]->getHealthPoint() == 0)
+    if (isAllPlayerDead)
     {
         // Player dead
         inventory->addGold(200);
@@ -315,11 +334,23 @@ void Game::PayPlayer()
 
 void Game::StoreShield()
 {
-    int playerHealth = activeLevel->playerBoats[0]->characters[0]->getHealthPoint();
+    int totalHealth = 0;
+    int nbPlayer = 0;
 
-    if (playerHealth > 100)
+    for (int i = 0; i < activeLevel->playerBoats.getSize(); i++)
     {
-        inventory->setShield(playerHealth - 100);
+        for (int j = 0; j < activeLevel->playerBoats[i]->characters.getSize(); j++)
+        {
+            totalHealth += activeLevel->playerBoats[i]->characters[j]->getHealthPoint();
+            nbPlayer++;
+        }
+    }
+
+    int averageHealth = totalHealth / nbPlayer;
+
+    if (averageHealth > 100)
+    {
+        inventory->setShield(averageHealth - 100);
     }
 }
 
@@ -330,11 +361,38 @@ void Game::StopGame()
 
 bool Game::CheckEndCondition()
 {
-
-    // Change to check if all enemy are dead or not
-    if (activeLevel->playerBoats[0]->characters[0]->getHealthPoint() == 0 || activeLevel->enemyBoats[0]->characters[0]->getHealthPoint() == 0)
+    for (int i = 0; i < activeLevel->playerBoats.getSize(); i++)
     {
-        return true;
+        for (int j = 0; j < activeLevel->playerBoats[i]->characters.getSize(); j++)
+        {
+            bool isAllPlayerDead = true;
+            if (activeLevel->playerBoats[i]->characters[j]->getHealthPoint() > 0)
+            {
+                isAllPlayerDead = false;
+            }
+
+            if (isAllPlayerDead)
+            {
+                return true;
+            }
+        }
+    }
+
+    for (int i = 0; i < activeLevel->enemyBoats.getSize(); i++)
+    {
+        for (int j = 0; j < activeLevel->enemyBoats[i]->characters.getSize(); j++)
+        {
+            bool isAllEnemyDead = true;
+            if (activeLevel->enemyBoats[i]->characters[j]->getHealthPoint() > 0)
+            {
+                isAllEnemyDead = false;
+            }
+
+            if (isAllEnemyDead)
+            {
+                return true;
+            }
+        }
     }
 
     return false;
