@@ -42,14 +42,8 @@
                         "coordoneeX": 5,
                         "coordoneeY": 10,
                         "image": 1
-                    },
-                    {
-                        "width": 10,
-                        "height": 10,
-                        "coordoneeX": 5,
-                        "coordoneeY": 15,
-                        "image": 1
                     }
+                    
                 ]
             }
         ]

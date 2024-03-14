@@ -26,8 +26,8 @@ public:
     void initializeBoats();
     void ShowCharacterInfo(ostream &s);
     void ShowNiveauinfo();
-    void addRaftPlayer(int width, int height, int posX, int posY, int image, int capacite, int i);
-    void addRaftenemy(int width, int height, int posX, int posY, int image, int capacite, int i);
+    void addRaftPlayer(int width, int height, Coordonnee position, int image, int capacite, int i);
+    void addRaftenemy(int width, int height, Coordonnee position, int image, int capacite, int i);
 };
 
 #endif

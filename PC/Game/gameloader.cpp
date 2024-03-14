@@ -6,6 +6,7 @@
 #include "niveau.h"
 #include "playerCharacter.h"
 #include "enemyCharacter.h"
+#include "utility.h"
 
 using json = nlohmann::json;
 
@@ -33,10 +34,13 @@ Niveau *Gameloader::getLevelsFromJson(string filename)
 
     for (int i = 0; i < gamedata["level"]["friendlyboatlist"].size(); i++)
     {
+        Coordonnee bateau;
+        bateau.x=gamedata["level"]["friendlyboatlist"][i]["coordoneeX"];
+        bateau.y=gamedata["level"]["friendlyboatlist"][i]["coordoneeY"];
         cout << "player boat" << endl;
         niveau->addRaftPlayer(gamedata["level"]["friendlyboatlist"][i]["width"],
-                              gamedata["level"]["friendlyboatlist"][i]["height"], gamedata["level"]["friendlyboatlist"][i]["coordoneeX"],
-                              gamedata["level"]["friendlyboatlist"][i]["coordoneeY"], gamedata["level"]["friendlyboatlist"][i]["image"],
+                              gamedata["level"]["friendlyboatlist"][i]["height"], bateau
+                              , gamedata["level"]["friendlyboatlist"][i]["image"],
                               gamedata["level"]["friendlyboatlist"][i]["characterlist"].size(), i);
 
         for (int j = 0; j < gamedata["level"]["friendlyboatlist"][i]["characterlist"].size(); j++)
@@ -54,10 +58,12 @@ Niveau *Gameloader::getLevelsFromJson(string filename)
 
     for (int i = 0; i < gamedata["level"]["enemyboatlist"].size(); i++)
     {
+        Coordonnee bateau;
+        bateau.x=gamedata["level"]["enemyboatlist"][i]["coordoneeX"];
+        bateau.y=gamedata["level"]["enemyboatlist"][i]["coordoneeY"];
         cout << "enemy boat" << endl;
         niveau->addRaftenemy(gamedata["level"]["enemyboatlist"][i]["width"],
-                             gamedata["level"]["enemyboatlist"][i]["height"], gamedata["level"]["enemyboatlist"][i]["coordoneeX"],
-                             gamedata["level"]["enemyboatlist"][i]["coordoneeY"], gamedata["level"]["enemyboatlist"][i]["image"],
+                             gamedata["level"]["enemyboatlist"][i]["height"], bateau, gamedata["level"]["enemyboatlist"][i]["image"],
                              gamedata["level"]["enemyboatlist"][i]["characterlist"].size(), i);
 
         for (int j = 0; j < gamedata["level"]["enemyboatlist"][i]["characterlist"].size(); j++)

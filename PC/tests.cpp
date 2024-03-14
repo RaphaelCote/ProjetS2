@@ -263,9 +263,10 @@ void Tests::testjson()
 {
    Gameloader *gameloader = new Gameloader();
    Niveau *niveau = gameloader->getLevelsFromJson("./levels/levelTemplate.json");
+   niveau->playerBoats[0]->ShowInfo(cout);
    niveau->playerBoats[1]->characters[0]->ShowInfo();
    niveau->enemyBoats[0]->characters[1]->ShowInfo();
-   niveau->playerBoats[0]->ShowInfo(cout);
+   niveau->enemyBoats[0]->ShowInfo(cout);
    niveau->ShowCharacterInfo(cout);
    niveau->ShowNiveauinfo();
 }
