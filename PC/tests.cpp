@@ -266,9 +266,9 @@ void Tests::tests_application_cas_02()
 void Tests::testjson()
 {
    Gameloader *gameloader = new Gameloader();
-   gameloader->getLevelsFromJson();
-  gameloader->ptrniveau->playerBoats[1]->characters[0]->ShowInfo() ;
-  gameloader->ptrniveau->enemyBoats[0]->characters[1]->ShowInfo();
-  gameloader->ptrniveau->playerBoats[0]->ShowInfo(cout);
-  cout<<gameloader->ptrniveau->height<<endl;
+   Niveau *niveau = gameloader->getLevelsFromJson("./levels/levelTemplate.json");
+   niveau->playerBoats[1]->characters[0]->ShowInfo();
+   niveau->enemyBoats[0]->characters[1]->ShowInfo();
+   niveau->playerBoats[0]->ShowInfo(cout);
+   cout << niveau->height << endl;
 }

@@ -6,11 +6,9 @@ class Gameloader
 {
 private:
 public:
-    Niveau *ptrniveau;
-
     Gameloader();
     ~Gameloader();
-    void getLevelsFromJson();
+    Niveau *getLevelsFromJson(string filename);
 };
 
 #endif
