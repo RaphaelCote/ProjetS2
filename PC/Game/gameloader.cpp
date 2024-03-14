@@ -45,12 +45,18 @@ Niveau *Gameloader::getLevelFromJson(string filename)
 
         for (int j = 0; j < gamedata["level"]["friendlyboatlist"][i]["characterlist"].size(); j++)
         {
+            Coordonnee player;
+            Hitbox hitboxplayer;
             int posxboat = gamedata["level"]["friendlyboatlist"][i]["coordoneeX"];
             int posyboat = gamedata["level"]["friendlyboatlist"][i]["coordoneeY"];
             int posx = gamedata["level"]["friendlyboatlist"][i]["characterlist"][j]["coordoneeX"];
             int posy = gamedata["level"]["friendlyboatlist"][i]["characterlist"][j]["coordoneeY"];
+            player.x=posx + posxboat;
+            player.y=posy + posyboat;
+            hitboxplayer.width =gamedata["level"]["friendlyboatlist"][i]["characterlist"][j]["width"];
+            hitboxplayer.height=gamedata["level"]["friendlyboatlist"][i]["characterlist"][j]["height"];
 
-            niveau->playerBoats[i]->characters[j] = new PlayerCharacter(posx + posxboat, posy + posyboat, gamedata["level"]["friendlyboatlist"][i]["characterlist"][j]["width"], gamedata["level"]["friendlyboatlist"][i]["characterlist"][j]["height"], gamedata["level"]["friendlyboatlist"][i]["characterlist"][j]["image"]);
+            niveau->playerBoats[i]->characters[j] = new PlayerCharacter(player,hitboxplayer, gamedata["level"]["friendlyboatlist"][i]["characterlist"][j]["image"]);
             niveau->playerBoats[i]->addCharacter(niveau->playerBoats[i]->characters[j]);
         }
     }
@@ -68,12 +74,18 @@ Niveau *Gameloader::getLevelFromJson(string filename)
 
         for (int j = 0; j < gamedata["level"]["enemyboatlist"][i]["characterlist"].size(); j++)
         {
+            Coordonnee enemy;
+            Hitbox hitboxenemy;
             int posxboat = gamedata["level"]["enemyboatlist"][i]["coordoneeX"];
             int posyboat = gamedata["level"]["enemyboatlist"][i]["coordoneeY"];
             int posx = gamedata["level"]["enemyboatlist"][i]["characterlist"][j]["coordoneeX"];
             int posy = gamedata["level"]["enemyboatlist"][i]["characterlist"][j]["coordoneeY"];
+            enemy.x=posx + posxboat;
+            enemy.y =posy + posyboat;
+            hitboxenemy.height=gamedata["level"]["enemyboatlist"][i]["characterlist"][j]["height"];
+            hitboxenemy.width=gamedata["level"]["enemyboatlist"][i]["characterlist"][j]["width"];
 
-            niveau->enemyBoats[i]->characters[j] = new EnemyCharacter(posx + posxboat, posy + posyboat, gamedata["level"]["enemyboatlist"][i]["characterlist"][j]["width"], gamedata["level"]["enemyboatlist"][i]["characterlist"][j]["height"], gamedata["level"]["enemyboatlist"][i]["characterlist"][j]["image"]);
+            niveau->enemyBoats[i]->characters[j] = new EnemyCharacter(enemy, hitboxenemy, gamedata["level"]["enemyboatlist"][i]["characterlist"][j]["image"]);
             niveau->enemyBoats[i]->addCharacter(niveau->enemyBoats[i]->characters[j]);
         }
     }

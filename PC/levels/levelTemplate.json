@@ -7,12 +7,12 @@
             {
                 "coordoneeX": 300,
                 "coordoneeY": 100,
-                "width": 50,
+                "width": 10,
                 "height": 50,
                 "image": 1,
                 "characterlist": [
                     {
-                        "width": 10,
+                        "width": 5,
                         "height": 10,
                         "coordoneeX": 5,
                         "coordoneeY": 10,
@@ -20,7 +20,7 @@
                     },
                     {
                         "width": 10,
-                        "height": 10,
+                        "height": 6,
                         "coordoneeX": 5,
                         "coordoneeY": 15,
                         "image": 1
@@ -32,16 +32,16 @@
             {
                 "coordoneeX": 2300,
                 "coordoneeY": 100,
-                "width": 50,
-                "height": 50,
+                "width": 20,
+                "height": 15,
                 "image": 1,
                 "characterlist": [
                     {
                         "width": 10,
-                        "height": 10,
+                        "height": 7,
                         "coordoneeX": 5,
-                        "coordoneeY": 10,
-                        "image": 1
+                        "coordoneeY": 7,
+                        "image": 2
                     }
                     
                 ]
