@@ -8,7 +8,7 @@ private:
 public:
     Gameloader();
     ~Gameloader();
-    Niveau *getLevelsFromJson(string filename);
+    Niveau *getLevelFromJson(string filename);
 };
 
 #endif

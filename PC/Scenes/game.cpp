@@ -17,7 +17,7 @@ Game::Game()
     isPause = false;
     isNewLevel = true;
     projectileType = 0;
-    projectile = new Canonball(activeLevel->characters[0]->getWeaponPosition());
+    projectile = new Canonball(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition());
 }
 
 int Game::GetLevelIndex()
@@ -99,15 +99,15 @@ void Game::ChangeProjectileType(int typeDif)
 
     if (projectileType == 0)
     {
-        projectile = new Canonball(activeLevel->characters[0]->getWeaponPosition());
+        projectile = new Canonball(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition());
     }
     else if (projectileType == 1)
     {
-        projectile = new Rocket(activeLevel->characters[0]->getWeaponPosition());
+        projectile = new Rocket(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition());
     }
     else if (projectileType == 2)
     {
-        projectile = new Grenade(activeLevel->characters[0]->getWeaponPosition());
+        projectile = new Grenade(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition());
     }
 
     projectile->setAngleDegre(angle);
@@ -155,10 +155,11 @@ void Game::Update()
         isPlayerTurn = true;
         projectileType = 0;
         // Load level currentLevelIndex
+        activeLevel = gameloader.getLevelFromJson(levelGetter->levels[currentLevelIndex]);
 
         // Ajouter le shield au joueur
-        int newHealthPoints = activeLevel->characters[0]->getHealthPoint() + inventory->getShield();
-        activeLevel->characters[0]->setHealthPoint(newHealthPoints);
+        int newHealthPoints = activeLevel->playerBoats[0]->characters[0]->getHealthPoint() + inventory->getShield();
+        activeLevel->playerBoats[0]->characters[0]->setHealthPoint(newHealthPoints);
     }
 
     isNewLevel = false;
@@ -211,12 +212,12 @@ void Game::PlayTurn()
         ShowGameInfo();
         cout << "Tour enemi :" << endl;
 
-        EnemyCharacter *ec = (EnemyCharacter *)activeLevel->characters[1];
+        EnemyCharacter *ec = (EnemyCharacter *)activeLevel->enemyBoats[0]->characters[0];
         Projectile *enemyProjectile = ec->createEnemyProjectile();
 
         cout << "Angle : " << enemyProjectile->getAngleDegre() << " | Puissance : " << enemyProjectile->getPuissance() << endl;
 
-        if (enemyProjectile->checkIfCharacterHit(*(activeLevel->characters[0])))
+        if (enemyProjectile->checkIfCharacterHit(*(activeLevel->playerBoats[0]->characters[0])))
         {
             cout << " (" << enemyProjectile->getBulletEndPosition().x << ", " << enemyProjectile->getBulletEndPosition().y << ")" << endl;
         }
@@ -228,7 +229,7 @@ void Game::PlayTurn()
 
         system("PAUSE");
         isPlayerTurn = true;
-        projectile = new Canonball(activeLevel->characters[0]->getWeaponPosition());
+        projectile = new Canonball(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition());
     }
 
     if (CheckEndCondition())
@@ -244,7 +245,7 @@ void Game::PlayerShoot()
         return;
     }
 
-    if (projectile->checkIfCharacterHit(*(activeLevel->characters[1])))
+    if (projectile->checkIfCharacterHit(*(activeLevel->enemyBoats[0]->characters[0])))
     {
         cout << " (" << projectile->getBulletEndPosition().x << ", " << projectile->getBulletEndPosition().y << ")" << endl;
     }
@@ -292,7 +293,8 @@ void Game::EndGame()
 
 void Game::PayPlayer()
 {
-    if (activeLevel->characters[0]->getHealthPoint() == 0)
+    // Check if all players are dead
+    if (activeLevel->playerBoats[0]->characters[0]->getHealthPoint() == 0)
     {
         // Player dead
         inventory->addGold(200);
@@ -312,7 +314,7 @@ void Game::PayPlayer()
 
 void Game::StoreShield()
 {
-    int playerHealth = activeLevel->characters[0]->getHealthPoint();
+    int playerHealth = activeLevel->playerBoats[0]->characters[0]->getHealthPoint();
 
     if (playerHealth > 100)
     {
@@ -327,7 +329,9 @@ void Game::StopGame()
 
 bool Game::CheckEndCondition()
 {
-    if (activeLevel->characters[0]->getHealthPoint() == 0 || activeLevel->characters[1]->getHealthPoint() == 0)
+
+    // Change to check if all enemy are dead or not
+    if (activeLevel->playerBoats[0]->characters[0]->getHealthPoint() == 0 || activeLevel->enemyBoats[0]->characters[0]->getHealthPoint() == 0)
     {
         return true;
     }
@@ -363,5 +367,5 @@ void Game::ShowGameInfo()
 {
     // Show player positions and health
     cout << "-------Niveau " << currentLevelIndex + 1 << "-------" << endl;
-    activeLevel->ShowCharacterInfo(cout);
+    activeLevel->ShowLevelInfo(cout);
 }

@@ -76,7 +76,7 @@ void Tests::test_unitaire_levels()
    ptrlevls = new Niveau;
    cout << "debut test niveau hauteur (1080) et largeur (3000)" << endl;
    cout << ptrlevls->height << endl;
-   cout << ptrlevls->weight << endl;
+   cout << ptrlevls->width << endl;
    delete ptrlevls;
 }
 
@@ -86,14 +86,14 @@ void Tests::test_unitaire_games()
    ptrgame = new Game;
    cout << "debut test game" << endl;
    cout << "test sur le niveau 1 hauteur (1080) et largeur (3000) " << endl;
-   cout << ptrgame->levels[0]->height << endl;
-   cout << ptrgame->levels[0]->weight << endl;
+   cout << ptrgame->activeLevel->height << endl;
+   cout << ptrgame->activeLevel->width << endl;
    cout << "test sur le niveau 2 hauteur (1080) et largeur (3000) " << endl;
-   cout << ptrgame->levels[1]->height << endl;
-   cout << ptrgame->levels[1]->weight << endl;
+   cout << ptrgame->activeLevel->height << endl;
+   cout << ptrgame->activeLevel->width << endl;
    cout << "test sur le niveau 3 hauteur (1080) et largeur (3000) " << endl;
-   cout << ptrgame->levels[2]->height << endl;
-   cout << ptrgame->levels[2]->weight << endl;
+   cout << ptrgame->activeLevel->height << endl;
+   cout << ptrgame->activeLevel->width << endl;
    delete ptrgame;
 }
 
@@ -266,9 +266,10 @@ void Tests::tests_application_cas_02()
 void Tests::testjson()
 {
    Gameloader *gameloader = new Gameloader();
-   Niveau *niveau = gameloader->getLevelsFromJson("./levels/levelTemplate.json");
-   niveau->playerBoats[1]->characters[0]->ShowInfo();
-   niveau->enemyBoats[0]->characters[1]->ShowInfo();
+   Niveau *niveau = gameloader->getLevelFromJson("./levels/levelTemplate.json");
+   cout << "Bateau joueur" << endl;
    niveau->playerBoats[0]->ShowInfo(cout);
+   cout << "Bateau enemy" << endl;
+   niveau->enemyBoats[0]->ShowInfo(cout);
    cout << niveau->height << endl;
 }
