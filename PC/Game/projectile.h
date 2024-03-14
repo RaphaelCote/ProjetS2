@@ -2,16 +2,21 @@
 #ifndef PROJECTILE_H
 #define PROJECTILE_H
 
-#include <iostream>
-#include <cmath>
-#include <typeinfo>
 
 #include "utility.h"
 #include "character.h"
 #include "../Scenes/game.h"
 #include "../raftWars.h"
 #include "niveau.h"
+#include <vector>
+#include <iostream>
+#include <cmath>
+#include <typeinfo>
 
+// je define des hauteurs de bateau ici, mais il va falloir utiliser des méthode
+//comme getBoatHitbox() pour les avoirs 
+#define hauteurBateau 50
+#define largeurBateau 300
 const float g=-1000;
 
 const double  PI = 3.14159265358979323846;
@@ -34,6 +39,7 @@ class Projectile {
         bool checkIfCharacterHit(Character& character); 
         virtual int damageReceived(Character& character)=0;
         //-----------BOUNCE-----------//
+        void ScanHitboxes();
         void BounceHorizontal();
         void BounceVerticale();
         void CheckerBounce();
@@ -42,7 +48,8 @@ class Projectile {
         //time_t temps;
         Coordonnee bulletStartPosition;//coordonnée de départ du projectile
         Coordonnee bulletEndPosition;//coordonnée de fin du projectile
-        
+        Vecteur<Hitbox> allHitboxObject;
+        //std::vector<std::vector<Hitbox>> allHitboxObject;
         float puissance;
         float angledeg;
         float V0;
