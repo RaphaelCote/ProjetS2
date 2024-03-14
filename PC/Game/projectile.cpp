@@ -250,189 +250,127 @@ Coordonnee Projectile::getBulletEndPosition()
 
 void Projectile::ScanHitboxes()// si elle frape un paroie 
 {
+
     Game *game = (Game *)scenes->get(1);
     Vecteur<Hitbox> allHitboxObject;
     
     Niveau* niv= game->levels[game->GetLevel()]; //si erreur avec crochet appeler get dans vecteur.cpp
-    //regarder les bateaux
+    //-------------------bateaux ennemis----------------------//
     for(int i=0;i<niv->enemyBoats.getSize();i++)
     {
         //for pour les personnages dans le bateau ennemi
         for(int j=0;j<niv->enemyBoats[i]->characters.getSize();j++)
         { 
             //for pour chaque hitbox du bateau (si un bateau a 3 hitboxes, la for ce fait 3X)
-            // Coordonnee coordPlayerBoatHitboxes = niv->enemyBoats[i]->hitboxes[j]->coordonnees;
-            // int heightPlayer = niv->enemyBoats[i]->hitboxes[j]->height;
-            // int widthPlayer = niv->enemyBoats[i]->hitboxes[j]->width;
 
-            //allHitboxObject.add(niv->enemyBoats[i]->hitboxes[j]);
-            //allHitboxObject[game->levels[game->GetLevel()]].add()
-            //allHitboxObject[game->GetLevel()].push_back(niv->enemyBoats[i]->characters[j]->getHitbox());
+            //Hitbox EnemyHitboxes = niv->enemyBoats[i]->characters[j]->getHitbox();
+            //Coordonnee coordEnemy = niv->enemyBoats[i]->characters[j]->getPosition();
+            
             allHitboxObject.add(niv->enemyBoats[i]->characters[j]->getHitbox());
-            
-            Hitbox EnemyHitboxes = niv->enemyBoats[i]->characters[j]->getHitbox();
-            Coordonnee coordEnemy = niv->enemyBoats[i]->characters[j]->getPosition();
-            
-            if((findBulletPositionY(coordEnemy.x)>=coordEnemy.y && findBulletPositionY(coordEnemy.x)<=coordEnemy.y + EnemyHitboxes.height)||(findBulletPositionY(coordEnemy.x + EnemyHitboxes.width)>=coordEnemy.y && findBulletPositionY(coordEnemy.x+EnemyHitboxes.width)<=coordEnemy.y+EnemyHitboxes.height) && vf>0.02*getProjectileMaxSpeed())
-            {
-                //CHIEN GALEUX, on fait des boats live pas les joeurs
-                //j'ai donc ajouter des define dans le projectile.h (hauteurBateau/largeurBateau) 
-                //on utilise ça en attendant que les autres bozo nous fasses des boats
-            }   
-            
         }
-        //for pour les hitboxs du bateau ennemi
         for(int j=0;j<niv->enemyBoats[i]->hitboxes.getSize();j++)
         { 
-             //on vérifie si la balle se retrouve entre les extremum en x de chaque surface horizontale de chaque hitbox du niveau
-             //si oui, la vitesse en y est inversée (vers le haut plutot que vers le bas) et réduite de 20%
-            Coordonnee coordEnemyBoatHitboxes = niv->enemyBoats[i]->hitboxes[j]->coordonnees;
-            int heightHitboxEnemyBoat = niv->enemyBoats[i]->hitboxes[j]->height;
-            int widthHitboxEnemyBoat = niv->enemyBoats[i]->hitboxes[j]->width;
-            allHitboxObject[game->GetLevel()].push_back(niv->enemyBoats[i]->hitboxes[j]);
-            //if((findBulletPositionY(coordEnemyBoatHitboxes.x)>=coordEnemyBoatHitboxes.y && findBulletPositionY(coordEnemyBoatHitboxes.x)<=coordEnemyBoatHitboxes.y+heightHitboxEnemyBoat)||(findBulletPositionY(coordEnemyBoatHitboxes.x+widthHitboxEnemyBoat)>=coordEnemyBoatHitboxes.y && findBulletPositionY(coordEnemyBoatHitboxes.x+widthHitboxEnemyBoat)<=coordEnemyBoatHitboxes.y+heightHitboxEnemyBoat))
-            //---------Explication de la if en deux segments segments---------//
-            /*
-                1. (findBulletPositionY(coordEnemyBoatHitboxes.x)>=coordEnemyBoatHitboxes.y && findBulletPositionY(coordEnemyBoatHitboxes.x)<=coordEnemyBoatHitboxes.y+heightHitboxEnemyBoat)    (avant le ||)
-                on vérifie si on est entre le coin inférieur gauche et le coin supérieur gauche de la hitbox 
-                2. (findBulletPositionY(coordEnemyBoatHitboxes.x+widthHitboxEnemyBoat)>=coordEnemyBoatHitboxes.y && findBulletPositionY(coordEnemyBoatHitboxes.x+widthHitboxEnemyBoat)<=coordEnemyBoatHitboxes.y+heightHitboxEnemyBoat)   (après le || )
-                on vérifie si on est entre le coin inférieur droit et le coin supérieur droit de la hitbox
-                AU MOINS UNE DE SES DEUX CONDITIONS DOIT ÊTRE VRAI (sinon nous sommes clairement à coté et il n'y a pas de rebond)
-                3. 
-            */
-            //&& findBulletPositionX(coordEnemyBoatHitboxes.y + heightHitboxEnemyBoat) >= coordEnemyBoatHitboxes.x || findBulletPositionX(coordEnemyBoatHitboxes.y + heightHitboxEnemyBoat) <= coordEnemyBoatHitboxes.x + widthHitboxEnemyBoat      (condition supplémentaire que le chien galeux avait implémenté)
-            if((findBulletPositionY(coordEnemyBoatHitboxes.x)>=coordEnemyBoatHitboxes.y && findBulletPositionY(coordEnemyBoatHitboxes.x)<=coordEnemyBoatHitboxes.y+heightHitboxEnemyBoat)||(findBulletPositionY(coordEnemyBoatHitboxes.x+widthHitboxEnemyBoat)>=coordEnemyBoatHitboxes.y && findBulletPositionY(coordEnemyBoatHitboxes.x+widthHitboxEnemyBoat)<=coordEnemyBoatHitboxes.y+heightHitboxEnemyBoat) && vf>0.02*getProjectileMaxSpeed())
-            {
-               
-            }   
+            //on vérifie si la balle se retrouve entre les extremum en x de chaque surface horizontale de chaque hitbox du niveau
+            //si oui, la vitesse en y est inversée (vers le haut plutot que vers le bas) et réduite de 20%
+            allHitboxObject.add(niv->enemyBoats[i]->hitboxes[j]);
         }
-        
-        // allHitboxObject[i].coordonnees.x <
-        // allHitboxObject[i].width
-        
     }
-
+    //-------------------bateaux alliés----------------------//
     for(int i=0;i<niv->playerBoats.getSize();i++)
     {
         //for pour les personnages dans le bateau allié
         for(int j=0;j<niv->playerBoats[i]->characters.getSize();j++)
         { 
             //for pour chaque hitbox du bateau (si un bateau a 3 hitboxes, la for ce fait 3X)
-            // Coordonnee coordPlayerBoatHitboxes = niv->enemyBoats[i]->hitboxes[j]->coordonnees;
-            // int heightPlayer = niv->enemyBoats[i]->hitboxes[j]->height;
-            // int widthPlayer = niv->enemyBoats[i]->hitboxes[j]->width;
-
-            //allHitboxObject.add(niv->enemyBoats[i]->hitboxes[j]);
-            Hitbox PlayerHitboxes = niv->enemyBoats[i]->characters[j]->getHitbox();
-            Coordonnee coordPlayer = niv->enemyBoats[i]->characters[j]->getPosition();
-            if(findBulletPositionX())
-            
+            allHitboxObject.add(niv->playerBoats[i]->characters[j]->getHitbox());
         }
         //for pour les hitboxs du bateau aliée
         for(int j=0;j<niv->playerBoats[i]->hitboxes.getSize();j++)
         { 
             //on vérifie si la balle se retrouve entre les extremum en y de chaque surface verticale gauche de chaque hitbox du niveau
-             //si oui, la vitesse en x est inversée (vers le gauche plutot que vers la droite) et réduite de 20%
-            Coordonnee coordPlayerBoatHitboxes = niv->enemyBoats[i]->hitboxes[j]->coordonnees;
-            int heightPlayer = niv->enemyBoats[i]->hitboxes[j]->height;
-            int widthPlayer = niv->enemyBoats[i]->hitboxes[j]->width;
-
-            allHitboxObject.add(niv->enemyBoats[i]->hitboxes[j]);
-            
-            // findBulletPositionX(coordPlayerBoatHitboxes.y+hauteurBateau);
-            // findBulletPositionX(coordPlayerBoatHitboxes.y);
-            // findBulletPositionY(coordPlayerBoatHitboxes.x+largeurBateau);
-            // findBulletPositionY(coordPlayerBoatHitboxes.x);
-            if(findBulletPositionX(coordPlayerBoatHitboxes.y+hauteurBateau) >= coordPlayerBoatHitboxes.x && findBulletPositionX(coordPlayerBoatHitboxes.y + hauteurBateau ) <= coordPlayerBoatHitboxes.x + largeurBateau && vf>0.02*getProjectileMaxSpeed())
-            {
-                
-            } 
-            
+            //si oui, la vitesse en x est inversée (vers le gauche plutot que vers la droite) et réduite de 20
+            allHitboxObject.add(niv->playerBoats[i]->hitboxes[j]);
         }
         
     }
     
+    //------------Sorted croissant de la position des hitbox (bubble sort)----------//
+
+    for(int i =0; i<allHitboxObject.getSize()-1; i++)
+    {
+        for(int j=0; i< allHitboxObject.getSize()-i-1;j++)
+        {
+            if(allHitboxObject[j].coordonnees.x>allHitboxObject[j+1].coordonnees.x)
+            {
+                //Coordonnee coordEnemy = niv->enemyBoats[i]->characters[j]->getPosition();
+                Hitbox temporaire = allHitboxObject[j];
+                allHitboxObject[j] = allHitboxObject[j+1];
+                allHitboxObject[j+1] = temporaire; 
+            }
+        }
+    }
         
 }
+
+void Projectile::BounceHorizontal()// si elle frape un paroie 
+{
+    //---------Explication de la if en deux segments segments---------//
+    /*
+        1. (findBulletPositionY(coordEnemyBoatHitboxes.x)>=coordEnemyBoatHitboxes.y && findBulletPositionY(coordEnemyBoatHitboxes.x)<=coordEnemyBoatHitboxes.y+heightHitboxEnemyBoat)    (avant le ||)
+        on vérifie si on est entre le coin inférieur gauche et le coin supérieur gauche de la hitbox 
+        2. (findBulletPositionY(coordEnemyBoatHitboxes.x+widthHitboxEnemyBoat)>=coordEnemyBoatHitboxes.y && findBulletPositionY(coordEnemyBoatHitboxes.x+widthHitboxEnemyBoat)<=coordEnemyBoatHitboxes.y+heightHitboxEnemyBoat)   (après le || )
+        on vérifie si on est entre le coin inférieur droit et le coin supérieur droit de la hitbox
+        AU MOINS UNE DE SES DEUX CONDITIONS DOIT ÊTRE VRAI (sinon nous sommes clairement à coté et il n'y a pas de rebond)
+        3. la vitesse doit être supérieur a 2% sinon on le considère arrêter
+    */
+    if(angledeg>0)
+    {
+        for(int i=0;i<allHitboxObject.getSize();i++)
+        {
+            if((findBulletPositionY(allHitboxObject.coordonnees.x)>=allHitboxObject.coordonnees.y && findBulletPositionY(allHitboxObject.coordonnees.x)<=allHitboxObject.coordonnees.y+allHitboxObject.height) && vf>0.02*getProjectileMaxSpeed())
+            {
+                angledeg= -angledeg;
+                puissance = dampingProjectile*puissance;
+                // demandé a Raph si y faut refaire un projectile
+            }
+        }
+    }
+    if(angledeg<0)
+    {
+        for(int i=0;i<allHitboxObject.getSize();i++)
+        {
+            if((findBulletPositionY(allHitboxObject.coordonnees.x+allHitboxObject.width)>=allHitboxObject.coordonnees.y && findBulletPositionY(allHitboxObject.coordonnees.x+allHitboxObject.width)<=allHitboxObject.coordonnees.y+allHitboxObject.height) && vf>0.02*getProjectileMaxSpeed())
+            {
+                //inverse l'angle et damp la vitesse de 20% (nouvelle Vi =Vf*0.8)
+                angledeg= -angledeg;
+                puissance = dampingProjectile*puissance;
+                // demandé a Raph si y faut refaire un projectile
+            }
+        }
+    }
+    
+}
+
 void Projectile::BounceVerticale()//si elle frappe un sol (plancher)
 {
-    // if(angledeg>0)
-    // {
-
-    // }
-
-    // else if(angledeg<0)
-    // {
-
-    // }
-    Game *game = (Game *)scenes->get(1);
-    Vecteur<Hitbox> allHitboxObject;
-    
-    Niveau* niv= game->levels[game->GetLevel()]; //si erreur avec crochet appeler get dans vecteur.cpp
-    //regarder les bateaux
-    for(int i=0;i<niv->enemyBoats.getSize();i++)
+    for(int i=0;i<allHitboxObject.getSize();i++)
     {
-         //for pour chaque bateau
-       
-        for(int j=0;j<niv->enemyBoats[i]->hitboxes.getSize();j++)
-        { 
-             //on vérifie si la balle se retrouve entre les extremum en x de chaque surface horizontale de chaque hitbox du niveau
-             //si oui, la vitesse en y est inversée (vers le haut plutot que vers le bas) et réduite de 20%
-            Coordonnee coordEnemyBoatHitboxes = niv->enemyBoats[i]->hitboxes[j]->coordonnees;
-            int heightHitboxEnemyBoat = niv->enemyBoats[i]->hitboxes[j]->height;
-            int widthHitboxEnemyBoat = niv->enemyBoats[i]->hitboxes[j]->width;
-            
-            
-            if(findBulletPositionY(coordEnemyBoatHitboxes.x) <= coordEnemyBoatHitboxes.y +heightHitboxEnemyBoat || findBulletPositionY(coordEnemyBoatHitboxes.x+widthHitboxEnemyBoat) <= coordEnemyBoatHitboxes.y +heightHitboxEnemyBoat && vf>0.02*getProjectileMaxSpeed())
+        if((findBulletPositionX(allHitboxObject.coordonnees.y)>=allHitboxObject.coordonnees.X && findBulletPositionX(allHitboxObject.coordonnees.y)<=allHitboxObject.coordonnees.x+allHitboxObject.width) && vf>0.02*getProjectileMaxSpeed())
+        {
+            if(angledeg>0)
             {
-                //on inverse notre vitesse en y et on la ralenti
+                // demandé a Raph si y faut refaire un projectile
             }   
-        }
-        for(int j=0;j<niv->enemyBoats[i]->characters.getSize();j++)
-        { 
-            Hitbox EnemyHitboxes = niv->enemyBoats[i]->characters[j]->getHitbox();
-            Coordonnee coordEnemy = niv->enemyBoats[i]->characters[j]->getPosition();
-            
-            if(findBulletPositionY(coordEnemy.x)<= coordEnemy.y+EnemyHitboxes.height|| findBulletPositionY(coordEnemy.x+ EnemyHitboxes.width<=coordEnemy.y+EnemyHitboxes.height && vf>0.02*getProjectileMaxSpeed()))
-            {
-                //on inverse notre vitesse en y et on la ralenti
-            } 
-        }
-    }
-
-    for(int i=0;i<niv->playerBoats.getSize();i++)
-    {
-        //for pour chaque boat
-        for(int j=0;j<niv->playerBoats[i]->hitboxes.getSize();j++)
-        { 
-            //on vérifie si la balle se retrouve entre les extremum en y de chaque surface verticale gauche de chaque hitbox du niveau
-            //si oui, la vitesse en x est inversée (vers le gauche plutot que vers la droite) et réduite de 20%
-            Coordonnee coordPlayerBoatHitboxes = niv->enemyBoats[i]->hitboxes[j]->coordonnees;
-            int heightHitboxPlayerBoat = niv->enemyBoats[i]->hitboxes[j]->height;
-            int widthHitboxPlayerBoat = niv->enemyBoats[i]->hitboxes[j]->width;
-            if(findBulletPositionX(coordPlayerBoatHitboxes.y+heightHitboxPlayerBoat) >= coordPlayerBoatHitboxes.x && findBulletPositionX(coordPlayerBoatHitboxes.y + heightHitboxPlayerBoat ) <= coordPlayerBoatHitboxes.x + widthHitboxPlayerBoat  && vf>0.02*getProjectileMaxSpeed())
+            else if(angledeg>0)
             {
                 
-            } 
-            
-        }
-        //on vérifie les player
-        for(int j=0;j<niv->playerBoats[i]->characters.getSize();j++)
-        { 
-            Hitbox PlayerHitboxes = niv->enemyBoats[i]->characters[j]->getHitbox();
-            Coordonnee coordPlayer = niv->enemyBoats[i]->characters[j]->getPosition();
-            if(findBulletPositionY(coordPlayer.x)<= coordPlayer.y+PlayerHitboxes.height|| findBulletPositionY(coordPlayer.x+ PlayerHitboxes.width<=coordPlayer.y+PlayerHitboxes.height && vf>0.02*getProjectileMaxSpeed()))
-            {
-                //on inverse notre vitesse en y et on la ralenti
-            }
-            
+            }   
         }
     }
-
-
 
 }
 void Projectile::CheckerBounce()
 {
-
+    BounceHorizontal();
+    BounceVerticale();
 }
