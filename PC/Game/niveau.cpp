@@ -37,11 +37,16 @@ void Niveau::ShowLevelInfo(ostream &s)
         enemyBoats[i]->ShowInfo(s);
     }
 }
-void Niveau::addRaftPlayer(int width, int height, int posX, int posY, int image, int capacite)
+void Niveau::ShowNiveauinfo()
 {
-    playerBoats.add(new Boat(capacite, posX, posY, height, width, image));
+    cout << "hauteur niveau " << heightlevels << endl;
+    cout << "largeur niveau " << widthlevels << endl;
 }
-void Niveau::addRaftenemy(int width, int height, int posX, int posY, int image, int capacite)
+void Niveau::addRaftPlayer(int width, int height, Coordonnee position, int image, int capacite, int i)
 {
-    enemyBoats.add(new Boat(capacite, posX, posY, height, width, image));
+    playerBoats[i] = new Boat(capacite, position, height, width, image);
+}
+void Niveau::addRaftenemy(int width, int height, Coordonnee position, int image, int capacite, int i)
+{
+    enemyBoats[i] = new Boat(capacite, position, height, width, image);
 }

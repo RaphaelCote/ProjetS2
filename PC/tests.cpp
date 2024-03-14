@@ -75,8 +75,7 @@ void Tests::test_unitaire_levels()
    Niveau *ptrlevls;
    ptrlevls = new Niveau;
    cout << "debut test niveau hauteur (1080) et largeur (3000)" << endl;
-   cout << ptrlevls->height << endl;
-   cout << ptrlevls->width << endl;
+   ptrlevls->ShowNiveauinfo();
    delete ptrlevls;
 }
 

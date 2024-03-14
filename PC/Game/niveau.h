@@ -7,13 +7,16 @@
 
 class Niveau
 {
+private:
+    int heightlevels;
+    int widthlevels;
+    int backimge;
+
 public:
     int height = 1080;
     int width = 3000;
     Vecteur<Boat *> playerBoats;
     Vecteur<Boat *> enemyBoats;
-
-    int backimge;
 
     Niveau();
     Niveau(int width, int height, int image);
