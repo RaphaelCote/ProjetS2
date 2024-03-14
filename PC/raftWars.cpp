@@ -25,6 +25,8 @@ using namespace std;
 #include "Scenes/endGameMenu.h"
 #include "Scenes/levelSelectionMenu.h"
 #include "Scenes/shopMenu.h"
+#include "Game/niveau.h"
+#include "Game/niveau.cpp"
 
 /*------------------------------ Constantes ---------------------------------*/
 
@@ -53,7 +55,10 @@ Scenes index:
 /*----------------------------- Fonction "Main" -----------------------------*/
 int main()
 {
-      
+    cons = new AffichageConsole();
+    Niveau niveau;
+    niveau.MatPlayer();
+
 
     // === Event manager tests ===
     eventManager = new EventManager();
@@ -77,7 +82,7 @@ int main()
     scenes->add(new PauseMenu());
     scenes->add(new ShopMenu());
 
-    cons = new AffichageConsole();
+    
     
     levelGetter = new LevelGetter();
 

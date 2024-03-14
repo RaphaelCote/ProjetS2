@@ -91,9 +91,12 @@ void Niveau::MatRaft()
             
         }
      //AfficherEnBasGauche(couleur[][], x, y, width, hauteur)
-     delete[] couleur[i];
+     for (int i = 0; i < (playerBoats[i]->getHeight())/10; ++i) 
+        {
+            delete[] couleur[i];
+        }
+         delete[] couleur;
     }
-    
     
     for (int i = 0; enemyBoats[i]!= NULL; i++)
     {
@@ -115,8 +118,12 @@ void Niveau::MatRaft()
             
         }
      //AfficherEnBasGauche(couleur[][], x, y, width, hauteur)
+      for (int i = 0; i < (playerBoats[i]->getHeight())/10; ++i) 
+        {
+            delete[] couleur[i];
+        }
+        delete[] couleur;
     }
-   
 }
 
 void Niveau::MatPlayer()
@@ -188,9 +195,18 @@ void Niveau::MatPlayer()
             MatCharacter[i][8].texture = ' ';
             }
 
-        }
 
+            cons->AfficherEnBasGauche(MatCharacter, 10, 10, 10, 10);
+            
+            for (int i = 0; i < 10 ; ++i) 
+            {
+                delete[] MatCharacter[i];
+            }
+            delete[] MatCharacter;
+        }
+        
     }
+    
     
 
 }
@@ -266,6 +282,13 @@ void Niveau::MatEnemy()
             MatCharacter[i][5].texture = ' ';
             }
 
+            //call fct Frank
+            for (int i = 0; i < 10 ; ++i) 
+            {
+                delete[] MatCharacter[i];
+            }
+            delete[] MatCharacter;
+
         }
     }
     
@@ -287,6 +310,12 @@ void Niveau::MatWater()
             water[i][n].texture = '\xB0';
         }
     }
+    //call fct à frank
+    for (int i = 0; i < height/10 ; ++i) 
+            {
+                delete[]water[i];
+            }
+            delete[] water;
     
 }
 
@@ -300,6 +329,13 @@ void Niveau::MatBalle()
     balle[0][0].FrontColour = 15; //white
     balle[0][0].BackColour = 15;
     balle[0][0].texture = ' ';
+    //call fct à frank
+
+    for (int i = 0; i < 1 ; ++i) 
+            {
+                delete[] balle[i];
+            }
+            delete[] balle;
 }
 
 void Niveau::MatGrenade()
@@ -312,6 +348,13 @@ void Niveau::MatGrenade()
     grenade[0][0].FrontColour = 14 ; //yellow
     grenade[0][0].BackColour = 14; 
     grenade[0][0].texture = ' ';
+
+    //call fct à frank
+    for (int i = 0; i < 1 ; ++i) 
+            {
+                delete[]grenade[i];
+            }
+            delete[] grenade;
 }
 
 void Niveau::MatRocket()
@@ -352,7 +395,13 @@ void Niveau::MatRocket()
         rocket[1][i].texture = ' ';
     }
     //cons->AfficherEnBasGauche(rocket, , 10, 10, 30);
-
+    //call fct à frank
+    for (int i = 0; i < 4 ; ++i) 
+            {
+                delete[]rocket[i];
+            }
+            delete[] rocket;
+    
 }
 
 void Niveau::MatNuage()
@@ -392,6 +441,13 @@ void Niveau::MatNuage()
         nuage[0][i].BackColour = 15;          
         nuage[0][i].texture = ' ';
     }
+
+    //call fct à frank
+    for (int i = 0; i < 4 ; ++i) 
+            {
+                delete[]nuage[i];
+            }
+            delete[] nuage;
 }
 
 /*
