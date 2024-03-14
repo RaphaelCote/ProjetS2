@@ -5,7 +5,7 @@
 #include "Scenes/game.h"
 #include "raftWars.h"
 #include "Game/enemyCharacter.h"
-#include "Game/gameloder.h"
+#include "Game/gameloader.h"
 
 //==== DEBUT Controls ====
 void test_unitaire_Controls_OnMainActionCall(EventParameters ep)
@@ -218,8 +218,9 @@ void Tests::test_unitaire_Boat()
 
 void Tests::tests_unitaires_levelGetter()
 {
-   cout << endl << "TESTS UNITAIRES levelGetter" << endl
-      << "-----------------------------------------------------"
+   cout << endl
+        << "TESTS UNITAIRES levelGetter" << endl
+        << "-----------------------------------------------------"
         << endl;
    LevelGetter *listlevels = new LevelGetter();
    string a = listlevels->levels[0];
@@ -261,9 +262,9 @@ void Tests::tests_application_cas_02()
    cout << "TESTS APPLICATION (CAS 02)" << endl;
    // Il faut ajouter les operations realisant ce scenario de test.
 }
-void Tests::testjson(){
-   gameloder *ptrgamelode;
-   ptrgamelode= new gameloder;
-   ptrgamelode->getlevelsformeJson();
-   cout<< ptrgamelode->ptrniveau->height << endl;
+void Tests::testjson()
+{
+   Gameloader *gameloader = new Gameloader();
+   gameloader->getLevelsFromJson();
+   cout << gameloader->ptrniveau->height << endl;
 }
