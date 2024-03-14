@@ -9,6 +9,7 @@ class Niveau
 {
 public:
     Niveau();
+    Niveau(int width, int height, int image);
     ~Niveau();
 
     int height = 1080;
@@ -21,6 +22,8 @@ public:
 
     void initializeBoats();
     void ShowCharacterInfo(ostream &s);
+    void addRaftPlayer(int width, int height, int posX, int posY, int image, int capacite, int i);
+    void addRaftenemy(int width, int height, int posX, int posY, int image, int capacite, int i);
 };
 
 #endif

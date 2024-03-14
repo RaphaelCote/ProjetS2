@@ -1,10 +1,15 @@
 #include "niveau.h"
+#include "Boat.h"
 #include "playerCharacter.h"
 #include "enemyCharacter.h"
 
 Niveau::Niveau()
 {
     initializeBoats();
+}
+Niveau::Niveau(int width, int height, int image)
+{
+
 }
 
 Niveau::~Niveau()
@@ -54,4 +59,10 @@ void Niveau::ShowCharacterInfo(ostream &s)
 
     //     enemyBoats[i]->ShowInfo(s);
     // }
+}
+void Niveau::addRaftPlayer(int width, int height, int posX, int posY, int image, int capacite, int i){
+    playerBoats[i]=new Boat(capacite, posX, posY, height, width, image);
+}
+void Niveau::addRaftenemy(int width, int height, int posX, int posY, int image, int capacite, int i){
+    enemyBoats[i]=new Boat(capacite, posX, posY, height, width, image);
 }
