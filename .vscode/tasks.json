@@ -13,6 +13,7 @@
                 "./Controls/*.cpp",
                 "./Game/*.cpp",
                 "./Scenes/*.cpp",
+                "./Affichage/*.cpp",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
             ],
