@@ -1,6 +1,6 @@
 {
     "niveau":{
-        "image":"background.png",
+        "image":1,
         "width":3000,
         "height":1080,
         "frendlylisteboat":[{
@@ -8,44 +8,67 @@
                 "corodoneeY":200,
                 "width":50,
                 "height":50,
-                "image":"boat.png",
+                "image":1,
                 "listeplayer":[{
                         "width":10,
                         "height":10,
                         "corodoneeX":5,
                         "corodoneeY":10,
-                        "image":"player.png"
+                        "image":1
                     },
                     {
                         "width":10,
                         "height":10,
                         "corodoneeX":5,
                         "corodoneeY":15,
-                        "image":"player.png"
+                        "image":1
+                    }]
+                    },{
+                "corodoneeX":300,
+                "corodoneeY":200,
+                "width":50,
+                "height":50,
+                "image":1,
+                "listeplayer":[{
+                        "width":10,
+                        "height":10,
+                        "corodoneeX":5,
+                        "corodoneeY":10,
+                        "image":1
+                    },
+                    {
+                        "width":10,
+                        "height":10,
+                        "corodoneeX":5,
+                        "corodoneeY":15,
+                        "image":1
                     }
 
                 ]
             }
-        ],
+        ]
+    
+
+    ,
         "enemylisteboat":[{
                 "corodoneeX":300,
                 "corodoneeY":200,
                 "width":50,
                 "height":50,
-                "image":"boat.png",
+                "image":1,
                 "listeplayer":[{
                         "width":10,
                         "height":10,
                         "corodoneeX":5,
                         "corodoneeY":10,
-                        "image":"player.png"
+                        "image":1
                     },
                     {
                         "width":10,
                         "height":10,
                         "corodoneeX":5,
                         "corodoneeY":15,
-                        "image":"player.png"
+                        "image":1
                     }
 
                 ]
