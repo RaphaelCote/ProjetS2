@@ -11,14 +11,17 @@ using namespace std;
 class Boat
 {
 public:
+    Boat(int n, int posx, int posy, int height, int width, int image);
     Vecteur<Character *> characters;
 
-    Boat(int n, int posx, int posy);
+    
     ~Boat();
 
     int getNbCharacters();
     int getCapacite();
     Coordonnee getPositionBoat();
+    int getHeight();
+    int getWidth();
     bool addCharacter(Character *characterAdded);
     bool removeCharacters(int index);
     void ShowInfo(ostream &s);
@@ -26,6 +29,9 @@ public:
 private:
     int nbCharacters;
     int capacite;
+    int imageboat;
+    int widthBoat;
+    int heightBoat;
     Coordonnee positionBoat;
 };
 

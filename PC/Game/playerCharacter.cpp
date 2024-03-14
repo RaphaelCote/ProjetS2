@@ -7,7 +7,7 @@
 using namespace std;
 
 
-PlayerCharacter::PlayerCharacter(int posx,int posy):Character(posx, posy){
+PlayerCharacter::PlayerCharacter(int posx,int posy, int width,int height, int image):Character(posx, posy){
     WeaponPosition.x=posx+hitbox.width;
     WeaponPosition.y=posy+hitbox.height/2;
 };

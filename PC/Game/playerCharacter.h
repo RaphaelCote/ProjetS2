@@ -11,7 +11,7 @@
 class PlayerCharacter : public Character{
     public:
         
-        PlayerCharacter(int posx,int posy);
+        PlayerCharacter(int posx,int posy,int width,int height, int image);
         ~PlayerCharacter();
         Coordonnee getWeaponPosition() override;
         void setWeaponPosition(Coordonnee WeaponPosition);

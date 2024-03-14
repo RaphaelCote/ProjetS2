@@ -7,6 +7,7 @@
 #include "../Game/projectile.h"
 #include "../controls/EventParameters.h"
 #include "scene.h"
+#include "../Game/gameloader.h"
 
 using namespace std;
 
@@ -19,6 +20,7 @@ private:
     bool isPlayerTurn;
     int projectileType;
     Projectile *projectile;
+    Gameloader gameloader;
 
     /*PERSONNAGE 1 ET PERSONNAGE 2*/
     /*ne pas oublier d'inclure vecteur et le const (si nécessaire)*/

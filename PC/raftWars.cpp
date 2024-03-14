@@ -51,34 +51,38 @@ Scenes index:
 /*----------------------------- Fonction "Main" -----------------------------*/
 int main()
 {
-    // === Event manager tests ===
-    eventManager = new EventManager();
-    controls = new KeyboardControls(eventManager);
-    // controls = new ControllerControls(eventManager, "COM3");
+    /* // === Event manager tests ===
+     eventManager = new EventManager();
+     controls = new KeyboardControls(eventManager);
+     // controls = new ControllerControls(eventManager, "COM3");
+
+     tests = new Tests();
+
+     tests->tests_unitaires_levelGetter();
+
+     inventory = new Inventory();
+     inventory->addGold(2000);
+
+     activeScene = 0;
+
+     scenes = new Vecteur<Scene *>();
+     scenes->add(new MainMenu());
+     scenes->add(new Game());
+     scenes->add(new LevelSelectionMenu());
+     scenes->add(new EndGameMenu());
+     scenes->add(new PauseMenu());
+     scenes->add(new ShopMenu());
+
+     levelGetter = new LevelGetter();
+
+     while (true)
+     {
+         scenes->get(activeScene)->Update();
+     }
+ */
 
     tests = new Tests();
 
-    tests->tests_unitaires_levelGetter();
-
-    inventory = new Inventory();
-    inventory->addGold(2000);
-
-    activeScene = 0;
-
-    scenes = new Vecteur<Scene *>();
-    scenes->add(new MainMenu());
-    scenes->add(new Game());
-    scenes->add(new LevelSelectionMenu());
-    scenes->add(new EndGameMenu());
-    scenes->add(new PauseMenu());
-    scenes->add(new ShopMenu());
-
-    levelGetter = new LevelGetter();
-
-    while (true)
-    {
-        scenes->get(activeScene)->Update();
-    }
-
+    tests->testjson();
     return 0;
 }
