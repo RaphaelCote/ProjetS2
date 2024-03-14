@@ -248,7 +248,7 @@ void Tests::tests_application_cas_02()
 void Tests::testjson()
 {
    Gameloader *gameloader = new Gameloader();
-   Niveau *niveau = gameloader->getLevelFromJson("./levels/levelTemplate.json");
+   Niveau *niveau = gameloader->getLevelFromJson("./levels/levelTemplate.txt");
    niveau->ShowNiveauinfo();
    cout << "Bateau joueur" << endl;
    niveau->playerBoats[0]->ShowInfo(cout);

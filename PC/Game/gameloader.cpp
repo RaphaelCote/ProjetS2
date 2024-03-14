@@ -21,7 +21,7 @@ Gameloader::~Gameloader()
 Niveau *Gameloader::getLevelFromJson(string filename)
 {
     // To test
-    // "./levels/levelTemplate.json"
+    // "./levels/levelTemplate.txt"
     std::ifstream gameFile(filename);
 
     std::stringstream buffer;

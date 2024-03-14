@@ -57,29 +57,28 @@ int main()
     // controls = new ControllerControls(eventManager, "COM3");
 
     tests = new Tests();
-    tests->testjson();
+    // tests->testjson();
+    // tests->tests_unitaires_levelGetter();
 
-    // // tests->tests_unitaires_levelGetter();
+    inventory = new Inventory();
+    inventory->addGold(2000);
 
-    // inventory = new Inventory();
-    // inventory->addGold(2000);
+    activeScene = 0;
 
-    // activeScene = 0;
+    scenes = new Vecteur<Scene *>();
+    scenes->add(new MainMenu());
+    scenes->add(new Game());
+    scenes->add(new LevelSelectionMenu());
+    scenes->add(new EndGameMenu());
+    scenes->add(new PauseMenu());
+    scenes->add(new ShopMenu());
 
-    // scenes = new Vecteur<Scene *>();
-    // scenes->add(new MainMenu());
-    // scenes->add(new Game());
-    // scenes->add(new LevelSelectionMenu());
-    // scenes->add(new EndGameMenu());
-    // scenes->add(new PauseMenu());
-    // scenes->add(new ShopMenu());
+    levelGetter = new LevelGetter();
 
-    // levelGetter = new LevelGetter();
-
-    // while (true)
-    // {
-    //     scenes->get(activeScene)->Update();
-    // }
+    while (true)
+    {
+        scenes->get(activeScene)->Update();
+    }
 
     return 0;
 }

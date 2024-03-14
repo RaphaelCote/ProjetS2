@@ -17,7 +17,6 @@ Game::Game()
     isPause = false;
     isNewLevel = true;
     projectileType = 0;
-    projectile = new Canonball(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition());
 }
 
 int Game::GetLevelIndex()
@@ -156,6 +155,8 @@ void Game::Update()
         projectileType = 0;
         // Load level currentLevelIndex
         activeLevel = gameloader.getLevelFromJson(levelGetter->levels[currentLevelIndex]);
+
+        projectile = new Canonball(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition());
 
         // Ajouter le shield au joueur
         int newHealthPoints = activeLevel->playerBoats[0]->characters[0]->getHealthPoint() + inventory->getShield();
