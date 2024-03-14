@@ -5,6 +5,7 @@
 #include "Scenes/game.h"
 #include "raftWars.h"
 #include "Game/enemyCharacter.h"
+#include "Game/gameloder.h"
 
 //==== DEBUT Controls ====
 void test_unitaire_Controls_OnMainActionCall(EventParameters ep)
@@ -259,4 +260,10 @@ void Tests::tests_application_cas_02()
 {
    cout << "TESTS APPLICATION (CAS 02)" << endl;
    // Il faut ajouter les operations realisant ce scenario de test.
+}
+void Tests::testjson(){
+   gameloder *ptrgamelode;
+   ptrgamelode= new gameloder;
+   ptrgamelode->getlevelsformeJson();
+   cout<< ptrgamelode->ptrniveau->height << endl;
 }

@@ -15,10 +15,11 @@ gameloder::~gameloder()
 }
 
 void gameloder::getlevelsformeJson(){
-std::ifstream game_file("level1seting.json");
+std::ifstream game_file("test.json");
+cout<< "allo" << endl;
 json gamedata = json::parse(game_file);
+cout<< "allo" << endl;
 
-Niveau* ptrniveau;
 ptrniveau= new Niveau(gamedata["niveau"]["wight"],gamedata["niveau"]["hieght"],gamedata["niveau"]["image"]);
 for(int i=0; i<gamedata["niveau"]["frendlylisteboat"].size();i++){
     ptrniveau->addRaftPlayer(gamedata["niveau"]["frendlylisteboat"]["wight"],

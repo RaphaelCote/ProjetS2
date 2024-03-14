@@ -51,7 +51,7 @@ Scenes index:
 /*----------------------------- Fonction "Main" -----------------------------*/
 int main()
 {
-    // === Event manager tests ===
+   /* // === Event manager tests ===
     eventManager = new EventManager();
     controls = new KeyboardControls(eventManager);
     // controls = new ControllerControls(eventManager, "COM3");
@@ -79,6 +79,10 @@ int main()
     {
         scenes->get(activeScene)->Update();
     }
+*/
 
+tests = new Tests();
+
+    tests->testjson();
     return 0;
 }
