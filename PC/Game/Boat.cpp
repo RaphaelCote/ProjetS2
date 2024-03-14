@@ -29,6 +29,16 @@ Coordonnee Boat::getPositionBoat()
     return positionBoat;
 }
 
+int Boat::getHeight()
+{
+    return heightBoat;
+}
+
+int Boat::getWidth()
+{
+    return widthBoat;
+}
+
 bool Boat::addCharacter(Character *characterAdded) // pour initialiser le jeu: créer les personnages
 {
     nbCharacters++;
