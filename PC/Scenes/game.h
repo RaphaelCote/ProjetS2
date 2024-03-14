@@ -15,7 +15,7 @@ class Game : public Scene
 private:
     bool isPause;
     int turn;
-    int currentLevel;
+    int currentLevelIndex;
     bool isPlayerTurn;
     int projectileType;
     Projectile *projectile;
@@ -24,10 +24,10 @@ private:
     /*ne pas oublier d'inclure vecteur et le const (si nécessaire)*/
 public:
     bool isNewLevel;
-    Vecteur<Niveau *> levels;
+    Niveau *activeLevel;
     Game();
-    int GetLevel();
-    void SetLevel(int level);
+    int GetLevelIndex();
+    void SetLevelIndex(int level);
 
     friend void OnGameMainActionCall(EventParameters);
     friend void OnGameNextSelectionCall(EventParameters);
@@ -44,7 +44,6 @@ public:
     void OnEnable();
 
     void Update();
-    void CreateLevels();
     void PlayTurn();
     void PlayerShoot();
     void PauseGame();
