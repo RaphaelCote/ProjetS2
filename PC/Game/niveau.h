@@ -23,8 +23,9 @@ public:
     ~Niveau();
 
     void ShowLevelInfo(ostream &s);
-    void addRaftPlayer(int width, int height, int posX, int posY, int image, int capacite);
-    void addRaftenemy(int width, int height, int posX, int posY, int image, int capacite);
+    void ShowNiveauinfo();
+    void addRaftPlayer(int width, int height, Coordonnee position, int image, int capacite);
+    void addRaftenemy(int width, int height, Coordonnee position, int image, int capacite);
 };
 
 #endif

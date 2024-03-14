@@ -37,10 +37,11 @@ Niveau *Gameloader::getLevelFromJson(string filename)
         Coordonnee bateau;
         bateau.x = gamedata["level"]["friendlyboatlist"][i]["coordoneeX"];
         bateau.y = gamedata["level"]["friendlyboatlist"][i]["coordoneeY"];
-        cout << "player boat" << endl;
         niveau->addRaftPlayer(gamedata["level"]["friendlyboatlist"][i]["width"],
-                              gamedata["level"]["friendlyboatlist"][i]["height"], bateau, gamedata["level"]["friendlyboatlist"][i]["image"],
-                              gamedata["level"]["friendlyboatlist"][i]["characterlist"].size(), i);
+                              gamedata["level"]["friendlyboatlist"][i]["height"],
+                              bateau,
+                              gamedata["level"]["friendlyboatlist"][i]["image"],
+                              gamedata["level"]["friendlyboatlist"][i]["characterlist"].size());
 
         for (int j = 0; j < gamedata["level"]["friendlyboatlist"][i]["characterlist"].size(); j++)
         {
@@ -59,10 +60,11 @@ Niveau *Gameloader::getLevelFromJson(string filename)
         Coordonnee bateau;
         bateau.x = gamedata["level"]["enemyboatlist"][i]["coordoneeX"];
         bateau.y = gamedata["level"]["enemyboatlist"][i]["coordoneeY"];
-        cout << "enemy boat" << endl;
         niveau->addRaftenemy(gamedata["level"]["enemyboatlist"][i]["width"],
-                             gamedata["level"]["enemyboatlist"][i]["height"], bateau, gamedata["level"]["enemyboatlist"][i]["image"],
-                             gamedata["level"]["enemyboatlist"][i]["characterlist"].size(), i);
+                             gamedata["level"]["enemyboatlist"][i]["height"],
+                             bateau,
+                             gamedata["level"]["enemyboatlist"][i]["image"],
+                             gamedata["level"]["enemyboatlist"][i]["characterlist"].size());
 
         for (int j = 0; j < gamedata["level"]["enemyboatlist"][i]["characterlist"].size(); j++)
         {

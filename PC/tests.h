@@ -43,7 +43,6 @@ public:
    void OnJoystick(EventParameters);
    void OnAngle(EventParameters);
    void test_unitaire_levels();
-   void test_unitaire_games();
    void test_unitaire_characterAndprojectile();
    void tests_unitaires_levelGetter();
    void tests_unitaires(); // Appel de tous les tests unitaires

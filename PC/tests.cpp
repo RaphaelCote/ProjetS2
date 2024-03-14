@@ -79,23 +79,6 @@ void Tests::test_unitaire_levels()
    delete ptrlevls;
 }
 
-void Tests::test_unitaire_games()
-{
-   Game *ptrgame;
-   ptrgame = new Game;
-   cout << "debut test game" << endl;
-   cout << "test sur le niveau 1 hauteur (1080) et largeur (3000) " << endl;
-   cout << ptrgame->activeLevel->height << endl;
-   cout << ptrgame->activeLevel->width << endl;
-   cout << "test sur le niveau 2 hauteur (1080) et largeur (3000) " << endl;
-   cout << ptrgame->activeLevel->height << endl;
-   cout << ptrgame->activeLevel->width << endl;
-   cout << "test sur le niveau 3 hauteur (1080) et largeur (3000) " << endl;
-   cout << ptrgame->activeLevel->height << endl;
-   cout << ptrgame->activeLevel->width << endl;
-   delete ptrgame;
-}
-
 void Tests::test_unitaire_characterAndprojectile()
 {
    std::cout << "-------------RAFT WARS-------------\n";
@@ -266,6 +249,7 @@ void Tests::testjson()
 {
    Gameloader *gameloader = new Gameloader();
    Niveau *niveau = gameloader->getLevelFromJson("./levels/levelTemplate.json");
+   niveau->ShowNiveauinfo();
    cout << "Bateau joueur" << endl;
    niveau->playerBoats[0]->ShowInfo(cout);
    cout << "Bateau enemy" << endl;
