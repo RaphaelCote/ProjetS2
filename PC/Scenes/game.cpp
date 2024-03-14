@@ -75,21 +75,23 @@ void Game::ChangeProjectileType(int typeDif)
     // When we have both rockets and grenade, can only chose grenade
     if (typeDif > 0)
     {
-        for (int i = projectileType; i <= 2; i++)
+        for (int i = projectileType + 1; i <= 2; i++)
         {
             if (CheckAvailableProjectile(i))
             {
                 projectileType = i;
+                break;
             }
         }
     }
     else if (typeDif < 0)
     {
-        for (int i = projectileType; i >= 0; i--)
+        for (int i = projectileType - 1; i >= 0; i--)
         {
             if (CheckAvailableProjectile(i))
             {
                 projectileType = i;
+                break;
             }
         }
     }
