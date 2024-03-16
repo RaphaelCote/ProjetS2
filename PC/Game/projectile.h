@@ -58,6 +58,8 @@ class Projectile {
         float rad;
         
         int findBulletPositionX(int positionY);
+        int findBulletPositionYAngle(float angle);// pas utilisé présentement 
+        float findangleBulletPositionY(int positionY);//pour les rebond vertical en vrai
         int findBulletPositionY(int positionX);
         int findBulletPositionYTime(float time);
 };
