@@ -17,14 +17,16 @@ static DWORD WINAPI ThreadEntry(LPVOID lpParam) {
 AffichageConsole::AffichageConsole()
 {
     ModificationAFaire = true;
-    MaxRows = 80;
-    MaxColumns = 119;
+    
+    MaxRows = 44;
+    MaxColumns = 152;
 
     ScreenWidth = 1250;
     ScreenHeight = 750;
     FontX = 8;
     FontY = 12;
 
+    Thread_Actif = true;
     /////////////////////////////////////////////////////////////////////////////////////////
 
     // Create a lambda function to capture the instance of MyClass and call its member function
@@ -59,6 +61,8 @@ AffichageConsole::AffichageConsole(int width, int height, int fontX, int fontY)
     MaxRows = 44;
     MaxColumns = 169;
 
+    Thread_Actif = true;
+
     ScreenWidth = width;
     ScreenHeight = height;
     FontX = fontX;
@@ -91,6 +95,7 @@ AffichageConsole::AffichageConsole(int width, int height, int fontX, int fontY)
 
 AffichageConsole::~AffichageConsole()
 {
+    Thread_Actif = false;
     for (int i = 0; i < MaxRows; ++i) {
         delete[] screen[i];
     }
@@ -112,10 +117,10 @@ void AffichageConsole::ResizeConsole()
     // COORD coord;
     // coord.X = 8;
     // coord.Y = 9;
-    //SetConsoleFontSize(coord);
+    // SetConsoleFontSize(coord);
 
     HWND console = GetConsoleWindow();
-    RECT rect = { 10, 10, ScreenWidth, ScreenHeight };
+    RECT rect = { 0, 0, ScreenWidth, ScreenHeight };
     MoveWindow(console, rect.left, rect.top, rect.right, rect.bottom, TRUE);
 }
 
@@ -129,17 +134,16 @@ void AffichageConsole::AfficherEnBasGauche(Pixels** tab, int x, int y, int width
             
             if(!(tab[j][i].FrontColour == colors::transparant || tab[j][i].BackColour == colors::transparant))
             {
-                screen[y + j][x+i].BackColour = tab[j][i].BackColour;
-                screen[y + j][x+i].FrontColour = tab[j][i].FrontColour;
-                screen[y + j][x+i].texture = tab[j][i].texture;
+                if(!(y-j >= MaxRows || x+i >= MaxColumns))
+                {
+                    if(y-j >= 0)
+                    {
+                        screen[y - j][x+i].BackColour = tab[j][i].BackColour;
+                        screen[y - j][x+i].FrontColour = tab[j][i].FrontColour;
+                        screen[y - j][x+i].texture = tab[j][i].texture;
+                    }
+                }
             }
-
-            // if(!(tab[i][j].FrontColour == colors::transparant || tab[i][j].BackColour == colors::transparant))
-            // {
-            //     screen[i][j].BackColour = tab[i][j].BackColour;
-            //     screen[i][j].FrontColour = tab[i][j].FrontColour;
-            //     screen[i][j].texture = tab[i][j].texture;
-            // }
         }
     }
 
@@ -149,22 +153,28 @@ void AffichageConsole::AfficherEnBasGauche(Pixels** tab, int x, int y, int width
 
 void AffichageConsole::UpdateUI()
 {
-    if(ModificationAFaire)
+    Sleep(1000);
+    while(Thread_Actif)
     {
-        for (int j = 0; j < MaxRows; j++)
+        if(ModificationAFaire)
         {
-            for(int i = 0; i < MaxColumns; i++)
+            SetTerminalCursorPosition(0, 0);
+
+            for (int j = 0; j < MaxRows; j++)
             {
-                if(!(screen[j][i].FrontColour == colors::transparant || screen[j][i].BackColour == colors::transparant))
+                for(int i = 0; i < MaxColumns; i++)
                 {
-                    SetTerminalCursorPosition(i, j);
-                    ConsecutiveChar(cout, screen[j][i].texture, screen[j][i].FrontColour, screen[j][i].BackColour, 1, false);
+                    if(!(screen[j][i].FrontColour == colors::transparant || screen[j][i].BackColour == colors::transparant))
+                    {
+                        SetTerminalCursorPosition(i, j);
+                        ConsecutiveChar(cout, screen[j][i].texture, screen[j][i].FrontColour, screen[j][i].BackColour, 1, false);
+                    }
                 }
             }
+            ModificationAFaire = false;
         }
-        ModificationAFaire = false;
+        Sleep(1);
     }
-    Sleep(1);
 
 
     
@@ -184,7 +194,7 @@ void AffichageConsole::ResetUI()
     }
 
 
-    ModificationAFaire = false;
+    ModificationAFaire = true;
 }
 
 

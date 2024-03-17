@@ -53,7 +53,7 @@ Scenes index:
 /*----------------------------- Fonction "Main" -----------------------------*/
 int main()
 {
-      
+    cons = new AffichageConsole();
 
     // === Event manager tests ===
     eventManager = new EventManager();
@@ -63,6 +63,7 @@ int main()
     tests = new Tests();
 
     tests->tests_unitaires_levelGetter();
+    tests->test_unitaires_affichage();              //Test affichage jeux
 
     inventory = new Inventory();
     inventory->addGold(2000);
@@ -76,8 +77,6 @@ int main()
     scenes->add(new EndGameMenu());
     scenes->add(new PauseMenu());
     scenes->add(new ShopMenu());
-
-    cons = new AffichageConsole();
     
     levelGetter = new LevelGetter();
 
