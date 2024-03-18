@@ -1,8 +1,5 @@
 
-#include <windows.h>
-#include <thread>
-#include <string>
-#include <cwchar>
+
 #include "AffichageConsole.h"
 
 static DWORD WINAPI ThreadEntry(LPVOID lpParam) {
@@ -18,8 +15,8 @@ AffichageConsole::AffichageConsole()
 {
     ModificationAFaire = true;
     
-    MaxRows = 44;
-    MaxColumns = 152;
+    MaxRows = 80;
+    MaxColumns = 304;
 
     ScreenWidth = 1250;
     ScreenHeight = 750;
@@ -102,22 +99,22 @@ AffichageConsole::~AffichageConsole()
     delete[] screen;
 }
 
-// bool AffichageConsole::SetConsoleFontSize(COORD dwFontSize) {
-//     HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
-//     CONSOLE_FONT_INFOEX info{ sizeof(CONSOLE_FONT_INFOEX) };
-//     if (!GetCurrentConsoleFontEx(output, false, &info))
-//         return false;
-//     info.dwFontSize = dwFontSize;
-//     return SetCurrentConsoleFontEx(output, false, &info);
-// }
+bool AffichageConsole::SetConsoleFontSize(COORD dwFontSize) {
+    HANDLE output = GetStdHandle(STD_OUTPUT_HANDLE);
+    CONSOLE_FONT_INFOEX info{ sizeof(CONSOLE_FONT_INFOEX) };
+    if (!GetCurrentConsoleFontEx(output, false, &info))
+        return false;
+    info.dwFontSize = dwFontSize;
+    return SetCurrentConsoleFontEx(output, false, &info);
+}
 
 
 void AffichageConsole::ResizeConsole()
 {
-    // COORD coord;
-    // coord.X = 8;
-    // coord.Y = 9;
-    // SetConsoleFontSize(coord);
+    COORD coord;
+    coord.X = 8;
+    coord.Y = 9;
+    SetConsoleFontSize(coord);
 
     HWND console = GetConsoleWindow();
     RECT rect = { 0, 0, ScreenWidth, ScreenHeight };
@@ -150,6 +147,17 @@ void AffichageConsole::AfficherEnBasGauche(Pixels** tab, int x, int y, int width
     ModificationAFaire = true;
 }
 
+void AffichageConsole::AfficherTexte(std::ostream & os, string s, int x, int y)
+{
+    SetCursorPos(x, y);
+    os << s;
+}
+
+void AffichageConsole::AfficherTexte(std::ostream & os, string s, int x, int y, int background, int frontcolor)
+{
+    SetCursorPos(x, y);
+    PrintInColour(os, s, frontcolor, background);
+}
 
 void AffichageConsole::UpdateUI()
 {
@@ -211,7 +219,7 @@ void AffichageConsole::SetTerminalCursorPosition(int column, int row)
 }
 
 
-void AffichageConsole::PrintInColour(std::ostream & os, std::string toBePrinted, int foregroundColour, int backgroundColour)
+void AffichageConsole::PrintInColour(std::ostream & os, string toBePrinted, int foregroundColour, int backgroundColour)
 {
    HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
    int colour = backgroundColour * 16 + foregroundColour;

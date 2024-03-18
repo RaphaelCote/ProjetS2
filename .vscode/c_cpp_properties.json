@@ -3,8 +3,10 @@
         {
             "name": "Win32",
             "includePath": [
-                "${workspaceFolder}/PC/**"
-                
+                "${workspaceFolder}/PC/**",
+                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/um", // Adjust this path according to your Windows SDK version
+                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/shared", // Adjust this path according to your Windows SDK version
+                "C:/Program Files (x86)/Windows Kits/10/Include/10.0.19041.0/winrt" // Adjust this path according to your Windows SDK version
             ],
             "defines": [
                 "_DEBUG",

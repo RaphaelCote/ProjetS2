@@ -253,20 +253,20 @@ void Tests::test_unitaires_affichage()
 
    }
 
-   cons->AfficherEnBasGauche(couleur, 1, 40, width, heigth);
-   cons->AfficherEnBasGauche(couleur, width+3, 40, width, heigth);
+   cons->AfficherEnBasGauche(couleur, 1, 76, width, heigth);
+   cons->AfficherEnBasGauche(couleur, width+3, 76, width, heigth);
    /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
    /////////////////////////////////////////////////////////////////////////////////////////////////////////
    //Creation eau
    Pixels **eau = new Pixels*[10];
    for (int i = 0; i < 10; ++i) {
-      eau[i] = new Pixels[200];
+      eau[i] = new Pixels[350];
    }
 
    for (int i = 0; i < 10; i++)
    {
-      for (int n = 0; n < 200; n++)
+      for (int n = 0; n < 350; n++)
       {
          eau[i][n].FrontColour = colors::blue;     
          eau[i][n].BackColour = colors::aqua;      
@@ -275,7 +275,7 @@ void Tests::test_unitaires_affichage()
 
    }
    
-   cons->AfficherEnBasGauche(eau, 0, 44, 200, 4);
+   cons->AfficherEnBasGauche(eau, 0, 80, 350, 4);
    /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
    /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -283,7 +283,7 @@ void Tests::test_unitaires_affichage()
    int c_heigth = 10;
    int c_width = 10;
 
-   char tab_test[10][10] = {{' ',' ',' ','*','*','*',' ',' ',' ',' '},
+   char tab_test[10][10] = {{' ',' ',' ','+','+','+',' ',' ',' ',' '},
                             {' ',' ','+','+','+','+','+',' ',' ',' '},
                             {' ',' ',' ','*','*','*',' ',' ',' ',' '},
                             {' ',' ',' ',' ','*',' ',' ',' ',' ',' '},
@@ -315,13 +315,13 @@ void Tests::test_unitaires_affichage()
          else if(val == '*')
          {
             _character[i][n].FrontColour = colors::green;      
-            _character[i][n].BackColour = colors::green;       
+            _character[i][n].BackColour = colors::leaf;       
             _character[i][n].texture = ' ';
          }
          else if(val == '+')
          {
             _character[i][n].FrontColour = colors::black;      
-            _character[i][n].BackColour = colors::green;       
+            _character[i][n].BackColour = colors::lightblue;       
             _character[i][n].texture = CHAR_CONTRAST_LOW;
          }
          else if(val == '<')
@@ -334,8 +334,8 @@ void Tests::test_unitaires_affichage()
       }
    }
 
-   cons->AfficherEnBasGauche(_character, 6, 37, c_width, c_heigth);
-   cons->AfficherEnBasGauche(_character, 27, 37, c_width, c_heigth);
+   cons->AfficherEnBasGauche(_character, 6, 75, c_width, c_heigth);
+   cons->AfficherEnBasGauche(_character, 27, 75, c_width, c_heigth);
    /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
    system("pause");
