@@ -121,30 +121,17 @@ int Projectile::findBulletPositionX(int positionY)
     return positionX;
 }
 // a changer pour qu'elle prenne un vecteur de character (les characters dedans) de character en paramètre
-bool Projectile::checkIfCharacterHit(Vecteur<Character> character)
+void Projectile::checkIfCharacterHit(Vecteur<Character> character)
 {
-
-    
-    //Coordonnee characterPosition =character.getPosition();
-    /*on sait que c'est l'ennemie qui se fait tirer dessus
-    ---------------------IMPORTANT-----------------
+    /*---------------------IMPORTANT-----------------
     le bulletEndPosition de la grenade est actualisé dans, damageReceived
     ça fonctionne mais idéalement cela pourrait être plus propre */
 
-    
+    // on sait que c'est le joueur qui a tiré
     if(angledeg>0)
     {
         for(int i=0;i<character.getSize();i++)
         {
-            //position y du character
-            //character[i].getPosition().y;
-            //position x du character
-            //character[i].getPosition().x;
-            //hauteur du character
-            //character[i].getHitboxHeight();
-            //largeur du charactet
-            //character[i].getHitboxWidth();
-
             if(findBulletPositionX(character[i].getPosition().y)<character[i].getPosition().x && findBulletPositionY(character[i].getPosition().x) < character[i].getPosition().y)
             {
                 //on sait qu'il n'a pas toucher directement l'ennemie
@@ -155,7 +142,6 @@ bool Projectile::checkIfCharacterHit(Vecteur<Character> character)
                 bulletEndPosition.x=findBulletPositionX(character[i].getPosition().y);
                 bulletEndPosition.y=character[i].getPosition().y;
                 damageReceived(character[i]);
-                return false;
             }
             else if(findBulletPositionY(character[i].getPosition().x)<=(character[i].getPosition().y+character[i].getHitboxHeight()))    
             {
@@ -164,7 +150,6 @@ bool Projectile::checkIfCharacterHit(Vecteur<Character> character)
                 bulletEndPosition.x=character[i].getPosition().x;
                 bulletEndPosition.y=findBulletPositionY(character[i].getPosition().x);
                 damageReceived(character[i]);
-                return true;
             }
             else if(findBulletPositionY(character[i].getPosition().x+character[i].getHitboxWidth())>(character[i].getPosition().y+character[i].getHitboxHeight()))
             {   //on sait qu'il ne touchera pas l'ennemie directement (passer par dessus l'ennemie)
@@ -175,7 +160,6 @@ bool Projectile::checkIfCharacterHit(Vecteur<Character> character)
                 bulletEndPosition.x=findBulletPositionX(character[i].getPosition().y);
                 bulletEndPosition.y=character[i].getPosition().y;
                 damageReceived(character[i]);
-                return false;
             }
             else if(findBulletPositionY(character[i].getPosition().x+character[i].getHitboxWidth())==(character[i].getPosition().y+character[i].getHitboxHeight()))
             {
@@ -184,7 +168,6 @@ bool Projectile::checkIfCharacterHit(Vecteur<Character> character)
                 bulletEndPosition.x=characterPosition.x+character.getHitboxWidth();
                 bulletEndPosition.y=findBulletPositionY(characterPosition.x+character.getHitboxWidth());
                 damageReceived(character[i]);
-                return true;
             }
             else if(findBulletPositionY(character[i].getPosition().x+character[i].getHitboxWidth())<=(character[i].getPosition().y+character[i].getHitboxHeight()))
             {
@@ -193,36 +176,32 @@ bool Projectile::checkIfCharacterHit(Vecteur<Character> character)
                 bulletEndPosition.x=findBulletPositionX(character[i].getPosition().y+character[i].getHitboxHeight());
                 bulletEndPosition.y=character[i].getPosition().y+character[i].getHitboxHeight(); 
                 damageReceived(character[i]);
-                return true;
             }
             else
             {
                 //cout<<"Else angle positif"<<endl;
-                //THÉORIQUEMENT rien passe dans le false, mais je le garde pour le déboguage 
-                
+                //THÉORIQUEMENT rien passe dans le else, mais je le garde pour le déboguage 
                 bulletEndPosition.x=findBulletPositionX(character[i].getPosition().y);
                 bulletEndPosition.y=character[i].getPosition().y;
                 damageReceived(character[i]);
-                return false;
+
             }
         }
         
     }
+    // on sait que c'est l'ennemie qui a tiré
     if(angledeg<0)
     {
         for(int i=0;i<character.getSize();i++)
         {
-
-        
             if(findBulletPositionX(character[i].getPosition().y)>character[i].getPosition().x + character[i].getHitboxWidth() && findBulletPositionY(character[i].getPosition().x+character[i].getHitboxWidth()) < character[i].getPosition().y)
             {
-            //on sait qu'il n'a pas toucher directement l'ennemie
-            //pour les coordonnées de la balle, ce sera a changé éventuellement (vérifier si cela a touché bateau ou l'eau)
+                //on sait qu'il n'a pas toucher directement l'ennemie
+                //pour les coordonnées de la balle, ce sera a changé éventuellement (vérifier si cela a touché bateau ou l'eau)
                 //cout<<"Premier if angle négatif"<<endl;
                 bulletEndPosition.x=findBulletPositionX(character[i].getPosition().y);
                 bulletEndPosition.y=character[i].getPosition().y;
                 damageReceived(character[i]);
-                return false;
             }
             else if(findBulletPositionY(character[i].getPosition().x+character[i].getHitboxWidth())<=(character[i].getPosition().y+character[i].getHitboxHeight()))    
             {
@@ -231,8 +210,6 @@ bool Projectile::checkIfCharacterHit(Vecteur<Character> character)
                 bulletEndPosition.x=character[i].getPosition().x+character[i].getHitboxWidth() ;
                 bulletEndPosition.y=findBulletPositionY(character[i].getPosition().x + character[i].getHitboxWidth());
                 damageReceived(character[i]);
-                
-                return true;
             }
             else if(findBulletPositionY(character[i].getPosition().x)>(character[i].getPosition().y+character[i].getHitboxHeight()))
             {   //on sait qu'il ne touchera pas l'ennemie directement (passer par dessus l'ennemie)
@@ -241,7 +218,6 @@ bool Projectile::checkIfCharacterHit(Vecteur<Character> character)
                 bulletEndPosition.x=findBulletPositionX(character[i].getPosition().y);
                 bulletEndPosition.y=character[i].getPosition().y;
                 damageReceived(character[i]);
-                return false;
             }
             else if(findBulletPositionY(character[i].getPosition().x)==(character[i].getPosition().y+character[i].getHitboxHeight()))
             {
@@ -250,7 +226,6 @@ bool Projectile::checkIfCharacterHit(Vecteur<Character> character)
                 bulletEndPosition.x=character[i].getPosition().x;
                 bulletEndPosition.y=findBulletPositionY(character[i].getPosition().x);
                 damageReceived(character[i]);
-                return true;
             }
             else if(findBulletPositionY(character[i].getPosition().x)<=(character[i].getPosition().y+character[i].getHitboxHeight()))
             {
@@ -259,20 +234,16 @@ bool Projectile::checkIfCharacterHit(Vecteur<Character> character)
                 bulletEndPosition.x=findBulletPositionX(character[i].getPosition().y+character[i].getHitboxHeight());
                 bulletEndPosition.y=character[i].getPosition().y+character[i].getHitboxHeight(); 
                 damageReceived(character[i]);
-                return true;
             }
             else{
                 cout<<"Else angle négatif"<<endl;
-                //THÉORIQUEMENT rien passe dans le false, mais je le garde pour le déboguage 
-                
+                //THÉORIQUEMENT rien passe dans le else, mais je le garde pour le déboguage 
                 bulletEndPosition.x=findBulletPositionX(character[i].getPosition().y);
                 bulletEndPosition.y=character[i].getPosition().y;
-                damageReceived(character[i]);
-                return false;
+                damageReceived(character[i]);;
             }
         }
-    }
-    
+    } 
 }
 
 Coordonnee Projectile::getBulletEndPosition()

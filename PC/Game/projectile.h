@@ -37,7 +37,7 @@ class Projectile {
         void setbulletStartPosition(Coordonnee bulletStartPosition);
         Coordonnee getBulletEndPosition();
         virtual int getProjectileMaxSpeed() = 0;
-        bool checkIfCharacterHit(Character& character); 
+        void checkIfCharacterHit(Vecteur<Character> character); 
         virtual int damageReceived(Character& character)=0;
         //-----------BOUNCE-----------//
         void ScanHitboxes();
