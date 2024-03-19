@@ -230,6 +230,7 @@ void Tests::tests_unitaires_levelGetter()
 
 void Tests::test_unitaires_affichage()
 {
+   
    //reset UI
    cons->ResetUI();
 
@@ -253,8 +254,22 @@ void Tests::test_unitaires_affichage()
 
    }
 
-   cons->AfficherEnBasGauche(couleur, 1, 76, width, heigth);
-   cons->AfficherEnBasGauche(couleur, width+3, 76, width, heigth);
+   int coor_X1 = 1;
+   int coor_Y1 = cons->MaxRows-4;
+   int coor_X2 = width+3;
+   int coor_Y2 = cons->MaxRows-4;
+
+   cons->AjouterObjet(couleur, &coor_X1, &coor_Y1, width, heigth, 0);
+   cons->AjouterObjet(couleur, &coor_X2, &coor_Y2, width, heigth, 0);
+
+   int _coor_X1 = 250;
+   int _coor_Y1 = cons->MaxRows-4;
+   int _coor_X2 = 250+width+3;
+   int _coor_Y2 = cons->MaxRows-4;
+
+   cons->AjouterObjet(couleur, &_coor_X1, &_coor_Y1, width, heigth, 0);
+   cons->AjouterObjet(couleur, &_coor_X2, &_coor_Y2, width, heigth, 0);
+
    /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
    /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -272,10 +287,11 @@ void Tests::test_unitaires_affichage()
          eau[i][n].BackColour = colors::aqua;      
          eau[i][n].texture = '\xB1';
       }
-
    }
-   
-   cons->AfficherEnBasGauche(eau, 0, 80, 350, 4);
+
+   int coor_X3 = 0;
+   int coor_Y3 = cons->MaxRows;
+   cons->AjouterObjet(eau, &coor_X3, &coor_Y3, 300, 4, 0);
    /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
    /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -334,11 +350,94 @@ void Tests::test_unitaires_affichage()
       }
    }
 
-   cons->AfficherEnBasGauche(_character, 6, 75, c_width, c_heigth);
-   cons->AfficherEnBasGauche(_character, 27, 75, c_width, c_heigth);
+   int coor_X4 = 6;
+   int coor_Y4 = cons->MaxRows-5;
+   int coor_X5 = 27;
+   int coor_Y5 = cons->MaxRows-5;
+
+   cons->AjouterObjet(_character, &coor_X4, &coor_Y4, c_width, c_heigth,0);
+   cons->AjouterObjet(_character, &coor_X5, &coor_Y5,  c_width, c_heigth,0);
+
+   
+
+   int _coor_X4 = 250+6;
+   int _coor_Y4 = cons->MaxRows-5;
+   int _coor_X5 = 250+27;
+   int _coor_Y5 = cons->MaxRows-5;
+
+   cons->AjouterObjet(_character, &_coor_X4, &_coor_Y4, c_width, c_heigth,0);
+   cons->AjouterObjet(_character, &_coor_X5, &_coor_Y5,  c_width, c_heigth,0);
    /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+   Sleep(4000);
+
+   // cons->AfficherEnBasGauche(_character, 27, 10, c_width, c_heigth);
+   // cons->AfficherEnBasGauche(_character, 50, 10, c_width, c_heigth);
+
+   // system("pause");
+   // cons->AfficherEnBasGauche(_character, 70, 10, c_width, c_heigth);
+   // system("pause");
+
+   // cons->AfficherEnBasGauche(eau, 0, 40, 300, 10);
+   // system("pause");
+
+   // cons->AfficherTexte(std::cout, "Allo, voici du texte que tu peux ecrire", 0,0);
+   // cons->AfficherTexte(std::cout, "Je sais pas voici d'autre texte", 22,33);
+   // system("pause");
+
+   // cons->AfficherTexte(std::cout, "Allo, voici du texte que tu peux ecrire", 3,cons->MaxRows-2,colors::darkpurple,colors::gold);
+   // cons->AfficherTexte(std::cout, "Je sais pas voici d'autre texte", 12,44,colors::green,colors::black);
+   // system("pause");
+   /////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+   /////////////////////////////////////////////////////////////////////////////////////////////////////////
+   //Creation projectile
+   int ball_X = 27+8;
+   int ball_Y = cons->MaxRows-10;
+
+   Pixels **ball = new Pixels*[1];
+   for (int i = 0; i < 1; ++i) {
+      ball[i] = new Pixels[1];
+   }
+
+   for (int i = 0; i < 1; i++)
+   {
+      for (int n = 0; n < 1; n++)
+      {
+         ball[i][n].FrontColour = colors::blue;     
+         ball[i][n].BackColour = colors::electric;      
+         ball[i][n].texture = ' ';
+      }
+   }
+
+   cons->AjouterObjet(ball, &ball_X, &ball_Y, 1, 1, 0);
+   for (int i = 0; i < 220; i++)
+   {
+      Sleep(10);
+      ball_X++;
+      cons->Mincolums++;
+      //cons->MinRows--;
+      // coor_Y4++;
+      // coor_Y5++;
+      (i%2) ? ((i<100) ? ball_Y-- : ball_Y++) : ball_Y;
+   }
+
+   ball_X = 250+6;
+   ball_Y = cons->MaxRows-10;
+
+   for (int i = 0; i < 220; i++)
+   {
+      Sleep(10);
+      ball_X--;
+      cons->Mincolums--;
+      //cons->MinRows--;
+      // coor_Y4++;
+      // coor_Y5++;
+      (i%2) ? ((i<100) ? ball_Y-- : ball_Y++) : ball_Y;
+   }
+
    system("pause");
+   /////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
 
