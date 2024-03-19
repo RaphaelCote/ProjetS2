@@ -316,7 +316,7 @@ void Tests::test_unitaires_affichage()
       _character[i] = new Pixels[c_width];
    }
 
-   //passe a travers tout le tableau pour afficher le personnage
+   //passe a travers tout le tableau pour faire le personnage
    for (int i = 0; i < c_heigth; i++)
    {
       for (int n = 0; n < c_width; n++)
@@ -381,8 +381,13 @@ void Tests::test_unitaires_affichage()
    // cons->AfficherEnBasGauche(eau, 0, 40, 300, 10);
    // system("pause");
 
-   // cons->AfficherTexte(std::cout, "Allo, voici du texte que tu peux ecrire", 0,0);
-   // cons->AfficherTexte(std::cout, "Je sais pas voici d'autre texte", 22,33);
+   int _coor_X8 = 0;
+   int _coor_Y8 = 10;
+   int _coor_X9 = 50;
+   int _coor_Y9 = 15;
+
+   cons->AfficherTexte(std::cout, "Allo, voici du texte que tu peux ecrire", &_coor_X8,&_coor_Y8, "texte1");
+   cons->AfficherTexte(std::cout, "Je sais pas voici d'autre texte", &_coor_X9,&_coor_Y9,colors::green,colors::black, "texte2");
    // system("pause");
 
    // cons->AfficherTexte(std::cout, "Allo, voici du texte que tu peux ecrire", 3,cons->MaxRows-2,colors::darkpurple,colors::gold);
@@ -411,8 +416,10 @@ void Tests::test_unitaires_affichage()
    }
 
    int para = 2;
-   cons->AjouterObjet(ball, &ball_X, &ball_Y, 1, 1, 0, "Ball1");
-   for (int i = 0; i < 220; i++)
+   cons->AjouterObjet(ball, &ball_X, &ball_Y, 1, 1, 0, "Ball1"); 
+   
+   //Lancement ball vers enemy
+   for (int i = 0; i < 220; i++)                                  //Lancement ball vers enemy
    {
       Sleep(10);
       ball_X++;
@@ -426,24 +433,26 @@ void Tests::test_unitaires_affichage()
    ball_X = 250+6;
    ball_Y = cons->MaxRows-10;
 
-   for (int i = 0; i < 240; i++)
+   //Lancement ball vers nous
+   for (int i = 0; i < 240; i++)                                  //Lancement ball vers nous
    {
       Sleep(10);
       ball_X--;
       cons->Mincolums--;
-      //cons->MinRows--;
-      // coor_Y4++;
-      // coor_Y5++;
       (i%2) ? ((i<115) ? ball_Y-- : ball_Y++) : ball_Y;
    }
 
-   for (int i = 0; i < 20; i++)
+   // Player going down
+   for (int i = 0; i < 20; i++)                                   // Player going down
    {
       Sleep(10);
-      //coor_Y4++;
       coor_Y5++;
-      
    }
+
+   //suppression des objet qu'on veut se debarasser
+   cons->SupprimerObjet("texte2");
+   cons->SupprimerObjet("Ball1");
+   cons->SupprimerObjet("char2");
 
    system("pause");
    /////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -199,8 +199,8 @@ public:
     void AjouterObjet(Pixels** tab, Projectile *project, int couche, string name);
     void SupprimerObjet(string name);
     void AfficherEnBasGauche(Pixels** tab, int x, int y, int width, int height);
-    void AfficherTexte(std::ostream & os, string s, int x, int y);
-    void AfficherTexte(std::ostream & os, string s, int x, int y, int background, int frontcolor);
+    void AfficherTexte(std::ostream & os, string s, int *x, int *y, string name);
+    void AfficherTexte(std::ostream & os, string s, int *x, int *y, int background, int frontcolor, string name);
     void ResizeConsole();
     bool SetConsoleFontSize(COORD dwFontSize);
 

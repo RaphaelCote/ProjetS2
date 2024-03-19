@@ -17,15 +17,15 @@ AffichageConsole::AffichageConsole()
 {
     ModificationAFaire = true;
     
-    NumberRows = 75;
+    NumberRows = 65;
     NumberColumns = 120; 
     MaxRows = NumberRows;
     MaxColumns = NumberColumns;
 
     MinRows = 0;
     Mincolums = 0;
-    ScreenWidth = 1250;
-    ScreenHeight = 800;
+    ScreenWidth = 1300;
+    ScreenHeight = 750;
     FontX = 10;
     FontY = 10;
 
@@ -273,39 +273,63 @@ void AffichageConsole::AfficherEnBasGauche(Pixels** tab, int x, int y, int width
 }
 
 
-void AffichageConsole::AfficherTexte(std::ostream & os, string s, int x, int y)
+void AffichageConsole::AfficherTexte(std::ostream & os, string s, int *x, int *y, string name)
 {
+    ObjetAffichage *obj1 = new ObjetAffichage;
+
+    obj1->pix = new Pixels *[1];
+    for (int i = 0; i < 1; ++i)
+    {
+        obj1->pix[i] = new Pixels[s.length()];        
+    }
+
     for(int i = 0; i < s.length(); i++)
     {
-        if(!(y >= MaxRows || x+i >= MaxColumns))
-        {
-            if(y >= 0 && x >= 0)
-            {
-                screen[y][x+i].BackColour = colors::black;
-                screen[y][x+i].FrontColour = colors::white;
-                screen[y][x+i].texture = s[i];
-            }
-        }
+        obj1->pix[0][i].BackColour = colors::black;
+        obj1->pix[0][i].FrontColour = colors::white;
+        obj1->pix[0][i].texture = s[i];
         
     }
+
+    
+    obj1->x = x;
+    obj1->y = y;
+    obj1->width = s.length();
+    obj1->height = 1;
+    obj1->couche = 0;
+    obj1->name = name;
+
+    v_objet.add(obj1);
 }
 
 
-void AffichageConsole::AfficherTexte(std::ostream & os, string s, int x, int y, int background, int frontcolor)
+void AffichageConsole::AfficherTexte(std::ostream & os, string s, int *x, int *y, int background, int frontcolor, string name)
 {
+    ObjetAffichage *obj1 = new ObjetAffichage;
+
+    obj1->pix = new Pixels *[1];
+    for (int i = 0; i < 1; ++i)
+    {
+        obj1->pix[i] = new Pixels[s.length()];        
+    }
+
     for(int i = 0; i < s.length(); i++)
     {
-        if(!(y >= MaxRows || x+i >= MaxColumns))
-        {
-            if(y >= 0 && x >= 0)
-            {
-                screen[y][x+i].BackColour = background;
-                screen[y][x+i].FrontColour = frontcolor;
-                screen[y][x+i].texture = s[i];
-            }
-        }
+        obj1->pix[0][i].BackColour = background;
+        obj1->pix[0][i].FrontColour = frontcolor;
+        obj1->pix[0][i].texture = s[i];
         
     }
+
+    
+    obj1->x = x;
+    obj1->y = y;
+    obj1->width = s.length();
+    obj1->height = 1;
+    obj1->couche = 0;
+    obj1->name = name;
+
+    v_objet.add(obj1);
 }
 
 
