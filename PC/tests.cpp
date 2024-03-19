@@ -6,6 +6,7 @@
 #include "raftWars.h"
 #include "Game/enemyCharacter.h"
 
+
 //==== DEBUT Controls ====
 void test_unitaire_Controls_OnMainActionCall(EventParameters ep)
 {
@@ -226,6 +227,121 @@ void Tests::tests_unitaires_levelGetter()
    cout << "Level 1" << listlevels->levels[1] << endl;
    cout << "nb level: " << listlevels->nbLevel << endl;
 }
+
+void Tests::test_unitaires_affichage()
+{
+   //reset UI
+   cons->ResetUI();
+
+   /////////////////////////////////////////////////////////////////////////////////////////////////////////
+   //Creation bateau
+   int heigth = 3;
+   int width = 20;
+   Pixels **couleur = new Pixels*[heigth];
+   for (int i = 0; i < heigth; ++i) {
+      couleur[i] = new Pixels[width];
+   }
+
+   for (int i = 0; i < heigth; i++)
+   {
+      for (int n = 0; n < width; n++)
+      {
+         couleur[i][n].FrontColour = 6;      //gold
+         couleur[i][n].BackColour = 8;       //grey
+         couleur[i][n].texture = '\xB1';
+      }
+
+   }
+
+   cons->AfficherEnBasGauche(couleur, 1, 76, width, heigth);
+   cons->AfficherEnBasGauche(couleur, width+3, 76, width, heigth);
+   /////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+   /////////////////////////////////////////////////////////////////////////////////////////////////////////
+   //Creation eau
+   Pixels **eau = new Pixels*[10];
+   for (int i = 0; i < 10; ++i) {
+      eau[i] = new Pixels[350];
+   }
+
+   for (int i = 0; i < 10; i++)
+   {
+      for (int n = 0; n < 350; n++)
+      {
+         eau[i][n].FrontColour = colors::blue;     
+         eau[i][n].BackColour = colors::aqua;      
+         eau[i][n].texture = '\xB1';
+      }
+
+   }
+   
+   cons->AfficherEnBasGauche(eau, 0, 80, 350, 4);
+   /////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+   /////////////////////////////////////////////////////////////////////////////////////////////////////////
+   //creation character
+   int c_heigth = 10;
+   int c_width = 10;
+
+   char tab_test[10][10] = {{' ',' ',' ','+','+','+',' ',' ',' ',' '},
+                            {' ',' ','+','+','+','+','+',' ',' ',' '},
+                            {' ',' ',' ','*','*','*',' ',' ',' ',' '},
+                            {' ',' ',' ',' ','*',' ',' ',' ',' ',' '},
+                            {' ',' ',' ',' ','*',' ',' ',' ',' ',' '},
+                            {' ',' ','<','<','<','<','<','<',' ',' '},
+                            {' ',' ',' ',' ','*',' ',' ',' ',' ',' '},
+                            {' ',' ',' ','*',' ','*',' ',' ',' ',' '},
+                            {' ',' ','*',' ',' ',' ','*',' ',' ',' '},
+                            {' ','*',' ',' ',' ',' ',' ','*',' ',' '}} ;
+
+
+   Pixels **_character = new Pixels*[c_heigth];
+   for (int i = 0; i < c_heigth; ++i) {
+      _character[i] = new Pixels[c_width];
+   }
+
+   //passe a travers tout le tableau pour afficher le personnage
+   for (int i = 0; i < c_heigth; i++)
+   {
+      for (int n = 0; n < c_width; n++)
+      {
+         char val = tab_test[c_heigth - i-1][n];      //j'ai du mettre ca(c_heigth - i-1) sinon le bonhomme affiche en l'envers
+         if(val == ' ')
+         {
+            _character[i][n].FrontColour = colors::transparant;      
+            _character[i][n].BackColour = colors::transparant;       
+            _character[i][n].texture = ' ';
+         }
+         else if(val == '*')
+         {
+            _character[i][n].FrontColour = colors::green;      
+            _character[i][n].BackColour = colors::leaf;       
+            _character[i][n].texture = ' ';
+         }
+         else if(val == '+')
+         {
+            _character[i][n].FrontColour = colors::black;      
+            _character[i][n].BackColour = colors::lightblue;       
+            _character[i][n].texture = CHAR_CONTRAST_LOW;
+         }
+         else if(val == '<')
+         {
+            _character[i][n].FrontColour = colors::black;      
+            _character[i][n].BackColour = colors::red;       
+            _character[i][n].texture = CHAR_CONTRAST_MED;
+         }
+         
+      }
+   }
+
+   cons->AfficherEnBasGauche(_character, 6, 75, c_width, c_heigth);
+   cons->AfficherEnBasGauche(_character, 27, 75, c_width, c_heigth);
+   /////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+   system("pause");
+}
+
+
 
 void Tests::tests_unitaires()
 {

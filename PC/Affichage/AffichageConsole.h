@@ -2,7 +2,32 @@
 #define AFFICHAGE_CONSOLE_H
 
 #include <iostream>
+#include <windows.h>
+#include <thread>
 #include <string>
+#include <cwchar>
+#include <wincon.h>
+#define _WIN32_WINNT 0x0601
+
+typedef struct _CONSOLE_FONT_INFOEX
+{
+    ULONG cbSize;
+    DWORD nFont;
+    COORD dwFontSize;
+    UINT  FontFamily;
+    UINT  FontWeight;
+    WCHAR FaceName[LF_FACESIZE];
+}CONSOLE_FONT_INFOEX, *PCONSOLE_FONT_INFOEX;
+//the function declaration begins
+#ifdef __cplusplus
+extern "C" {
+#endif
+BOOL WINAPI GetCurrentConsoleFontEx(HANDLE hConsoleOutput,BOOL bMaximumWindow,PCONSOLE_FONT_INFOEX lpConsoleCurrentFont);
+BOOL WINAPI SetCurrentConsoleFontEx(HANDLE hConsoleOutput, BOOL bMaximumWindow, PCONSOLE_FONT_INFOEX
+lpConsoleCurrentFontEx);
+#ifdef __cplusplus
+}
+#endif
 
 
 
@@ -137,8 +162,10 @@ public:
 
 
     void AfficherEnBasGauche(Pixels** tab, int x, int y, int width, int height);
+    void AfficherTexte(std::ostream & os, string s, int x, int y);
+    void AfficherTexte(std::ostream & os, string s, int x, int y, int background, int frontcolor);
     void ResizeConsole();
-    //bool SetConsoleFontSize(COORD dwFontSize);
+    bool SetConsoleFontSize(COORD dwFontSize);
 
     void UpdateUI();
     void ResetUI();

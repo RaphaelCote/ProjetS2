@@ -25,8 +25,6 @@ using namespace std;
 #include "Scenes/endGameMenu.h"
 #include "Scenes/levelSelectionMenu.h"
 #include "Scenes/shopMenu.h"
-#include "Game/niveau.h"
-#include "Game/niveau.cpp"
 
 /*------------------------------ Constantes ---------------------------------*/
 
@@ -56,9 +54,6 @@ Scenes index:
 int main()
 {
     cons = new AffichageConsole();
-    Niveau niveau;
-    niveau.MatPlayer();
-
 
     // === Event manager tests ===
     eventManager = new EventManager();
@@ -68,6 +63,7 @@ int main()
     tests = new Tests();
 
     tests->tests_unitaires_levelGetter();
+    tests->test_unitaires_affichage();              //Test affichage jeux
 
     inventory = new Inventory();
     inventory->addGold(2000);
@@ -81,8 +77,6 @@ int main()
     scenes->add(new EndGameMenu());
     scenes->add(new PauseMenu());
     scenes->add(new ShopMenu());
-
-    
     
     levelGetter = new LevelGetter();
 
