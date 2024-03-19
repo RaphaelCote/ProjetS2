@@ -86,6 +86,5 @@
         "any": "cpp",
         "regex": "cpp",
         "set": "cpp"
-    },
-    "C_Cpp.errorSquiggles": "disabled"
+    }
 }
