@@ -174,7 +174,7 @@ void AffichageConsole::ResizeConsole()
 }
 
 
-void AffichageConsole::AjouterObjet(Pixels** tab, int *x, int *y, int width, int height, int couche)
+void AffichageConsole::AjouterObjet(Pixels** tab, int *x, int *y, int width, int height, int couche, string name)
 {
     ObjetAffichage *obj1 = new ObjetAffichage;
     obj1->pix = tab;
@@ -183,9 +183,67 @@ void AffichageConsole::AjouterObjet(Pixels** tab, int *x, int *y, int width, int
     obj1->width = width;
     obj1->height = height;
     obj1->couche = couche;
+    obj1->name = name;
     
     
     v_objet.add(obj1);
+}
+
+void AffichageConsole::AjouterObjet(Pixels** tab, Character *charact, int couche, string name)
+{
+    ObjetAffichage *obj1 = new ObjetAffichage;
+    obj1->pix = tab;
+    obj1->x = charact->getPointerPositionCharacter_X();
+    obj1->y = charact->getPointerPositionCharacter_Y();
+    obj1->width = charact->getHitboxWidth();
+    obj1->height = charact->getHitboxHeight();
+    obj1->couche = couche;
+    obj1->name = name;
+    
+    
+    v_objet.add(obj1);
+}
+
+void AffichageConsole::AjouterObjet(Pixels** tab, Boat *boat, int couche, string name)
+{
+    ObjetAffichage *obj1 = new ObjetAffichage;
+    obj1->pix = tab;
+    obj1->x = boat->getPointerPositionBoat_X();
+    obj1->y = boat->getPointerPositionBoat_X();
+    obj1->width = boat->getHitboxBoat().width;
+    obj1->height = boat->getHitboxBoat().height;
+    obj1->couche = couche;
+    obj1->name = name;
+    
+    
+    v_objet.add(obj1);
+}
+
+void AffichageConsole::AjouterObjet(Pixels** tab, Projectile *project, int couche, string name)
+{
+    ObjetAffichage *obj1 = new ObjetAffichage;
+    obj1->pix = tab;
+    obj1->x = &project->bulletCurrentPosition.x;
+    obj1->y = &project->bulletCurrentPosition.y;
+    obj1->width = 1;
+    obj1->height =1;
+    obj1->couche = couche;
+    obj1->name = name;
+    
+    
+    v_objet.add(obj1);
+}
+    
+void AffichageConsole::SupprimerObjet(string name)
+{
+    for (int i = 0; i < v_objet.getSize(); i++)
+    {
+        if(v_objet[i]->name == name)
+        {
+            v_objet.remove(i);
+        }
+    }
+    
 }
 
 

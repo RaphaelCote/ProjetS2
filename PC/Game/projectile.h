@@ -29,6 +29,8 @@ class Projectile {
         virtual int getProjectileMaxSpeed() = 0;
         bool checkIfCharacterHit(Character& character); 
         virtual int damageReceived(Character& character)=0;
+
+        Coordonnee bulletCurrentPosition;
         
     protected:
         //time_t temps;

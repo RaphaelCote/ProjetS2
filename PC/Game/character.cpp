@@ -58,6 +58,16 @@ Coordonnee Character::getPosition()
     return position;
 }
 
+int* Character::getPointerPositionCharacter_X()
+{
+    return &(position.x);
+}
+
+int* Character::getPointerPositionCharacter_Y()
+{
+    return &(position.y);
+}
+
 // void Character::applyShield(Shield& shield){
 //     //présentement elle est vide, mais il faudrait vérifier quel shield
 //     //a été achetée dans le shop et attribué des points de vie supplémentaire au joueur

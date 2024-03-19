@@ -8,6 +8,9 @@
 #include <cwchar>
 #include <wincon.h>
 #include "../Vecteur.h"
+#include "../Game/Boat.h"
+#include "../Game/character.h"
+#include "../Game/projectile.h"
 
 using namespace std;
 
@@ -110,6 +113,7 @@ struct ObjetAffichage
     int *y; 
     int width;
     int height;
+    string name;
 };
 
 enum colors {
@@ -189,7 +193,11 @@ public:
     AffichageConsole(int width, int height, int fontX, int fontY);
     ~AffichageConsole();
 
-    void AjouterObjet(Pixels** tab, int *x, int *y, int width, int height, int couche);
+    void AjouterObjet(Pixels** tab, int *x, int *y, int width, int height, int couche, string name);
+    void AjouterObjet(Pixels** tab, Character *charact, int couche, string name);
+    void AjouterObjet(Pixels** tab, Boat *boat, int couche, string name);
+    void AjouterObjet(Pixels** tab, Projectile *project, int couche, string name);
+    void SupprimerObjet(string name);
     void AfficherEnBasGauche(Pixels** tab, int x, int y, int width, int height);
     void AfficherTexte(std::ostream & os, string s, int x, int y);
     void AfficherTexte(std::ostream & os, string s, int x, int y, int background, int frontcolor);

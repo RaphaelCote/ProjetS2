@@ -259,16 +259,16 @@ void Tests::test_unitaires_affichage()
    int coor_X2 = width+3;
    int coor_Y2 = cons->MaxRows-4;
 
-   cons->AjouterObjet(couleur, &coor_X1, &coor_Y1, width, heigth, 0);
-   cons->AjouterObjet(couleur, &coor_X2, &coor_Y2, width, heigth, 0);
+   cons->AjouterObjet(couleur, &coor_X1, &coor_Y1, width, heigth, 0, "Bateau1");
+   cons->AjouterObjet(couleur, &coor_X2, &coor_Y2, width, heigth, 0, "Bateau2");
 
    int _coor_X1 = 250;
    int _coor_Y1 = cons->MaxRows-4;
    int _coor_X2 = 250+width+3;
    int _coor_Y2 = cons->MaxRows-4;
 
-   cons->AjouterObjet(couleur, &_coor_X1, &_coor_Y1, width, heigth, 0);
-   cons->AjouterObjet(couleur, &_coor_X2, &_coor_Y2, width, heigth, 0);
+   cons->AjouterObjet(couleur, &_coor_X1, &_coor_Y1, width, heigth, 0, "Bateau3");
+   cons->AjouterObjet(couleur, &_coor_X2, &_coor_Y2, width, heigth, 0, "Bateau4");
 
    /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -291,7 +291,7 @@ void Tests::test_unitaires_affichage()
 
    int coor_X3 = 0;
    int coor_Y3 = cons->MaxRows;
-   cons->AjouterObjet(eau, &coor_X3, &coor_Y3, 300, 4, 0);
+   cons->AjouterObjet(eau, &coor_X3, &coor_Y3, 300, 4, 0, "eau");
    /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
    /////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -355,8 +355,8 @@ void Tests::test_unitaires_affichage()
    int coor_X5 = 27;
    int coor_Y5 = cons->MaxRows-5;
 
-   cons->AjouterObjet(_character, &coor_X4, &coor_Y4, c_width, c_heigth,0);
-   cons->AjouterObjet(_character, &coor_X5, &coor_Y5,  c_width, c_heigth,0);
+   cons->AjouterObjet(_character, &coor_X4, &coor_Y4, c_width, c_heigth,0, "Char1");
+   cons->AjouterObjet(_character, &coor_X5, &coor_Y5,  c_width, c_heigth,0, "Char2");
 
    
 
@@ -365,8 +365,8 @@ void Tests::test_unitaires_affichage()
    int _coor_X5 = 250+27;
    int _coor_Y5 = cons->MaxRows-5;
 
-   cons->AjouterObjet(_character, &_coor_X4, &_coor_Y4, c_width, c_heigth,0);
-   cons->AjouterObjet(_character, &_coor_X5, &_coor_Y5,  c_width, c_heigth,0);
+   cons->AjouterObjet(_character, &_coor_X4, &_coor_Y4, c_width, c_heigth,0, "Char3");
+   cons->AjouterObjet(_character, &_coor_X5, &_coor_Y5,  c_width, c_heigth,0, "Char4");
    /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
    Sleep(4000);
@@ -410,7 +410,8 @@ void Tests::test_unitaires_affichage()
       }
    }
 
-   cons->AjouterObjet(ball, &ball_X, &ball_Y, 1, 1, 0);
+   int para = 2;
+   cons->AjouterObjet(ball, &ball_X, &ball_Y, 1, 1, 0, "Ball1");
    for (int i = 0; i < 220; i++)
    {
       Sleep(10);
@@ -419,13 +420,13 @@ void Tests::test_unitaires_affichage()
       //cons->MinRows--;
       // coor_Y4++;
       // coor_Y5++;
-      (i%2) ? ((i<100) ? ball_Y-- : ball_Y++) : ball_Y;
+      (i%para) ? ((i<100) ? ball_Y-- : ball_Y++) : ball_Y;
    }
 
    ball_X = 250+6;
    ball_Y = cons->MaxRows-10;
 
-   for (int i = 0; i < 220; i++)
+   for (int i = 0; i < 240; i++)
    {
       Sleep(10);
       ball_X--;
@@ -433,7 +434,15 @@ void Tests::test_unitaires_affichage()
       //cons->MinRows--;
       // coor_Y4++;
       // coor_Y5++;
-      (i%2) ? ((i<100) ? ball_Y-- : ball_Y++) : ball_Y;
+      (i%2) ? ((i<115) ? ball_Y-- : ball_Y++) : ball_Y;
+   }
+
+   for (int i = 0; i < 20; i++)
+   {
+      Sleep(10);
+      //coor_Y4++;
+      coor_Y5++;
+      
    }
 
    system("pause");
