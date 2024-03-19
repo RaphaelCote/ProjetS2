@@ -19,7 +19,7 @@ public:
     Coordonnee *PointeurPosition();
     virtual Coordonnee getWeaponPosition() = 0;
     virtual void setWeaponPosition(Coordonnee WeaponPosition) = 0;
-    int getHitbox(); 
+    Hitbox getHitbox(); 
     int getHitboxWidth();
     int getHitboxHeight();
     virtual float Aim(float angle);

@@ -22,7 +22,7 @@ void Character::setHealthPoint(int healthPoint)
     this->healthPoint = healthPoint;
 }
 
-int Character::getHitbox()
+Hitbox Character::getHitbox()
 {
     return hitbox;
 }

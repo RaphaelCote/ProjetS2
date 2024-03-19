@@ -19,10 +19,9 @@
 #define largeurBateau 300
 const float g=-1000;
 
-const double  PI = 3.14159265358979323846;
+const double  PI = 3.14159;
 const float masseProjectile = 0.05; // en kg
 const float dampingProjectile = 0.8;
-
 class Projectile {
 
     public:
@@ -59,7 +58,8 @@ class Projectile {
         
         int findBulletPositionX(int positionY);
         int findBulletPositionYAngle(float angle);// pas utilisé présentement 
-        float findangleBulletPositionY(int positionY);//pour les rebond vertical en vrai
+        float findNegativeAngleBulletPositionY(int positionY);//pour les rebond vertical courbe bleu
+        float findPositiveAngleBulletPositionY(int positionY);//la courbe verte
         int findBulletPositionY(int positionX);
         int findBulletPositionYTime(float time);
 };

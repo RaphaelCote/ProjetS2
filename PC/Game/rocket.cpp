@@ -1,7 +1,8 @@
 #include "rocket.h"
 using namespace std;
 int Rocket::damageReceived(Character& character){
-    float dy=bulletEndPosition.y-character.getPosition().y;
+    float dy=bulletEndPosition.y - bulletStartPosition.y; 
+   
     Vf= sqrt( pow(V0*cos(rad),2) + pow(V0*sin(rad),2) +2*g*dy);
     int D=0;
 

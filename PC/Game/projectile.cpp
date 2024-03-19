@@ -42,13 +42,19 @@ int Projectile::findBulletPositionYAngle(float angle)
    
     return round(( pow((puissance * getProjectileMaxSpeed() *cos(angledeg*PI/180) * tan*(angle*PI/180)),2) - pow(( puissance* getProjectileMaxSpeed() * sin(angledeg*PI/180)),2))/-2000) +150;
 }
-float Projectile::findangleBulletPositionY(int positionY)
+float Projectile::findNegativeAngleBulletPositionY(int positionY)//courbe bleu dans le desmos
 {
     
     float num = -sqrt( pow((puissance*getProjectileMaxSpeed() * sin(angledeg * PI/180)), 2) +2*g*(positionY- bulletStartPosition.y) );
     float denum = puissance*getProjectileMaxSpeed*cos(angledeg*PI/180);
     float angleFinal = atan(num/denum)*180/PI;
     //float denum =;
+}
+float Projectile::findPositiveAngleBulletPositionY(int positionY)//courbe verte dans le desmos 
+{
+    float num = sqrt( pow((puissance*getProjectileMaxSpeed() * sin(angledeg * PI/180)), 2) +2*g*(positionY- bulletStartPosition.y) );
+    float denum = puissance*getProjectileMaxSpeed*cos(angledeg*PI/180);
+    float angleFinal = atan(num/denum)*180/PI;
 }
 int Projectile::findBulletPositionYTime(float time)
 {
@@ -335,8 +341,26 @@ void Projectile::BounceHorizontal()// si elle frape un paroie
         {
             if((findBulletPositionY(allHitboxObject[i].coordonnees.x)>=allHitboxObject[i].coordonnees.y && findBulletPositionY(allHitboxObject[i].coordonnees.x)<=allHitboxObject[i].coordonnees.y+allHitboxObject[i].height) && vf>0.02*getProjectileMaxSpeed())
             {
-                angledeg= -angledeg;
-                puissance = dampingProjectile*puissance;
+                bulletEndPosition.x= allHitboxObject[i].coordonnees.x;
+                bulletEndPosition.y=findBulletPositionY(allHitboxObject[i].coordonnees.x);
+                
+                float dy=bulletEndPosition.y - bulletStartPosition.y; 
+                float Vfy= sqrt(pow(V0*sin(rad),2) +2*g*dy)>0;
+                if(Vfy>0)
+                {
+                    angledeg= -findPositiveAngleBulletPositionY(bulletEndPosition.y);
+                    puissance = dampingProjectile*puissance; 
+                }
+                else if(Vfy==0)
+                {
+                    angledeg = 0;
+                    puissance = dampingProjectile*puissance; 
+                }
+                else if(Vfy<0)
+                {
+                    angledeg= -findNegativeAngleBulletPositionY(bulletEndPosition.y);
+                    puissance = dampingProjectile*puissance; 
+                }
                 // demandé a Raph si y faut refaire un projectile
             }
         }
@@ -348,9 +372,28 @@ void Projectile::BounceHorizontal()// si elle frape un paroie
             if((findBulletPositionY(allHitboxObject[i].coordonnees.x+allHitboxObject[i].width)>=allHitboxObject[i].coordonnees.y && findBulletPositionY(allHitboxObject[i].coordonnees.x+allHitboxObject[i].width)<=allHitboxObject[i].coordonnees.y+allHitboxObject[i].height) && vf>0.02*getProjectileMaxSpeed())
             {
                 //inverse l'angle et damp la vitesse de 20% (nouvelle Vi =Vf*0.8)
-                angledeg= -findangleBulletPositionY();
-                puissance = dampingProjectile*puissance;
-                // demandé a Raph si y faut refaire un projectile
+
+
+                bulletEndPosition.x= allHitboxObject[i].coordonnees.x+allHitboxObject[i].width;
+                bulletEndPosition.y=findBulletPositionY(allHitboxObject[i].coordonnees.x+allHitboxObject[i].width);
+                
+                float dy=bulletEndPosition.y - bulletStartPosition.y; 
+                float Vfy= sqrt(pow(V0*sin(rad),2) +2*g*dy)>0;
+                if(Vfy>0)
+                {
+                    angledeg= -findPositiveAngleBulletPositionY(bulletEndPosition.y);
+                    puissance = dampingProjectile*puissance; 
+                }
+                else if(Vfy==0)
+                {
+                    angledeg = 0;
+                    puissance = dampingProjectile*puissance; 
+                }
+                else if(Vfy<0)
+                {
+                    angledeg= -findNegativeAngleBulletPositionY(bulletEndPosition.y);
+                    puissance = dampingProjectile*puissance; 
+                }
             }
         }
     }
@@ -375,7 +418,7 @@ void Projectile::BounceVerticale()//si elle frappe un sol (plancher)
             //}
                 
             // demandé a Raph si y faut refaire un projectile
-            angledeg = -findangleBulletPositionY(allHitboxObject[i].coordonnees.y+allHitboxObject[i].height);
+            angledeg = -findNegativeAngleBulletPositionY(allHitboxObject[i].coordonnees.y+allHitboxObject[i].height);
             puissance = dampingProjectile*puissance;
         }
     }

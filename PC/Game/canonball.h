@@ -4,7 +4,8 @@
 #include "projectile.h"
 #include <iostream>
 
-class Canonball : public Projectile{
+class Canonball : public Projectile
+{
     private:
         int canonballMaxSpeed=2828;
 

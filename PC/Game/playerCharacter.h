@@ -7,7 +7,7 @@
 #include <cmath>
 #include <iostream> 
 
-#define PI 3.14159265358979323846
+const float PI = 3.14159;
 class PlayerCharacter : public Character{
     public:
         
