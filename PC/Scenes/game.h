@@ -1,12 +1,13 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <iostream>
+#include "../Game/projectile.h"
 #include "../vecteur.h"
 #include "../Game/niveau.h"
-#include "../Game/projectile.h"
+
 #include "../controls/EventParameters.h"
 #include "scene.h"
+#include <iostream>
 
 using namespace std;
 

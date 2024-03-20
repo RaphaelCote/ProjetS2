@@ -10,7 +10,6 @@
 
 class PlayerCharacter : public Character{
     public:
-        
         PlayerCharacter(int posx,int posy);
         ~PlayerCharacter();
         Coordonnee getWeaponPosition() override;

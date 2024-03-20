@@ -1,5 +1,4 @@
 #include "enemyCharacter.h"
-
 using namespace std;
 
 EnemyCharacter::~EnemyCharacter() {}

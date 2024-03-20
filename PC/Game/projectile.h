@@ -3,10 +3,11 @@
 #define PROJECTILE_H
 #include "utility.h"
 #include "character.h"
-//pt les include juste en dessous qui font toute chier le pain (les 3 .h)
-#include "../Scenes/game.h"
+#include "../Vecteur.h"
+//c'est le "#include "../raftWars.h"" qui fait chier le pain
 #include "../raftWars.h"
-#include "niveau.h"
+#include "../Scenes/game.h"
+// #include "niveau.h"
 #include <iostream>
 #include <cmath>
 #include <typeinfo>

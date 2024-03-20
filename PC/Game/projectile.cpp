@@ -1,5 +1,6 @@
 //projectile.cpp
 #include "projectile.h"
+// #include "../raftWars.h"
 using namespace std;
 
 Projectile::Projectile(Character& character)
@@ -39,15 +40,15 @@ void Projectile::setbulletStartPosition(Coordonnee bulletStartPosition){
 int Projectile::findBulletPositionYAngle(float angle)
 {
     //courbe rouge desmos
-   
-    return round(( pow((puissance * getProjectileMaxSpeed() *cos(angledeg*PI/180) * tan(angle*PI/180)),2) - pow(( puissance* getProjectileMaxSpeed() * sin(angledeg*PI/180)),2))/2*g) +150;
+    int positionY = round(( pow((puissance * getProjectileMaxSpeed() *cos(angledeg*PI/180) * tan(angle*PI/180)),2) - pow(( puissance* getProjectileMaxSpeed() * sin(angledeg*PI/180)),2))/2*g) +150;
+    return positionY;
 }
 float Projectile::findNegativeAngleBulletPositionY(int positionY)//courbe bleu dans le desmos
-{
-    
+{  
     float num = -sqrt( pow((puissance*getProjectileMaxSpeed() * sin(angledeg * PI/180)), 2) +2*g*(positionY- bulletStartPosition.y) );
     float denum = puissance*getProjectileMaxSpeed()*cos(angledeg*PI/180);
     float angleFinal = atan(num/denum)*180/PI;
+    return angleFinal;
     //float denum =;
 }
 float Projectile::findPositiveAngleBulletPositionY(int positionY)//courbe verte dans le desmos 
@@ -55,6 +56,7 @@ float Projectile::findPositiveAngleBulletPositionY(int positionY)//courbe verte 
     float num = sqrt( pow((puissance*getProjectileMaxSpeed() * sin(angledeg * PI/180)), 2) +2*g*(positionY- bulletStartPosition.y) );
     float denum = puissance*getProjectileMaxSpeed()*cos(angledeg*PI/180);
     float angleFinal = atan(num/denum)*180/PI;
+    return angleFinal;
 }
 int Projectile::findBulletPositionYTime(float time)
 {
@@ -265,7 +267,7 @@ Coordonnee Projectile::getBulletEndPosition()
 }
 
 
-//-------------------BOUNCE-------------------//
+// //-------------------BOUNCE-------------------//
 
 void Projectile::ScanHitboxes()// si elle frape un paroie 
 {

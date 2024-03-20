@@ -40,7 +40,7 @@ int Canonball::damageReceived(Character& character){
 }
 
 
-int Canonball:: getProjectileMaxSpeed() 
+int Canonball::getProjectileMaxSpeed() 
 {
     return canonballMaxSpeed;
 }

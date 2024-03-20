@@ -5,7 +5,7 @@
 Boat::Boat()
 {
     
-};
+}
 
 Boat::Boat(int n, int posx, int posy)
 {
