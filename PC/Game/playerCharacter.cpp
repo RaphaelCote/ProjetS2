@@ -1,9 +1,5 @@
 //playerCharacter.cpp
 #include "playerCharacter.h"
-#include "projectile.h"
-#include "canonball.h"
-#include "rocket.h"
-#include "grenade.h"
 using namespace std;
 
 

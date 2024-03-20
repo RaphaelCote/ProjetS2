@@ -1,14 +1,12 @@
 //projectile.h
 #ifndef PROJECTILE_H
 #define PROJECTILE_H
-
-
 #include "utility.h"
 #include "character.h"
+//pt les include juste en dessous qui font toute chier le pain (les 3 .h)
 #include "../Scenes/game.h"
 #include "../raftWars.h"
 #include "niveau.h"
-#include <vector>
 #include <iostream>
 #include <cmath>
 #include <typeinfo>
@@ -36,7 +34,8 @@ class Projectile {
         void setbulletStartPosition(Coordonnee bulletStartPosition);
         Coordonnee getBulletEndPosition();
         virtual int getProjectileMaxSpeed() = 0;
-        void checkIfCharacterHit(Vecteur<Character> character); 
+        //void checkIfCharacterHit(Vecteur<Character> character); 
+        bool checkIfCharacterHit(Character& character); 
         virtual int damageReceived(Character& character)=0;
         //-----------BOUNCE-----------//
         void ScanHitboxes();

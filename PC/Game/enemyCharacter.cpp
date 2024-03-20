@@ -1,9 +1,5 @@
 #include "enemyCharacter.h"
-#include "projectile.h"
-#include "canonball.h"
-#include "rocket.h"
-#include "grenade.h"
-#include "utility.h"
+
 using namespace std;
 
 EnemyCharacter::~EnemyCharacter() {}
