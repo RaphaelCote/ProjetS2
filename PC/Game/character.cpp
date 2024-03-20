@@ -58,14 +58,10 @@ Coordonnee Character::getPosition()
     return position;
 }
 
-int* Character::getPointerPositionCharacter_X()
+void Character::setPosition(Coordonnee coor)
 {
-    return &(position.x);
-}
-
-int* Character::getPointerPositionCharacter_Y()
-{
-    return &(position.y);
+    position.x = coor.x;
+    position.y = coor.y;
 }
 
 // void Character::applyShield(Shield& shield){

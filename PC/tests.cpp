@@ -355,8 +355,10 @@ void Tests::test_unitaires_affichage()
    int coor_X5 = 27;
    int coor_Y5 = cons->MaxRows-5;
 
+   PlayerCharacter c = PlayerCharacter(coor_X5, coor_Y5);
+
    cons->AjouterObjet(_character, &coor_X4, &coor_Y4, c_width, c_heigth,0, "Char1");
-   cons->AjouterObjet(_character, &coor_X5, &coor_Y5,  c_width, c_heigth,0, "Char2");
+   cons->AjouterObjet(_character, &c, 0, "Char2");
 
    
 
@@ -381,8 +383,10 @@ void Tests::test_unitaires_affichage()
    // cons->AfficherEnBasGauche(eau, 0, 40, 300, 10);
    // system("pause");
 
+   
+
    int _coor_X8 = 0;
-   int _coor_Y8 = 10;
+   int _coor_Y8 = 0;
    int _coor_X9 = 50;
    int _coor_Y9 = 15;
 
@@ -399,6 +403,8 @@ void Tests::test_unitaires_affichage()
    //Creation projectile
    int ball_X = 27+8;
    int ball_Y = cons->MaxRows-10;
+
+   Canonball proj({ball_X,ball_Y});
 
    Pixels **ball = new Pixels*[1];
    for (int i = 0; i < 1; ++i) {
@@ -417,7 +423,7 @@ void Tests::test_unitaires_affichage()
 
    int para = 2;
    cons->AjouterObjet(ball, &ball_X, &ball_Y, 1, 1, 0, "Ball1"); 
-   
+   //cons->AjouterObjet(ball, &proj, 0, "Ball1");
    //Lancement ball vers enemy
    for (int i = 0; i < 220; i++)                                  //Lancement ball vers enemy
    {
@@ -446,8 +452,13 @@ void Tests::test_unitaires_affichage()
    for (int i = 0; i < 20; i++)                                   // Player going down
    {
       Sleep(10);
-      coor_Y5++;
+      Coordonnee coor;
+      coor.x = coor_X5;
+      coor.y = coor_Y5++;
+      c.setPosition(coor);
    }
+
+   //findBulletPositionY
 
    //suppression des objet qu'on veut se debarasser
    cons->SupprimerObjet("texte2");

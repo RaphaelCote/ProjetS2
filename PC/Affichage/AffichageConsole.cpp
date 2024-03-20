@@ -191,12 +191,13 @@ void AffichageConsole::AjouterObjet(Pixels** tab, int *x, int *y, int width, int
 
 void AffichageConsole::AjouterObjet(Pixels** tab, Character *charact, int couche, string name)
 {
+    Coordonnee * coor = charact->PointeurPosition();
     ObjetAffichage *obj1 = new ObjetAffichage;
     obj1->pix = tab;
-    obj1->x = charact->getPointerPositionCharacter_X();
-    obj1->y = charact->getPointerPositionCharacter_Y();
-    obj1->width = charact->getHitboxWidth();
-    obj1->height = charact->getHitboxHeight();
+    obj1->x = &coor->x;
+    obj1->y = &coor->y;
+    obj1->width = charact->getHitboxWidth()/10;
+    obj1->height = charact->getHitboxHeight()/10;
     obj1->couche = couche;
     obj1->name = name;
     

@@ -16,8 +16,6 @@ public:
     int getHealthPoint();
     void setHealthPoint(int healthPoint);
     Coordonnee getPosition();
-    int* getPointerPositionCharacter_X();
-    int* getPointerPositionCharacter_Y();
     Coordonnee *PointeurPosition();
     virtual Coordonnee getWeaponPosition() = 0;
     virtual void setWeaponPosition(Coordonnee WeaponPosition) = 0;
@@ -25,6 +23,8 @@ public:
     int getHitboxHeight();
     virtual float Aim(float angle);
     void ShowInfo();
+    void setPosition(Coordonnee coor);
+
 
     
 
