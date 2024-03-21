@@ -255,17 +255,17 @@ void Tests::test_unitaires_affichage()
    }
 
    int coor_X1 = 1;
-   int coor_Y1 = cons->MaxRows-4;
+   int coor_Y1 = 4;
    int coor_X2 = width+3;
-   int coor_Y2 = cons->MaxRows-4;
+   int coor_Y2 = 4;
 
    cons->AjouterObjet(couleur, &coor_X1, &coor_Y1, width, heigth, 0, "Bateau1");
    cons->AjouterObjet(couleur, &coor_X2, &coor_Y2, width, heigth, 0, "Bateau2");
 
    int _coor_X1 = 250;
-   int _coor_Y1 = cons->MaxRows-4;
+   int _coor_Y1 = 4;
    int _coor_X2 = 250+width+3;
-   int _coor_Y2 = cons->MaxRows-4;
+   int _coor_Y2 = 4;
 
    cons->AjouterObjet(couleur, &_coor_X1, &_coor_Y1, width, heigth, 0, "Bateau3");
    cons->AjouterObjet(couleur, &_coor_X2, &_coor_Y2, width, heigth, 0, "Bateau4");
@@ -290,7 +290,7 @@ void Tests::test_unitaires_affichage()
    }
 
    int coor_X3 = 0;
-   int coor_Y3 = cons->MaxRows;
+   int coor_Y3 = 0;
    cons->AjouterObjet(eau, &coor_X3, &coor_Y3, 300, 4, 0, "eau");
    /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -321,7 +321,7 @@ void Tests::test_unitaires_affichage()
    {
       for (int n = 0; n < c_width; n++)
       {
-         char val = tab_test[c_heigth - i-1][n];      //j'ai du mettre ca(c_heigth - i-1) sinon le bonhomme affiche en l'envers
+         char val = tab_test[i][n];      //j'ai du mettre ca(c_heigth - i-1) sinon le bonhomme affiche en l'envers
          if(val == ' ')
          {
             _character[i][n].FrontColour = colors::transparant;      
@@ -351,9 +351,9 @@ void Tests::test_unitaires_affichage()
    }
 
    int coor_X4 = 6;
-   int coor_Y4 = cons->MaxRows-5;
+   int coor_Y4 = 6;
    int coor_X5 = 27;
-   int coor_Y5 = cons->MaxRows-5;
+   int coor_Y5 = 6;
 
    PlayerCharacter c = PlayerCharacter(coor_X5, coor_Y5);
 
@@ -363,9 +363,9 @@ void Tests::test_unitaires_affichage()
    
 
    int _coor_X4 = 250+6;
-   int _coor_Y4 = cons->MaxRows-5;
+   int _coor_Y4 = 6;
    int _coor_X5 = 250+27;
-   int _coor_Y5 = cons->MaxRows-5;
+   int _coor_Y5 = 6;
 
    cons->AjouterObjet(_character, &_coor_X4, &_coor_Y4, c_width, c_heigth,0, "Char3");
    cons->AjouterObjet(_character, &_coor_X5, &_coor_Y5,  c_width, c_heigth,0, "Char4");
@@ -386,9 +386,9 @@ void Tests::test_unitaires_affichage()
    
 
    int _coor_X8 = 0;
-   int _coor_Y8 = 0;
+   int _coor_Y8 = cons->MaxRows-2;
    int _coor_X9 = 50;
-   int _coor_Y9 = 15;
+   int _coor_Y9 = cons->MaxRows-5;
 
    cons->AfficherTexte(std::cout, "Allo, voici du texte que tu peux ecrire", &_coor_X8,&_coor_Y8, "texte1");
    cons->AfficherTexte(std::cout, "Je sais pas voici d'autre texte", &_coor_X9,&_coor_Y9,colors::green,colors::black, "texte2");
@@ -402,9 +402,7 @@ void Tests::test_unitaires_affichage()
    /////////////////////////////////////////////////////////////////////////////////////////////////////////
    //Creation projectile
    int ball_X = 27+8;
-   int ball_Y = cons->MaxRows-10;
-
-   Canonball proj({ball_X,ball_Y});
+   int ball_Y = 11;
 
    Pixels **ball = new Pixels*[1];
    for (int i = 0; i < 1; ++i) {
@@ -429,15 +427,17 @@ void Tests::test_unitaires_affichage()
    {
       Sleep(10);
       ball_X++;
+      _coor_X9++;
       cons->Mincolums++;
+      
       //cons->MinRows--;
       // coor_Y4++;
       // coor_Y5++;
-      (i%para) ? ((i<100) ? ball_Y-- : ball_Y++) : ball_Y;
+      (i%para) ? ((i<100) ? (ball_Y++, cons->MinRows--) : (ball_Y--, cons->MinRows++)) : ball_Y;
    }
 
    ball_X = 250+6;
-   ball_Y = cons->MaxRows-10;
+   ball_Y = 11;
 
    //Lancement ball vers nous
    for (int i = 0; i < 240; i++)                                  //Lancement ball vers nous
@@ -445,7 +445,7 @@ void Tests::test_unitaires_affichage()
       Sleep(10);
       ball_X--;
       cons->Mincolums--;
-      (i%2) ? ((i<115) ? ball_Y-- : ball_Y++) : ball_Y;
+      (i%2) ? ((i<115) ? ball_Y++ : ball_Y--) : ball_Y;
    }
 
    // Player going down
@@ -454,7 +454,7 @@ void Tests::test_unitaires_affichage()
       Sleep(10);
       Coordonnee coor;
       coor.x = coor_X5;
-      coor.y = coor_Y5++;
+      coor.y = coor_Y5--;
       c.setPosition(coor);
    }
 
@@ -463,7 +463,7 @@ void Tests::test_unitaires_affichage()
    //suppression des objet qu'on veut se debarasser
    cons->SupprimerObjet("texte2");
    cons->SupprimerObjet("Ball1");
-   cons->SupprimerObjet("char2");
+   cons->SupprimerObjet("Char2");
 
    system("pause");
    /////////////////////////////////////////////////////////////////////////////////////////////////////////

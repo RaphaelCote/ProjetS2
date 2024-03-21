@@ -370,6 +370,7 @@ void AffichageConsole::UpdateUI_Console()
             //ModificationAFaire = false;
         }
         Sleep(1);
+        // std::this_thread::sleep_for(std::chrono::microseconds(1));
     }
 }
 
@@ -404,15 +405,15 @@ void AffichageConsole::UpdateVecteurUI()
         {
             for(int i = 0; i < aff->width; i++)
             {
-                if(!((*aff->y)-j >= MaxRows || (*aff->x)+i >= MaxColumns))
+                if(!(j - (*aff->y) - (aff->height) +NumberRows >= MaxRows || (*aff->x)+i >= MaxColumns))
                 {
-                    if((*aff->y)-j >= MinRows && (*aff->x)+i >= Mincolums)
+                    if(j - (*aff->y) - (aff->height) + NumberRows >= MinRows && (*aff->x)+i >= Mincolums)
                     {
                         if(!(aff->pix[j][i].FrontColour == colors::transparant || aff->pix[j][i].BackColour == colors::transparant))
                         {
-                            screen[(*aff->y) - j + MinRows][(*aff->x) + i - Mincolums].BackColour     = aff->pix[j][i].BackColour;
-                            screen[(*aff->y) - j + MinRows][(*aff->x) + i - Mincolums].FrontColour    = aff->pix[j][i].FrontColour;
-                            screen[(*aff->y) - j + MinRows][(*aff->x) + i - Mincolums].texture        = aff->pix[j][i].texture;
+                            screen[j - (aff->height) - MinRows + NumberRows - (*aff->y)][(*aff->x) + i - Mincolums].BackColour     = aff->pix[j][i].BackColour;
+                            screen[j - (aff->height) - MinRows + NumberRows - (*aff->y)][(*aff->x) + i - Mincolums].FrontColour    = aff->pix[j][i].FrontColour;
+                            screen[j - (aff->height) - MinRows + NumberRows - (*aff->y)][(*aff->x) + i - Mincolums].texture        = aff->pix[j][i].texture;
                         }
                     }
                 }
