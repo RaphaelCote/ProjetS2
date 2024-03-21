@@ -8,6 +8,7 @@
 #include "Controls/keyBoardControls.h"
 #include "Controls/controls.h"
 #include "Game/levelGetter.h"
+#include "Affichage/AffichageConsole.h"
 
 // INCLUDE POUR LES TESTS DE PERSONNAGES/PROJECTILES
 #include "Game/character.h"
@@ -45,6 +46,7 @@ public:
    void test_unitaire_levels();
    void test_unitaire_characterAndprojectile();
    void tests_unitaires_levelGetter();
+   void test_unitaires_affichage();
    void tests_unitaires(); // Appel de tous les tests unitaires
 
    // Methodes pour les tests unitaires des classes

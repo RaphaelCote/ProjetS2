@@ -10,7 +10,7 @@ using namespace std;
 class Character
 {
 public:
-    Character(Coordonnee position, Hitbox hitbox,int image);
+    Character(Coordonnee position, Hitbox hitbox, int image);
     ~Character();
 
     int getHealthPoint();
@@ -24,13 +24,15 @@ public:
     virtual float Aim(float angle);
     void ShowInfo();
     int getimage();
+    void setPosition(Coordonnee coor);
 
 protected:
     int healthPoint;
-    Coordonnee position;
+
     Coordonnee WeaponPosition;
     Hitbox hitbox;
-    int imagecaracter;
+    int imagecharacter;
+    Coordonnee position;
 };
 
 #endif

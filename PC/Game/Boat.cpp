@@ -36,6 +36,21 @@ int Boat::getWidth()
     return widthBoat;
 }
 
+int *Boat::getPointerPositionBoat_X()
+{
+    return &(positionBoat.x);
+}
+
+int *Boat::getPointerPositionBoat_Y()
+{
+    return &(positionBoat.y);
+}
+
+Hitbox Boat::getHitboxBoat()
+{
+    return hitBoxBoat;
+}
+
 bool Boat::addCharacter(Character *characterAdded) // pour initialiser le jeu: créer les personnages
 {
     nbCharacters++;
