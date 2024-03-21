@@ -5,6 +5,8 @@
 #include "Scenes/game.h"
 #include "raftWars.h"
 #include "Game/enemyCharacter.h"
+#include "Game/gameloader.h"
+#include "Game/character.h"
 
 
 //==== DEBUT Controls ====
@@ -74,26 +76,8 @@ void Tests::test_unitaire_levels()
    Niveau *ptrlevls;
    ptrlevls = new Niveau;
    cout << "debut test niveau hauteur (1080) et largeur (3000)" << endl;
-   cout << ptrlevls->height << endl;
-   cout << ptrlevls->weight << endl;
+   ptrlevls->ShowNiveauinfo();
    delete ptrlevls;
-}
-
-void Tests::test_unitaire_games()
-{
-   Game *ptrgame;
-   ptrgame = new Game;
-   cout << "debut test game" << endl;
-   cout << "test sur le niveau 1 hauteur (1080) et largeur (3000) " << endl;
-   cout << ptrgame->levels[0]->height << endl;
-   cout << ptrgame->levels[0]->weight << endl;
-   cout << "test sur le niveau 2 hauteur (1080) et largeur (3000) " << endl;
-   cout << ptrgame->levels[1]->height << endl;
-   cout << ptrgame->levels[1]->weight << endl;
-   cout << "test sur le niveau 3 hauteur (1080) et largeur (3000) " << endl;
-   cout << ptrgame->levels[2]->height << endl;
-   cout << ptrgame->levels[2]->weight << endl;
-   delete ptrgame;
 }
 
 void Tests::test_unitaire_characterAndprojectile()
@@ -218,8 +202,9 @@ void Tests::test_unitaire_Boat()
 
 void Tests::tests_unitaires_levelGetter()
 {
-   cout << endl << "TESTS UNITAIRES levelGetter" << endl
-      << "-----------------------------------------------------"
+   cout << endl
+        << "TESTS UNITAIRES levelGetter" << endl
+        << "-----------------------------------------------------"
         << endl;
    LevelGetter *listlevels = new LevelGetter();
    string a = listlevels->levels[0];
@@ -503,4 +488,26 @@ void Tests::tests_application_cas_02()
 {
    cout << "TESTS APPLICATION (CAS 02)" << endl;
    // Il faut ajouter les operations realisant ce scenario de test.
+}
+void Tests::testjson()
+{
+   Gameloader *gameloader = new Gameloader();
+   Niveau *niveau = gameloader->getLevelFromJson("./levels/levelTemplate.txt");
+   niveau->ShowNiveauinfo();
+   cout << "Bateau joueur" << endl;
+   niveau->playerBoats[0]->ShowInfo(cout);
+   cout << "Bateau enemy" << endl;
+   niveau->enemyBoats[0]->ShowInfo(cout);
+   cout<<"hauteur enemy"<<endl;
+   cout<<niveau->enemyBoats[0]->characters[0]->getHitboxHeight()<<endl;
+   cout<<"largeur player"<<endl;
+   cout<<niveau->playerBoats[0]->characters[0]->getHitboxWidth()<<endl;
+   cout<<"image joueur"<<endl;
+   cout<<niveau->playerBoats[0]->characters[0]->getimage()<<endl;
+   cout<<"image enemy"<<endl;
+   cout<<niveau->enemyBoats[0]->characters[0]->getimage()<<endl;
+   cout<<"playerboat largeur"<<endl;
+   cout<<niveau->playerBoats[0]->getWidth()<<endl;
+   cout<<"enemyboat hauteur"<<endl;
+   cout<<niveau->enemyBoats[0]->getHeight()<<endl;
 }

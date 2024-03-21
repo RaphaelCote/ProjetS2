@@ -109,8 +109,8 @@ void EndGameMenu::Selection()
 void EndGameMenu::NextLevel()
 {
     choice = 0;
-    Game *game = (Game *)scenes->get(2);
-    game->SetLevel(game->GetLevel() + 1);
+    Game *game = (Game *)scenes->get(1);
+    game->SetLevelIndex(game->GetLevelIndex() + 1);
     game->isNewLevel = true;
     activeScene = 1;
 }

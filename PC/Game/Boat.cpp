@@ -1,17 +1,14 @@
 #include "Boat.h"
 #include "character.h"
 
-
-Boat::Boat(int n,int posx, int posy, int height, int width, int image)
+Boat::Boat(int n, Coordonnee position, int height, int width, int image)
 {
     nbCharacters = 0;
     capacite = n;
-    positionBoat.x = posx;
-    positionBoat.y = posy;
-    heightBoat=height;
-    widthBoat=width;
-    imageboat=image; 
-
+    positionBoat = position;
+    heightBoat = height;
+    widthBoat = width;
+    imageboat = image;
 }
 
 int Boat::getNbCharacters() // pour vérifier s'il reste des personnages vivants

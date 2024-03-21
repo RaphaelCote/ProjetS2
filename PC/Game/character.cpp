@@ -1,13 +1,12 @@
 #include "character.h"
 
-Character::Character(int posx, int posy)
+Character::Character(Coordonnee positionset, Hitbox hitboxset, int image)
 {
-    this->position.x = posx;
-    this->position.y = posy;
+    this->position = positionset;
     this->healthPoint = 100;
 
-    this->hitbox.height = 100; // px
-    this->hitbox.width = 100;  // px
+    this->hitbox=hitboxset;
+    this->imagecaracter=image;
 }
 
 Character::~Character() {}
@@ -56,6 +55,9 @@ void Character::ShowInfo()
 Coordonnee Character::getPosition()
 {
     return position;
+}
+int Character::getimage(){
+    return imagecaracter;
 }
 
 void Character::setPosition(Coordonnee coor)

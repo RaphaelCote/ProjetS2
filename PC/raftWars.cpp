@@ -58,12 +58,12 @@ int main()
     // === Event manager tests ===
     eventManager = new EventManager();
     controls = new KeyboardControls(eventManager);
-    //controls = new ControllerControls(eventManager, "COM3");
+    // controls = new ControllerControls(eventManager, "COM3");
 
     tests = new Tests();
 
     tests->tests_unitaires_levelGetter();
-    tests->test_unitaires_affichage();              //Test affichage jeux
+    tests->test_unitaires_affichage(); // Test affichage jeux
 
     inventory = new Inventory();
     inventory->addGold(2000);
@@ -77,7 +77,7 @@ int main()
     scenes->add(new EndGameMenu());
     scenes->add(new PauseMenu());
     scenes->add(new ShopMenu());
-    
+
     levelGetter = new LevelGetter();
 
     while (true)

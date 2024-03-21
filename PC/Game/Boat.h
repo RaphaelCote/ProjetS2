@@ -11,7 +11,7 @@ using namespace std;
 class Boat
 {
 public:
-    Boat(int n, int posx, int posy, int height, int width, int image);
+    Boat(int n, Coordonnee position, int height, int width, int image);
     Vecteur<Character *> characters;
 
     
