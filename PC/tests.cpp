@@ -173,47 +173,52 @@ void Tests::test_unitaire_characterAndprojectile()
 
 void Tests::test_unitaire_Boat()
 {
-   // cout << "TESTS UNITAIRES BOAT" << endl
-   //      << endl;
-   // // création des personnages et du bateau
-   // cout << "créer les personnages et les bateaux" << endl;
-   // Character *pers1 = new PlayerCharacter(1, 0);
-   // Character *pers2 = new PlayerCharacter(3, 0);
-   // Character *adv1 = new EnemyCharacter(10, 0);
-   // Boat joueur(3, 0, 0);
-   // Boat adversaire(3, 10, 0);
+  Niveau niveau;
+  cout << "TESTS UNITAIRES BOAT" << endl
+        << endl;
+   // création des personnages et du bateau
+   cout << "créer les personnages et les bateaux" << endl;
+   Character *pers1 = new PlayerCharacter(1, 0);
+   Character *pers2 = new PlayerCharacter(3, 0);
+   Character *adv1 = new EnemyCharacter(10, 0);
+   Boat joueur(0, 0, 7, 7);
+   Boat adversaire(0, 0, 7, 7);
    // cout << "position j: (" << joueur.getPositionBoat().x << "," << joueur.getPositionBoat().y << ")" << endl;
    // cout << "position a:(" << adversaire.getPositionBoat().x << "," << adversaire.getPositionBoat().y << ")" << endl;
 
-   // // ajouter adversaire
+   // ajouter adversaire
    // cout << "ajouter les ennemis" << endl;
-   // adversaire.addCharacter(adv1);
+   adversaire.addCharacter(adv1);
    // cout << "size a :" << adversaire.getNbCharacters() << endl;
    // adversaire.ShowInfo(cout);
 
-   // // ajouter les personnages
+   // ajouter les personnages
    // cout << "ajouter les deux personnages" << endl;
-   // joueur.addCharacter(pers1);
-   // joueur.addCharacter(pers2);
+   joueur.addCharacter(pers1);
+   joueur.addCharacter(pers2);
+   niveau.MatRaft();
+   niveau.MatPlayer();
+   niveau.MatEnemy();
 
-   // // retourner les informations des bateaux
-   // joueur.ShowInfo(cout);
+   // retourner les informations des bateaux
+   joueur.ShowInfo(cout);
    // cout << "size j: " << joueur.getNbCharacters() << endl;
    // cout << "capacité j: " << joueur.getCapacite() << endl;
 
-   // // retirer le personnage 0
+   // retirer le personnage 0
    // cout << "retirer index 0 de joueur" << endl;
-   // joueur.removeCharacters(0);
 
-   // // retourner les informations du bateau
-   // joueur.ShowInfo(cout);
+   joueur.removeCharacters(0);
+
+   // retourner les informations du bateau
+   joueur.ShowInfo(cout);
    // cout << "size j: " << joueur.getNbCharacters() << endl;
    // cout << "capacité j: " << joueur.getCapacite() << endl;
 
-   // // delete
-   // delete pers1;
-   // delete pers2;
-   // delete adv1;
+   // delete
+   delete pers1;
+   delete pers2;
+   delete adv1;
 }
 
 void Tests::tests_unitaires_levelGetter()
@@ -495,6 +500,7 @@ void Tests::tests_application()
 
 void Tests::tests_affichage()
 {
+   cons->ResetUI();
    Niveau niveau;
    niveau.MatNuage();
    niveau.MatPlayer();
