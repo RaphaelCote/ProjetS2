@@ -56,8 +56,7 @@ Niveau *Gameloader::getLevelFromJson(string filename)
             hitboxplayer.width =gamedata["level"]["friendlyboatlist"][i]["characterlist"][j]["width"];
             hitboxplayer.height=gamedata["level"]["friendlyboatlist"][i]["characterlist"][j]["height"];
 
-            niveau->playerBoats[i]->characters[j] = new PlayerCharacter(player,hitboxplayer, gamedata["level"]["friendlyboatlist"][i]["characterlist"][j]["image"]);
-            niveau->playerBoats[i]->addCharacter(niveau->playerBoats[i]->characters[j]);
+            niveau->playerBoats[i]->addCharacter( new PlayerCharacter(player,hitboxplayer, gamedata["level"]["friendlyboatlist"][i]["characterlist"][j]["image"]));
         }
     }
 
