@@ -254,5 +254,16 @@ void Tests::testjson()
    niveau->playerBoats[0]->ShowInfo(cout);
    cout << "Bateau enemy" << endl;
    niveau->enemyBoats[0]->ShowInfo(cout);
-   cout << niveau->height << endl;
+   cout<<"hauteur enemy"<<endl;
+   cout<<niveau->enemyBoats[0]->characters[0]->getHitboxHeight()<<endl;
+   cout<<"largeur player"<<endl;
+   cout<<niveau->playerBoats[0]->characters[0]->getHitboxWidth()<<endl;
+   cout<<"image joueur"<<endl;
+   cout<<niveau->playerBoats[0]->characters[0]->getimage()<<endl;
+   cout<<"image enemy"<<endl;
+   cout<<niveau->enemyBoats[0]->characters[0]->getimage()<<endl;
+   cout<<"playerboat largeur"<<endl;
+   cout<<niveau->playerBoats[0]->getWidth()<<endl;
+   cout<<"enemyboat hauteur"<<endl;
+   cout<<niveau->enemyBoats[0]->getHeight()<<endl;
 }
