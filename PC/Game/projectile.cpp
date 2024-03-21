@@ -128,156 +128,160 @@ int Projectile::findBulletPositionX(int positionY)
     
     return positionX;
 }
-// a changer pour qu'elle prenne un vecteur de character (les characters dedans) de character en paramètre
-void Projectile::checkIfCharacterHit(Character& character)
-{
 
-    
-    Coordonnee characterPosition =character.getPosition();
-    /*on sait que c'est l'ennemie qui se fait tirer dessus
-    ---------------------IMPORTANT-----------------
+void Projectile::checkIfCharacterHit(Vecteur<Character&> character)
+{
+    /*---------------------IMPORTANT-----------------
     le bulletEndPosition de la grenade est actualisé dans, damageReceived
-    ça fonctionne mais idéalement cela pourrait être plus prore */
-    // sa se peux qu'on doivent donner une valeur a bulletEndPostion.y pour pas que ce soit fuckall (a vérifier avec le débug)
-    //50 étant une vitesse de seuil
-    
+    ça fonctionne mais idéalement cela pourrait être plus propre */
+
+    // on sait que c'est le joueur qui a tiré
     do
     {
         if(angledeg>0)
         {
-            if(findBulletPositionX(characterPosition.y)<characterPosition.x && findBulletPositionY(characterPosition.x) < characterPosition.y){
-            //on sait qu'il n'a pas toucher directement l'ennemie
-            //pour les coordonnées de la balle, ce sera a changé éventuellement (vérifier si cela a touché bateau ou l'eau)
-                cout<<"Premier if angle positif"<<endl;
+            for(int i=0;i<character.getSize();i++)
+            {
+                if(findBulletPositionX(character[i].getPosition().y)<character[i].getPosition().x && findBulletPositionY(character[i].getPosition().x) < character[i].getPosition().y)
+                {
+                    //on sait qu'il n'a pas toucher directement l'ennemie
+                    //pour les coordonnées de la balle, ce sera a changé éventuellement (vérifier si cela a touché bateau ou l'eau)
+                    //cout<<"Premier if angle positif"<<endl;
 
-                //il va falloir modifier cette condition (si elle touche le bateau ou non)
-                bulletEndPosition.x=findBulletPositionX(characterPosition.y);
-                bulletEndPosition.y=characterPosition.y;
-                damageReceived(character);//damageReceived calcul en théorie la Vf
-                // float dy=bulletEndPosition.y-bulletStartPosition.y;
-                // Vf= sqrt(pow(V0*cos(rad),2) + pow(V0*sin(rad),2) +2*g*dy);
-                cout << "vitesse finale après redéfinition " << Vf << endl;
-                CheckerBounce();
+                    //il va falloir modifier cette condition (si elle touche le bateau ou non)
+                    bulletEndPosition.x=findBulletPositionX(character[i].getPosition().y);
+                    bulletEndPosition.y=character[i].getPosition().y;
+                    damageReceived(character[i]);
+                    cout << "vitesse finale après redéfinition " << Vf << endl;
+                    CheckerBounce();   
+                }
+                else if(findBulletPositionY(character[i].getPosition().x)<=(character[i].getPosition().y+character[i].getHitboxHeight()))    
+                {
+                    //on sait qu'il a toucher a la position du projectile en X
+                    //cout<<"Premier else if angle positif"<<endl;
+                    bulletEndPosition.x=character[i].getPosition().x;
+                    bulletEndPosition.y=findBulletPositionY(character[i].getPosition().x);
+                    damageReceived(character[i]);
+                    cout << "vitesse finale après redéfinition " << Vf << endl;
+                    CheckerBounce();
+
+                }
+                else if(findBulletPositionY(character[i].getPosition().x+character[i].getHitboxWidth())>(character[i].getPosition().y+character[i].getHitboxHeight()))
+                {   //on sait qu'il ne touchera pas l'ennemie directement (passer par dessus l'ennemie)
+                    //pour les coordonnées de la balle, ce sera a changé éventuellement (vérifier si cela a touché bateau ou l'eau)
+                    //cout<<"Deuxième else if angle positif"<<endl;
+                    
+                    //il va falloir modifier cette condition (si elle touche le bateau ou non)
+                    bulletEndPosition.x=findBulletPositionX(character[i].getPosition().y);
+                    bulletEndPosition.y=character[i].getPosition().y;
+                    damageReceived(character[i]);
+                    cout << "vitesse finale après redéfinition " << Vf << endl;
+                    CheckerBounce();
+                }
+                else if(findBulletPositionY(character[i].getPosition().x+character[i].getHitboxWidth())==(character[i].getPosition().y+character[i].getHitboxHeight()))
+                {
+                    //on sait qu'il a touché l'ennemie sur le coin supérieur droit
+                    //cout<<"Troisième else if angle positif"<<endl;
+                    bulletEndPosition.x=character[i].getPosition().x+character[i].getHitboxWidth();
+                    bulletEndPosition.y=findBulletPositionY(character[i].getPosition().x+character[i].getHitboxWidth());
+                    damageReceived(character[i]);
+                    cout << "vitesse finale après redéfinition " << Vf << endl;
+                    CheckerBounce();
+                }
+                else if(findBulletPositionY(character[i].getPosition().x+character[i].getHitboxWidth())<=(character[i].getPosition().y+character[i].getHitboxHeight()))
+                {
+                    //on sait qu'il a touché l'ennemie entre son coin supérieur gauche et supérieur droit excluant 
+                    //cout<<"Quatrième else if angle positif"<<endl;
+                    bulletEndPosition.x=findBulletPositionX(character[i].getPosition().y+character[i].getHitboxHeight());
+                    bulletEndPosition.y=character[i].getPosition().y+character[i].getHitboxHeight(); 
+                    damageReceived(character[i]);
+                    cout << "vitesse finale après redéfinition " << Vf << endl;
+                    CheckerBounce();
+                }
+                else
+                {
+                    //cout<<"Else angle positif"<<endl;
+                    //THÉORIQUEMENT rien passe dans le else, mais je le garde pour le déboguage 
+                    bulletEndPosition.x=findBulletPositionX(character[i].getPosition().y);
+                    bulletEndPosition.y=character[i].getPosition().y;
+                    damageReceived(character[i]);
+                    cout << "vitesse finale après redéfinition " << Vf << endl;
+                    CheckerBounce();
+
+                }
             }
-            else if(findBulletPositionY(characterPosition.x)<=(characterPosition.y+character.getHitboxHeight()))    
-            {
-                //on sait qu'il a toucher a la position du projectile en X
-                cout<<"Premier else if angle positif"<<endl;
-                bulletEndPosition.x=characterPosition.x;
-                bulletEndPosition.y=findBulletPositionY(characterPosition.x);
-                damageReceived(character);
-                cout << "vitesse finale après redéfinition " << Vf << endl;
-                CheckerBounce();
-            }
-            else if(findBulletPositionY(characterPosition.x+character.getHitboxWidth())>(characterPosition.y+character.getHitboxHeight()))
-            {   //on sait qu'il ne touchera pas l'ennemie directement (passer par dessus l'ennemie)
-                //pour les coordonnées de la balle, ce sera a changé éventuellement (vérifier si cela a touché bateau ou l'eau)
-                cout<<"Deuxième else if angle positif"<<endl;
-                
-                //il va falloir modifier cette condition (si elle touche le bateau ou non)
-                bulletEndPosition.x=findBulletPositionX(characterPosition.y);
-                bulletEndPosition.y=characterPosition.y;
-                damageReceived(character);
-                cout << "vitesse finale après redéfinition " << Vf << endl;
-                CheckerBounce();
-            }
-            else if(findBulletPositionY(characterPosition.x+character.getHitboxWidth())==(characterPosition.y+character.getHitboxHeight()))
-            {
-                //on sait qu'il a touché l'ennemie sur le coin supérieur droit
-                cout<<"Troisième else if angle positif"<<endl;
-                bulletEndPosition.x=characterPosition.x+character.getHitboxWidth();
-                bulletEndPosition.y=findBulletPositionY(characterPosition.x+character.getHitboxWidth());
-                damageReceived(character);
-                cout << "vitesse finale après redéfinition " << Vf << endl;
-                CheckerBounce();
-            }
-            else if(findBulletPositionY(characterPosition.x+character.getHitboxWidth())<=(characterPosition.y+character.getHitboxHeight()))
-            {
-                //on sait qu'il a touché l'ennemie entre son coin supérieur gauche et supérieur droit excluant 
-                cout<<"Quatrième else if angle positif"<<endl;
-                bulletEndPosition.x=findBulletPositionX(characterPosition.y+character.getHitboxHeight());
-                bulletEndPosition.y=characterPosition.y+character.getHitboxHeight(); 
-                damageReceived(character);
-                cout << "vitesse finale après redéfinition " << Vf << endl;
-                CheckerBounce();
-            }
-            else{
-                cout<<"Else angle positif"<<endl;
-                //THÉORIQUEMENT rien passe dans le false, mais je le garde pour le déboguage 
-                
-                bulletEndPosition.x=findBulletPositionX(characterPosition.y);
-                bulletEndPosition.y=characterPosition.y;
-                damageReceived(character);
-                cout << "vitesse finale après redéfinition " << Vf << endl;
-                CheckerBounce();
-            }
+            
         }
+    // on sait que c'est l'ennemie qui a tiré
         if(angledeg<0)
         {
-            if(findBulletPositionX(characterPosition.y)>characterPosition.x + character.getHitboxWidth() && findBulletPositionY(characterPosition.x+character.getHitboxWidth()) < characterPosition.y){
-                //on sait qu'il n'a pas toucher directement l'ennemie
-                //pour les coordonnées de la balle, ce sera a changé éventuellement (vérifier si cela a touché bateau ou l'eau)
-                cout<<"Premier if angle négatif"<<endl;
-                bulletEndPosition.x=findBulletPositionX(characterPosition.y);
-                bulletEndPosition.y=characterPosition.y;
-                damageReceived(character);
-                cout << "vitesse finale après redéfinition " << Vf << endl;
-                CheckerBounce();
-            }
-            else if(findBulletPositionY(characterPosition.x+character.getHitboxWidth())<=(characterPosition.y+character.getHitboxHeight()))    
+            for(int i=0;i<character.getSize();i++)
             {
-                //on sait qu'il a toucher a la position du projectile en X
-                cout<<"Premier else if angle négatif"<<endl;
-                bulletEndPosition.x=characterPosition.x+character.getHitboxWidth() ;
-                bulletEndPosition.y=findBulletPositionY(characterPosition.x + character.getHitboxWidth());
-                damageReceived(character);
-                cout << "vitesse finale après redéfinition " << Vf << endl;
-                CheckerBounce();
-            }
-            else if(findBulletPositionY(characterPosition.x)>(characterPosition.y+character.getHitboxHeight()))
-            {   //on sait qu'il ne touchera pas l'ennemie directement (passer par dessus l'ennemie)
-                //pour les coordonnées de la balle, ce sera a changé éventuellement (vérifier si cela a touché bateau ou l'eau)
-                cout<<"Deuxième else if angle négatif"<<endl;
-                bulletEndPosition.x=findBulletPositionX(characterPosition.y);
-                bulletEndPosition.y=characterPosition.y;
-                damageReceived(character);
-                cout << "vitesse finale après redéfinition " << Vf << endl;
-                CheckerBounce();
-            }
-            else if(findBulletPositionY(characterPosition.x)==(characterPosition.y+character.getHitboxHeight()))
-            {
-                //on sait qu'il a touché l'ennemie sur le coin supérieur droit
-                cout<<"Troisième else if angle négatif"<<endl;
-                bulletEndPosition.x=characterPosition.x;
-                bulletEndPosition.y=findBulletPositionY(characterPosition.x);
-                damageReceived(character);
-                cout << "vitesse finale après redéfinition " << Vf << endl;
-                CheckerBounce();
-            }
-            else if(findBulletPositionY(characterPosition.x)<=(characterPosition.y+character.getHitboxHeight()))
-            {
-                //on sait qu'il a touché l'ennemie entre son coin supérieur gauche et supérieur droit excluant 
-                cout<<"Quatrième else if angle négatif"<<endl;
-                bulletEndPosition.x=findBulletPositionX(characterPosition.y+character.getHitboxHeight());
-                bulletEndPosition.y=characterPosition.y+character.getHitboxHeight(); 
-                damageReceived(character);
-                cout << "vitesse finale après redéfinition " << Vf << endl;
-                CheckerBounce();
-            }
-            else{
-                cout<<"Else angle négatif"<<endl;
-                //THÉORIQUEMENT rien passe dans le false, mais je le garde pour le déboguage 
-                
-                bulletEndPosition.x=findBulletPositionX(characterPosition.y);
-                bulletEndPosition.y=characterPosition.y;
-                damageReceived(character);
-                cout << "vitesse finale après redéfinition " << Vf << endl;
-                CheckerBounce();
+                if(findBulletPositionX(character[i].getPosition().y)>character[i].getPosition().x + character[i].getHitboxWidth() && findBulletPositionY(character[i].getPosition().x+character[i].getHitboxWidth()) < character[i].getPosition().y)
+                {
+                    //on sait qu'il n'a pas toucher directement l'ennemie
+                    //pour les coordonnées de la balle, ce sera a changé éventuellement (vérifier si cela a touché bateau ou l'eau)
+                    //cout<<"Premier if angle négatif"<<endl;
+                    bulletEndPosition.x=findBulletPositionX(character[i].getPosition().y);
+                    bulletEndPosition.y=character[i].getPosition().y;
+                    damageReceived(character[i]);
+                    cout << "vitesse finale après redéfinition " << Vf << endl;
+                    CheckerBounce();
+                }
+                else if(findBulletPositionY(character[i].getPosition().x+character[i].getHitboxWidth())<=(character[i].getPosition().y+character[i].getHitboxHeight()))    
+                {
+                    //on sait qu'il a toucher a la position du projectile en X
+                    //cout<<"Premier else if angle négatif"<<endl;
+                    bulletEndPosition.x=character[i].getPosition().x+character[i].getHitboxWidth() ;
+                    bulletEndPosition.y=findBulletPositionY(character[i].getPosition().x + character[i].getHitboxWidth());
+                    damageReceived(character[i]);
+                    cout << "vitesse finale après redéfinition " << Vf << endl;
+                    CheckerBounce();
+                }
+                else if(findBulletPositionY(character[i].getPosition().x)>(character[i].getPosition().y+character[i].getHitboxHeight()))
+                {   //on sait qu'il ne touchera pas l'ennemie directement (passer par dessus l'ennemie)
+                    //pour les coordonnées de la balle, ce sera a changé éventuellement (vérifier si cela a touché bateau ou l'eau)
+                    //cout<<"Deuxième else if angle négatif"<<endl;
+                    bulletEndPosition.x=findBulletPositionX(character[i].getPosition().y);
+                    bulletEndPosition.y=character[i].getPosition().y;
+                    damageReceived(character[i]);
+                    cout << "vitesse finale après redéfinition " << Vf << endl;
+                    CheckerBounce();
+                }
+                else if(findBulletPositionY(character[i].getPosition().x)==(character[i].getPosition().y+character[i].getHitboxHeight()))
+                {
+                    //on sait qu'il a touché l'ennemie sur le coin supérieur droit
+                    //cout<<"Troisième else if angle négatif"<<endl;
+                    bulletEndPosition.x=character[i].getPosition().x;
+                    bulletEndPosition.y=findBulletPositionY(character[i].getPosition().x);
+                    damageReceived(character[i]);
+                    cout << "vitesse finale après redéfinition " << Vf << endl;
+                    CheckerBounce();
+                }
+                else if(findBulletPositionY(character[i].getPosition().x)<=(character[i].getPosition().y+character[i].getHitboxHeight()))
+                {
+                    //on sait qu'il a touché l'ennemie entre son coin supérieur gauche et supérieur droit excluant 
+                    //cout<<"Quatrième else if angle négatif"<<endl;
+                    bulletEndPosition.x=findBulletPositionX(character[i].getPosition().y+character[i].getHitboxHeight());
+                    bulletEndPosition.y=character[i].getPosition().y+character[i].getHitboxHeight(); 
+                    damageReceived(character[i]);
+                    cout << "vitesse finale après redéfinition " << Vf << endl;
+                    CheckerBounce();
+                }
+                else{
+                    cout<<"Else angle négatif"<<endl;
+                    //THÉORIQUEMENT rien passe dans le else, mais je le garde pour le déboguage 
+                    bulletEndPosition.x=findBulletPositionX(character[i].getPosition().y);
+                    bulletEndPosition.y=character[i].getPosition().y;
+                    damageReceived(character[i]);
+                    cout << "vitesse finale après redéfinition " << Vf << endl;
+                    CheckerBounce();
+                }
             }
         }
     }
     while(Vf>50 || bulletEndPosition.y>100);//plus haut que la hauteur de l'eau
-    
+     
 }
 
 Coordonnee Projectile::getBulletEndPosition()
@@ -292,7 +296,7 @@ void Projectile::ScanHitboxes()
 {
     Game *game = (Game *)scenes->get(1);
     
-    Niveau* niv= game->levels[game->GetLevel()]; //si erreur avec crochet appeler get dans vecteur.cpp
+    Niveau* niv= game->activeLevel; //si erreur avec crochet appeler get dans vecteur.cpp
     //-------------------bateaux ennemis----------------------//
     for(int i=0;i<niv->enemyBoats.getSize();i++)
     {
@@ -319,6 +323,7 @@ void Projectile::ScanHitboxes()
             cout<<"for pour chaque hitbox du bateau alliés"<<endl;
             allHitboxObject.add(niv->playerBoats[i]->characters[j]->getHitbox());
         }
+        niv->enemyBoats[i]->hitBoxBoat
         //for pour les hitboxs du bateau aliée
         for(int j=0;j<niv->playerBoats[i]->hitboxes.getSize();j++)
         { 
