@@ -201,16 +201,20 @@ void Game::PlayTurn()
         Projectile *enemyProjectile = ec->createEnemyProjectile();
 
         cout << "Angle : " << enemyProjectile->getAngleDegre() << " | Puissance : " << enemyProjectile->getPuissance() << endl;
-
-        if (enemyProjectile->checkIfCharacterHit(*(level->characters[0])))
-        {
-            cout << " (" << enemyProjectile->getBulletEndPosition().x << ", " << enemyProjectile->getBulletEndPosition().y << ")" << endl;
-        }
-        else
-        {
-            cout << "Le projectile ne vous a pas atteint. Il a atteri a la position: (" << enemyProjectile->getBulletEndPosition().x;
-            cout << ", " << enemyProjectile->getBulletEndPosition().y << ")" << endl;
-        }
+        
+        enemyProjectile->checkIfCharacterHit(*(level->characters[0]));
+        cout << "Le projectile a atteri a la position: (" << enemyProjectile->getBulletEndPosition().x;
+        cout << ", " << enemyProjectile->getBulletEndPosition().y << ")" << endl;
+        // if (enemyProjectile->checkIfCharacterHit(*(level->characters[0])))
+        // {
+        //     cout << " (" << projectile->getBulletEndPosition().x << ", " << projectile->getBulletEndPosition().y << ")" << endl;
+        // }
+        // else
+        // {
+        //     cout << "Le projectile n'a pas atteint l'adversaire. Il a atteri a la position: (" << projectile->getBulletEndPosition().x;
+        //     cout << ", " << projectile->getBulletEndPosition().y << ")" << endl;
+        // }
+        
 
         system("PAUSE");
         isPlayerTurn = true;
@@ -232,16 +236,18 @@ void Game::PlayerShoot()
     }
 
     Niveau *level = levels[currentLevel];
-
-    if (projectile->checkIfCharacterHit(*(level->characters[1])))
-    {
-        cout << " (" << projectile->getBulletEndPosition().x << ", " << projectile->getBulletEndPosition().y << ")" << endl;
-    }
-    else
-    {
-        cout << "Le projectile n'a pas atteint l'adversaire. Il a atteri a la position: (" << projectile->getBulletEndPosition().x;
-        cout << ", " << projectile->getBulletEndPosition().y << ")" << endl;
-    }
+    projectile->checkIfCharacterHit(*(level->characters[1])); 
+    cout << "Le projectile a atteri a la position: (" << projectile->getBulletEndPosition().x;
+    cout << ", " << projectile->getBulletEndPosition().y << ")" << endl;   
+    // if (projectile->checkIfCharacterHit(*(level->characters[1])))
+    // {
+    //     cout << " (" << projectile->getBulletEndPosition().x << ", " << projectile->getBulletEndPosition().y << ")" << endl;
+    // }
+    // else
+    // {
+    //     cout << "Le projectile n'a pas atteint l'adversaire. Il a atteri a la position: (" << projectile->getBulletEndPosition().x;
+    //     cout << ", " << projectile->getBulletEndPosition().y << ")" << endl;
+    // }
 
     isPlayerTurn = false;
 }
