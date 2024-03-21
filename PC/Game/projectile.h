@@ -5,7 +5,7 @@
 #include "character.h"
 #include "../Vecteur.h"
 //c'est le "#include "../raftWars.h"" qui fait chier le pain
-#include "../raftWars.h"
+
 #include "../Scenes/game.h"
 // #include "niveau.h"
 #include <iostream>
@@ -43,7 +43,12 @@ class Projectile {
         void BounceHorizontal();
         void BounceVerticale();
         void CheckerBounce();
-        
+        int findBulletPositionX(int positionY);
+        int findBulletPositionYAngle(float angle);// pas utilisé présentement 
+        float findNegativeAngleBulletPositionY(int positionY);//pour les rebond vertical courbe bleu
+        float findPositiveAngleBulletPositionY(int positionY);//la courbe verte
+        int findBulletPositionY(int positionX);
+        int findBulletPositionYTime(float time);
     protected:
         //time_t temps;
         Coordonnee bulletStartPosition;//coordonnée de départ du projectile
@@ -56,12 +61,7 @@ class Projectile {
         float Vf;
         float rad;
         
-        int findBulletPositionX(int positionY);
-        int findBulletPositionYAngle(float angle);// pas utilisé présentement 
-        float findNegativeAngleBulletPositionY(int positionY);//pour les rebond vertical courbe bleu
-        float findPositiveAngleBulletPositionY(int positionY);//la courbe verte
-        int findBulletPositionY(int positionX);
-        int findBulletPositionYTime(float time);
+        
 };
 
 #endif

@@ -1,6 +1,6 @@
 //projectile.cpp
 #include "projectile.h"
-// #include "../raftWars.h"
+#include "../raftWars.h"
 using namespace std;
 
 Projectile::Projectile(Character& character)
