@@ -425,6 +425,6 @@ bool Game::CheckAvailableProjectile(int type)
 void Game::ShowGameInfo()
 {
     // Show player positions and health
-    cout << "-------Niveau " << currentLevelIndex + 1 << "-------" << endl;
+    cout << "-------Level " << currentLevelIndex + 1 << "-------" << endl;
     activeLevel->ShowLevelInfo(cout);
 }

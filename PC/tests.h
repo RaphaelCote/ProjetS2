@@ -20,6 +20,10 @@
 #include "Game/rocket.h"
 #include "Game/grenade.h"
 
+#include "Game/level.h"
+
+class Level;
+
 #include <iostream>
 #include <iomanip>
 using namespace std;

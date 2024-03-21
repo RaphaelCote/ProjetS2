@@ -6,6 +6,7 @@
 #include "playerCharacter.h"
 #include "enemyCharacter.h"
 #include "utility.h"
+#include "level.h"
 
 using json = nlohmann::json;
 
@@ -17,7 +18,7 @@ Gameloader::~Gameloader()
 {
 }
 
-Niveau *Gameloader::getLevelFromJson(string filename)
+Level *Gameloader::getLevelFromJson(string filename)
 {
     // To test
     // "./levels/levelTemplate.txt"
@@ -29,7 +30,7 @@ Niveau *Gameloader::getLevelFromJson(string filename)
 
     json gamedata = json::parse(gameFileString);
 
-    Niveau *niveau = new Niveau(gamedata["level"]["width"], gamedata["level"]["height"], gamedata["level"]["image"]);
+    Level *niveau = new Level(gamedata["level"]["width"], gamedata["level"]["height"], gamedata["level"]["image"]);
 
     for (int i = 0; i < gamedata["level"]["friendlyboatlist"].size(); i++)
     {

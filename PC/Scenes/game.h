@@ -3,13 +3,16 @@
 
 #include <iostream>
 #include "../vecteur.h"
-#include "../Game/niveau.h"
 #include "../Game/projectile.h"
 #include "../controls/EventParameters.h"
 #include "scene.h"
 #include "../Game/gameloader.h"
+#include "../Game/level.h"
 
 using namespace std;
+
+class Level;
+class Gameloader;
 
 class Game : public Scene
 {
@@ -26,7 +29,7 @@ private:
     /*ne pas oublier d'inclure vecteur et le const (si nécessaire)*/
 public:
     bool isNewLevel;
-    Niveau *activeLevel;
+    Level *activeLevel;
     Game();
     int GetLevelIndex();
     void SetLevelIndex(int level);

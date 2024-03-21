@@ -73,7 +73,7 @@ void LevelSelectionMenu::ShowMenu()
     cout << "Selectionner un niveau" << endl;
     for (int i = 0; i < levelGetter->nbLevel; i++)
     {
-        cout << "-" << (choice == i ? "O" : "-") << "- Niveau " << i + 1 << endl;
+        cout << "-" << (choice == i ? "O" : "-") << "- Level " << i + 1 << endl;
     }
     cout << "-" << (choice >= levelGetter->nbLevel ? "O" : "-") << "- Retour" << endl;
     cout << "------------------------------------------------------" << endl;

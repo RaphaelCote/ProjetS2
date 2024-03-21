@@ -1,25 +1,25 @@
-#include "niveau.h"
+#include "level.h"
 #include "Boat.h"
 #include "playerCharacter.h"
 #include "enemyCharacter.h"
 #include "projectile.h"
 
-Niveau::Niveau()
+Level::Level()
 {
 }
 
-Niveau::Niveau(int width, int height, int image)
+Level::Level(int width, int height, int image)
 {
     this->height = height;
     this->width = width;
     this->backimge = image;
 }
 
-Niveau::~Niveau()
+Level::~Level()
 {
 }
 
-void Niveau::ShowLevelInfo(ostream &s)
+void Level::ShowLevelInfo(ostream &s)
 {
     s << "Bateaux joueurs : " << endl;
 
@@ -40,7 +40,7 @@ void Niveau::ShowLevelInfo(ostream &s)
     }
 }
 
-void Niveau::MatRaft()
+void Level::MatRaft()
 {
 
     for (int i = 0; i < playerBoats.getSize(); i++)
@@ -100,7 +100,7 @@ void Niveau::MatRaft()
     }
 }
 
-void Niveau::MatPlayer()
+void Level::MatPlayer()
 {
     for (int v = 0; v < playerBoats.getSize(); v++)
     {
@@ -179,7 +179,7 @@ void Niveau::MatPlayer()
     }
 }
 
-void Niveau::MatEnemy()
+void Level::MatEnemy()
 {
     for (int v = 0; v < enemyBoats.getSize(); v++)
     {
@@ -259,7 +259,7 @@ void Niveau::MatEnemy()
     }
 }
 
-void Niveau::MatWater()
+void Level::MatWater()
 {
     // Pixels water[height/10][width/10];
     Pixels **water = new Pixels *[height / 10];
@@ -286,7 +286,7 @@ void Niveau::MatWater()
     delete[] water;
 }
 
-void Niveau::MatBalle()
+void Level::MatBalle()
 {
     // Pixels balle;
     Pixels **balle = new Pixels *[1];
@@ -305,7 +305,7 @@ void Niveau::MatBalle()
     delete[] balle;
 }
 
-void Niveau::MatGrenade()
+void Level::MatGrenade()
 {
     // Pixels grenade;
     Pixels **grenade = new Pixels *[1];
@@ -324,7 +324,7 @@ void Niveau::MatGrenade()
     delete[] grenade;
 }
 
-void Niveau::MatRocket()
+void Level::MatRocket()
 {
     Pixels **rocket = new Pixels *[4];
     for (int i = 0; i < 4; ++i)
@@ -370,7 +370,7 @@ void Niveau::MatRocket()
     delete[] rocket;
 }
 
-void Niveau::MatNuage()
+void Level::MatNuage()
 {
     // Pixels nuage[4][9];
     Pixels **nuage = new Pixels *[4];
@@ -448,18 +448,18 @@ Pixels *couleur = new Pixels[10];
 
 
     */
-void Niveau::ShowNiveauinfo()
+void Level::ShowLevelinfo()
 {
     cout << "hauteur niveau " << height << endl;
     cout << "largeur niveau " << width << endl;
 }
 
-void Niveau::addRaftPlayer(int width, int height, Coordonnee position, int image, int capacite)
+void Level::addRaftPlayer(int width, int height, Coordonnee position, int image, int capacite)
 {
     playerBoats.add(new Boat(capacite, position, height, width, image));
 }
 
-void Niveau::addRaftenemy(int width, int height, Coordonnee position, int image, int capacite)
+void Level::addRaftenemy(int width, int height, Coordonnee position, int image, int capacite)
 {
     enemyBoats.add(new Boat(capacite, position, height, width, image));
 }
