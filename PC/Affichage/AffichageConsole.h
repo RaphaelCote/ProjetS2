@@ -4,6 +4,7 @@
 #include <iostream>
 #include <windows.h>
 #include <thread>
+#include <chrono>
 #include <string>
 #include <cwchar>
 #include <wincon.h>
