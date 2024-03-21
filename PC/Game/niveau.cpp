@@ -2,6 +2,7 @@
 #include "Boat.h"
 #include "playerCharacter.h"
 #include "enemyCharacter.h"
+#include "projectile.h"
 
 Niveau::Niveau()
 {
@@ -91,7 +92,7 @@ void Niveau::MatRaft()
             
         }
      
-     cons->AjouterObjet(couleur,playerBoats[i],0,"boat "+i);
+     cons->AjouterObjet(couleur,playerBoats[i],0,"boat player "+i);
 
      for (int i = 0; i < (playerBoats[i]->getHeight())/10; ++i) 
         {
@@ -119,8 +120,10 @@ void Niveau::MatRaft()
             }
             
         }
-     //AfficherEnBasGauche(couleur[][], x, y, width, hauteur)
-      for (int i = 0; i < (playerBoats[i]->getHeight())/10; ++i) 
+     
+     cons->AjouterObjet(couleur,enemyBoats[i],0,"boat enemy "+i);
+
+      for (int i = 0; i < (enemyBoats[i]->getHeight())/10; ++i) 
         {
             delete[] couleur[i];
         }
@@ -197,8 +200,7 @@ void Niveau::MatPlayer()
             MatCharacter[i][8].texture = ' ';
             }
 
-
-            cons->AfficherEnBasGauche(MatCharacter, 10, 10, 10, 10);
+            cons->AjouterObjet(MatCharacter,playerBoats[v],0,"player "+ v);
             
             for (int i = 0; i < 10 ; ++i) 
             {
@@ -284,7 +286,8 @@ void Niveau::MatEnemy()
             MatCharacter[i][5].texture = ' ';
             }
 
-            //call fct Frank
+            cons->AjouterObjet(MatCharacter,enemyBoats[v],0,"enemy "+v);
+
             for (int i = 0; i < 10 ; ++i) 
             {
                 delete[] MatCharacter[i];
@@ -312,7 +315,9 @@ void Niveau::MatWater()
             water[i][n].texture = '\xB0';
         }
     }
-    //call fct à frank
+    
+    cons->AjouterObjet(water,0,0,250,30000,0,"water");
+
     for (int i = 0; i < height/10 ; ++i) 
             {
                 delete[]water[i];
@@ -331,7 +336,6 @@ void Niveau::MatBalle()
     balle[0][0].FrontColour = 15; //white
     balle[0][0].BackColour = 15;
     balle[0][0].texture = ' ';
-    //call fct à frank
 
     for (int i = 0; i < 1 ; ++i) 
             {
@@ -351,7 +355,6 @@ void Niveau::MatGrenade()
     grenade[0][0].BackColour = 14; 
     grenade[0][0].texture = ' ';
 
-    //call fct à frank
     for (int i = 0; i < 1 ; ++i) 
             {
                 delete[]grenade[i];
@@ -396,8 +399,7 @@ void Niveau::MatRocket()
         rocket[1][i].BackColour = 7;       //lightgrey       
         rocket[1][i].texture = ' ';
     }
-    //cons->AfficherEnBasGauche(rocket, , 10, 10, 30);
-    //call fct à frank
+
     for (int i = 0; i < 4 ; ++i) 
             {
                 delete[]rocket[i];
@@ -444,7 +446,8 @@ void Niveau::MatNuage()
         nuage[0][i].texture = ' ';
     }
 
-    //call fct à frank
+    // cons->AjouterObjet(nuage,1500,300,4,9,0,"nuage1");
+    
     for (int i = 0; i < 4 ; ++i) 
             {
                 delete[]nuage[i];
