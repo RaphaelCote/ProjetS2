@@ -20,6 +20,7 @@ void OnLevelSelectionMenuBackCall(EventParameters)
 {
     LevelSelectionMenu *menu = (LevelSelectionMenu *)scenes->get(activeScene);
     menu->Back();
+    menu->OnDisable();
 }
 
 void LevelSelectionMenu::OnEnable()
