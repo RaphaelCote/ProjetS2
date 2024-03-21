@@ -12,6 +12,7 @@ class Boat
 {
 public:
     Boat(int n, int posx, int posy, int height, int width, int image);
+     Boat(int posx, int posy, int height, int width);
     Vecteur<Character *> characters;
 
     

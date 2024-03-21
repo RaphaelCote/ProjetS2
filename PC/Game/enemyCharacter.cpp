@@ -14,6 +14,8 @@ EnemyCharacter::EnemyCharacter(int posx, int posy, int width,int height, int ima
     WeaponPosition.y = posy + hitbox.height / 2;
 }
 
+
+
 Projectile *EnemyCharacter::createEnemyProjectile()
 {
     Projectile *p;

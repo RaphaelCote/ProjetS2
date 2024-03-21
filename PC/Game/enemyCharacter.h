@@ -10,6 +10,7 @@ class EnemyCharacter : public Character
 {
     public:
         EnemyCharacter(int posx,int posy, int width,int height, int image);
+        EnemyCharacter(int posx,int posy);
         ~EnemyCharacter();
         Coordonnee getPosition();
         Coordonnee getWeaponPosition() override;
