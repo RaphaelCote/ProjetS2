@@ -29,14 +29,19 @@ Coordonnee Boat::getPositionBoat()
     return positionBoat;
 }
 
-int Boat::getHeight()
+int* Boat::getPointerPositionBoat_X()
 {
-    return heightBoat;
+    return &(positionBoat.x);
 }
 
-int Boat::getWidth()
+int* Boat::getPointerPositionBoat_Y()
 {
-    return widthBoat;
+    return &(positionBoat.y);
+}
+
+Hitbox Boat::getHitboxBoat()
+{
+    return hitBoxBoat;
 }
 
 bool Boat::addCharacter(Character *characterAdded) // pour initialiser le jeu: créer les personnages

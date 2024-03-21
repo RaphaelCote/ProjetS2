@@ -23,12 +23,17 @@ public:
     int getHitboxHeight();
     virtual float Aim(float angle);
     void ShowInfo();
+    void setPosition(Coordonnee coor);
+
+
+    
 
 protected:
     int healthPoint;
-    Coordonnee position;
+    
     Coordonnee WeaponPosition;
     Hitbox hitbox;
+    Coordonnee position;
 };
 
 #endif

@@ -58,6 +58,12 @@ Coordonnee Character::getPosition()
     return position;
 }
 
+void Character::setPosition(Coordonnee coor)
+{
+    position.x = coor.x;
+    position.y = coor.y;
+}
+
 // void Character::applyShield(Shield& shield){
 //     //présentement elle est vide, mais il faudrait vérifier quel shield
 //     //a été achetée dans le shop et attribué des points de vie supplémentaire au joueur

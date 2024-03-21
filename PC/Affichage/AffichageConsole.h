@@ -7,6 +7,13 @@
 #include <string>
 #include <cwchar>
 #include <wincon.h>
+#include "../Vecteur.h"
+#include "../Game/Boat.h"
+#include "../Game/character.h"
+#include "../Game/projectile.h"
+
+using namespace std;
+
 #define _WIN32_WINNT 0x0601
 
 typedef struct _CONSOLE_FONT_INFOEX
@@ -23,8 +30,7 @@ typedef struct _CONSOLE_FONT_INFOEX
 extern "C" {
 #endif
 BOOL WINAPI GetCurrentConsoleFontEx(HANDLE hConsoleOutput,BOOL bMaximumWindow,PCONSOLE_FONT_INFOEX lpConsoleCurrentFont);
-BOOL WINAPI SetCurrentConsoleFontEx(HANDLE hConsoleOutput, BOOL bMaximumWindow, PCONSOLE_FONT_INFOEX
-lpConsoleCurrentFontEx);
+BOOL WINAPI SetCurrentConsoleFontEx(HANDLE hConsoleOutput, BOOL bMaximumWindow, PCONSOLE_FONT_INFOEX lpConsoleCurrentFontEx);
 #ifdef __cplusplus
 }
 #endif
@@ -87,12 +93,27 @@ using namespace std;
 #define STRING_CONTRAST_MED                   "\xB1"
 #define STRING_CONTRAST_HIGH                  "\xB2"
 
+
+
+
+
 struct Pixels
     {
         char texture;
         int FrontColour;
         int BackColour;
     };
+
+struct ObjetAffichage
+{
+    Pixels **pix;
+    int couche;
+    int *x; 
+    int *y; 
+    int width;
+    int height;
+    string name;
+};
 
 enum colors {
     black = 0,
@@ -118,20 +139,18 @@ enum colors {
 class AffichageConsole
 {
     bool Thread_Actif; 
-    bool ModificationAFaire;  
+    bool ModificationAFaire; 
+
+    int NumberRows;
+    int NumberColumns; 
 
     Pixels **screen;
+    Pixels **screen_new;
+
+    Vecteur<ObjetAffichage *> v_objet;
+    
     
     DWORD WINAPI threadFunction(LPVOID lpParam);
-    
-    int MaxRows;
-    int MaxColumns;
-
-    int ScreenWidth;
-    int ScreenHeight;
-
-    int FontX;
-    int FontY;
 
 
     void PrintInColour(std::ostream & os, std::string toBePrinted, int foregroundColour, int backgroundColour);
@@ -155,24 +174,39 @@ class AffichageConsole
     
 
 public:
+    int MaxRows;
+    int MaxColumns;
+
+    int MinRows;
+    int Mincolums;
+
+    int ScreenWidth;
+    int ScreenHeight;
+
+    int FontX;
+    int FontY;
+
+
 
     AffichageConsole();
     AffichageConsole(int width, int height, int fontX, int fontY);
     ~AffichageConsole();
 
-
+    void AjouterObjet(Pixels** tab, int *x, int *y, int width, int height, int couche, string name);
+    void AjouterObjet(Pixels** tab, Character *charact, int couche, string name);
+    void AjouterObjet(Pixels** tab, Boat *boat, int couche, string name);
+    void AjouterObjet(Pixels** tab, Projectile *project, int couche, string name);
+    void SupprimerObjet(string name);
     void AfficherEnBasGauche(Pixels** tab, int x, int y, int width, int height);
-    void AfficherTexte(std::ostream & os, string s, int x, int y);
-    void AfficherTexte(std::ostream & os, string s, int x, int y, int background, int frontcolor);
+    void AfficherTexte(std::ostream & os, string s, int *x, int *y, string name);
+    void AfficherTexte(std::ostream & os, string s, int *x, int *y, int background, int frontcolor, string name);
     void ResizeConsole();
     bool SetConsoleFontSize(COORD dwFontSize);
 
-    void UpdateUI();
+    void UpdateUI_Console();
     void ResetUI();
-
-    
-    
-    
+    void UpdateVecteurUI();
 };
+
 
 #endif
