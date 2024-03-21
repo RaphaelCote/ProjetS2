@@ -23,6 +23,8 @@ public:
     int* getPointerPositionBoat_X();
     int* getPointerPositionBoat_Y();
     Hitbox getHitboxBoat();
+    int getHeight();
+    int getWidth();
     bool addCharacter(Character *characterAdded);
     bool removeCharacters(int index);
     void ShowInfo(ostream &s);

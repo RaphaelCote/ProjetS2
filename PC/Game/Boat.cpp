@@ -39,6 +39,16 @@ int* Boat::getPointerPositionBoat_Y()
     return &(positionBoat.y);
 }
 
+int Boat::getHeight()
+{
+    return heightBoat;
+}
+
+int Boat::getWidth()
+{
+    return widthBoat;
+}
+
 Hitbox Boat::getHitboxBoat()
 {
     return hitBoxBoat;

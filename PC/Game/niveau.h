@@ -6,12 +6,7 @@
 #include "Boat.h"
 #include "../Affichage/AffichageConsole.h"
 #include "../raftWars.h"
-struct Pixels
-    {
-        char texture;
-        int FrontColour;
-        int BackColour;
-    };
+
 class Niveau
 {
 public:

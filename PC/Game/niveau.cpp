@@ -90,7 +90,9 @@ void Niveau::MatRaft()
             }
             
         }
-     //AfficherEnBasGauche(couleur[][], x, y, width, hauteur)
+     
+     cons->AjouterObjet(couleur,playerBoats[i],0,"boat "+i);
+
      for (int i = 0; i < (playerBoats[i]->getHeight())/10; ++i) 
         {
             delete[] couleur[i];
