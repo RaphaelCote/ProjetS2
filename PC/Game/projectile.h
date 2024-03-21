@@ -49,6 +49,9 @@ class Projectile {
         float findPositiveAngleBulletPositionY(int positionY);//la courbe verte
         int findBulletPositionY(int positionX);
         int findBulletPositionYTime(float time);
+
+        Coordonnee bulletCurrentPosition;
+        
     protected:
         //time_t temps;
         Coordonnee bulletStartPosition;//coordonnée de départ du projectile

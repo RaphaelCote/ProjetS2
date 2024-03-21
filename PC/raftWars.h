@@ -18,5 +18,6 @@ extern Vecteur<Scene *> *scenes;
 extern Inventory *inventory;
 extern int activeScene;
 extern LevelGetter *levelGetter;
+extern AffichageConsole *cons;
 
 #endif

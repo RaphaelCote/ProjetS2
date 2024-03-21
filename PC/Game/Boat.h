@@ -14,7 +14,6 @@ public:
     Boat(int n, Coordonnee position, int height, int width, int image);
     Vecteur<Character *> characters;
 
-    
     ~Boat();
 
     int getNbCharacters();
@@ -22,6 +21,9 @@ public:
     Coordonnee getPositionBoat();
     int getHeight();
     int getWidth();
+    int *getPointerPositionBoat_X();
+    int *getPointerPositionBoat_Y();
+    Hitbox getHitboxBoat();
     bool addCharacter(Character *characterAdded);
     bool removeCharacters(int index);
     void ShowInfo(ostream &s);
@@ -33,6 +35,7 @@ private:
     int widthBoat;
     int heightBoat;
     Coordonnee positionBoat;
+    Hitbox hitBoxBoat;
 };
 
 #endif

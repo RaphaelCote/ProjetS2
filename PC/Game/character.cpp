@@ -1,12 +1,26 @@
 #include "character.h"
 
+Character::Character(int posX, int posY)
+{
+    this->position.x = posX;
+    this->position.y = posY;
+    this->healthPoint = 100;
+
+    Hitbox hitbox;
+    hitbox.height = 50;
+    hitbox.width = 50;
+
+    this->hitbox = hitbox;
+    this->imagecharacter = 1;
+}
+
 Character::Character(Coordonnee positionset, Hitbox hitboxset, int image)
 {
     this->position = positionset;
     this->healthPoint = 100;
 
-    this->hitbox=hitboxset;
-    this->imagecaracter=image;
+    this->hitbox = hitboxset;
+    this->imagecharacter = image;
 }
 
 Character::~Character() {}
@@ -36,7 +50,6 @@ int Character::getHitboxHeight()
     return hitbox.height;
 }
 
-
 Coordonnee *Character::PointeurPosition()
 {
     Coordonnee *Positionptr = nullptr;
@@ -61,8 +74,15 @@ Coordonnee Character::getPosition()
 {
     return position;
 }
-int Character::getimage(){
-    return imagecaracter;
+int Character::getimage()
+{
+    return imagecharacter;
+}
+
+void Character::setPosition(Coordonnee coor)
+{
+    position.x = coor.x;
+    position.y = coor.y;
 }
 
 // void Character::applyShield(Shield& shield){

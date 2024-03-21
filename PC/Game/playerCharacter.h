@@ -1,11 +1,11 @@
-//playerCharacter.h
+// playerCharacter.h
 #ifndef PLAYERCHARACTER_H
 #define PLAYERCHARACTER_H
 #include "character.h"
 #include "projectile.h"
 
 #include <cmath>
-#include <iostream> 
+#include <iostream>
 
 
 class PlayerCharacter : public Character{
