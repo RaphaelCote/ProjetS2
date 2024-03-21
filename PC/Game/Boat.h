@@ -13,7 +13,8 @@ class Boat
 public:
     Boat(int n, Coordonnee position, int height, int width, int image);
     Vecteur<Character *> characters;
-
+    Vecteur<Hitbox*> hitboxes;
+    
     ~Boat();
 
     int getNbCharacters();

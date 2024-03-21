@@ -323,7 +323,10 @@ void Projectile::ScanHitboxes()
             cout<<"for pour chaque hitbox du bateau alliés"<<endl;
             allHitboxObject.add(niv->playerBoats[i]->characters[j]->getHitbox());
         }
-        niv->enemyBoats[i]->hitBoxBoat
+
+        //niv->enemyBoats[i]->hitBoxBoat
+
+
         //for pour les hitboxs du bateau aliée
         for(int j=0;j<niv->playerBoats[i]->hitboxes.getSize();j++)
         { 
