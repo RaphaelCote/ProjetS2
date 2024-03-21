@@ -60,30 +60,68 @@ void MainMenu::changeSelection(EventParameters ep)
             choice++;
         }
     }
+
+    OnEnable();
 }
 
 void MainMenu::Update()
 {
-    OnEnable();
-    ShowMenu();
+    if (doOnce)
+    {
+        OnEnable();
+        ShowMenu();
+        doOnce = false;
+    }
+
     controls->ListenForControls();
 }
 
 void MainMenu::ShowMenu()
 {
     // menu utilisateur
-    system("cls");
-    cout << "-------------------------------------------------------------------" << endl;
-    cout << "Bienvenue au menu du jeu Raft Wars" << endl;
-    cout << "-" << (choice == 0 ? "O" : "-") << "- Jouer" << endl;
-    cout << "-" << (choice == 1 ? "O" : "-") << "- Niveaux" << endl;
-    cout << "-" << (choice == 2 ? "O" : "-") << "- Magasin" << endl;
-    cout << "-" << (choice >= 3 ? "O" : "-") << "- Sortir" << endl;
-    cout << "-------------------------------------------------------------------" << endl;
+    string s0 = "-------------------------------------------------------------------";
+    string s1 = "Bienvenue au menu du jeu Raft Wars";
+    string s2 = "-";
+    s2 += (choice == 0 ? "O" : "-");
+    s2 += "- Jouer";
+    string s3 = "-";
+    s3 += (choice == 1 ? "O" : "-");
+    s3 += "- Niveaux";
+    string s4 = "-";
+    s4 += (choice == 2 ? "O" : "-");
+    s4 += "- Magasin";
+    string s5 = "-";
+    s5 += (choice >= 3 ? "O" : "-");
+    s5 += "- Sortir";
+    string s6 = "-------------------------------------------------------------------";
+
+    int x0 = 0;
+    int y0 = 0;
+    int x1 = 0;
+    int y1 = 0;
+    int x2 = 0;
+    int y2 = 0;
+    int x3 = 0;
+    int y3 = 0;
+    int x4 = 0;
+    int y4 = 0;
+    int x5 = 0;
+    int y5 = 0;
+    int x6 = 0;
+    int y6 = 0;
+
+    cons->AfficherTexte(cout, s0, &x0, &y0, "s0");
+    cons->AfficherTexte(cout, s1, &x1, &y1, "s1");
+    cons->AfficherTexte(cout, s2, &x2, &y2, "s2");
+    cons->AfficherTexte(cout, s3, &x3, &y3, "s3");
+    cons->AfficherTexte(cout, s4, &x4, &y4, "s4");
+    cons->AfficherTexte(cout, s5, &x5, &y5, "s5");
+    cons->AfficherTexte(cout, s6, &x6, &y6, "s6");
 }
 
 void MainMenu::Selection()
 {
+    doOnce = true;
     if (choice == 0)
     {
         OnDisable();
@@ -102,7 +140,8 @@ void MainMenu::Selection()
     else if (choice >= 3)
     {
         system("cls"); // clear la command prompt
-        cout << "Au plaisir.." << endl;
+        cons->ResetUI();
+        cons->AfficherTexte(cout, "Au plaisir..", new int(10), new int(cons->ScreenHeight), "AuPlaisir");
         system("PAUSE");
         exit(0);
     }

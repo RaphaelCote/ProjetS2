@@ -64,11 +64,14 @@ int main()
     // tests->testjson();
     // tests->tests_unitaires_levelGetter();
 
-    tests->tests_unitaires_levelGetter();
-    tests->test_unitaires_affichage(); // Test affichage jeux
+    // tests->tests_unitaires_levelGetter();
+    // tests->test_unitaires_affichage(); // Test affichage jeux
 
     inventory = new Inventory();
     inventory->addGold(2000);
+
+    // reset UI
+    cons->ResetUI();
 
     activeScene = 0;
 
