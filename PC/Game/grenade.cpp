@@ -1,5 +1,7 @@
 #include "grenade.h"
+
 using namespace std;
+
 bool Grenade::zoneGrenade(int h,int k,int x,int y)
 {
     if(pow((x-h),2) +pow((y-k),2) <=175*175)

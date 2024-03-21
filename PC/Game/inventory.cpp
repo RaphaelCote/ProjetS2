@@ -52,7 +52,10 @@ void Inventory::addRockets()
 }
 void Inventory::removeRockets()
 {
-    nbRockets--;
+    if (nbRockets > 0)
+    {
+        nbRockets--;
+    }
 }
 
 int Inventory::getShield()
@@ -182,5 +185,8 @@ void Inventory::addGrenade()
 }
 void Inventory::removeGrenade()
 {
-    nbGrenades--;
+    if (nbGrenades > 0)
+    {
+        nbGrenades--;
+    }
 }

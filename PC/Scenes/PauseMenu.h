@@ -10,6 +10,7 @@ class PauseMenu : public Menu
 public:
     friend void OnPauseMenuMainActionCall(EventParameters);
     friend void OnPauseMenuJoystickCall(EventParameters);
+    friend void OnPauseMenuBackCall(EventParameters);
 
     void OnEnable();
     void OnDisable();

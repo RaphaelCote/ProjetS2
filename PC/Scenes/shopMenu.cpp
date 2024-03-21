@@ -15,16 +15,25 @@ void OnShopJoystickCall(EventParameters ep)
     menu->changeSelection(ep);
 }
 
+void OnShopBackCall(EventParameters)
+{
+    ShopMenu *menu = (ShopMenu *)scenes->get(activeScene);
+    menu->Back();
+    menu->OnDisable();
+}
+
 void ShopMenu::OnEnable()
 {
     eventManager->on("MainAction", OnShopMainActionCall);
     eventManager->on("Joystick", OnShopJoystickCall);
+    eventManager->on("Back", OnShopBackCall);
 }
 
 void ShopMenu::OnDisable()
 {
     eventManager->off("MainAction", OnShopMainActionCall);
     eventManager->off("Joystick", OnShopJoystickCall);
+    eventManager->off("Back", OnShopBackCall);
 }
 
 ShopMenu::ShopMenu()

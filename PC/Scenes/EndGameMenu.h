@@ -9,9 +9,15 @@ using namespace std;
 
 class EndGameMenu : public Menu
 {
+private:
+    int lastLevel;
+    int nextLevel;
+    bool hasCheckedLevel = false;
+
 public:
     friend void OnEndGameMenuMainActionCall(EventParameters);
     friend void OnEndGameMenuJoystickCall(EventParameters);
+    friend void OnEndGameMenuBackCall(EventParameters);
 
     void OnEnable();
     void OnDisable();

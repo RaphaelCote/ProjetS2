@@ -3,10 +3,12 @@
 using namespace std;
 
 
-PlayerCharacter::PlayerCharacter(int posx,int posy):Character(posx, posy){
-    WeaponPosition.x=posx+hitbox.width;
-    WeaponPosition.y=posy+hitbox.height/2;
-}
+PlayerCharacter::PlayerCharacter(Coordonnee position,Hitbox hitboxset, int image):Character(position,hitboxset,image){
+
+    WeaponPosition.x=position.x+hitbox.width;
+    WeaponPosition.y=position.y+hitbox.height/2;
+};
+
 
 PlayerCharacter::~PlayerCharacter(){}
 

@@ -12,7 +12,6 @@ using namespace std;
 
 /*-------------------------- Librairies externes ----------------------------*/
 
-
 /*-------------------------- Other file include -----------------------------*/
 #include "raftWars.h"
 #include "Controls/eventManager.h"
@@ -28,12 +27,9 @@ using namespace std;
 
 /*------------------------------ Constantes ---------------------------------*/
 
-
 /*------------------------- Prototypes de fonctions -------------------------*/
 
-
 /*---------------------------- Variables globales ---------------------------*/
-
 
 EventManager *eventManager;
 Tests *tests;
@@ -58,14 +54,14 @@ int main()
     // === Event manager tests ===
     eventManager = new EventManager();
     controls = new KeyboardControls(eventManager);
-    //controls = new ControllerControls(eventManager, "COM3");
+    // controls = new ControllerControls(eventManager, "COM3");
 
     tests = new Tests();
-
-    tests->tests_unitaires_levelGetter();
+    // tests->testjson();
+    // tests->tests_unitaires_levelGetter();
 
     inventory = new Inventory();
-    //inventory->addGold(2000);
+    inventory->addGold(2000);
 
     activeScene = 0;
 
@@ -76,6 +72,7 @@ int main()
     scenes->add(new EndGameMenu());
     scenes->add(new PauseMenu());
     scenes->add(new ShopMenu());
+
     levelGetter = new LevelGetter();
 
     while (true)
@@ -83,7 +80,5 @@ int main()
         scenes->get(activeScene)->Update();
     }
 
-    
     return 0;
 }
-

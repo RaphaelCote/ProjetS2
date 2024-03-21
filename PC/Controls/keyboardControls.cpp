@@ -1,4 +1,5 @@
 #include "keyboardControls.h"
+#include "../raftWars.h"
 
 KeyboardControls::KeyboardControls(EventManager *em) : Controls(em)
 {
@@ -22,19 +23,23 @@ void KeyboardControls::ListenForControls()
     {
         Joystick(0, -1);
     }
-    else if (input == "q")
+    else if (input == "q"&& activeScene==1)
     {
         PreviousSelection();
     }
-    else if (input == "e")
+    else if (input == "e"&& activeScene==1)
     {
         NextSelection();
     }
-    else if (input == "p")
+    else if (input == "p"&& activeScene==1)
     {
         Menu();
     }
-    else if (input == "1")
+    else if (input == "b")
+    {
+        Back();
+    }
+    else if (input == "1" && activeScene==1)
     {
         float angle;
         cout << "Veuillez entrer un angle : ";
@@ -42,7 +47,7 @@ void KeyboardControls::ListenForControls()
 
         Angle(angle);
     }
-    else if (input == "2")
+    else if (input == "2"&& activeScene==1)
     {
         float joystickX;
         float joystickY;

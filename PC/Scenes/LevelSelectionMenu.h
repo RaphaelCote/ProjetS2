@@ -13,6 +13,7 @@ public:
 
     friend void OnLevelSelectionMenuMainActionCall(EventParameters);
     friend void OnLevelSelectionMenuJoystickCall(EventParameters);
+    friend void OnLevelSelectionMenuBackCall(EventParameters);
 
     void OnEnable();
     void OnDisable();

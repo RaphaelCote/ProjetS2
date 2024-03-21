@@ -10,25 +10,29 @@ using namespace std;
 
 class Boat
 {
-    public:
-        Vecteur<Character *> characters;
-        Vecteur<Hitbox*> hitboxes;
+public:
+    Boat(int n, Coordonnee position, int height, int width, int image);
+    Vecteur<Character *> characters;
 
-        Boat();
-        Boat(int n, int posx, int posy);
-        ~Boat();
+    
+    ~Boat();
 
-        int getNbCharacters();
-        int getCapacite();
-        Coordonnee getPositionBoat();
-        bool addCharacter(Character *characterAdded);
-        bool removeCharacters(int index);
-        void ShowInfo(ostream &s);
+    int getNbCharacters();
+    int getCapacite();
+    Coordonnee getPositionBoat();
+    int getHeight();
+    int getWidth();
+    bool addCharacter(Character *characterAdded);
+    bool removeCharacters(int index);
+    void ShowInfo(ostream &s);
 
-    private:
-        int nbCharacters;
-        int capacite;
-        Coordonnee positionBoat;
+private:
+    int nbCharacters;
+    int capacite;
+    int imageboat;
+    int widthBoat;
+    int heightBoat;
+    Coordonnee positionBoat;
 };
 
 #endif

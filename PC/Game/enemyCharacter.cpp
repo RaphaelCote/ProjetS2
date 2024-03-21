@@ -3,10 +3,10 @@ using namespace std;
 
 EnemyCharacter::~EnemyCharacter() {}
 
-EnemyCharacter::EnemyCharacter(int posx, int posy) : Character(posx, posy)
+EnemyCharacter::EnemyCharacter(Coordonnee position, Hitbox hitboxsset, int image) : Character(position,hitboxsset,image)
 {
-    WeaponPosition.x = posx;
-    WeaponPosition.y = posy + hitbox.height / 2;
+    WeaponPosition.x = position.x;
+    WeaponPosition.y = position.y + hitbox.height / 2;
 }
 
 Projectile *EnemyCharacter::createEnemyProjectile()

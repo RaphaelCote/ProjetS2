@@ -16,16 +16,25 @@ void OnLevelSelectionMenuJoystickCall(EventParameters ep)
     menu->changeSelection(ep);
 }
 
+void OnLevelSelectionMenuBackCall(EventParameters)
+{
+    LevelSelectionMenu *menu = (LevelSelectionMenu *)scenes->get(activeScene);
+    menu->Back();
+    menu->OnDisable();
+}
+
 void LevelSelectionMenu::OnEnable()
 {
     eventManager->on("MainAction", OnLevelSelectionMenuMainActionCall);
     eventManager->on("Joystick", OnLevelSelectionMenuJoystickCall);
+    eventManager->on("Back", OnLevelSelectionMenuBackCall);
 }
 
 void LevelSelectionMenu::OnDisable()
 {
     eventManager->off("MainAction", OnLevelSelectionMenuMainActionCall);
     eventManager->off("Joystick", OnLevelSelectionMenuJoystickCall);
+    eventManager->off("Back", OnLevelSelectionMenuBackCall);
 }
 
 LevelSelectionMenu::LevelSelectionMenu()
@@ -90,7 +99,7 @@ void LevelSelectionMenu::SelectLevel(int level)
     choice = 0;
     system("cls");
     Game *game = (Game *)scenes->get(1);
-    game->SetLevel(level);
+    game->SetLevelIndex(level);
     game->isNewLevel = true;
     activeScene = 1;
 }
