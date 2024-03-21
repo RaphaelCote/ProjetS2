@@ -10,6 +10,7 @@ using namespace std;
 class Character
 {
 public:
+    Character(int posX, int posY);
     Character(Coordonnee position, Hitbox hitbox, int image);
     ~Character();
 
