@@ -72,7 +72,7 @@ void Niveau::addRaftenemy(int width, int height, int posX, int posY, int image, 
 void Niveau::MatRaft()
 {
     
-    for (int i = 0; playerBoats[i]!= NULL; i++)
+    for (int i = 0; i<playerBoats.getSize() ; ++i)
     {
         //Pixels couleur[(playerBoats[i]->getHeight())/10][(playerBoats[i]->getWidth())/10];
             Pixels **couleur = new Pixels*[(playerBoats[i]->getHeight())/10];
@@ -101,7 +101,7 @@ void Niveau::MatRaft()
          delete[] couleur;
     }
     
-    for (int i = 0; enemyBoats[i]!= NULL; i++)
+    for (int i = 0; i<enemyBoats.getSize(); i++)
     {
         //Pixels couleur[(enemyBoats[i]->getHeight())/10][(enemyBoats[i]->getWidth())/10];
         Pixels **couleur = new Pixels*[(enemyBoats[i]->getHeight())/10];
@@ -133,9 +133,9 @@ void Niveau::MatRaft()
 
 void Niveau::MatPlayer()
 {
-    for (int v=0 ; playerBoats[v] != NULL ; v++)
+    for (int v=0 ; v<playerBoats.getSize() ; v++)
     {
-        for (int f = 0;  playerBoats[v]->characters[f] != NULL; f++)
+        for (int f = 0;  f<characters.getSize(); f++)
         {
             //Pixels MatCharacter[10][10];
             Pixels **MatCharacter = new Pixels*[10];
@@ -213,9 +213,9 @@ void Niveau::MatPlayer()
 
 void Niveau::MatEnemy()
 {
-    for (int v=0 ; enemyBoats[v] != NULL ; v++)
+    for (int v=0 ; v<enemyBoats.getSize(); v++)
     {
-        for (int f = 0;  enemyBoats[v]->characters[f] != NULL; f++)
+        for (int f = 0;  f<enemyBoats[v]->characters.getSize(); f++)
         {
             //Pixels MatCharacter[10][10];
             Pixels **MatCharacter = new Pixels*[10];
@@ -310,14 +310,15 @@ void Niveau::MatWater()
             water[i][n].texture = '\xB0';
         }
     }
-    
-    cons->AjouterObjet(water,0,0,250,30000,0,"water");
+    int coor_X_eau = 0;
+   int coor_Y_eau = cons->MaxRows;
+    cons->AjouterObjet(water,&coor_X_eau,&coor_Y_eau,250,4,0,"water");
 
-    for (int i = 0; i < height/10 ; ++i) 
-            {
-                delete[]water[i];
-            }
-            delete[] water;
+    // for (int i = 0; i < height/10 ; ++i) 
+    //         {
+    //             delete[]water[i];
+    //         }
+    //         delete[] water;
     
 }
 
@@ -394,6 +395,11 @@ void Niveau::MatRocket()
         rocket[1][i].BackColour = 7;       //lightgrey       
         rocket[1][i].texture = ' ';
     }
+
+    int coor_X_rocket = 50;
+    int coor_Y_rocket = 50;
+    cons->AjouterObjet(rocket,&coor_X_rocket,&coor_Y_rocket,4,7,0,"rocket");
+
 
     for (int i = 0; i < 4 ; ++i) 
             {

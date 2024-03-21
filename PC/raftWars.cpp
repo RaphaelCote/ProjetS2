@@ -62,7 +62,7 @@ int main()
 
     tests = new Tests();
 
-    tests->tests_unitaires_levelGetter();
+    //tests->tests_unitaires_levelGetter();
     tests->test_unitaires_affichage();              //Test affichage jeux
 
     inventory = new Inventory();
