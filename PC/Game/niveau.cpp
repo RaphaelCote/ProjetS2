@@ -7,11 +7,12 @@
 Niveau::Niveau()
 {
 }
+
 Niveau::Niveau(int width, int height, int image)
 {
-    backimge = image;
     this->height = height;
     this->width = width;
+    this->backimge = image;
 }
 
 Niveau::~Niveau()
@@ -38,19 +39,11 @@ void Niveau::ShowLevelInfo(ostream &s)
         enemyBoats[i]->ShowInfo(s);
     }
 }
-void Niveau::addRaftPlayer(int width, int height, int posX, int posY, int image, int capacite, int i)
-{
-    playerBoats[i] = new Boat(capacite, posX, posY, height, width, image);
-}
-void Niveau::addRaftenemy(int width, int height, int posX, int posY, int image, int capacite, int i)
-{
-    enemyBoats[i] = new Boat(capacite, posX, posY, height, width, image);
-}
 
 void Niveau::MatRaft()
 {
 
-    for (int i = 0; playerBoats[i] != NULL; i++)
+    for (int i = 0; i < playerBoats.getSize(); i++)
     {
         // Pixels couleur[(playerBoats[i]->getHeight())/10][(playerBoats[i]->getWidth())/10];
         Pixels **couleur = new Pixels *[(playerBoats[i]->getHeight()) / 10];
@@ -78,7 +71,7 @@ void Niveau::MatRaft()
         delete[] couleur;
     }
 
-    for (int i = 0; enemyBoats[i] != NULL; i++)
+    for (int i = 0; i < enemyBoats.getSize(); i++)
     {
         // Pixels couleur[(enemyBoats[i]->getHeight())/10][(enemyBoats[i]->getWidth())/10];
         Pixels **couleur = new Pixels *[(enemyBoats[i]->getHeight()) / 10];
@@ -109,9 +102,9 @@ void Niveau::MatRaft()
 
 void Niveau::MatPlayer()
 {
-    for (int v = 0; playerBoats[v] != NULL; v++)
+    for (int v = 0; v < playerBoats.getSize(); v++)
     {
-        for (int f = 0; playerBoats[v]->characters[f] != NULL; f++)
+        for (int f = 0; f < playerBoats[v]->characters.getSize(); f++)
         {
             // Pixels MatCharacter[10][10];
             Pixels **MatCharacter = new Pixels *[10];
@@ -188,9 +181,9 @@ void Niveau::MatPlayer()
 
 void Niveau::MatEnemy()
 {
-    for (int v = 0; enemyBoats[v] != NULL; v++)
+    for (int v = 0; v < enemyBoats.getSize(); v++)
     {
-        for (int f = 0; enemyBoats[v]->characters[f] != NULL; f++)
+        for (int f = 0; f < enemyBoats[v]->characters.getSize(); f++)
         {
             // Pixels MatCharacter[10][10];
             Pixels **MatCharacter = new Pixels *[10];

@@ -3,7 +3,6 @@
 
 #include "gameloader.h"
 #include "../include/json.hpp"
-#include "niveau.h"
 #include "playerCharacter.h"
 #include "enemyCharacter.h"
 #include "utility.h"
