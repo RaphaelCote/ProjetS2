@@ -63,7 +63,8 @@ int main()
     tests = new Tests();
 
     //tests->tests_unitaires_levelGetter();
-    tests->test_unitaires_affichage();              //Test affichage jeux
+    //tests->test_unitaires_affichage();             //Test affichage jeux
+    tests->tests_affichage();
 
     inventory = new Inventory();
     inventory->addGold(2000);

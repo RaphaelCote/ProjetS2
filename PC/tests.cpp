@@ -81,21 +81,6 @@ void Tests::test_unitaire_levels()
 
 void Tests::test_unitaire_games()
 {
-<<<<<<< Updated upstream
-   Game *ptrgame;
-   ptrgame = new Game;
-   cout << "debut test game" << endl;
-   cout << "test sur le niveau 1 hauteur (1080) et largeur (3000) " << endl;
-   cout << ptrgame->levels[0]->height << endl;
-   cout << ptrgame->levels[0]->width << endl;
-   cout << "test sur le niveau 2 hauteur (1080) et largeur (3000) " << endl;
-   cout << ptrgame->levels[1]->height << endl;
-   cout << ptrgame->levels[1]->witdh << endl;
-   cout << "test sur le niveau 3 hauteur (1080) et largeur (3000) " << endl;
-   cout << ptrgame->levels[2]->height << endl;
-   cout << ptrgame->levels[2]->weight << endl;
-   delete ptrgame;
-=======
    // Game *ptrgame;
    // ptrgame = new Game;
    // cout << "debut test game" << endl;
@@ -109,7 +94,6 @@ void Tests::test_unitaire_games()
    // cout << ptrgame->levels[2]->height << endl;
    // cout << ptrgame->levels[2]->weight << endl;
    // delete ptrgame;
->>>>>>> Stashed changes
 }
 
 void Tests::test_unitaire_characterAndprojectile()
@@ -507,6 +491,16 @@ void Tests::tests_application()
    // Fait tous les tests applicatifs
    tests_application_cas_01();
    tests_application_cas_02();
+}
+
+void Tests::tests_affichage()
+{
+   Niveau niveau;
+   niveau.MatNuage();
+   niveau.MatPlayer();
+   niveau.MatRocket();
+   niveau.MatRaft();
+
 }
 
 void Tests::tests_application_cas_01()
