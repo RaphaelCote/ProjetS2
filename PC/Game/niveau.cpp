@@ -207,12 +207,8 @@ void Niveau::MatPlayer()
                 delete[] MatCharacter[i];
             }
             delete[] MatCharacter;
-        }
-        
+        }   
     }
-    
-    
-
 }
 
 void Niveau::MatEnemy()
@@ -226,7 +222,6 @@ void Niveau::MatEnemy()
             for (int i = 0; i < 10; ++i) {
             MatCharacter[i] = new Pixels[10];
             }
-
 
             for (int m = 0; m < 10; m++)
             {

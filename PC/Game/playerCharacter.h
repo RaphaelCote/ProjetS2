@@ -10,7 +10,7 @@
 #define PI 3.14159265358979323846
 class PlayerCharacter : public Character{
     public:
-        
+        PlayerCharacter(int posx,int posy);
         PlayerCharacter(int posx,int posy,int width,int height, int image);
         ~PlayerCharacter();
         Coordonnee getWeaponPosition() override;

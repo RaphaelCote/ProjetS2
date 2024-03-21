@@ -75,7 +75,7 @@ void Tests::test_unitaire_levels()
    ptrlevls = new Niveau;
    cout << "debut test niveau hauteur (1080) et largeur (3000)" << endl;
    cout << ptrlevls->height << endl;
-   cout << ptrlevls->weight << endl;
+   cout << ptrlevls->width << endl;
    delete ptrlevls;
 }
 
@@ -86,10 +86,10 @@ void Tests::test_unitaire_games()
    cout << "debut test game" << endl;
    cout << "test sur le niveau 1 hauteur (1080) et largeur (3000) " << endl;
    cout << ptrgame->levels[0]->height << endl;
-   cout << ptrgame->levels[0]->weight << endl;
+   cout << ptrgame->levels[0]->width << endl;
    cout << "test sur le niveau 2 hauteur (1080) et largeur (3000) " << endl;
    cout << ptrgame->levels[1]->height << endl;
-   cout << ptrgame->levels[1]->weight << endl;
+   cout << ptrgame->levels[1]->witdh << endl;
    cout << "test sur le niveau 3 hauteur (1080) et largeur (3000) " << endl;
    cout << ptrgame->levels[2]->height << endl;
    cout << ptrgame->levels[2]->weight << endl;
