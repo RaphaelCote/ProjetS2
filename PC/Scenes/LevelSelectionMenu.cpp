@@ -20,6 +20,7 @@ void OnLevelSelectionMenuBackCall(EventParameters)
 {
     LevelSelectionMenu *menu = (LevelSelectionMenu *)scenes->get(activeScene);
     menu->Back();
+    menu->OnDisable();
 }
 
 void LevelSelectionMenu::OnEnable()
@@ -98,7 +99,7 @@ void LevelSelectionMenu::SelectLevel(int level)
     choice = 0;
     system("cls");
     Game *game = (Game *)scenes->get(1);
-    game->SetLevel(level);
+    game->SetLevelIndex(level);
     game->isNewLevel = true;
     activeScene = 1;
 }

@@ -7,20 +7,25 @@
 
 class Niveau
 {
-public:
-    Niveau();
-    ~Niveau();
+private:
+    int heightlevels;
+    int widthlevels;
+    int backimge;
 
+public:
     int height = 1080;
-    int weight = 3000;
-    Vecteur<Character *> characters;
+    int width = 3000;
     Vecteur<Boat *> playerBoats;
     Vecteur<Boat *> enemyBoats;
 
-    int backimge[1];
+    Niveau();
+    Niveau(int width, int height, int image);
+    ~Niveau();
 
-    void initializeBoats();
-    void ShowCharacterInfo(ostream &s);
+    void ShowLevelInfo(ostream &s);
+    void ShowNiveauinfo();
+    void addRaftPlayer(int width, int height, Coordonnee position, int image, int capacite);
+    void addRaftenemy(int width, int height, Coordonnee position, int image, int capacite);
 };
 
 #endif

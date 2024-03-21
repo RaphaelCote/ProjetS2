@@ -19,6 +19,7 @@ void OnShopBackCall(EventParameters)
 {
     ShopMenu *menu = (ShopMenu *)scenes->get(activeScene);
     menu->Back();
+    menu->OnDisable();
 }
 
 void ShopMenu::OnEnable()

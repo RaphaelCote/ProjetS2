@@ -11,30 +11,31 @@ using namespace std;
 class Boat
 {
 public:
+    Boat(int n, Coordonnee position, int height, int width, int image);
     Vecteur<Character *> characters;
 
-    Boat(int n, int posx, int posy);
     ~Boat();
 
     int getNbCharacters();
     int getCapacite();
     Coordonnee getPositionBoat();
-    int* getPointerPositionBoat_X();
-    int* getPointerPositionBoat_Y();
+    int getHeight();
+    int getWidth();
+    int *getPointerPositionBoat_X();
+    int *getPointerPositionBoat_Y();
     Hitbox getHitboxBoat();
     bool addCharacter(Character *characterAdded);
     bool removeCharacters(int index);
     void ShowInfo(ostream &s);
 
-    
-    
-
 private:
     int nbCharacters;
     int capacite;
+    int imageboat;
+    int widthBoat;
+    int heightBoat;
     Coordonnee positionBoat;
     Hitbox hitBoxBoat;
-    
 };
 
 #endif

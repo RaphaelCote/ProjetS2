@@ -1,57 +1,54 @@
 #include "niveau.h"
+#include "Boat.h"
 #include "playerCharacter.h"
 #include "enemyCharacter.h"
 
 Niveau::Niveau()
 {
-    initializeBoats();
+}
+Niveau::Niveau(int width, int height, int image)
+{
+    backimge = image;
+    this->height = height;
+    this->width = width;
 }
 
 Niveau::~Niveau()
 {
 }
 
-void Niveau::initializeBoats()
+void Niveau::ShowLevelInfo(ostream &s)
 {
-    characters.add(new PlayerCharacter(0, 100));
+    s << "Bateaux joueurs : " << endl;
 
-    characters.add(new EnemyCharacter(2000, 100));
-
-    // playerBoats.add(new Boat());
-
-    // enemyBoats.add(new Boat());
-}
-
-void Niveau::ShowCharacterInfo(ostream &s)
-{
-    for (int i = 0; i < characters.getSize(); i++)
+    for (int i = 0; i < playerBoats.getSize(); i++)
     {
-        if (i == 0)
-        {
-            s << "Joueur :" << endl;
-        }
-        else
-        {
-            s << "Ennemi " << i << " :" << endl;
-        }
-        characters[i]->ShowInfo();
+        s << "Bateau  " << i + 1 << " :" << endl;
+
+        playerBoats[i]->ShowInfo(s);
     }
 
-    // s << "Bateaux joueurs : " << endl;
+    s << "Bateaux enemies : " << endl;
 
-    // for (int i = 0; i < playerBoats.getSize(); i++)
-    // {
-    //     s << "Bateau  " << i + 1 << " :" << endl;
+    for (int i = 0; i < enemyBoats.getSize(); i++)
+    {
+        s << "Bateau  " << i + 1 << " :" << endl;
 
-    //     playerBoats[i]->ShowInfo(s);
-    // }
+        enemyBoats[i]->ShowInfo(s);
+    }
+}
+void Niveau::ShowNiveauinfo()
+{
+    cout << "hauteur niveau " << height << endl;
+    cout << "largeur niveau " << width << endl;
+}
 
-    // s << "Bateaux enemies : " << endl;
+void Niveau::addRaftPlayer(int width, int height, Coordonnee position, int image, int capacite)
+{
+    playerBoats.add(new Boat(capacite, position, height, width, image));
+}
 
-    // for (int i = 0; i < enemyBoats.getSize(); i++)
-    // {
-    //     s << "Bateau  " << i + 1 << " :" << endl;
-
-    //     enemyBoats[i]->ShowInfo(s);
-    // }
+void Niveau::addRaftenemy(int width, int height, Coordonnee position, int image, int capacite)
+{
+    enemyBoats.add(new Boat(capacite, position, height, width, image));
 }

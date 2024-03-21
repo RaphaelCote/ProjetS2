@@ -11,25 +11,22 @@
 /*Constructeur (État Initial)*/
 Game::Game()
 {
-    currentLevel = 0;
+    currentLevelIndex = 0;
     turn = 0;
     isPlayerTurn = true;
     isPause = false;
     isNewLevel = true;
     projectileType = 0;
-    CreateLevels();
-    Niveau *level = levels[currentLevel];
-    projectile = new Canonball(level->characters[0]->getWeaponPosition());
 }
 
-int Game::GetLevel()
+int Game::GetLevelIndex()
 {
-    return currentLevel;
+    return currentLevelIndex;
 }
 
-void Game::SetLevel(int level)
+void Game::SetLevelIndex(int level)
 {
-    currentLevel = level;
+    currentLevelIndex = level;
 }
 
 void OnGameMainActionCall(EventParameters ep)
@@ -72,24 +69,25 @@ void OnGameMenuCall(EventParameters ep)
 
 void Game::ChangeProjectileType(int typeDif)
 {
-    // When we have both rockets and grenade, can only chose grenade
     if (typeDif > 0)
     {
-        for (int i = projectileType; i <= 2; i++)
+        for (int i = projectileType + 1; i <= 2; i++)
         {
             if (CheckAvailableProjectile(i))
             {
                 projectileType = i;
+                break;
             }
         }
     }
     else if (typeDif < 0)
     {
-        for (int i = projectileType; i >= 0; i--)
+        for (int i = projectileType - 1; i >= 0; i--)
         {
             if (CheckAvailableProjectile(i))
             {
                 projectileType = i;
+                break;
             }
         }
     }
@@ -97,19 +95,17 @@ void Game::ChangeProjectileType(int typeDif)
     float angle = projectile->getAngleDegre();
     float puissance = projectile->getPuissance();
 
-    Niveau *level = levels[currentLevel];
-
     if (projectileType == 0)
     {
-        projectile = new Canonball(level->characters[0]->getWeaponPosition());
+        projectile = new Canonball(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition());
     }
     else if (projectileType == 1)
     {
-        projectile = new Rocket(level->characters[0]->getWeaponPosition());
+        projectile = new Rocket(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition());
     }
     else if (projectileType == 2)
     {
-        projectile = new Grenade(level->characters[0]->getWeaponPosition());
+        projectile = new Grenade(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition());
     }
 
     projectile->setAngleDegre(angle);
@@ -156,33 +152,29 @@ void Game::Update()
         turn == 0;
         isPlayerTurn = true;
         projectileType = 0;
-        CreateLevels();
+        // Load level currentLevelIndex
+        activeLevel = gameloader.getLevelFromJson(levelGetter->levels[currentLevelIndex]);
+
+        projectile = new Canonball(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition());
 
         // Ajouter le shield au joueur
-        Niveau *level = levels[currentLevel];
-        // cout << "Shield : " << inventory->getShield() << endl;
-        int newHealthPoints = level->characters[0]->getHealthPoint() + inventory->getShield();
-        // cout << "newHealthPoints : " << newHealthPoints << endl;
-        level->characters[0]->setHealthPoint(newHealthPoints);
-        // cout << "Current healthPoints : " << level->characters[0]->getHealthPoint() << endl;
-        // system("PAUSE");
+        for (int i = 0; i < activeLevel->playerBoats.getSize(); i++)
+        {
+            for (int j = 0; j < activeLevel->playerBoats[i]->characters.getSize(); j++)
+            {
+                int newHealthPoints = activeLevel->playerBoats[i]->characters[j]->getHealthPoint() + inventory->getShield();
+                activeLevel->playerBoats[i]->characters[j]->setHealthPoint(newHealthPoints);
+            }
+        }
     }
 
     isNewLevel = false;
     PlayTurn();
 }
 
-void Game::CreateLevels()
-{
-    levels[0] = new Niveau;
-    levels[1] = new Niveau;
-    levels[2] = new Niveau;
-}
-
 void Game::PlayTurn()
 {
     turn++;
-    Niveau *level = levels[currentLevel];
     if (isPlayerTurn)
     {
         system("cls");
@@ -226,12 +218,12 @@ void Game::PlayTurn()
         ShowGameInfo();
         cout << "Tour enemi :" << endl;
 
-        EnemyCharacter *ec = (EnemyCharacter *)level->characters[1];
+        EnemyCharacter *ec = (EnemyCharacter *)activeLevel->enemyBoats[0]->characters[0];
         Projectile *enemyProjectile = ec->createEnemyProjectile();
 
         cout << "Angle : " << enemyProjectile->getAngleDegre() << " | Puissance : " << enemyProjectile->getPuissance() << endl;
 
-        if (enemyProjectile->checkIfCharacterHit(*(level->characters[0])))
+        if (enemyProjectile->checkIfCharacterHit(*(activeLevel->playerBoats[0]->characters[0])))
         {
             cout << " (" << enemyProjectile->getBulletEndPosition().x << ", " << enemyProjectile->getBulletEndPosition().y << ")" << endl;
         }
@@ -243,7 +235,7 @@ void Game::PlayTurn()
 
         system("PAUSE");
         isPlayerTurn = true;
-        projectile = new Canonball(level->characters[0]->getWeaponPosition());
+        // projectile = new Canonball(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition());
     }
 
     if (CheckEndCondition())
@@ -259,9 +251,7 @@ void Game::PlayerShoot()
         return;
     }
 
-    Niveau *level = levels[currentLevel];
-
-    if (projectile->checkIfCharacterHit(*(level->characters[1])))
+    if (projectile->checkIfCharacterHit(*(activeLevel->enemyBoats[0]->characters[0])))
     {
         cout << " (" << projectile->getBulletEndPosition().x << ", " << projectile->getBulletEndPosition().y << ")" << endl;
     }
@@ -309,9 +299,22 @@ void Game::EndGame()
 
 void Game::PayPlayer()
 {
-    Niveau *level = levels[currentLevel];
+    bool isAllPlayerDead = true;
 
-    if (level->characters[0]->getHealthPoint() == 0)
+    for (int i = 0; i < activeLevel->playerBoats.getSize(); i++)
+    {
+        for (int j = 0; j < activeLevel->playerBoats[i]->characters.getSize(); j++)
+        {
+
+            if (activeLevel->playerBoats[i]->characters[j]->getHealthPoint() > 0)
+            {
+                isAllPlayerDead = false;
+            }
+        }
+    }
+
+    // Check if all players are dead
+    if (isAllPlayerDead)
     {
         // Player dead
         inventory->addGold(200);
@@ -331,13 +334,23 @@ void Game::PayPlayer()
 
 void Game::StoreShield()
 {
-    Niveau *level = levels[currentLevel];
+    int totalHealth = 0;
+    int nbPlayer = 0;
 
-    int playerHealth = level->characters[0]->getHealthPoint();
-
-    if (playerHealth > 100)
+    for (int i = 0; i < activeLevel->playerBoats.getSize(); i++)
     {
-        inventory->setShield(playerHealth - 100);
+        for (int j = 0; j < activeLevel->playerBoats[i]->characters.getSize(); j++)
+        {
+            totalHealth += activeLevel->playerBoats[i]->characters[j]->getHealthPoint();
+            nbPlayer++;
+        }
+    }
+
+    int averageHealth = totalHealth / nbPlayer;
+
+    if (averageHealth > 100)
+    {
+        inventory->setShield(averageHealth - 100);
     }
 }
 
@@ -348,11 +361,38 @@ void Game::StopGame()
 
 bool Game::CheckEndCondition()
 {
-    Niveau *level = levels[currentLevel];
-
-    if (level->characters[0]->getHealthPoint() == 0 || level->characters[1]->getHealthPoint() == 0)
+    for (int i = 0; i < activeLevel->playerBoats.getSize(); i++)
     {
-        return true;
+        for (int j = 0; j < activeLevel->playerBoats[i]->characters.getSize(); j++)
+        {
+            bool isAllPlayerDead = true;
+            if (activeLevel->playerBoats[i]->characters[j]->getHealthPoint() > 0)
+            {
+                isAllPlayerDead = false;
+            }
+
+            if (isAllPlayerDead)
+            {
+                return true;
+            }
+        }
+    }
+
+    for (int i = 0; i < activeLevel->enemyBoats.getSize(); i++)
+    {
+        for (int j = 0; j < activeLevel->enemyBoats[i]->characters.getSize(); j++)
+        {
+            bool isAllEnemyDead = true;
+            if (activeLevel->enemyBoats[i]->characters[j]->getHealthPoint() > 0)
+            {
+                isAllEnemyDead = false;
+            }
+
+            if (isAllEnemyDead)
+            {
+                return true;
+            }
+        }
     }
 
     return false;
@@ -385,6 +425,6 @@ bool Game::CheckAvailableProjectile(int type)
 void Game::ShowGameInfo()
 {
     // Show player positions and health
-    cout << "-------Niveau " << currentLevel + 1 << "-------" << endl;
-    levels[currentLevel]->ShowCharacterInfo(cout);
+    cout << "-------Niveau " << currentLevelIndex + 1 << "-------" << endl;
+    activeLevel->ShowLevelInfo(cout);
 }
