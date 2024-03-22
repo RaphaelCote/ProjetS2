@@ -78,6 +78,14 @@ void MainMenu::Update()
 
 void MainMenu::ShowMenu()
 {
+    cons->SupprimerObjet("s0");
+    cons->SupprimerObjet("s1");
+    cons->SupprimerObjet("s2");
+    cons->SupprimerObjet("s3");
+    cons->SupprimerObjet("s4");
+    cons->SupprimerObjet("s5");
+    cons->SupprimerObjet("s6");
+
     // menu utilisateur
     string s0 = "-------------------------------------------------------------------";
     string s1 = "Bienvenue au menu du jeu Raft Wars";
@@ -95,28 +103,24 @@ void MainMenu::ShowMenu()
     s5 += "- Sortir";
     string s6 = "-------------------------------------------------------------------";
 
-    int x0 = 0;
-    int y0 = 0;
-    int x1 = 0;
-    int y1 = 0;
-    int x2 = 0;
-    int y2 = 0;
-    int x3 = 0;
-    int y3 = 0;
-    int x4 = 0;
-    int y4 = 0;
-    int x5 = 0;
-    int y5 = 0;
-    int x6 = 0;
-    int y6 = 0;
+    int y0 = cons->MaxRows - 3;
+    int y1 = cons->MaxRows - 4;
+    int y2 = cons->MaxRows - 5;
+    int y3 = cons->MaxRows - 6;
+    int y4 = cons->MaxRows - 7;
+    int y5 = cons->MaxRows - 8;
+    int y6 = cons->MaxRows - 9;
+    int x = 2;
 
-    cons->AfficherTexte(cout, s0, &x0, &y0, "s0");
-    cons->AfficherTexte(cout, s1, &x1, &y1, "s1");
-    cons->AfficherTexte(cout, s2, &x2, &y2, "s2");
-    cons->AfficherTexte(cout, s3, &x3, &y3, "s3");
-    cons->AfficherTexte(cout, s4, &x4, &y4, "s4");
-    cons->AfficherTexte(cout, s5, &x5, &y5, "s5");
-    cons->AfficherTexte(cout, s6, &x6, &y6, "s6");
+    cons->AfficherTexte(std::cout, s0, &x, &y0, "s0");
+    cons->AfficherTexte(std::cout, s1, &x, &y1, "s1");
+    cons->AfficherTexte(std::cout, s2, &x, &y2, "s2");
+    cons->AfficherTexte(std::cout, s3, &x, &y3, "s3");
+    cons->AfficherTexte(std::cout, s4, &x, &y4, "s4");
+    cons->AfficherTexte(std::cout, s5, &x, &y5, "s5");
+    cons->AfficherTexte(std::cout, s6, &x, &y6, "s6");
+
+    Sleep(5000);
 }
 
 void MainMenu::Selection()
@@ -141,7 +145,7 @@ void MainMenu::Selection()
     {
         system("cls"); // clear la command prompt
         cons->ResetUI();
-        cons->AfficherTexte(cout, "Au plaisir..", new int(10), new int(cons->ScreenHeight), "AuPlaisir");
+        cons->AfficherTexte(cout, "Au plaisir..", new int(10), new int(cons->MaxRows), "AuPlaisir");
         system("PAUSE");
         exit(0);
     }

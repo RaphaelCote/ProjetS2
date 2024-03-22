@@ -8,6 +8,7 @@
 /*------------------------------ Librairies ---------------------------------*/
 #include <iostream>
 #include <string>
+#include <conio.h>
 using namespace std;
 
 /*-------------------------- Librairies externes ----------------------------*/
@@ -85,10 +86,37 @@ int main()
 
     levelGetter = new LevelGetter();
 
+    // Main loop
     while (true)
     {
+        // Check if a key is pressed
+        if (_kbhit())
+        {
+            // Read the pressed key
+            char input = _getch();
+
+            // Handle the input
+            int x = 2;
+            int y = cons->MaxRows - 3;
+            string s = "You pressed: " + input;
+            cons->AfficherTexte(cout, s, &x, &y, "key");
+
+            // Exit loop if 'q' is pressed
+            if (input == 'q')
+            {
+                break;
+            }
+        }
+
+        // Do other processing here
+        // Note: This loop will continue to execute without blocking on keyboard input
         scenes->get(activeScene)->Update();
     }
+
+    // Restore cursor visibility and console mode
+    // cursorInfo.bVisible = true;
+    // SetConsoleCursorInfo(consoleHandle, &cursorInfo);
+    // SetConsoleMode(consoleHandle, mode);
 
     return 0;
 }
