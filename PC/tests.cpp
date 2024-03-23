@@ -2,6 +2,7 @@
 
 #include "tests.h"
 #include "Game/niveau.h"
+#include "Game/utility.h"
 #include "Scenes/game.h"
 #include "raftWars.h"
 #include "Game/enemyCharacter.h"
@@ -513,4 +514,70 @@ void Tests::testjson()
    cout<<niveau->playerBoats[0]->getWidth()<<endl;
    cout<<"enemyboat hauteur"<<endl;
    cout<<niveau->enemyBoats[0]->getHeight()<<endl;
+}
+
+void Tests::testAffichage()
+{
+   cons->ResetUI();
+   Niveau niveau;
+   Coordonnee positionEnemy;
+   positionEnemy.x = 250+6;
+   positionEnemy.y = 6;
+   Hitbox enemy;
+   enemy.height = 20;
+   enemy.width = 15;
+ 
+   // création des personnages et du bateau
+   Character *pers1 = new PlayerCharacter(1, 6);
+   Character *pers2 = new PlayerCharacter(6, 6);
+   PlayerCharacter c = PlayerCharacter(15, 6);
+   Character *adv1 = new EnemyCharacter(positionEnemy, enemy, 3);
+   Coordonnee positionBoat;
+   positionBoat.x = 20;
+   positionBoat.y = 20;
+   Coordonnee positionEnemyBoat;
+   positionEnemyBoat.x = 60;
+   positionEnemyBoat.y = 20;
+
+   Boat joueur(2, positionBoat, 7, 7, 3);
+   Boat adversaire(2, positionEnemyBoat, 7, 7, 3);
+
+
+   // ajouter adversaire
+   
+   adversaire.addCharacter(adv1);
+  
+   joueur.addCharacter(pers1);
+   joueur.addCharacter(pers2);
+
+
+   niveau.MatRaft();
+   niveau.MatPlayer();
+   niveau.MatEnemy();
+   niveau.MatWater();
+   niveau.MatNuage();
+
+   
+
+   int _coor_X8 = 0;
+   int _coor_Y8 = cons->MaxRows-2;
+   int _coor_X9 = 50;
+   int _coor_Y9 = cons->MaxRows-5;
+
+   cons->AfficherTexte(std::cout, "Allo, voici du texte que tu peux ecrire", &_coor_X8,&_coor_Y8, "texte1");
+   cons->AfficherTexte(std::cout, "Je sais pas voici d'autre texte", &_coor_X9,&_coor_Y9,colors::green,colors::black, "texte2");
+
+
+
+
+   joueur.removeCharacters(0);
+
+ 
+
+
+   // delete
+   delete pers1;
+   delete pers2;
+   delete adv1;
+   system("pause");
 }

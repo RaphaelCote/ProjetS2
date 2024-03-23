@@ -183,13 +183,20 @@ void Niveau::MatPlayer()
                 MatCharacter[i][8].texture = ' ';
             }
 
-            cons->AjouterObjet(MatCharacter, playerBoats[v], 0, "player " + v);
+            int PosX = playerBoats[v]->characters[f]->getPosition().x;
+            int PosY = playerBoats[v]->characters[f]->getPosition().y;
 
-            for (int i = 0; i < 10; ++i)
-            {
-                delete[] MatCharacter[i];
-            }
-            delete[] MatCharacter;
+        //  cons->AjouterObjet(MatCharacter, playerBoats[v], 0, "player " + v);
+            cons->AjouterObjet(MatCharacter, &PosX, &PosY , playerBoats[v]->characters[f]->getHitboxWidth(), playerBoats[v]->characters[f]->getHitboxHeight(), 0, "player " + v);
+//    cons->AjouterObjet(_character, &coor_X4, &coor_Y4, c_width, c_heigth,0, "Char1");
+//    cons->AjouterObjet(_character, &c, 0, "Char2");
+
+
+            // for (int i = 0; i < 10; ++i)
+            // {
+            //     delete[] MatCharacter[i];
+            // }
+            // delete[] MatCharacter;
         }
     }
 }
@@ -276,15 +283,14 @@ void Niveau::MatEnemy()
 
 void Niveau::MatWater()
 {
-    // Pixels water[height/10][width/10];
-    Pixels **water = new Pixels *[height / 10];
-    for (int i = 0; i < (height / 10); ++i)
+    Pixels **water = new Pixels *[10];
+    for (int i = 0; i < (10); ++i)
     {
-        water[i] = new Pixels[width / 10];
+        water[i] = new Pixels[350];
     }
-    for (int i = 0; i < (height / 10); i++)
+    for (int i = 0; i < 10; i++)
     {
-        for (int n = 0; n < (width / 10); n++)
+        for (int n = 0; n < (350); n++)
         {
             water[i][n].FrontColour = 11;
             water[i][n].BackColour = 9;
@@ -292,14 +298,15 @@ void Niveau::MatWater()
         }
     }
     int coor_X_eau = 0;
-    int coor_Y_eau = cons->MaxRows;
-    cons->AjouterObjet(water, &coor_X_eau, &coor_Y_eau, 250, 4, 0, "water");
+    int coor_Y_eau = 0;
+    cons->AjouterObjet(water, &coor_X_eau, &coor_Y_eau, 300, 4, 0, "eau");
 
     // for (int i = 0; i < height/10 ; ++i)
     //         {
     //             delete[]water[i];
     //         }
     //         delete[] water;
+
 }
 
 void Niveau::MatBalle()
@@ -428,12 +435,14 @@ void Niveau::MatNuage()
         nuage[0][i].BackColour = 15;
         nuage[0][i].texture = ' ';
     }
+    int coor_X = 100;
+    int coor_Y = 300;
 
-    // cons->AjouterObjet(nuage,1500,300,4,9,0,"nuage1");
+    cons->AjouterObjet(nuage,&coor_X,&coor_Y,4,9,0,"nuage1");
 
-    for (int i = 0; i < 4; ++i)
-    {
-        delete[] nuage[i];
-    }
-    delete[] nuage;
+    // for (int i = 0; i < 4; ++i)
+    // {
+    //     delete[] nuage[i];
+    // }
+    // delete[] nuage;
 }
