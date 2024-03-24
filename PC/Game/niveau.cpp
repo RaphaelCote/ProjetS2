@@ -283,29 +283,50 @@ void Niveau::MatEnemy()
 
 void Niveau::MatWater()
 {
-    Pixels **water = new Pixels *[10];
-    for (int i = 0; i < (10); ++i)
-    {
-        water[i] = new Pixels[350];
-    }
-    for (int i = 0; i < 10; i++)
-    {
-        for (int n = 0; n < (350); n++)
-        {
-            water[i][n].FrontColour = 11;
-            water[i][n].BackColour = 9;
-            water[i][n].texture = '\xB0';
-        }
-    }
-    int coor_X_eau = 0;
-    int coor_Y_eau = 0;
-    cons->AjouterObjet(water, &coor_X_eau, &coor_Y_eau, 300, 4, 0, "eau");
+    // Pixels **water = new Pixels*[10];
+    // for (int i = 0; i < (10); ++i)
+    // {
+    //     water[i] = new Pixels[350];
+    // }
+    // for (int i = 0; i < 10; i++)
+    // {
+    //     for (int n = 0; n < 350; n++)
+    //     {
+    //         water[i][n].FrontColour = colors::blue;
+    //         water[i][n].BackColour = colors::aqua;
+    //         water[i][n].texture = '\xB1';
+    //     }
+    // }
+    // int coor_X_eau = 0;
+    // int coor_Y_eau = 0;
+    // cons->AjouterObjet(water, &coor_X_eau, &coor_Y_eau, 300, 4, 0, "eau");
 
     // for (int i = 0; i < height/10 ; ++i)
     //         {
     //             delete[]water[i];
     //         }
     //         delete[] water;
+
+
+
+     Pixels **eau = new Pixels*[10];
+   for (int i = 0; i < 10; ++i) {
+      eau[i] = new Pixels[350];
+   }
+
+   for (int i = 0; i < 10; i++)
+   {
+      for (int n = 0; n < 350; n++)
+      {
+         eau[i][n].FrontColour = colors::blue;     
+         eau[i][n].BackColour = colors::aqua;      
+         eau[i][n].texture = '\xB1';
+      }
+   }
+
+   int coor_X3 = 0;
+   int coor_Y3 = 0;
+   cons->AjouterObjet(eau, &coor_X3, &coor_Y3, 300, 4, 0, "eau");
 
 }
 
@@ -445,4 +466,92 @@ void Niveau::MatNuage()
     //     delete[] nuage[i];
     // }
     // delete[] nuage;
+}
+
+void Niveau::MatCharacter()
+{
+    for ( int b = 0; b < playerBoats.getSize(); b++)
+    {
+        for (int v = 0; v < playerBoats[b]->getNbCharacters(); v++)
+        {
+            // int c_heigth = playerBoats[v]->characters[v]->getHitboxHeight();
+            // int c_width = playerBoats[v]->characters[v]->getHitboxWidth();
+            int c_heigth = 10;
+            int c_width = 10;
+
+            char tab_test[10][10] = {{' ',' ',' ','+','+','+',' ',' ',' ',' '},
+                                        {' ',' ','+','+','+','+','+',' ',' ',' '},
+                                        {' ',' ',' ','*','*','*',' ',' ',' ',' '},
+                                        {' ',' ',' ',' ','*',' ',' ',' ',' ',' '},
+                                        {' ',' ',' ',' ','*',' ',' ',' ',' ',' '},
+                                        {' ',' ','<','<','<','<','<','<',' ',' '},
+                                        {' ',' ',' ',' ','*',' ',' ',' ',' ',' '},
+                                        {' ',' ',' ','*',' ','*',' ',' ',' ',' '},
+                                        {' ',' ','*',' ',' ',' ','*',' ',' ',' '},
+                                        {' ','*',' ',' ',' ',' ',' ','*',' ',' '}} ;
+
+
+            Pixels **_character = new Pixels*[c_heigth];
+            for (int i = 0; i < c_heigth; ++i) {
+                _character[i] = new Pixels[c_width];
+            }
+
+            //passe a travers tout le tableau pour faire le personnage
+            for (int i = 0; i < c_heigth; i++)
+            {
+                for (int n = 0; n < c_width; n++)
+                {
+                    char val = tab_test[i][n];      //j'ai du mettre ca(c_heigth - i-1) sinon le bonhomme affiche en l'envers
+                    if(val == ' ')
+                    {
+                        _character[i][n].FrontColour = colors::transparant;      
+                        _character[i][n].BackColour = colors::transparant;       
+                        _character[i][n].texture = ' ';
+                    }
+                    else if(val == '*')
+                    {
+                        _character[i][n].FrontColour = colors::green;      
+                        _character[i][n].BackColour = colors::leaf;       
+                        _character[i][n].texture = ' ';
+                    }
+                    else if(val == '+')
+                    {
+                        _character[i][n].FrontColour = colors::black;      
+                        _character[i][n].BackColour = colors::lightblue;       
+                        _character[i][n].texture = CHAR_CONTRAST_LOW;
+                    }
+                    else if(val == '<')
+                    {
+                        _character[i][n].FrontColour = colors::black;      
+                        _character[i][n].BackColour = colors::red;       
+                        _character[i][n].texture = CHAR_CONTRAST_MED;
+                    }
+                    
+                }
+            }
+
+            int coor_X4 = 6;
+            int coor_Y4 = 6;
+            int coor_X5 = 27;
+            int coor_Y5 = 6;
+
+            PlayerCharacter c = PlayerCharacter(coor_X5, coor_Y5);
+
+            cons->AjouterObjet(_character, &coor_X4, &coor_Y4, c_width, c_heigth,0, "Char1");
+            cons->AjouterObjet(_character, &c, 0, "Char2");
+
+            
+
+            int _coor_X4 = 250+6;
+            int _coor_Y4 = 6;
+            int _coor_X5 = 250+27;
+            int _coor_Y5 = 6;
+
+            cons->AjouterObjet(_character, &_coor_X4, &_coor_Y4, c_width, c_heigth,0, "Char3");
+            cons->AjouterObjet(_character, &_coor_X5, &_coor_Y5,  c_width, c_heigth,0, "Char4");
+        }
+        
+   
+    }
+    
 }

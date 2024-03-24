@@ -556,6 +556,29 @@ void Tests::testAffichage()
    niveau.MatEnemy();
    niveau.MatWater();
    niveau.MatNuage();
+   niveau.MatRocket();
+   niveau.MatCharacter();
+
+
+
+         Pixels **eau = new Pixels*[10];
+   for (int i = 0; i < 10; ++i) {
+      eau[i] = new Pixels[350];
+   }
+
+   for (int i = 0; i < 10; i++)
+   {
+      for (int n = 0; n < 350; n++)
+      {
+         eau[i][n].FrontColour = colors::blue;     
+         eau[i][n].BackColour = colors::aqua;      
+         eau[i][n].texture = '\xB1';
+      }
+   }
+
+   int coor_X3 = 0;
+   int coor_Y3 = 0;
+   cons->AjouterObjet(eau, &coor_X3, &coor_Y3, 300, 4, 0, "eau");
 
    
 

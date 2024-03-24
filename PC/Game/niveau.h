@@ -34,6 +34,7 @@ public:
     void MatGrenade();
     void MatRocket();
     void MatNuage();
+    void MatCharacter();
 };
 
 #endif
