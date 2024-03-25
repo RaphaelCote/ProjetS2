@@ -420,10 +420,7 @@ void AffichageConsole::UpdateVecteurUI()
             }
         }
     }
-    
-
-    
-    
+        
 }
 
 
