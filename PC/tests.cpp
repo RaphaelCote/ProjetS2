@@ -550,35 +550,45 @@ void Tests::testAffichage()
    joueur.addCharacter(pers1);
    joueur.addCharacter(pers2);
 
+   niveau.playerBoats.add(&joueur);
+   niveau.enemyBoats.add(&adversaire);
+
 
    niveau.MatRaft();
-   niveau.MatPlayer();
-   niveau.MatEnemy();
+   
+   //erreur ici dans la fonction
+   niveau.MatPlayer();/////////////////////////////////////////////////////////////////////////////
+   Sleep(5000);
+   //niveau.MatEnemy();
    niveau.MatWater();
+   Sleep(5000);
    niveau.MatNuage();
+   Sleep(5000);
    niveau.MatRocket();
+   Sleep(5000);
    niveau.MatCharacter();
+   Sleep(5000);
 
 
 
-         Pixels **eau = new Pixels*[10];
-   for (int i = 0; i < 10; ++i) {
-      eau[i] = new Pixels[350];
-   }
+   // Pixels **eau = new Pixels*[10];
+   // for (int i = 0; i < 10; ++i) {
+   //    eau[i] = new Pixels[350];
+   // }
 
-   for (int i = 0; i < 10; i++)
-   {
-      for (int n = 0; n < 350; n++)
-      {
-         eau[i][n].FrontColour = colors::blue;     
-         eau[i][n].BackColour = colors::aqua;      
-         eau[i][n].texture = '\xB1';
-      }
-   }
+   // for (int i = 0; i < 10; i++)
+   // {
+   //    for (int n = 0; n < 350; n++)
+   //    {
+   //       eau[i][n].FrontColour = colors::blue;     
+   //       eau[i][n].BackColour = colors::aqua;      
+   //       eau[i][n].texture = '\xB1';
+   //    }
+   // }
 
-   int coor_X3 = 0;
-   int coor_Y3 = 0;
-   cons->AjouterObjet(eau, &coor_X3, &coor_Y3, 300, 4, 0, "eau");
+   // int coor_X3 = 0;
+   // int coor_Y3 = 0;
+   // cons->AjouterObjet(eau, &coor_X3, &coor_Y3, 300, 4, 0, "eau");
 
    
 
@@ -590,6 +600,8 @@ void Tests::testAffichage()
    cons->AfficherTexte(std::cout, "Allo, voici du texte que tu peux ecrire", &_coor_X8,&_coor_Y8, "texte1");
    cons->AfficherTexte(std::cout, "Je sais pas voici d'autre texte", &_coor_X9,&_coor_Y9,colors::green,colors::black, "texte2");
 
+
+   Sleep(10000);
 
 
 
