@@ -61,7 +61,7 @@ void MainMenu::changeSelection(EventParameters ep)
         }
     }
 
-    OnEnable();
+    ShowMenu();
 }
 
 void MainMenu::Update()

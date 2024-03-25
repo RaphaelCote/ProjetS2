@@ -9,7 +9,10 @@
 #include <iostream>
 #include <string>
 #include <conio.h>
+#include <chrono>
+#include <thread>
 using namespace std;
+using namespace std::chrono_literals;
 
 /*-------------------------- Librairies externes ----------------------------*/
 
@@ -29,7 +32,7 @@ using namespace std;
 
 /*------------------------------ Constantes ---------------------------------*/
 
-/*------------------------- Prototypes de fonctions -------------------------*/
+#define _GLIBCXX_USE_NANOSLEEP
 
 /*---------------------------- Variables globales ---------------------------*/
 
@@ -61,7 +64,7 @@ int main()
     controls = new KeyboardControls(eventManager);
     // controls = new ControllerControls(eventManager, "COM3");
 
-    tests = new Tests();
+    // tests = new Tests();
     // tests->testjson();
     // tests->tests_unitaires_levelGetter();
 
@@ -90,26 +93,32 @@ int main()
     while (true)
     {
         // Check if a key is pressed
-        if (_kbhit())
-        {
-            // Read the pressed key
-            char input = _getch();
+        // if (_kbhit())
+        // {
+        //     // Read the pressed key
+        //     char input = _getch();
 
-            // Handle the input
-            int x = 2;
-            int y = cons->MaxRows - 3;
-            string s = "You pressed: " + input;
-            cons->AfficherTexte(cout, s, &x, &y, "key");
+        //     // Handle the input
+        //     int x = 2;
+        //     int y = cons->MaxRows - 11;
+        //     cons->SupprimerObjet("key");
+        //     string s = "You pressed: " + input;
+        //     cons->AfficherTexte(cout, s, &x, &y, "key");
 
-            // Exit loop if 'q' is pressed
-            if (input == 'q')
-            {
-                break;
-            }
-        }
+        //     // Exit loop if 'q' is pressed
+        //     if (input == 'q')
+        //     {
+        //         break;
+        //     }
+        // }
 
         // Do other processing here
         // Note: This loop will continue to execute without blocking on keyboard input
+        // const auto start = std::chrono::high_resolution_clock::now();
+        // std::this_thread::sleep_for( std::chrono::milliseconds( 30 ) );
+        // const auto end = std::chrono::high_resolution_clock::now();
+        // const std::chrono::duration<double, std::milli> elapsed = end - start;
+
         scenes->get(activeScene)->Update();
     }
 

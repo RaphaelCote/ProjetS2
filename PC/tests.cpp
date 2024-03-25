@@ -41,16 +41,16 @@ void Tests::test_unitaire_Controls()
    testControls = new KeyboardControls(eventManager);
 
    // Add eventListener
-   cout << "Assigning some controls" << endl;
-   OnEnable();
+   // cout << "Assigning some controls" << endl;
+   // OnEnable();
 
    // Call events
    testControls->MainAction();
    testControls->Joystick(0.85, 0.15);
    testControls->Angle(2.4);
 
-   OnDisable();
-   cout << "Unassigning some controls" << endl;
+   // OnDisable();
+   // cout << "Unassigning some controls" << endl;
 }
 
 void Tests::OnMainAction(EventParameters ep)
