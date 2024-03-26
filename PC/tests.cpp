@@ -608,11 +608,5 @@ void Tests::testAffichage()
    joueur.removeCharacters(0);
 
  
-
-
-   // delete
-   delete pers1;
-   delete pers2;
-   delete adv1;
    system("pause");
 }

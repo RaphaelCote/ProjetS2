@@ -62,18 +62,18 @@ void Niveau::MatRaft()
     {
         // Pixels couleur[(playerBoats[i]->getHeight())/10][(playerBoats[i]->getWidth())/10];
         Pixels **couleur = new Pixels *[(playerBoats[i]->getHeight()) / 10];
-        for (int i = 0; i < (playerBoats[i]->getHeight()) / 10; ++i)
+        for (int j = 0; j < (playerBoats[i]->getHeight()) / 10; ++j)
         {
-            couleur[i] = new Pixels[playerBoats[i]->getWidth() / 10];
+            couleur[j] = new Pixels[playerBoats[i]->getWidth() / 10];
         }
 
-        for (int i = 0; i < (playerBoats[i]->getHeight()) / 10; i++)
+        for (int j = 0; j < (playerBoats[i]->getHeight()) / 10; j++)
         {
             for (int n = 0; n < (playerBoats[i]->getWidth()) / 10; n++)
             {
-                couleur[i][n].FrontColour = 6; // gold
-                couleur[i][n].BackColour = 8;  // grey
-                couleur[i][n].texture = '\xB1';
+                couleur[j][n].FrontColour = 6; // gold
+                couleur[j][n].BackColour = 8;  // grey
+                couleur[j][n].texture = '\xB1';
             }
         }
 
