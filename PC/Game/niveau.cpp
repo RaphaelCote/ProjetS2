@@ -410,46 +410,90 @@ void Niveau::MatRocket()
 
 void Niveau::MatNuage()
 {
-    // Pixels nuage[4][9];
-    Pixels **nuage = new Pixels *[4];
-    for (int i = 0; i < 4; ++i)
-    {
-        nuage[i] = new Pixels[9];
-    }
-    for (int m = 0; m < 4; m++)
-    {
-        for (int n = 0; n < 9; n++)
-        {
-            nuage[m][n].FrontColour = 16;
-            nuage[m][n].BackColour = 16; // transparent
-            nuage[m][n].texture = ' ';
-        }
-    }
-    for (int i = 2; i < 4; i++)
-    {
-        for (int n = 0; n < 9; n++)
-        {
-            nuage[i][n].FrontColour = 15;
-            nuage[i][n].BackColour = 15; // white
-            nuage[i][n].texture = ' ';
-        }
-    }
-    for (int i = 1; i < 9; i++)
-    {
-        nuage[1][i].FrontColour = 15;
-        nuage[1][i].BackColour = 15;
-        nuage[1][i].texture = ' ';
-    }
-    for (int i = 3; i < 7; i++)
-    {
-        nuage[0][i].FrontColour = 15;
-        nuage[0][i].BackColour = 15;
-        nuage[0][i].texture = ' ';
-    }
-    int coor_X = 100;
-    int coor_Y = 300;
+    int n_heigth = 4;
+    int n_width = 9;
 
-    cons->AjouterObjet(nuage,&coor_X,&coor_Y,4,9,0,"nuage1");
+    int *coor_X = new int;
+    int *coor_Y = new int;
+    *coor_X = 45;
+    *coor_Y = 25;
+
+    char tab_test[4][9] = { {' ',' ',' ','+','+','+',' ',' ',' '},
+                            {' ','+','+','+','+','+','+','+',' '},
+                            {'+','+','+','+','+','+','+','+','+'},
+                            {'+','+','+','+','+','+','+','+','+'}};
+
+
+    Pixels **_nuage = new Pixels*[n_heigth];
+    for (int i = 0; i < n_heigth; ++i) {
+        _nuage[i] = new Pixels[n_width];
+    }
+
+    //passe a travers tout le tableau pour faire le personnage
+    for (int i = 0; i < n_heigth; i++)
+    {
+        for (int n = 0; n < n_width; n++)
+        {
+            char val = tab_test[i][n];      //j'ai du mettre ca(c_heigth - i-1) sinon le bonhomme affiche en l'envers
+            if(val == ' ')
+            {
+                _nuage[i][n].FrontColour = colors::transparant;      
+                _nuage[i][n].BackColour = colors::transparant;       
+                _nuage[i][n].texture = ' ';
+            }
+            else if(val == '+')
+            {
+                _nuage[i][n].FrontColour = colors::white;      
+                _nuage[i][n].BackColour = colors::white;       
+                _nuage[i][n].texture = CHAR_CONTRAST_LOW;
+            }
+        }
+    }
+    
+    cons->AjouterObjet(_nuage, coor_X,coor_Y, n_heigth,n_width,0, "nuage");
+      
+    
+    //////////////////////////////////////////////////
+    // // Pixels nuage[4][9];
+    // Pixels **nuage = new Pixels *[4];
+    // for (int i = 0; i < 4; ++i)
+    // {
+    //     nuage[i] = new Pixels[9];
+    // }
+    // for (int m = 0; m < 4; m++)
+    // {
+    //     for (int n = 0; n < 9; n++)
+    //     {
+    //         nuage[m][n].FrontColour = 16;
+    //         nuage[m][n].BackColour = 16; // transparent
+    //         nuage[m][n].texture = ' ';
+    //     }
+    // }
+    // for (int i = 2; i < 4; i++)
+    // {
+    //     for (int n = 0; n < 9; n++)
+    //     {
+    //         nuage[i][n].FrontColour = 15;
+    //         nuage[i][n].BackColour = 15; // white
+    //         nuage[i][n].texture = ' ';
+    //     }
+    // }
+    // for (int i = 1; i < 9; i++)
+    // {
+    //     nuage[1][i].FrontColour = 15;
+    //     nuage[1][i].BackColour = 15;
+    //     nuage[1][i].texture = ' ';
+    // }
+    // for (int i = 3; i < 7; i++)
+    // {
+    //     nuage[0][i].FrontColour = 15;
+    //     nuage[0][i].BackColour = 15;
+    //     nuage[0][i].texture = ' ';
+    // }
+    // int coor_X = 100;
+    // int coor_Y = 300;
+
+    // cons->AjouterObjet(nuage,&coor_X,&coor_Y,3,9,0,"nuage1");
 
     // for (int i = 0; i < 4; ++i)
     // {

@@ -563,7 +563,7 @@ void Tests::testAffichage()
    niveau.MatWater();
    niveau.MatRaft();
    Sleep(5000);
-   // niveau.MatNuage();
+   niveau.MatNuage();
    // Sleep(5000);
    // niveau.MatRocket();
    // Sleep(5000);
