@@ -8,9 +8,6 @@ using namespace std;
 
 class MainMenu : public Menu
 {
-private:
-    bool doOnce = true;
-
 public:
     friend void OnMainMenuMainActionCall(EventParameters);
     friend void OnMainMenuJoystickCall(EventParameters);
@@ -22,6 +19,7 @@ public:
     void changeSelection(EventParameters ep);
     void Update();
     void ShowMenu();
+    void ClearMenu();
     void Selection();
 
     void PlayGame();

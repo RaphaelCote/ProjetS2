@@ -62,7 +62,7 @@ float Character::Aim(float angledeg)
 
 void Character::ShowInfo()
 {
-    cout << "Position : x : " << getPosition().x << " y : " << getPosition().y << " | Vie : " << getHealthPoint() << endl;
+    // cout << "Position : x : " << getPosition().x << " y : " << getPosition().y << " | Vie : " << getHealthPoint() << endl;
 }
 
 Coordonnee Character::getPosition()

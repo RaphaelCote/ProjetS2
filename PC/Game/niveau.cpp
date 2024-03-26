@@ -41,8 +41,8 @@ void Niveau::ShowLevelInfo(ostream &s)
 }
 void Niveau::ShowNiveauinfo()
 {
-    cout << "hauteur niveau " << height << endl;
-    cout << "largeur niveau " << width << endl;
+    // cout << "hauteur niveau " << height << endl;
+    // cout << "largeur niveau " << width << endl;
 }
 
 void Niveau::addRaftPlayer(int width, int height, Coordonnee position, int image, int capacite)

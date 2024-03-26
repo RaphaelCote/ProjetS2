@@ -1,20 +1,21 @@
 #include "controllerControls.h"
 #include <windows.h>
 
-
 float TRESHOLD = 0.25;
 
 int led_state = 0;
 long index = 0;
 
-static DWORD WINAPI ThreadEntry(LPVOID lpParam) {
-        auto* data = reinterpret_cast<std::pair<ControllerControls*, int>*>(lpParam);
-        if (data) {
-            data->first->ThreadReceiveSerial();
-            delete data;
-        }
-        return 0;
+static DWORD WINAPI ThreadEntry(LPVOID lpParam)
+{
+    auto *data = reinterpret_cast<std::pair<ControllerControls *, int> *>(lpParam);
+    if (data)
+    {
+        data->first->ThreadReceiveSerial();
+        delete data;
     }
+    return 0;
+}
 
 ControllerControls::ControllerControls(EventManager *em, string com) : Controls(em)
 {
@@ -31,31 +32,33 @@ ControllerControls::ControllerControls(EventManager *em, string com) : Controls(
     Thread_Actif = true;
 
     // Create a lambda function to capture the instance of MyClass and call its member function
-    auto lambda = [&](int arg) {
+    auto lambda = [&](int arg)
+    {
         this->ThreadReceiveSerial();
     };
 
     // Create a pair to store MyClass instance and the argument
-    auto* data = new std::pair<ControllerControls*, int>(this,42);
+    auto *data = new std::pair<ControllerControls *, int>(this, 42);
 
     // Create a thread and pass the entry point function
     HANDLE threadHandle = CreateThread(nullptr, 0, ThreadEntry, data, 0, nullptr);
 
-    if (threadHandle == nullptr) {
+    if (threadHandle == nullptr)
+    {
         std::cerr << "Error creating thread.\n";
     }
 }
 
-
-
 void ControllerControls::ThreadReceiveSerial()
 {
-    while(Thread_Actif)
+    while (Thread_Actif)
     {
-        while(ready_to_read == false)
-        {Sleep(1);}
+        while (ready_to_read == false)
+        {
+            Sleep(1);
+        }
         Sleep(10);
-        //cout << "Thread is life" << endl;
+        // cout << "Thread is life" << endl;
         messageReceived.clear(); // effacer le message precedent
         if (!RcvFromSerial())
         {
@@ -65,18 +68,18 @@ void ControllerControls::ThreadReceiveSerial()
         {
             try
             {
-                //cout << "Arduino: " << raw_msg << endl;
+                // cout << "Arduino: " << raw_msg << endl;
                 messageReceived = json::parse(raw_msg);
                 this->UpdateAllValues();
-                //cout << "All values are updated: " << etatB1 << endl;
-                //cout << "Message de l'Arduino: " << messageReceived << endl;
+                // cout << "All values are updated: " << etatB1 << endl;
+                // cout << "Message de l'Arduino: " << messageReceived << endl;
             }
-            catch(nlohmann::detail::parse_error e)
+            catch (nlohmann::detail::parse_error e)
             {
-                cout << "Erreur Parse: " << e.what() << '\n';
+                // cout << "Erreur Parse: " << e.what() << '\n';
             }
         }
-        
+
         ready_to_read = false;
         ready_to_send = true;
     }
@@ -84,29 +87,29 @@ void ControllerControls::ThreadReceiveSerial()
 
 void ControllerControls::UpdateAllValues()
 {
-    //Joystick
+    // Joystick
     this->etatJoyX = this->GetJoyXMenu0(&(this->JoystickValX));
     this->etatJoyY = this->GetJoyYMenu0(&(this->JoystickValY));
 
-    //Angle
+    // Angle
     float angle;
     this->GetValue("Angle", &(angle));
 
-    for(int i = GROSSEUR_TAB_ANGLE - 1; i > 0; i--)
+    for (int i = GROSSEUR_TAB_ANGLE - 1; i > 0; i--)
     {
-        Tab_AnglesManette[i] = Tab_AnglesManette[i-1];
+        Tab_AnglesManette[i] = Tab_AnglesManette[i - 1];
     }
 
     Tab_AnglesManette[0] = angle;
 
-    for(int i =0; i < GROSSEUR_TAB_ANGLE; i++)
+    for (int i = 0; i < GROSSEUR_TAB_ANGLE; i++)
     {
         angle += Tab_AnglesManette[i];
     }
 
-    AngleManette = angle/GROSSEUR_TAB_ANGLE;
+    AngleManette = angle / GROSSEUR_TAB_ANGLE;
 
-    //buttons
+    // buttons
     this->etatB1 = this->GetBouttonMenu0(1);
     this->etatB2 = this->GetBouttonMenu0(2);
     this->etatB3 = this->GetBouttonMenu0(3);
@@ -114,27 +117,26 @@ void ControllerControls::UpdateAllValues()
     this->etatB5 = this->GetBouttonMenu0(5);
 }
 
-
 void ControllerControls::ListenForControls()
 {
-    if(ready_to_send == true)
+    if (ready_to_send == true)
     {
-        //cout << "Sending" << endl;
+        // cout << "Sending" << endl;
         this->AddMessage("Moteur", 0);
-        if(!this->SendMessageJson())
+        if (!this->SendMessageJson())
             return;
 
-        //cout << "Veuillez lancer: ";
+        // cout << "Veuillez lancer: ";
     }
-    
-    //cout << "Message: " << messageReceived << endl;
-    //cout << "B1: " << this->etatB1 << endl;
+
+    // cout << "Message: " << messageReceived << endl;
+    // cout << "B1: " << this->etatB1 << endl;
     Angle(AngleManette);
     Joystick(JoystickValY, 0);
-    //cout << "Sleep for 1" << endl;
-    //Sleep(1000);
-    //cout << " Finished" << endl;
-    //Sleep(100);
+    // cout << "Sleep for 1" << endl;
+    // Sleep(1000);
+    // cout << " Finished" << endl;
+    // Sleep(100);
 
     if (etatB1 == etatBoutton::BouttonAppuyer && etatB1 != oldEtatB1)
     {
@@ -160,7 +162,6 @@ void ControllerControls::ListenForControls()
     {
         Menu();
     }
-    
 
     oldEtatB1 = etatB1;
     oldEtatB2 = etatB2;
@@ -171,46 +172,44 @@ void ControllerControls::ListenForControls()
     oldEtatJoyY = etatJoyY;
 }
 
-etatJoystick ControllerControls::GetJoyXMenu0(float* value)
+etatJoystick ControllerControls::GetJoyXMenu0(float *value)
 {
-    
+
     this->GetValue("JoyX", value);
-    //JoyX -1 == en bas
-    //JoyY 1 == en haut
-    if(*value >= TRESHOLD)//up
+    // JoyX -1 == en bas
+    // JoyY 1 == en haut
+    if (*value >= TRESHOLD) // up
     {
         return etatJoystick::JoystickUp;
     }
-    else if(*value <= -TRESHOLD)//down
+    else if (*value <= -TRESHOLD) // down
     {
         return etatJoystick::JoystickDown;
     }
-    else//center
+    else // center
     {
         return etatJoystick::JoystickMiddle;
     }
-
 }
 
-etatJoystick ControllerControls::GetJoyYMenu0(float* value)
+etatJoystick ControllerControls::GetJoyYMenu0(float *value)
 {
     this->GetValue("JoyY", value);
 
     //////////////////////////////////////
     //
-    if(*value >= TRESHOLD)//up
+    if (*value >= TRESHOLD) // up
     {
         return etatJoystick::JoystickUp;
     }
-    else if(*value <= -TRESHOLD)//down
+    else if (*value <= -TRESHOLD) // down
     {
         return etatJoystick::JoystickDown;
     }
-    else//center
+    else // center
     {
         return etatJoystick::JoystickMiddle;
     }
-
 }
 
 etatBoutton ControllerControls::GetBouttonMenu0(int boutton)
@@ -219,7 +218,7 @@ etatBoutton ControllerControls::GetBouttonMenu0(int boutton)
 
     this->GetValue("B" + to_string(boutton), &B1);
 
-    if(B1 == 1)
+    if (B1 == 1)
     {
         return etatBoutton::BouttonAppuyer;
     }
@@ -228,7 +227,6 @@ etatBoutton ControllerControls::GetBouttonMenu0(int boutton)
         return etatBoutton::BouttonRelacher;
     }
 }
-
 
 void ControllerControls::InitializeSerial()
 {
@@ -245,18 +243,18 @@ void ControllerControls::InitializeSerial()
 
 bool ControllerControls::SendToSerial()
 {
-    if(!ready_to_send)
+    if (!ready_to_send)
         return false;
     // Return 0 if error
     string msg = message_to_send.dump();
-    //cout << "Message: " << msg << endl;
+    // cout << "Message: " << msg << endl;
     bool ret = arduino->writeSerialPort(msg.c_str(), msg.length());
     message_to_send.clear();
     ready_to_read = true;
     ready_to_send = false;
 
-    //cout << "B1 Send: " << this->etatB1 << endl;
-    
+    // cout << "B1 Send: " << this->etatB1 << endl;
+
     return ret;
 }
 
@@ -294,8 +292,6 @@ bool ControllerControls::RcvFromSerial()
     return true;
 }
 
-
-
 bool ControllerControls::SendMessageJson()
 {
     return SendToSerial();
@@ -321,21 +317,19 @@ void ControllerControls::AddMessage(string name, float value)
     message_to_send[name.c_str()] = value;
 }
 
-void ControllerControls::GetValue(string name, int* value)
+void ControllerControls::GetValue(string name, int *value)
 {
     *value = messageReceived[name.c_str()];
 }
-void ControllerControls::GetValue(string name, bool* value)
+void ControllerControls::GetValue(string name, bool *value)
 {
     *value = messageReceived[name.c_str()];
 }
-void ControllerControls::GetValue(string name, string* value)
+void ControllerControls::GetValue(string name, string *value)
 {
     *value = messageReceived[name.c_str()];
 }
-void ControllerControls::GetValue(string name, float* value)
+void ControllerControls::GetValue(string name, float *value)
 {
     *value = messageReceived[name.c_str()];
 }
-
-

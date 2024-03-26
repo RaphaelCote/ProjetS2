@@ -61,48 +61,98 @@ void EndGameMenu::changeSelection(EventParameters ep)
             choice++;
         }
     }
+
+    ShowMenu();
 }
 
 void EndGameMenu::Update()
 {
-    OnEnable();
-    ShowMenu();
-    controls->ListenForControls();
+    if (doOnce)
+    {
+        OnEnable();
+        ShowMenu();
+        doOnce = false;
+    }
 }
 
 void EndGameMenu::ShowMenu()
 {
+    // ClearMenu();
+    cons->SupprimerObjet("s0");
+    cons->SupprimerObjet("s1");
+    cons->SupprimerObjet("s2");
+    cons->SupprimerObjet("s3");
+    cons->SupprimerObjet("s4");
+    cons->SupprimerObjet("s5");
+    cons->SupprimerObjet("s6");
+
+    Sleep(50);
+
     // Vérifier qu'on est pas au dernier niveau
-    system("cls");
-    cout << "-------------------------------------------------------------------" << endl;
-    cout << "Fin du niveau" << endl;
-    cout << "-" << (choice == 0 ? "O" : "-") << "- Prochain niveau" << endl;
-    cout << "-" << (choice == 1 ? "O" : "-") << "- Selectionner un niveau" << endl;
-    cout << "-" << (choice == 2 ? "O" : "-") << "- Magasin" << endl;
-    cout << "-" << (choice == 3 ? "O" : "-") << "- Retour au menu" << endl;
-    cout << "-------------------------------------------------------------------" << endl;
+    string s0 = "------------------------------------------------------------------- ";
+    string s1 = "Fin du niveau ";
+    string s2 = "-";
+    s2 += (choice == 0 ? "O" : "-");
+    s2 += "- Prochain niveau ";
+    string s3 = "-";
+    s3 += (choice == 1 ? "O" : "-");
+    s3 += "- Selectionner un niveau ";
+    string s4 = "-";
+    s4 += (choice == 2 ? "O" : "-");
+    s4 += "- Magasin ";
+    string s5 = "-";
+    s5 += (choice >= 3 ? "O" : "-");
+    s5 += "- Retour au menu ";
+    string s6 = "------------------------------------------------------------------- ";
+
+    int y0 = cons->MaxRows - 3;
+    int y1 = cons->MaxRows - 4;
+    int y2 = cons->MaxRows - 5;
+    int y3 = cons->MaxRows - 6;
+    int y4 = cons->MaxRows - 7;
+    int y5 = cons->MaxRows - 8;
+    int y6 = cons->MaxRows - 9;
+    int x = 2;
+
+    cons->AfficherTexte(std::cout, s0, &x, &y0, "s0");
+    cons->AfficherTexte(std::cout, s1, &x, &y1, "s1");
+    cons->AfficherTexte(std::cout, s2, &x, &y2, "s2");
+    cons->AfficherTexte(std::cout, s3, &x, &y3, "s3");
+    cons->AfficherTexte(std::cout, s4, &x, &y4, "s4");
+    cons->AfficherTexte(std::cout, s5, &x, &y5, "s5");
+    cons->AfficherTexte(std::cout, s6, &x, &y6, "s6");
+}
+
+void EndGameMenu::ClearMenu()
+{
+    cons->SupprimerObjet("s0");
+    cons->SupprimerObjet("s1");
+    cons->SupprimerObjet("s2");
+    cons->SupprimerObjet("s3");
+    cons->SupprimerObjet("s4");
+    cons->SupprimerObjet("s5");
+    cons->SupprimerObjet("s6");
 }
 
 void EndGameMenu::Selection()
 {
+    OnDisable();
+    ShowMenu();
+
     if (choice == 0)
     {
-        OnDisable();
         NextLevel();
     }
     else if (choice == 1)
     {
-        OnDisable();
         GotoLevelSelect();
     }
     else if (choice == 2)
     {
-        OnDisable();
         GotoShop();
     }
     else if (choice == 3)
     {
-        OnDisable();
         ReturnToMenu();
     }
 }

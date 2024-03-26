@@ -44,6 +44,7 @@ Inventory *inventory;
 int activeScene;
 LevelGetter *levelGetter;
 AffichageConsole *cons;
+std::chrono::duration<double, std::milli> elapsed;
 /*
 Scenes index:
 0 : Main menu
@@ -89,37 +90,20 @@ int main()
 
     levelGetter = new LevelGetter();
 
+    Sleep(1000);
+
     // Main loop
     while (true)
     {
-        // Check if a key is pressed
-        // if (_kbhit())
-        // {
-        //     // Read the pressed key
-        //     char input = _getch();
-
-        //     // Handle the input
-        //     int x = 2;
-        //     int y = cons->MaxRows - 11;
-        //     cons->SupprimerObjet("key");
-        //     string s = "You pressed: " + input;
-        //     cons->AfficherTexte(cout, s, &x, &y, "key");
-
-        //     // Exit loop if 'q' is pressed
-        //     if (input == 'q')
-        //     {
-        //         break;
-        //     }
-        // }
+        scenes->get(activeScene)->Update();
 
         // Do other processing here
-        // Note: This loop will continue to execute without blocking on keyboard input
-        // const auto start = std::chrono::high_resolution_clock::now();
-        // std::this_thread::sleep_for( std::chrono::milliseconds( 30 ) );
-        // const auto end = std::chrono::high_resolution_clock::now();
-        // const std::chrono::duration<double, std::milli> elapsed = end - start;
+        const auto start = std::chrono::high_resolution_clock::now();
+        Sleep(100);
+        const auto end = std::chrono::high_resolution_clock::now();
+        elapsed = end - start;
 
-        scenes->get(activeScene)->Update();
+        controls->ListenForControls();
     }
 
     // Restore cursor visibility and console mode

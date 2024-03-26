@@ -1,5 +1,6 @@
 #include "keyboardControls.h"
 #include "../raftWars.h"
+#include <conio.h>
 
 KeyboardControls::KeyboardControls(EventManager *em) : Controls(em)
 {
@@ -18,85 +19,70 @@ KeyboardControls::KeyboardControls(EventManager *em) : Controls(em)
 void KeyboardControls::ListenForControls()
 {
     // cout << "Veuillez entrer votre action : ";
-    string input;
+    string input = "+";
     // cin >> input;
     int x = 2;
-            int y = cons->MaxRows - 11;
+    int y = cons->MaxRows - 11;
 
-    cons->SupprimerObjet("key");
-    cons->AfficherTexte(cout, "Veuillez entrez un action : ", &x, &y, "key");
+    if (_kbhit())
+    {
+        cons->SupprimerObjet("key");
 
-    MSG msg;
-        
-    while (true) {
+        // Read the pressed key
+        char inputChar = _getch();
 
-        // Check for messages in the queue
-        if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
-            // Translate and dispatch the message
-            TranslateMessage(&msg);
-            DispatchMessage(&msg);
+        input = inputChar;
 
-            // Check if the message is a key down message
-            if (msg.message == WM_KEYDOWN) {
-                // Get the pressed key
-                char keyPressed = (char)msg.wParam;
+        // string s = "You pressed: -" + input;
+        // s += "- ";
+        // cons->AfficherTexte(cout, s, &x, &y, "key");
 
-                cons->SupprimerObjet("key");
-                string s = "You pressed: " + keyPressed;
-                cons->AfficherTexte(cout, s, &x, &y, "key");
-
-                input = keyPressed;
-
-                break;
-            }
+        if (input == "l")
+        {
+            MainAction();
         }
-    }
+        else if (input == "w")
+        {
+            Joystick(0, 1);
+        }
+        else if (input == "s")
+        {
+            Joystick(0, -1);
+        }
+        else if (input == "q" && activeScene == 1)
+        {
+            PreviousSelection();
+        }
+        else if (input == "e" && activeScene == 1)
+        {
+            NextSelection();
+        }
+        else if (input == "p" && activeScene == 1)
+        {
+            Menu();
+        }
+        else if (input == "b")
+        {
+            Back();
+        }
+        else if (input == "1" && activeScene == 1)
+        {
+            float angle;
+            // cout << "Veuillez entrer un angle : ";
+            // cin >> angle;
 
-    if (input == "l")
-    {
-        MainAction();
-    }
-    else if (input == "w")
-    {
-        Joystick(0, 1);
-    }
-    else if (input == "s")
-    {
-        Joystick(0, -1);
-    }
-    else if (input == "q" && activeScene == 1)
-    {
-        PreviousSelection();
-    }
-    else if (input == "e" && activeScene == 1)
-    {
-        NextSelection();
-    }
-    else if (input == "p" && activeScene == 1)
-    {
-        Menu();
-    }
-    else if (input == "b")
-    {
-        Back();
-    }
-    else if (input == "1" && activeScene == 1)
-    {
-        float angle;
-        // cout << "Veuillez entrer un angle : ";
-        // cin >> angle;
+            Angle(angle);
+        }
+        else if (input == "2" && activeScene == 1)
+        {
+            float joystickX;
+            float joystickY;
+            // cout << "Veuillez entrer un x de Joystick : ";
+            // cin >> joystickX;
+            // cout << "Veuillez entrer un y de Joystick : ";
+            // cin >> joystickY;
 
-        Angle(angle);
-    }
-    else if (input == "2" && activeScene == 1)
-    {
-        float joystickX;
-        float joystickY;
-        // cout << "Veuillez entrer un x de Joystick : ";
-        // cin >> joystickX;
-        // cout << "Veuillez entrer un y de Joystick : ";
-        // cin >> joystickY;
-
-        Joystick(joystickX, joystickY);
+            Joystick(joystickX, joystickY);
+        }
     }
 }

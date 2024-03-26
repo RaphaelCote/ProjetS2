@@ -60,35 +60,76 @@ void PauseMenu::changeSelection(EventParameters ep)
             choice++;
         }
     }
+
+    ShowMenu();
 }
 
 void PauseMenu::Update()
 {
-    OnEnable();
-    ShowMenu();
-    controls->ListenForControls();
+    if (doOnce)
+    {
+        OnEnable();
+        ShowMenu();
+        doOnce = false;
+    }
 }
 
 void PauseMenu::ShowMenu()
 {
-    system("cls");
-    cout << "-------------------------------------------------------------------" << endl;
-    cout << "Pause" << endl;
-    cout << "-" << (choice == 0 ? "O" : "-") << "- Continuer." << endl;
-    cout << "-" << (choice == 1 ? "O" : "-") << "- Retour au menu." << endl;
-    cout << "-------------------------------------------------------------------" << endl;
+    // ClearMenu();
+    cons->SupprimerObjet("s0");
+    cons->SupprimerObjet("s1");
+    cons->SupprimerObjet("s2");
+    cons->SupprimerObjet("s3");
+    cons->SupprimerObjet("s4");
+
+    Sleep(50);
+
+    // system("cls");
+    string s0 = "------------------------------------------------------------------- ";
+    string s1 = "Pause ";
+    string s2 = "-";
+    s2 += (choice == 0 ? "O" : "-");
+    s2 += "- Continuer ";
+    string s3 = "-";
+    s3 += (choice == 1 ? "O" : "-");
+    s3 += "- Retour au menu ";
+    string s4 = "------------------------------------------------------------------- ";
+
+    int y0 = cons->MaxRows - 3;
+    int y1 = cons->MaxRows - 4;
+    int y2 = cons->MaxRows - 5;
+    int y3 = cons->MaxRows - 6;
+    int y4 = cons->MaxRows - 7;
+    int x = 2;
+
+    cons->AfficherTexte(std::cout, s0, &x, &y0, "s0");
+    cons->AfficherTexte(std::cout, s1, &x, &y1, "s1");
+    cons->AfficherTexte(std::cout, s2, &x, &y2, "s2");
+    cons->AfficherTexte(std::cout, s3, &x, &y3, "s3");
+    cons->AfficherTexte(std::cout, s4, &x, &y4, "s4");
+}
+
+void PauseMenu::ClearMenu()
+{
+    cons->SupprimerObjet("s0");
+    cons->SupprimerObjet("s1");
+    cons->SupprimerObjet("s2");
+    cons->SupprimerObjet("s3");
+    cons->SupprimerObjet("s4");
 }
 
 void PauseMenu::Selection()
 {
+    OnDisable();
+    ClearMenu();
+
     if (choice == 0)
     {
-        OnDisable();
         Continu();
     }
     else if (choice == 1)
     {
-        OnDisable();
         ReturnToMenu();
     }
 }

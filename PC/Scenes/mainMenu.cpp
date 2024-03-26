@@ -71,13 +71,14 @@ void MainMenu::Update()
         OnEnable();
         ShowMenu();
         doOnce = false;
+        Sleep(200);
+        ShowMenu();
     }
-
-    controls->ListenForControls();
 }
 
 void MainMenu::ShowMenu()
 {
+    // ClearMenu();
     cons->SupprimerObjet("s0");
     cons->SupprimerObjet("s1");
     cons->SupprimerObjet("s2");
@@ -86,22 +87,23 @@ void MainMenu::ShowMenu()
     cons->SupprimerObjet("s5");
     cons->SupprimerObjet("s6");
 
-    // menu utilisateur
-    string s0 = "-------------------------------------------------------------------";
-    string s1 = "Bienvenue au menu du jeu Raft Wars";
+    Sleep(50);
+
+    string s0 = "------------------------------------------------------------------- ";
+    string s1 = "Bienvenue au menu du jeu Raft Wars ";
     string s2 = "-";
     s2 += (choice == 0 ? "O" : "-");
-    s2 += "- Jouer";
+    s2 += "- Jouer ";
     string s3 = "-";
     s3 += (choice == 1 ? "O" : "-");
-    s3 += "- Niveaux";
+    s3 += "- Niveaux ";
     string s4 = "-";
     s4 += (choice == 2 ? "O" : "-");
-    s4 += "- Magasin";
+    s4 += "- Magasin ";
     string s5 = "-";
     s5 += (choice >= 3 ? "O" : "-");
-    s5 += "- Sortir";
-    string s6 = "-------------------------------------------------------------------";
+    s5 += "- Sortir ";
+    string s6 = "------------------------------------------------------------------- ";
 
     int y0 = cons->MaxRows - 3;
     int y1 = cons->MaxRows - 4;
@@ -119,34 +121,42 @@ void MainMenu::ShowMenu()
     cons->AfficherTexte(std::cout, s4, &x, &y4, "s4");
     cons->AfficherTexte(std::cout, s5, &x, &y5, "s5");
     cons->AfficherTexte(std::cout, s6, &x, &y6, "s6");
+}
 
-    Sleep(5000);
+void MainMenu::ClearMenu()
+{
+    cons->SupprimerObjet("s0");
+    cons->SupprimerObjet("s1");
+    cons->SupprimerObjet("s2");
+    cons->SupprimerObjet("s3");
+    cons->SupprimerObjet("s4");
+    cons->SupprimerObjet("s5");
+    cons->SupprimerObjet("s6");
 }
 
 void MainMenu::Selection()
 {
     doOnce = true;
+    ClearMenu();
+    OnDisable();
+
     if (choice == 0)
     {
-        OnDisable();
         PlayGame();
     }
     else if (choice == 1)
     {
-        OnDisable();
         GotoLevelSelect();
     }
     else if (choice == 2)
     {
-        OnDisable();
         GotoShop();
     }
     else if (choice >= 3)
     {
-        system("cls"); // clear la command prompt
-        cons->ResetUI();
-        cons->AfficherTexte(cout, "Au plaisir..", new int(10), new int(cons->MaxRows), "AuPlaisir");
-        system("PAUSE");
+        int x = 2;
+        int y = cons->MaxRows - 4;
+        cons->AfficherTexte(cout, "Au plaisir..", &x, &y, "AuPlaisir");
         exit(0);
     }
 }
