@@ -79,37 +79,37 @@ void Niveau::MatRaft()
 
         cons->AjouterObjet(couleur, playerBoats[i], 0, "boat player " + i);
 
-        //  for (int i = 0; i < (playerBoats[i]->getHeight())/10; ++i)
-        //     {
-        //         delete[] couleur[i];
-        //     }
-        //      delete[] couleur;
+         for (int j = 0; j < (playerBoats[i]->getHeight())/10; ++j)
+            {
+                delete[] couleur[j];
+            }
+             delete[] couleur;
     }
 
     for (int i = 0; i < enemyBoats.getSize(); i++)
     {
         // Pixels couleur[(enemyBoats[i]->getHeight())/10][(enemyBoats[i]->getWidth())/10];
         Pixels **couleur = new Pixels *[(enemyBoats[i]->getHeight()) / 10];
-        for (int i = 0; i < (enemyBoats[i]->getHeight()) / 10; ++i)
+        for (int j = 0; j < (enemyBoats[i]->getHeight()) / 10; ++j)
         {
-            couleur[i] = new Pixels[enemyBoats[i]->getWidth() / 10];
+            couleur[j] = new Pixels[enemyBoats[i]->getWidth() / 10];
         }
 
-        for (int i = 0; i < (enemyBoats[i]->getHeight()) / 10; i++)
+        for (int j = 0; j < (enemyBoats[i]->getHeight()) / 10; j++)
         {
             for (int n = 0; n < (enemyBoats[i]->getWidth()) / 10; n++)
             {
-                couleur[i][n].FrontColour = 6; // gold
-                couleur[i][n].BackColour = 8;  // grey
-                couleur[i][n].texture = '\xB1';
+                couleur[j][n].FrontColour = 6; // gold
+                couleur[j][n].BackColour = 8;  // grey
+                couleur[j][n].texture = '\xB1';
             }
         }
 
         cons->AjouterObjet(couleur, enemyBoats[i], 0, "boat enemy " + i);
 
-        for (int i = 0; i < (enemyBoats[i]->getHeight()) / 10; ++i)
+        for (int j = 0; j < (enemyBoats[i]->getHeight()) / 10; ++j)
         {
-            delete[] couleur[i];
+            delete[] couleur[j];
         }
         delete[] couleur;
     }
