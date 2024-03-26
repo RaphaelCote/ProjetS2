@@ -529,7 +529,7 @@ void Tests::testAffichage()
  
    // création des personnages et du bateau
    Character *pers1 = new PlayerCharacter(1, 6);
-   Character *pers2 = new PlayerCharacter(6, 6);
+   Character *pers2 = new PlayerCharacter(25, 6);
    PlayerCharacter c = PlayerCharacter(15, 6);
    Character *adv1 = new EnemyCharacter(positionEnemy, enemy, 3);
    Coordonnee positionBoat;

@@ -203,82 +203,68 @@ void Niveau::MatPlayer()
 
 void Niveau::MatEnemy()
 {
-    for (int v = 0; v < enemyBoats.getSize(); v++)
+    // int c_heigth = playerBoats[v]->characters[v]->getHitboxHeight();
+    // int c_width = playerBoats[v]->characters[v]->getHitboxWidth();
+    int c_heigth = 10;
+    int c_width = 10;
+
+    char tab_test[10][10] = {{' ',' ',' ','+','+','+',' ',' ',' ',' '},
+                                {' ',' ','+','+','+','+','+',' ',' ',' '},
+                                {' ',' ',' ','*','*','*',' ',' ',' ',' '},
+                                {' ',' ',' ',' ','*',' ',' ',' ',' ',' '},
+                                {' ',' ',' ',' ','*',' ',' ',' ',' ',' '},
+                                {' ',' ','<','<','<','<','<','<',' ',' '},
+                                {' ',' ',' ',' ','*',' ',' ',' ',' ',' '},
+                                {' ',' ',' ','*',' ','*',' ',' ',' ',' '},
+                                {' ',' ','*',' ',' ',' ','*',' ',' ',' '},
+                                {' ','*',' ',' ',' ',' ',' ','*',' ',' '}} ;
+
+
+    Pixels **_enemy = new Pixels*[c_heigth];
+    for (int i = 0; i < c_heigth; ++i) {
+        _enemy[i] = new Pixels[c_width];
+    }
+
+    //passe a travers tout le tableau pour faire le personnage
+    for (int i = 0; i < c_heigth; i++)
     {
-        for (int f = 0; f < enemyBoats[v]->characters.getSize(); f++)
+        for (int n = 0; n < c_width; n++)
         {
-            // Pixels MatCharacter[10][10];
-            Pixels **MatCharacter = new Pixels *[10];
-            for (int i = 0; i < 10; ++i)
+            char val = tab_test[i][n];      //j'ai du mettre ca(c_heigth - i-1) sinon le bonhomme affiche en l'envers
+            if(val == ' ')
             {
-                MatCharacter[i] = new Pixels[10];
+                _enemy[i][n].FrontColour = colors::transparant;      
+                _enemy[i][n].BackColour = colors::transparant;       
+                _enemy[i][n].texture = ' ';
             }
-
-            for (int m = 0; m < 10; m++)
+            else if(val == '*')
             {
-                for (int n = 0; n < 10; n++)
-                {
-                    MatCharacter[m][n].FrontColour = 16;
-                    MatCharacter[m][n].BackColour = 16; // on remplie tt de transparent
-                    MatCharacter[m][n].texture = ' ';
-                }
+                _enemy[i][n].FrontColour = colors::green;      
+                _enemy[i][n].BackColour = colors::leaf;       
+                _enemy[i][n].texture = ' ';
             }
-
-            for (int m = 0; m < 3; m++)
+            else if(val == '+')
             {
-                for (int n = 2; n < 5; n++)
-                {
-                    MatCharacter[m][n].FrontColour = 10;
-                    MatCharacter[m][n].BackColour = 10; // green
-                    MatCharacter[m][n].texture = ' ';
-                }
+                _enemy[i][n].FrontColour = colors::black;      
+                _enemy[i][n].BackColour = colors::lightblue;       
+                _enemy[i][n].texture = CHAR_CONTRAST_LOW;
             }
-            MatCharacter[3][3].FrontColour = 10;
-            MatCharacter[3][3].BackColour = 10; // green
-            MatCharacter[3][3].texture = ' ';
-
-            for (int i = 4; i < 6; i++)
+            else if(val == '<')
             {
-                for (int t = 0; t < 5; t++)
-                {
-                    MatCharacter[i][t].FrontColour = 0;
-                    MatCharacter[i][t].BackColour = 4; // gun
-                    MatCharacter[i][t].texture = '\xB1';
-                }
-            }
-
-            MatCharacter[6][3].FrontColour = 10;
-            MatCharacter[6][3].BackColour = 10;
-            MatCharacter[6][3].texture = ' ';
-
-            for (int i = 2; i < 5; i++)
-            {
-                MatCharacter[7][i].FrontColour = 10;
-                MatCharacter[7][i].BackColour = 10;
-                MatCharacter[7][i].texture = ' ';
-            }
-            for (int i = 8; i < 10; i++)
-            {
-                MatCharacter[i][1].FrontColour = 10;
-                MatCharacter[i][1].BackColour = 10;
-                MatCharacter[i][1].texture = ' ';
-            }
-            for (int i = 8; i < 10; i++)
-            {
-                MatCharacter[i][5].FrontColour = 10;
-                MatCharacter[i][5].BackColour = 10;
-                MatCharacter[i][5].texture = ' ';
-            }
-
-            cons->AjouterObjet(MatCharacter, enemyBoats[v], 0, "enemy " + v);
-
-            for (int i = 0; i < 10; ++i)
-            {
-                delete[] MatCharacter[i];
-            }
-            delete[] MatCharacter;
+                _enemy[i][n].FrontColour = colors::black;      
+                _enemy[i][n].BackColour = colors::red;       
+                _enemy[i][n].texture = CHAR_CONTRAST_MED;
+            }   
         }
     }
+
+    for ( int b = 0; b < enemyBoats.getSize(); b++)
+    {
+        for (int v = 0; v < enemyBoats[b]->getNbCharacters(); v++)
+        {
+            cons->AjouterObjet(_enemy, enemyBoats[b]->characters[v], 0, "enemy"+b + ','+v);
+        }
+    }   
 }
 
 void Niveau::MatWater()
