@@ -533,14 +533,14 @@ void Tests::testAffichage()
    PlayerCharacter c = PlayerCharacter(15, 6);
    Character *adv1 = new EnemyCharacter(positionEnemy, enemy, 3);
    Coordonnee positionBoat;
-   positionBoat.x = 20;
-   positionBoat.y = 20;
+   positionBoat.x = 3;
+   positionBoat.y = 2;
    Coordonnee positionEnemyBoat;
-   positionEnemyBoat.x = 60;
-   positionEnemyBoat.y = 20;
+   positionEnemyBoat.x = 6;
+   positionEnemyBoat.y = 2;
 
-   Boat joueur(2, positionBoat, 7, 7, 3);
-   Boat adversaire(2, positionEnemyBoat, 7, 7, 3);
+   Boat joueur(2, positionBoat, 70, 70, 3);
+   Boat adversaire(2, positionEnemyBoat, 70, 70, 3);
 
 
    // ajouter adversaire
@@ -554,41 +554,21 @@ void Tests::testAffichage()
    niveau.enemyBoats.add(&adversaire);
 
 
-   //niveau.MatRaft();
+   
    
    //erreur ici dans la fonction
    //niveau.MatPlayer();/////////////////////////////////////////////////////////////////////////////
    //Sleep(5000);
    //niveau.MatEnemy();
    niveau.MatWater();
+   niveau.MatRaft();
    Sleep(5000);
-   niveau.MatNuage();
-   Sleep(5000);
-   niveau.MatRocket();
-   Sleep(5000);
+   // niveau.MatNuage();
+   // Sleep(5000);
+   // niveau.MatRocket();
+   // Sleep(5000);
    niveau.MatCharacter();
    Sleep(5000);
-
-
-
-   // Pixels **eau = new Pixels*[10];
-   // for (int i = 0; i < 10; ++i) {
-   //    eau[i] = new Pixels[350];
-   // }
-
-   // for (int i = 0; i < 10; i++)
-   // {
-   //    for (int n = 0; n < 350; n++)
-   //    {
-   //       eau[i][n].FrontColour = colors::blue;     
-   //       eau[i][n].BackColour = colors::aqua;      
-   //       eau[i][n].texture = '\xB1';
-   //    }
-   // }
-
-   // int coor_X3 = 0;
-   // int coor_Y3 = 0;
-   // cons->AjouterObjet(eau, &coor_X3, &coor_Y3, 300, 4, 0, "eau");
 
    
 
@@ -602,10 +582,6 @@ void Tests::testAffichage()
 
 
    Sleep(10000);
-
-
-
-   joueur.removeCharacters(0);
 
  
    system("pause");

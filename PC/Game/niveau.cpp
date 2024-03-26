@@ -79,11 +79,13 @@ void Niveau::MatRaft()
 
         cons->AjouterObjet(couleur, playerBoats[i], 0, "boat player " + i);
 
-         for (int j = 0; j < (playerBoats[i]->getHeight())/10; ++j)
-            {
-                delete[] couleur[j];
-            }
-             delete[] couleur;
+        
+
+        //  for (int j = 0; j < (playerBoats[i]->getHeight())/10; ++j)
+        //     {
+        //         delete[] couleur[j];
+        //     }
+        //      delete[] couleur;
     }
 
     for (int i = 0; i < enemyBoats.getSize(); i++)
@@ -107,11 +109,13 @@ void Niveau::MatRaft()
 
         cons->AjouterObjet(couleur, enemyBoats[i], 0, "boat enemy " + i);
 
-        for (int j = 0; j < (enemyBoats[i]->getHeight()) / 10; ++j)
-        {
-            delete[] couleur[j];
-        }
-        delete[] couleur;
+        
+
+        // for (int j = 0; j < (enemyBoats[i]->getHeight()) / 10; ++j)
+        // {
+        //     delete[] couleur[j];
+        // }
+        // delete[] couleur;
     }
 }
 
