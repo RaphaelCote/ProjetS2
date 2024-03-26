@@ -554,11 +554,11 @@ void Tests::testAffichage()
    niveau.enemyBoats.add(&adversaire);
 
 
-   niveau.MatRaft();
+   //niveau.MatRaft();
    
    //erreur ici dans la fonction
-   niveau.MatPlayer();/////////////////////////////////////////////////////////////////////////////
-   Sleep(5000);
+   //niveau.MatPlayer();/////////////////////////////////////////////////////////////////////////////
+   //Sleep(5000);
    //niveau.MatEnemy();
    niveau.MatWater();
    Sleep(5000);
