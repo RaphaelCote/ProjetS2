@@ -536,11 +536,11 @@ void Tests::testAffichage()
    positionBoat.x = 3;
    positionBoat.y = 2;
    Coordonnee positionEnemyBoat;
-   positionEnemyBoat.x = 6;
+   positionEnemyBoat.x = 16;
    positionEnemyBoat.y = 2;
 
-   Boat joueur(2, positionBoat, 70, 70, 3);
-   Boat adversaire(2, positionEnemyBoat, 70, 70, 3);
+   Boat joueur(2, positionBoat, 40, 100, 3);
+   Boat adversaire(2, positionEnemyBoat, 40, 100, 3);
 
 
    // ajouter adversaire

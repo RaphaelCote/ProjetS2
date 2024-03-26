@@ -450,9 +450,9 @@ void Niveau::MatNuage()
         }
     }
     
-    cons->AjouterObjet(_nuage, coor_X,coor_Y, n_heigth,n_width,0, "nuage");
+    cons->AjouterObjet(_nuage, coor_X,coor_Y, n_width, n_heigth,0, "nuage");
       
-    
+    return;
     //////////////////////////////////////////////////
     // // Pixels nuage[4][9];
     // Pixels **nuage = new Pixels *[4];

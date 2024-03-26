@@ -201,7 +201,7 @@ void AffichageConsole::AjouterObjet(Pixels **tab, Boat *boat, int couche, string
     ObjetAffichage *obj1 = new ObjetAffichage;
     obj1->pix = tab;
     obj1->x = boat->getPointerPositionBoat_X();
-    obj1->y = boat->getPointerPositionBoat_X();
+    obj1->y = boat->getPointerPositionBoat_Y();
     obj1->width = boat->getHitboxBoat().width/10;
     obj1->height = boat->getHitboxBoat().height/10;
     obj1->couche = couche;
