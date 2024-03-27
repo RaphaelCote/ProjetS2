@@ -18,7 +18,7 @@ class Projectile {
     public:
         Projectile(Character& character);
         Projectile(Coordonnee bulletStartPosition);
-
+        Projectile(Coordonnee bulletStartPosition, Hitbox hitboxset);
         float getPuissance();
         void setPuissance(float puissance);
         float getAngleDegre();
@@ -29,6 +29,7 @@ class Projectile {
         virtual int getProjectileMaxSpeed() = 0;
         bool checkIfCharacterHit(Character& character); 
         virtual int damageReceived(Character& character)=0;
+        Hitbox hitbox;
 
         Coordonnee bulletCurrentPosition;
         

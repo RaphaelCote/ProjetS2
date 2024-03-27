@@ -235,8 +235,8 @@ void AffichageConsole::AjouterObjet(Pixels **tab, Projectile *project, int couch
     obj1->pointeur = true;
     obj1->x = &project->bulletCurrentPosition.x;
     obj1->y = &project->bulletCurrentPosition.y;
-    obj1->width = 1;
-    obj1->height = 1;
+    obj1->width = project->hitbox.width;
+    obj1->height = project->hitbox.height;
     obj1->couche = couche;
     obj1->name = name;
 

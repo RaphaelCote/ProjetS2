@@ -349,7 +349,7 @@ void Niveau::MatGrenade(Projectile *Grenade)
     cons->AjouterObjet(grenade, Grenade, 0, "grenade");
 }
 
-void Niveau::MatRocket()
+void Niveau::MatRocket(Projectile *pro)
 {
     Pixels **rocket = new Pixels *[4];
     for (int i = 0; i < 4; ++i)
@@ -390,13 +390,15 @@ void Niveau::MatRocket()
 
     int coor_X_rocket = 50;
     int coor_Y_rocket = 50;
-    cons->AjouterObjet(rocket, &coor_X_rocket, &coor_Y_rocket, 4, 7, 0, "rocket");
 
-    for (int i = 0; i < 4; ++i)
-    {
-        delete[] rocket[i];
-    }
-    delete[] rocket;
+    cons->AjouterObjet(rocket, pro, 0, "projectile");
+
+
+    // for (int i = 0; i < 4; ++i)
+    // {
+    //     delete[] rocket[i];
+    // }
+    // delete[] rocket;
 }
 
 void Niveau::MatNuage()
@@ -558,4 +560,68 @@ void Niveau::MatCharacter()
             cons->AjouterObjet(_character, playerBoats[b]->characters[v], 0, "Char"+b + ','+v);
         }
     }   
+}
+
+void Niveau::MatRocket2(Projectile *pro)
+{
+    int n_heigth = 3;
+    int n_width = 7;
+
+    int *coor_X = new int;
+    int *coor_Y = new int;
+    *coor_X = 950;
+    *coor_Y = 250;
+
+    char tab_test[4][9] = { {' ','-',' ',' ',' ',' ',' '},
+                            {'?','+','+','+','+','+','*'},
+                            {' ','-',' ',' ',' ',' ',' '}};
+
+
+    Pixels **_nuage = new Pixels*[n_heigth];
+    for (int i = 0; i < n_heigth; ++i) {
+        _nuage[i] = new Pixels[n_width];
+    }
+
+    //passe a travers tout le tableau pour faire le personnage
+    for (int i = 0; i < n_heigth; i++)
+    {
+        for (int n = 0; n < n_width; n++)
+        {
+            char val = tab_test[i][n];
+            if(val == ' ')
+            {
+                _nuage[i][n].FrontColour = colors::transparant;      
+                _nuage[i][n].BackColour = colors::transparant;       
+                _nuage[i][n].texture = ' ';
+            }
+            else if(val == '+')
+            {
+                _nuage[i][n].FrontColour = colors::grey;      
+                _nuage[i][n].BackColour = colors::grey;       
+                _nuage[i][n].texture = ' ';
+            }
+            else if(val == '-')
+            {
+                _nuage[i][n].FrontColour = colors::lightred;      
+                _nuage[i][n].BackColour = colors::lightred;       
+                _nuage[i][n].texture = ' ';
+            }
+            else if(val == '*')
+            {
+                _nuage[i][n].FrontColour = colors::red;      
+                _nuage[i][n].BackColour = colors::red;       
+                _nuage[i][n].texture = ' ';
+            }
+             else if(val == '?')
+            {
+                _nuage[i][n].FrontColour = colors::yellow;      
+                _nuage[i][n].BackColour = colors::red;       
+                _nuage[i][n].texture = ' ';
+            }
+        }
+    }
+    
+    cons->AjouterObjet(_nuage, pro, 0, "projectile");
+      
+    return;
 }
