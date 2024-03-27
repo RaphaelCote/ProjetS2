@@ -11,7 +11,7 @@
 #include "../Game/gameloader.h"
 
 using namespace std;
-class Projectile;       //  À CHANGER : potentiellement source de problème (segmentation fault)
+//class Projectile;       //  À CHANGER : potentiellement source de problème (segmentation fault)
 class Game : public Scene
 {
 private:
