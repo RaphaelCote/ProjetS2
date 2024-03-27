@@ -242,7 +242,7 @@ void Niveau::MatBalle(Projectile *Balle)
     balle[0][0].BackColour = colors::aqua;
     balle[0][0].texture = ' ';
 
-    cons->AjouterObjet(balle, Balle, 0, "balle");
+    cons->AjouterObjet(balle, Balle, 0, "projectile");
 }
 
 void Niveau::MatGrenade(Projectile *Grenade)
@@ -257,7 +257,7 @@ void Niveau::MatGrenade(Projectile *Grenade)
     grenade[0][0].BackColour = 14;
     grenade[0][0].texture = ' ';
 
-    cons->AjouterObjet(grenade, Grenade, 0, "grenade");
+    cons->AjouterObjet(grenade, Grenade, 0, "projectile");
 }
 
 void Niveau::MatNuage()
@@ -433,24 +433,38 @@ void Niveau::MatRocket(Projectile *pro)
 
 void Niveau::Delete()
 {
-    // for ( int b = 0; b < playerBoats.getSize(); b++)
-    // {
-    //     for (int v = 0; v < playerBoats[b]->getNbCharacters(); v++)
-    //     {
-    //         for (int i = 0; i < 10; ++i)
-    //         {
-    //             delete[] _character[i];
-    //         }
-    //         delete[] MatCharacter;
-    //     }
-    // }
+    // Delete de l'eau
+    cons->SupprimerObjet("eau");
 
-    // for (int i = 0; i < playerBoats.getSize(); ++i)
-    // {
+    // Delete du nuage
+    cons->SupprimerObjet("nuage");
 
-    // }
-    // for (int i = 0; i < enemyBoats.getSize(); ++i)
-    // {
+    // Delete des bateaux
+    for (int i = 0; i < playerBoats.getSize(); i++)
+    {
+        cons->SupprimerObjet("boat player " + i);
+    }
 
-    // }
+    for (int i = 0; i < enemyBoats.getSize(); i++)
+    {
+        cons->SupprimerObjet("boat enemy " + i);
+    }
+
+    // Delete des joueurs
+    for (int b = 0; b < playerBoats.getSize(); b++)
+    {
+        for (int v = 0; v < playerBoats[b]->getNbCharacters(); v++)
+        {
+            cons->SupprimerObjet("Char" + b + ',' + v);
+        }
+    }
+
+    // Delete des Enemies
+    for (int b = 0; b < enemyBoats.getSize(); b++)
+    {
+        for (int v = 0; v < enemyBoats[b]->getNbCharacters(); v++)
+        {
+            cons->SupprimerObjet("enemy" + b + ',' + v);
+        }
+    }
 }
