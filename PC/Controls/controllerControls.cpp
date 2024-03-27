@@ -97,6 +97,9 @@ void ControllerControls::ReceiveSerial()
         {
             try
             {
+                cons->SupprimerObjet("Json");
+                cons->AfficherTexte(std::cout, raw_msg,20,200,"Json");
+
                 for (int i = 0; i < raw_msg.length(); i++)
                 {
                     if(raw_msg[i] != '{')
@@ -119,6 +122,8 @@ void ControllerControls::ReceiveSerial()
                     return;
                 }
                 messageReceived = json::parse(raw_msg);
+                cons->SupprimerObjet("ParseJson");
+                cons->AfficherTexte(std::cout, raw_msg,20,180,"ParseJson");
                 this->UpdateAllValues();
                 //cout << "All values are updated: " << etatB1 << endl;
                 //cout << "Message de l'Arduino: " << messageReceived << endl;

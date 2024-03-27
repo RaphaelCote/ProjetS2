@@ -7,6 +7,7 @@
 #include "controls.h"
 #include "../include/serial/SerialPort.hpp"
 #include "../include/json.hpp"
+#include "raftWars.h"
 
 
 using json = nlohmann::json;
