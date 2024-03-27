@@ -32,8 +32,6 @@ using namespace std::chrono_literals;
 
 /*------------------------------ Constantes ---------------------------------*/
 
-#define _GLIBCXX_USE_NANOSLEEP
-
 /*---------------------------- Variables globales ---------------------------*/
 
 EventManager *eventManager;
@@ -66,7 +64,7 @@ int main()
 
     // === Event manager tests ===
     eventManager = new EventManager();
-    //controls = new KeyboardControls(eventManager);
+    // controls = new KeyboardControls(eventManager);
     controls = new ControllerControls(eventManager, "COM3");
 
     // tests = new Tests();
@@ -75,7 +73,7 @@ int main()
 
     // tests->test_unitaires_affichage(); // Test affichage jeux
     // tests->testAffichage();
-    tests->testOuvertureJsonAffiche();
+    // tests->testOuvertureJsonAffiche();
 
     inventory = new Inventory();
     inventory->addGold(2000);
@@ -112,19 +110,14 @@ int main()
 
         if ((currentclock.count() - rcvSerialTimer.count()) > 100)
         {
-            
+
             ((ControllerControls *)controls)->ReceiveSerial();
 
             rcvSerialTimer = currentclock;
         }
-        
+
         controls->ListenForControls();
     }
-
-    // Restore cursor visibility and console mode
-    // cursorInfo.bVisible = true;
-    // SetConsoleCursorInfo(consoleHandle, &cursorInfo);
-    // SetConsoleMode(consoleHandle, mode);
 
     return 0;
 }
