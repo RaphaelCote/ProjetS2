@@ -349,57 +349,6 @@ void Niveau::MatGrenade(Projectile *Grenade)
     cons->AjouterObjet(grenade, Grenade, 0, "grenade");
 }
 
-void Niveau::MatRocket(Projectile *pro)
-{
-    Pixels **rocket = new Pixels *[4];
-    for (int i = 0; i < 4; ++i)
-    {
-        rocket[i] = new Pixels[7];
-    }
-    for (int m = 0; m < 3; m++)
-    {
-        for (int n = 0; n < 6; n++)
-        {
-            rocket[m][n].FrontColour = 16;
-            rocket[m][n].BackColour = 16; // transparent
-            rocket[m][n].texture = ' ';
-        }
-    }
-    rocket[1][0].FrontColour = 12;
-    rocket[1][0].BackColour = 12; // lightred
-    rocket[1][0].texture = ' ';
-
-    rocket[0][1].FrontColour = 4;
-    rocket[0][1].BackColour = 4; // red
-    rocket[0][1].texture = ' ';
-
-    rocket[2][1].FrontColour = 4;
-    rocket[2][1].BackColour = 4; // red
-    rocket[2][1].texture = ' ';
-
-    rocket[1][5].FrontColour = 4;
-    rocket[1][5].BackColour = 4; // red
-    rocket[1][5].texture = ' ';
-
-    for (int i = 1; i < 5; i++)
-    {
-        rocket[1][i].FrontColour = 7;
-        rocket[1][i].BackColour = 7; // lightgrey
-        rocket[1][i].texture = ' ';
-    }
-
-    int coor_X_rocket = 50;
-    int coor_Y_rocket = 50;
-
-    cons->AjouterObjet(rocket, pro, 0, "projectile");
-
-
-    // for (int i = 0; i < 4; ++i)
-    // {
-    //     delete[] rocket[i];
-    // }
-    // delete[] rocket;
-}
 
 void Niveau::MatNuage()
 {
@@ -562,7 +511,7 @@ void Niveau::MatCharacter()
     }   
 }
 
-void Niveau::MatRocket2(Projectile *pro)
+void Niveau::MatRocket(Projectile *pro)
 {
     int n_heigth = 3;
     int n_width = 7;
@@ -581,8 +530,7 @@ void Niveau::MatRocket2(Projectile *pro)
     for (int i = 0; i < n_heigth; ++i) {
         _nuage[i] = new Pixels[n_width];
     }
-
-    //passe a travers tout le tableau pour faire le personnage
+    
     for (int i = 0; i < n_heigth; i++)
     {
         for (int n = 0; n < n_width; n++)
