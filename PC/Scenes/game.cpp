@@ -477,8 +477,9 @@ void Game::AnimationProjectile(Projectile* projectile)
             time += 0.0005;
 
             currentPosition.y = projectile->findBulletPositionYTime(time);
-            currentPosition.x = projectile->findBulletPositionX(currentPosition.y);
-            // currentPosition.x++;
+            // currentPosition.x = projectile->findBulletPositionX(currentPosition.y);
+            currentPosition.x++;
+            currentPosition.y = projectile->findBulletPositionY(currentPosition.x);
             projectile->bulletCurrentPosition = currentPosition;
             cons->Mincolums = (currentPosition.x - (cons->MaxColumns*10 - cons->Mincolums*10)/2)/10;//je fais * 10 pcq c l'affichage console
 
