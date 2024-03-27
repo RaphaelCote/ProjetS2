@@ -32,20 +32,24 @@ class Projectile {
         Hitbox hitbox;
 
         Coordonnee bulletCurrentPosition;
+        Coordonnee bulletStartPosition;//coordonnée de départ du projectile
+        Coordonnee bulletEndPosition;//coordonnée de fin du projectile
+
+        int findBulletPositionX(int positionY);
+        int findBulletPositionY(int positionX);
+        int findBulletPositionYTime(float time);
         
     protected:
         //time_t temps;
-        Coordonnee bulletStartPosition;//coordonnée de départ du projectile
-        Coordonnee bulletEndPosition;//coordonnée de fin du projectile
+        
+        
         
         float puissance;
         float angledeg;
         float V0;
         float rad;
         
-        int findBulletPositionX(int positionY);
-        int findBulletPositionY(int positionX);
-        int findBulletPositionYTime(float time);
+        
 };
 
 #endif

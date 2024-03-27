@@ -58,6 +58,7 @@ public:
     bool CheckAvailableProjectile(int type);
     void ShowGameInfo();
     void UpdateWeaponInfo();
+    void AnimationProjectile(Projectile *projectile);
 };
 
 #endif
