@@ -22,6 +22,7 @@ public:
     void changeSelection(EventParameters ep);
     void Update();
     void ShowMenu();
+    void ClearMenu();
     void Selection();
 
     void SelectLevel(int level);

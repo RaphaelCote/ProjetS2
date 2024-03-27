@@ -8,7 +8,7 @@ using namespace std;
 
 EnemyCharacter::~EnemyCharacter() {}
 
-EnemyCharacter::EnemyCharacter(Coordonnee position, Hitbox hitboxsset, int image) : Character(position,hitboxsset,image)
+EnemyCharacter::EnemyCharacter(Coordonnee position, Hitbox hitboxsset, int image) : Character(position, hitboxsset, image)
 {
     WeaponPosition.x = position.x;
     WeaponPosition.y = position.y + hitbox.height / 2;
@@ -24,12 +24,11 @@ Projectile *EnemyCharacter::createEnemyProjectile()
     float random_angledeg = (float)(90.0 + (rand() % (15))) / 100;
     srand(time(0) + 071234263);
     float random_puissance = (float)(90.0 + (rand() % (15))) / 100;
-    cout << "random angleDeg : " << random_angledeg << endl;
-    cout << "random puissance : " << random_puissance << endl;
+    // cout << "random angleDeg : " << random_angledeg << endl;
+    // cout << "random puissance : " << random_puissance << endl;
     p->setAngleDegre(-45.0 * random_angledeg);
     p->setPuissance(0.5 * random_puissance);
 
-    
     return p;
 }
 
@@ -43,5 +42,5 @@ Coordonnee EnemyCharacter::getWeaponPosition()
 }
 void EnemyCharacter::setWeaponPosition(Coordonnee weaponPosition)
 {
-    this->WeaponPosition=weaponPosition;
+    this->WeaponPosition = weaponPosition;
 }

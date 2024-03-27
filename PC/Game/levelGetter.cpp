@@ -10,7 +10,7 @@ LevelGetter::LevelGetter()
     HANDLE hFind = FindFirstFileA(folderPath, &findData);
     if (hFind != INVALID_HANDLE_VALUE)
     {
-        cout << "Valid Handle" << endl;
+        // cout << "Valid Handle" << endl;
         do
         {
             string fullPath;
@@ -25,6 +25,6 @@ LevelGetter::LevelGetter()
     }
     else
     {
-        cout << "Error finding files." << endl;
+        // cout << "Error finding files." << endl;
     }
 }

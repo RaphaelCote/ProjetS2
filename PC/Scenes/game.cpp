@@ -177,60 +177,60 @@ void Game::PlayTurn()
     turn++;
     if (isPlayerTurn)
     {
-        system("cls");
+        // system("cls");
         ShowGameInfo();
 
-        cout << endl;
-        cout << "Inventaire : " << inventory->getRockets() << " rockets, " << inventory->getGrenade() << " grenades" << endl;
+        // cout << endl;
+        // cout << "Inventaire : " << inventory->getRockets() << " rockets, " << inventory->getGrenade() << " grenades" << endl;
 
-        cout << "Projectile selectionne : ";
+        // cout << "Projectile selectionne : ";
         if (projectileType == 0)
         {
-            cout << "Balle" << endl;
+            // cout << "Balle" << endl;
         }
         else if (projectileType == 1)
         {
-            cout << "Rocket" << endl;
+            // cout << "Rocket" << endl;
         }
         else if (projectileType == 2)
         {
-            cout << "Grenade" << endl;
+            // cout << "Grenade" << endl;
         }
 
-        cout << endl;
+        // cout << endl;
 
-        cout << "Votre angle : " << projectile->getAngleDegre() << " | Votre puissance : " << projectile->getPuissance() << endl;
+        // cout << "Votre angle : " << projectile->getAngleDegre() << " | Votre puissance : " << projectile->getPuissance() << endl;
 
-        cout << "\n"
-                "-------FORMULE DE LA PARABOLE-------"
-             << endl;
-        cout << "y = g"
-             << "x^2 / (2(" << projectile->getPuissance() << "Vmax)^2 . cos^2(" << projectile->getAngleDegre() * PI / 180 << ") ) + xtan(" << projectile->getAngleDegre() * PI / 180 << ")"
-             << "\n"
-             << endl;
+        // cout << "\n"
+        //         "-------FORMULE DE LA PARABOLE-------"
+        //      << endl;
+        // cout << "y = g"
+        //      << "x^2 / (2(" << projectile->getPuissance() << "Vmax)^2 . cos^2(" << projectile->getAngleDegre() * PI / 180 << ") ) + xtan(" << projectile->getAngleDegre() * PI / 180 << ")"
+        //      << "\n"
+        //      << endl;
         controls->ListenForControls();
     }
     else
     {
-        system("PAUSE");
+        // system("PAUSE");
 
-        system("cls");
+        // system("cls");
         ShowGameInfo();
-        cout << "Tour enemi :" << endl;
+        // cout << "Tour enemi :" << endl;
 
         EnemyCharacter *ec = (EnemyCharacter *)activeLevel->enemyBoats[0]->characters[0];
         Projectile *enemyProjectile = ec->createEnemyProjectile();
 
-        cout << "Angle : " << enemyProjectile->getAngleDegre() << " | Puissance : " << enemyProjectile->getPuissance() << endl;
+        // cout << "Angle : " << enemyProjectile->getAngleDegre() << " | Puissance : " << enemyProjectile->getPuissance() << endl;
 
         if (enemyProjectile->checkIfCharacterHit(*(activeLevel->playerBoats[0]->characters[0])))
         {
-            cout << " (" << enemyProjectile->getBulletEndPosition().x << ", " << enemyProjectile->getBulletEndPosition().y << ")" << endl;
+            // cout << " (" << enemyProjectile->getBulletEndPosition().x << ", " << enemyProjectile->getBulletEndPosition().y << ")" << endl;
         }
         else
         {
-            cout << "Le projectile ne vous a pas atteint. Il a atteri a la position: (" << enemyProjectile->getBulletEndPosition().x;
-            cout << ", " << enemyProjectile->getBulletEndPosition().y << ")" << endl;
+            // cout << "Le projectile ne vous a pas atteint. Il a atteri a la position: (" << enemyProjectile->getBulletEndPosition().x;
+            // cout << ", " << enemyProjectile->getBulletEndPosition().y << ")" << endl;
         }
 
         system("PAUSE");
@@ -253,12 +253,12 @@ void Game::PlayerShoot()
 
     if (projectile->checkIfCharacterHit(*(activeLevel->enemyBoats[0]->characters[0])))
     {
-        cout << " (" << projectile->getBulletEndPosition().x << ", " << projectile->getBulletEndPosition().y << ")" << endl;
+        // cout << " (" << projectile->getBulletEndPosition().x << ", " << projectile->getBulletEndPosition().y << ")" << endl;
     }
     else
     {
-        cout << "Le projectile n'a pas atteint l'adversaire. Il a atteri a la position: (" << projectile->getBulletEndPosition().x;
-        cout << ", " << projectile->getBulletEndPosition().y << ")" << endl;
+        // cout << "Le projectile n'a pas atteint l'adversaire. Il a atteri a la position: (" << projectile->getBulletEndPosition().x;
+        // cout << ", " << projectile->getBulletEndPosition().y << ")" << endl;
     }
 
     // Remove special projectiles if fired, and if no more special projectiles are available, change to previous type
@@ -291,7 +291,7 @@ void Game::PauseGame()
 void Game::EndGame()
 {
     PayPlayer();
-    system("PAUSE");
+    // system("PAUSE");
     OnDisable();
     StopGame();
     activeScene = 3;
@@ -318,17 +318,17 @@ void Game::PayPlayer()
     {
         // Player dead
         inventory->addGold(200);
-        cout << "-------------------------------------------------------------------" << endl;
-        cout << "Vous avec recu 200$" << endl;
-        cout << "-------------------------------------------------------------------" << endl;
+        // cout << "-------------------------------------------------------------------" << endl;
+        // cout << "Vous avec recu 200$" << endl;
+        // cout << "-------------------------------------------------------------------" << endl;
     }
     else
     {
         // Enemy dead
         inventory->addGold(1200);
-        cout << "-------------------------------------------------------------------" << endl;
-        cout << "Vous avec recu 1200$" << endl;
-        cout << "-------------------------------------------------------------------" << endl;
+        // cout << "-------------------------------------------------------------------" << endl;
+        // cout << "Vous avec recu 1200$" << endl;
+        // cout << "-------------------------------------------------------------------" << endl;
     }
 }
 
@@ -425,6 +425,6 @@ bool Game::CheckAvailableProjectile(int type)
 void Game::ShowGameInfo()
 {
     // Show player positions and health
-    cout << "-------Niveau " << currentLevelIndex + 1 << "-------" << endl;
+    // cout << "-------Niveau " << currentLevelIndex + 1 << "-------" << endl;
     activeLevel->ShowLevelInfo(cout);
 }
