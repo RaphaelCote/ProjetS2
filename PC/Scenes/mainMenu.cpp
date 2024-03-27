@@ -38,13 +38,7 @@ MainMenu::MainMenu()
 void MainMenu::changeSelection(EventParameters ep)
 {
     // Ajout de délai entre les changements de sélection de menu
-    // à rajouter dans tout les menus
-    int millis = 600;
-    if (millis < lastMove + 500)
-    {
-        return;
-    }
-
+    // à rajouter dans tout les menus}
     if (ep.parameter2 > 0.5)
     {
         choice--;
@@ -52,6 +46,8 @@ void MainMenu::changeSelection(EventParameters ep)
         {
             choice = 0;
         }
+        Sleep(100);
+        ShowMenu();
     }
     else if (ep.parameter2 < -0.5)
     {
@@ -59,9 +55,9 @@ void MainMenu::changeSelection(EventParameters ep)
         {
             choice++;
         }
+        Sleep(100);
+        ShowMenu();
     }
-
-    OnEnable();
 }
 
 void MainMenu::Update()
@@ -72,36 +68,44 @@ void MainMenu::Update()
         ShowMenu();
         doOnce = false;
     }
-
-    controls->ListenForControls();
 }
 
 void MainMenu::ShowMenu()
 {
-    // menu utilisateur
-    string s0 = "-------------------------------------------------------------------";
-    string s1 = "Bienvenue au menu du jeu Raft Wars";
+    // ClearMenu();
+    cons->SupprimerObjet("s0");
+    cons->SupprimerObjet("s1");
+    cons->SupprimerObjet("s2");
+    cons->SupprimerObjet("s3");
+    cons->SupprimerObjet("s4");
+    cons->SupprimerObjet("s5");
+    cons->SupprimerObjet("s6");
+
+    Sleep(10);
+
+    string s0 = "------------------------------------------------------------------- ";
+    string s1 = "Bienvenue au menu du jeu Raft Wars ";
     string s2 = "-";
     s2 += (choice == 0 ? "O" : "-");
-    s2 += "- Jouer";
+    s2 += "- Jouer ";
     string s3 = "-";
     s3 += (choice == 1 ? "O" : "-");
-    s3 += "- Niveaux";
+    s3 += "- Niveaux ";
     string s4 = "-";
     s4 += (choice == 2 ? "O" : "-");
-    s4 += "- Magasin";
+    s4 += "- Magasin ";
     string s5 = "-";
     s5 += (choice >= 3 ? "O" : "-");
-    s5 += "- Sortir";
-    string s6 = "-------------------------------------------------------------------";
+    s5 += "- Sortir ";
+    string s6 = "------------------------------------------------------------------- ";
 
-    int y0 = ((cons->MaxRows)*10) - 30;
-    int y1 = ((cons->MaxRows)*10) - 40;
-    int y2 = ((cons->MaxRows)*10) - 50;
-    int y3 = ((cons->MaxRows)*10) - 60;
-    int y4 = ((cons->MaxRows)*10) - 70;
-    int y5 = ((cons->MaxRows)*10) - 80;
-    int y6 = ((cons->MaxRows)*10) - 90;
+    int y0 = ((cons->MaxRows) * 10) - 30;
+    int y1 = ((cons->MaxRows) * 10) - 40;
+    int y2 = ((cons->MaxRows) * 10) - 50;
+    int y3 = ((cons->MaxRows) * 10) - 60;
+    int y4 = ((cons->MaxRows) * 10) - 70;
+    int y5 = ((cons->MaxRows) * 10) - 80;
+    int y6 = ((cons->MaxRows) * 10) - 90;
     int x = 20;
 
     cons->AfficherTexte(std::cout, s0, x, y0, "s0");
@@ -111,7 +115,6 @@ void MainMenu::ShowMenu()
     cons->AfficherTexte(std::cout, s4, x, y4, "s4");
     cons->AfficherTexte(std::cout, s5, x, y5, "s5");
     cons->AfficherTexte(std::cout, s6, x, y6, "s6");
-    
 }
 
 void MainMenu::ClearMenu()
@@ -128,27 +131,26 @@ void MainMenu::ClearMenu()
 void MainMenu::Selection()
 {
     doOnce = true;
+    ClearMenu();
+    OnDisable();
+
     if (choice == 0)
     {
-        OnDisable();
         PlayGame();
     }
     else if (choice == 1)
     {
-        OnDisable();
         GotoLevelSelect();
     }
     else if (choice == 2)
     {
-        OnDisable();
         GotoShop();
     }
     else if (choice >= 3)
     {
-        system("cls"); // clear la command prompt
-        cons->ResetUI();
-        cons->AfficherTexte(cout, "Au plaisir..", new int(10), new int(cons->ScreenHeight), "AuPlaisir");
-        system("PAUSE");
+        int x = 2;
+        int y = cons->MaxRows - 4;
+        cons->AfficherTexte(cout, "Au plaisir..", &x, &y, "AuPlaisir");
         exit(0);
     }
 }

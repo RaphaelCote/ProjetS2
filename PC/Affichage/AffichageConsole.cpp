@@ -250,6 +250,9 @@ void AffichageConsole::SupprimerObjet(string name)
         if (v_objet[i]->name == name)
         {
             v_objet.remove(i);
+            // cout << "Removed: " << i << "  " << name;
+            // Sleep(1000);
+            return;
         }
     }
 }
@@ -442,8 +445,6 @@ void AffichageConsole::ResetUI()
             screen[j][i].texture = ' ';
         }
     }
-
-    ModificationAFaire = true;
 }
 
 void AffichageConsole::UpdateVecteurUI()

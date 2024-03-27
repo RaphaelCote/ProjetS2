@@ -9,7 +9,6 @@
 #include "Game/gameloader.h"
 #include "Game/character.h"
 
-
 //==== DEBUT Controls ====
 void test_unitaire_Controls_OnMainActionCall(EventParameters ep)
 {
@@ -43,16 +42,16 @@ void Tests::test_unitaire_Controls()
    testControls = new KeyboardControls(eventManager);
 
    // Add eventListener
-   cout << "Assigning some controls" << endl;
-   OnEnable();
+   // cout << "Assigning some controls" << endl;
+   // OnEnable();
 
    // Call events
    testControls->MainAction();
    testControls->Joystick(0.85, 0.15);
    testControls->Angle(2.4);
 
-   OnDisable();
-   cout << "Unassigning some controls" << endl;
+   // OnDisable();
+   // cout << "Unassigning some controls" << endl;
 }
 
 void Tests::OnMainAction(EventParameters ep)
@@ -219,16 +218,17 @@ void Tests::tests_unitaires_levelGetter()
 
 void Tests::test_unitaires_affichage()
 {
-   
-   //reset UI
+
+   // reset UI
    cons->ResetUI();
 
    /////////////////////////////////////////////////////////////////////////////////////////////////////////
-   //Creation bateau
+   // Creation bateau
    int heigth = 3;
    int width = 20;
-   Pixels **couleur = new Pixels*[heigth];
-   for (int i = 0; i < heigth; ++i) {
+   Pixels **couleur = new Pixels *[heigth];
+   for (int i = 0; i < heigth; ++i)
+   {
       couleur[i] = new Pixels[width];
    }
 
@@ -236,16 +236,15 @@ void Tests::test_unitaires_affichage()
    {
       for (int n = 0; n < width; n++)
       {
-         couleur[i][n].FrontColour = 6;      //gold
-         couleur[i][n].BackColour = 8;       //grey
+         couleur[i][n].FrontColour = 6; // gold
+         couleur[i][n].BackColour = 8;  // grey
          couleur[i][n].texture = '\xB1';
       }
-
    }
 
    int coor_X1 = 1;
    int coor_Y1 = 4;
-   int coor_X2 = width+3;
+   int coor_X2 = width + 3;
    int coor_Y2 = 4;
 
    cons->AjouterObjet(couleur, &coor_X1, &coor_Y1, width, heigth, 0, "Bateau1");
@@ -253,7 +252,7 @@ void Tests::test_unitaires_affichage()
 
    int _coor_X1 = 250;
    int _coor_Y1 = 4;
-   int _coor_X2 = 250+width+3;
+   int _coor_X2 = 250 + width + 3;
    int _coor_Y2 = 4;
 
    cons->AjouterObjet(couleur, &_coor_X1, &_coor_Y1, width, heigth, 0, "Bateau3");
@@ -262,9 +261,10 @@ void Tests::test_unitaires_affichage()
    /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
    /////////////////////////////////////////////////////////////////////////////////////////////////////////
-   //Creation eau
-   Pixels **eau = new Pixels*[10];
-   for (int i = 0; i < 10; ++i) {
+   // Creation eau
+   Pixels **eau = new Pixels *[10];
+   for (int i = 0; i < 10; ++i)
+   {
       eau[i] = new Pixels[350];
    }
 
@@ -272,8 +272,8 @@ void Tests::test_unitaires_affichage()
    {
       for (int n = 0; n < 350; n++)
       {
-         eau[i][n].FrontColour = colors::blue;     
-         eau[i][n].BackColour = colors::aqua;      
+         eau[i][n].FrontColour = colors::blue;
+         eau[i][n].BackColour = colors::aqua;
          eau[i][n].texture = '\xB1';
       }
    }
@@ -284,58 +284,57 @@ void Tests::test_unitaires_affichage()
    /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
    /////////////////////////////////////////////////////////////////////////////////////////////////////////
-   //creation character
+   // creation character
    int c_heigth = 10;
    int c_width = 10;
 
-   char tab_test[10][10] = {{' ',' ',' ','+','+','+',' ',' ',' ',' '},
-                            {' ',' ','+','+','+','+','+',' ',' ',' '},
-                            {' ',' ',' ','*','*','*',' ',' ',' ',' '},
-                            {' ',' ',' ',' ','*',' ',' ',' ',' ',' '},
-                            {' ',' ',' ',' ','*',' ',' ',' ',' ',' '},
-                            {' ',' ','<','<','<','<','<','<',' ',' '},
-                            {' ',' ',' ',' ','*',' ',' ',' ',' ',' '},
-                            {' ',' ',' ','*',' ','*',' ',' ',' ',' '},
-                            {' ',' ','*',' ',' ',' ','*',' ',' ',' '},
-                            {' ','*',' ',' ',' ',' ',' ','*',' ',' '}} ;
+   char tab_test[10][10] = {{' ', ' ', ' ', '+', '+', '+', ' ', ' ', ' ', ' '},
+                            {' ', ' ', '+', '+', '+', '+', '+', ' ', ' ', ' '},
+                            {' ', ' ', ' ', '*', '*', '*', ' ', ' ', ' ', ' '},
+                            {' ', ' ', ' ', ' ', '*', ' ', ' ', ' ', ' ', ' '},
+                            {' ', ' ', ' ', ' ', '*', ' ', ' ', ' ', ' ', ' '},
+                            {' ', ' ', '<', '<', '<', '<', '<', '<', ' ', ' '},
+                            {' ', ' ', ' ', ' ', '*', ' ', ' ', ' ', ' ', ' '},
+                            {' ', ' ', ' ', '*', ' ', '*', ' ', ' ', ' ', ' '},
+                            {' ', ' ', '*', ' ', ' ', ' ', '*', ' ', ' ', ' '},
+                            {' ', '*', ' ', ' ', ' ', ' ', ' ', '*', ' ', ' '}};
 
-
-   Pixels **_character = new Pixels*[c_heigth];
-   for (int i = 0; i < c_heigth; ++i) {
+   Pixels **_character = new Pixels *[c_heigth];
+   for (int i = 0; i < c_heigth; ++i)
+   {
       _character[i] = new Pixels[c_width];
    }
 
-   //passe a travers tout le tableau pour faire le personnage
+   // passe a travers tout le tableau pour faire le personnage
    for (int i = 0; i < c_heigth; i++)
    {
       for (int n = 0; n < c_width; n++)
       {
-         char val = tab_test[i][n];      //j'ai du mettre ca(c_heigth - i-1) sinon le bonhomme affiche en l'envers
-         if(val == ' ')
+         char val = tab_test[i][n]; // j'ai du mettre ca(c_heigth - i-1) sinon le bonhomme affiche en l'envers
+         if (val == ' ')
          {
-            _character[i][n].FrontColour = colors::transparant;      
-            _character[i][n].BackColour = colors::transparant;       
+            _character[i][n].FrontColour = colors::transparant;
+            _character[i][n].BackColour = colors::transparant;
             _character[i][n].texture = ' ';
          }
-         else if(val == '*')
+         else if (val == '*')
          {
-            _character[i][n].FrontColour = colors::green;      
-            _character[i][n].BackColour = colors::leaf;       
+            _character[i][n].FrontColour = colors::green;
+            _character[i][n].BackColour = colors::leaf;
             _character[i][n].texture = ' ';
          }
-         else if(val == '+')
+         else if (val == '+')
          {
-            _character[i][n].FrontColour = colors::black;      
-            _character[i][n].BackColour = colors::lightblue;       
+            _character[i][n].FrontColour = colors::black;
+            _character[i][n].BackColour = colors::lightblue;
             _character[i][n].texture = CHAR_CONTRAST_LOW;
          }
-         else if(val == '<')
+         else if (val == '<')
          {
-            _character[i][n].FrontColour = colors::black;      
-            _character[i][n].BackColour = colors::red;       
+            _character[i][n].FrontColour = colors::black;
+            _character[i][n].BackColour = colors::red;
             _character[i][n].texture = CHAR_CONTRAST_MED;
          }
-         
       }
    }
 
@@ -346,18 +345,16 @@ void Tests::test_unitaires_affichage()
 
    PlayerCharacter c = PlayerCharacter(coor_X5, coor_Y5);
 
-   cons->AjouterObjet(_character, &coor_X4, &coor_Y4, c_width, c_heigth,0, "Char1");
+   cons->AjouterObjet(_character, &coor_X4, &coor_Y4, c_width, c_heigth, 0, "Char1");
    cons->AjouterObjet(_character, &c, 0, "Char2");
 
-   
-
-   int _coor_X4 = 250+6;
+   int _coor_X4 = 250 + 6;
    int _coor_Y4 = 6;
-   int _coor_X5 = 250+27;
+   int _coor_X5 = 250 + 27;
    int _coor_Y5 = 6;
 
-   cons->AjouterObjet(_character, &_coor_X4, &_coor_Y4, c_width, c_heigth,0, "Char3");
-   cons->AjouterObjet(_character, &_coor_X5, &_coor_Y5,  c_width, c_heigth,0, "Char4");
+   cons->AjouterObjet(_character, &_coor_X4, &_coor_Y4, c_width, c_heigth, 0, "Char3");
+   cons->AjouterObjet(_character, &_coor_X5, &_coor_Y5, c_width, c_heigth, 0, "Char4");
    /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
    Sleep(4000);
@@ -372,15 +369,13 @@ void Tests::test_unitaires_affichage()
    // cons->AfficherEnBasGauche(eau, 0, 40, 300, 10);
    // system("pause");
 
-   
-
    int _coor_X8 = 0;
-   int _coor_Y8 = cons->MaxRows-2;
+   int _coor_Y8 = cons->MaxRows - 2;
    int _coor_X9 = 50;
-   int _coor_Y9 = cons->MaxRows-5;
+   int _coor_Y9 = cons->MaxRows - 5;
 
-   cons->AfficherTexte(std::cout, "Allo, voici du texte que tu peux ecrire", &_coor_X8,&_coor_Y8, "texte1");
-   cons->AfficherTexte(std::cout, "Je sais pas voici d'autre texte", &_coor_X9,&_coor_Y9,colors::green,colors::black, "texte2");
+   cons->AfficherTexte(std::cout, "Allo, voici du texte que tu peux ecrire", &_coor_X8, &_coor_Y8, "texte1");
+   cons->AfficherTexte(std::cout, "Je sais pas voici d'autre texte", &_coor_X9, &_coor_Y9, colors::green, colors::black, "texte2");
    // system("pause");
 
    // cons->AfficherTexte(std::cout, "Allo, voici du texte que tu peux ecrire", 3,cons->MaxRows-2,colors::darkpurple,colors::gold);
@@ -389,12 +384,13 @@ void Tests::test_unitaires_affichage()
    /////////////////////////////////////////////////////////////////////////////////////////////////////////
 
    /////////////////////////////////////////////////////////////////////////////////////////////////////////
-   //Creation projectile
-   int ball_X = 27+8;
+   // Creation projectile
+   int ball_X = 27 + 8;
    int ball_Y = 11;
 
-   Pixels **ball = new Pixels*[1];
-   for (int i = 0; i < 1; ++i) {
+   Pixels **ball = new Pixels *[1];
+   for (int i = 0; i < 1; ++i)
+   {
       ball[i] = new Pixels[1];
    }
 
@@ -402,43 +398,43 @@ void Tests::test_unitaires_affichage()
    {
       for (int n = 0; n < 1; n++)
       {
-         ball[i][n].FrontColour = colors::blue;     
-         ball[i][n].BackColour = colors::electric;      
+         ball[i][n].FrontColour = colors::blue;
+         ball[i][n].BackColour = colors::electric;
          ball[i][n].texture = ' ';
       }
    }
 
    int para = 2;
-   cons->AjouterObjet(ball, &ball_X, &ball_Y, 1, 1, 0, "Ball1"); 
-   //cons->AjouterObjet(ball, &proj, 0, "Ball1");
-   //Lancement ball vers enemy
-   for (int i = 0; i < 220; i++)                                  //Lancement ball vers enemy
+   cons->AjouterObjet(ball, &ball_X, &ball_Y, 1, 1, 0, "Ball1");
+   // cons->AjouterObjet(ball, &proj, 0, "Ball1");
+   // Lancement ball vers enemy
+   for (int i = 0; i < 220; i++) // Lancement ball vers enemy
    {
       Sleep(10);
       ball_X++;
       _coor_X9++;
       cons->Mincolums++;
-      
-      //cons->MinRows--;
-      // coor_Y4++;
-      // coor_Y5++;
-      (i%para) ? ((i<100) ? (ball_Y++, cons->MinRows--) : (ball_Y--, cons->MinRows++)) : ball_Y;
+
+      // cons->MinRows--;
+      //  coor_Y4++;
+      //  coor_Y5++;
+      (i % para) ? ((i < 100) ? (ball_Y++, cons->MinRows--) : (ball_Y--, cons->MinRows++)) : ball_Y;
    }
 
-   ball_X = 250+6;
+   ball_X = 250 + 6;
    ball_Y = 11;
 
-   //Lancement ball vers nous
-   for (int i = 0; i < 240; i++)                                  //Lancement ball vers nous
+   // Lancement ball vers nous
+   for (int i = 0; i < 240; i++) // Lancement ball vers nous
    {
       Sleep(10);
       ball_X--;
       cons->Mincolums--;
-      (i%2) ? ((i<115) ? ball_Y++ : ball_Y--) : ball_Y;
+      (i % 2) ? ((i < 115) ? ball_Y++ : ball_Y--) : ball_Y;
    }
 
    // Player going down
-   for (int i = 0; i < 20; i++)                                   // Player going down
+   for (int i = 0; i < 20; i++) // Player going down
    {
       Sleep(10);
       Coordonnee coor;
@@ -447,9 +443,9 @@ void Tests::test_unitaires_affichage()
       c.setPosition(coor);
    }
 
-   //findBulletPositionY
+   // findBulletPositionY
 
-   //suppression des objet qu'on veut se debarasser
+   // suppression des objet qu'on veut se debarasser
    cons->SupprimerObjet("texte2");
    cons->SupprimerObjet("Ball1");
    cons->SupprimerObjet("Char2");
@@ -457,8 +453,6 @@ void Tests::test_unitaires_affichage()
    system("pause");
    /////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
-
-
 
 void Tests::tests_unitaires()
 {
@@ -502,18 +496,18 @@ void Tests::testjson()
    niveau->playerBoats[0]->ShowInfo(cout);
    cout << "Bateau enemy" << endl;
    niveau->enemyBoats[0]->ShowInfo(cout);
-   cout<<"hauteur enemy"<<endl;
-   cout<<niveau->enemyBoats[0]->characters[0]->getHitboxHeight()<<endl;
-   cout<<"largeur player"<<endl;
-   cout<<niveau->playerBoats[0]->characters[0]->getHitboxWidth()<<endl;
-   cout<<"image joueur"<<endl;
-   cout<<niveau->playerBoats[0]->characters[0]->getimage()<<endl;
-   cout<<"image enemy"<<endl;
-   cout<<niveau->enemyBoats[0]->characters[0]->getimage()<<endl;
-   cout<<"playerboat largeur"<<endl;
-   cout<<niveau->playerBoats[0]->getWidth()<<endl;
-   cout<<"enemyboat hauteur"<<endl;
-   cout<<niveau->enemyBoats[0]->getHeight()<<endl;
+   cout << "hauteur enemy" << endl;
+   cout << niveau->enemyBoats[0]->characters[0]->getHitboxHeight() << endl;
+   cout << "largeur player" << endl;
+   cout << niveau->playerBoats[0]->characters[0]->getHitboxWidth() << endl;
+   cout << "image joueur" << endl;
+   cout << niveau->playerBoats[0]->characters[0]->getimage() << endl;
+   cout << "image enemy" << endl;
+   cout << niveau->enemyBoats[0]->characters[0]->getimage() << endl;
+   cout << "playerboat largeur" << endl;
+   cout << niveau->playerBoats[0]->getWidth() << endl;
+   cout << "enemyboat hauteur" << endl;
+   cout << niveau->enemyBoats[0]->getHeight() << endl;
 }
 
 void Tests::testAffichage()

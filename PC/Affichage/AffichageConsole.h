@@ -143,7 +143,7 @@ enum colors {
 class AffichageConsole
 {
     bool Thread_Actif; 
-    bool ModificationAFaire; 
+    
 
     int NumberRows;
     int NumberColumns; 
@@ -189,7 +189,7 @@ public:
 
     int FontX;
     int FontY;
-
+    bool ModificationAFaire; 
 
 
     AffichageConsole();

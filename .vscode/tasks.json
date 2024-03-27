@@ -7,6 +7,7 @@
             "command": "g++",
             "args": [
                 "-fdiagnostics-color=always",
+                "-std=c++14",
                 "-g",
                 "./*.cpp",
                 "./include/serial/*.cpp",

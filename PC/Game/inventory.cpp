@@ -8,6 +8,31 @@ Inventory::Inventory()
     gold = 0;
 }
 
+int Inventory::GetPrixRocket()
+{
+    return PRIXROCKET;
+}
+
+int Inventory::GetPrixGrenade()
+{
+    return PRIXGRENADE;
+}
+
+int Inventory::GetPrixShieldSmall()
+{
+    return PRIXPETITSHIELD;
+}
+
+int Inventory::GetPrixShieldMedium()
+{
+    return PRIXMOYENSHIELD;
+}
+
+int Inventory::GetPrixShieldBig()
+{
+    return PRIXGROSSHIELD;
+}
+
 int Inventory::getGold()
 {
     return gold;
@@ -27,27 +52,27 @@ int Inventory::getRockets()
 }
 void Inventory::addRockets()
 {
-    if (getGold() >= PRIXKROCKET)
+    if (getGold() >= PRIXROCKET)
     {
         if (getRockets() < 2)
         {
             nbRockets++;
-            removeGold(PRIXKROCKET);
+            removeGold(PRIXROCKET);
         }
         else
         {
-            cout << "-------------------------------------------------------------------" << endl;
-            cout << "Limite de rockets atteinte" << endl;
-            cout << "-------------------------------------------------------------------" << endl;
-            system("pause");
+            // cout << "-------------------------------------------------------------------" << endl;
+            // cout << "Limite de rockets atteinte" << endl;
+            // cout << "-------------------------------------------------------------------" << endl;
+            // system("pause");
         }
     }
     else
     {
-        cout << "-------------------------------------------------------------------" << endl;
-        cout << "Fonds insuffisants" << endl;
-        cout << "-------------------------------------------------------------------" << endl;
-        system("pause");
+        // cout << "-------------------------------------------------------------------" << endl;
+        // cout << "Fonds insuffisants" << endl;
+        // cout << "-------------------------------------------------------------------" << endl;
+        // system("pause");
     }
 }
 void Inventory::removeRockets()
@@ -84,18 +109,18 @@ void Inventory::addShield(int level)
             }
             else
             {
-                cout << "-------------------------------------------------------------------" << endl;
-                cout << "Limite de bouclier atteinte" << endl;
-                cout << "-------------------------------------------------------------------" << endl;
-                system("pause");
+                // cout << "-------------------------------------------------------------------" << endl;
+                // cout << "Limite de bouclier atteinte" << endl;
+                // cout << "-------------------------------------------------------------------" << endl;
+                // system("pause");
             }
         }
         else
         {
-            cout << "-------------------------------------------------------------------" << endl;
-            cout << "Fonds insuffisants" << endl;
-            cout << "-------------------------------------------------------------------" << endl;
-            system("pause");
+            // cout << "-------------------------------------------------------------------" << endl;
+            // cout << "Fonds insuffisants" << endl;
+            // cout << "-------------------------------------------------------------------" << endl;
+            // system("pause");
         }
     }
     if (level == 2)
@@ -113,18 +138,18 @@ void Inventory::addShield(int level)
             }
             else
             {
-                cout << "-------------------------------------------------------------------" << endl;
-                cout << "Limite de bouclier atteinte" << endl;
-                cout << "-------------------------------------------------------------------" << endl;
-                system("pause");
+                // cout << "-------------------------------------------------------------------" << endl;
+                // cout << "Limite de bouclier atteinte" << endl;
+                // cout << "-------------------------------------------------------------------" << endl;
+                // system("pause");
             }
         }
         else
         {
-            cout << "-------------------------------------------------------------------" << endl;
-            cout << "Fonds insuffisants" << endl;
-            cout << "-------------------------------------------------------------------" << endl;
-            system("pause");
+            // cout << "-------------------------------------------------------------------" << endl;
+            // cout << "Fonds insuffisants" << endl;
+            // cout << "-------------------------------------------------------------------" << endl;
+            // system("pause");
         }
     }
     if (level == 3)
@@ -138,18 +163,18 @@ void Inventory::addShield(int level)
             }
             else
             {
-                cout << "-------------------------------------------------------------------" << endl;
-                cout << "Fonds insuffisants" << endl;
-                cout << "-------------------------------------------------------------------" << endl;
-                system("pause");
+                // cout << "-------------------------------------------------------------------" << endl;
+                // cout << "Fonds insuffisants" << endl;
+                // cout << "-------------------------------------------------------------------" << endl;
+                // system("pause");
             }
         }
         else
         {
-            cout << "-------------------------------------------------------------------" << endl;
-            cout << "Limite de bouclier atteinte" << endl;
-            cout << "-------------------------------------------------------------------" << endl;
-            system("pause");
+            // cout << "-------------------------------------------------------------------" << endl;
+            // cout << "Limite de bouclier atteinte" << endl;
+            // cout << "-------------------------------------------------------------------" << endl;
+            // system("pause");
         }
     }
 }
@@ -169,18 +194,18 @@ void Inventory::addGrenade()
         }
         else
         {
-            cout << "-------------------------------------------------------------------" << endl;
-            cout << "Limite de grenades atteinte" << endl;
-            cout << "-------------------------------------------------------------------" << endl;
-            system("pause");
+            // cout << "-------------------------------------------------------------------" << endl;
+            // cout << "Limite de grenades atteinte" << endl;
+            // cout << "-------------------------------------------------------------------" << endl;
+            // system("pause");
         }
     }
     else
     {
-        cout << "-------------------------------------------------------------------" << endl;
-        cout << "Fonds insuffisants" << endl;
-        cout << "-------------------------------------------------------------------" << endl;
-        system("pause");
+        // cout << "-------------------------------------------------------------------" << endl;
+        // cout << "Fonds insuffisants" << endl;
+        // cout << "-------------------------------------------------------------------" << endl;
+        // system("pause");
     }
 }
 void Inventory::removeGrenade()
