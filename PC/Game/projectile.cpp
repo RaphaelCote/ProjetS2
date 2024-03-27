@@ -124,10 +124,10 @@ bool Projectile::checkIfCharacterHit(Character& character)
         //on sait qu'il n'a pas toucher directement l'ennemie
         //pour les coordonnées de la balle, ce sera a changé éventuellement (vérifier si cela a touché bateau ou l'eau)
             //cout<<"Premier if angle positif"<<endl;
-
+            //la balle ne se rend pas jusqu'a l'ennemi (tir pas assez puissant)
             //il va falloir modifier cette condition (si elle touche le bateau ou non)
-            bulletEndPosition.x=findBulletPositionX(characterPosition.y);
-            bulletEndPosition.y=characterPosition.y;
+            bulletEndPosition.x=findBulletPositionX(HAUTEUR_EAU);
+            bulletEndPosition.y=HAUTEUR_EAU;
             damageReceived(character);
             return false;
         }
@@ -146,8 +146,8 @@ bool Projectile::checkIfCharacterHit(Character& character)
             //cout<<"Deuxième else if angle positif"<<endl;
             
             //il va falloir modifier cette condition (si elle touche le bateau ou non)
-            bulletEndPosition.x=findBulletPositionX(characterPosition.y);
-            bulletEndPosition.y=characterPosition.y;
+            bulletEndPosition.x=findBulletPositionX(HAUTEUR_EAU);
+            bulletEndPosition.y=HAUTEUR_EAU;
             damageReceived(character);
             return false;
         }
@@ -173,8 +173,8 @@ bool Projectile::checkIfCharacterHit(Character& character)
             //cout<<"Else angle positif"<<endl;
             //THÉORIQUEMENT rien passe dans le false, mais je le garde pour le déboguage 
             
-            bulletEndPosition.x=findBulletPositionX(characterPosition.y);
-            bulletEndPosition.y=characterPosition.y;
+            bulletEndPosition.x=findBulletPositionX(HAUTEUR_EAU);
+            bulletEndPosition.y=HAUTEUR_EAU;
             damageReceived(character);
             return false;
         }
@@ -185,8 +185,8 @@ bool Projectile::checkIfCharacterHit(Character& character)
         //on sait qu'il n'a pas toucher directement l'ennemie
         //pour les coordonnées de la balle, ce sera a changé éventuellement (vérifier si cela a touché bateau ou l'eau)
             //cout<<"Premier if angle négatif"<<endl;
-            bulletEndPosition.x=findBulletPositionX(characterPosition.y);
-            bulletEndPosition.y=characterPosition.y;
+            bulletEndPosition.x=findBulletPositionX(HAUTEUR_EAU);
+            bulletEndPosition.y=HAUTEUR_EAU;
             damageReceived(character);
             return false;
         }
@@ -204,8 +204,8 @@ bool Projectile::checkIfCharacterHit(Character& character)
         {   //on sait qu'il ne touchera pas l'ennemie directement (passer par dessus l'ennemie)
             //pour les coordonnées de la balle, ce sera a changé éventuellement (vérifier si cela a touché bateau ou l'eau)
             //cout<<"Deuxième else if angle négatif"<<endl;
-            bulletEndPosition.x=findBulletPositionX(characterPosition.y);
-            bulletEndPosition.y=characterPosition.y;
+            bulletEndPosition.x=findBulletPositionX(HAUTEUR_EAU);
+            bulletEndPosition.y=HAUTEUR_EAU;
             damageReceived(character);
             return false;
         }
@@ -231,8 +231,8 @@ bool Projectile::checkIfCharacterHit(Character& character)
             cout<<"Else angle négatif"<<endl;
             //THÉORIQUEMENT rien passe dans le false, mais je le garde pour le déboguage 
             
-            bulletEndPosition.x=findBulletPositionX(characterPosition.y);
-            bulletEndPosition.y=characterPosition.y;
+            bulletEndPosition.x=findBulletPositionX(HAUTEUR_EAU);
+            bulletEndPosition.y=HAUTEUR_EAU;
             damageReceived(character);
             return false;
         }

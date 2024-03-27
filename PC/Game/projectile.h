@@ -9,6 +9,8 @@
 #include "utility.h"
 #include "character.h"
 
+const int HAUTEUR_EAU = 100;
+
 const float g=-1000;
 
 const double  PI = 3.14159265358979323846;
