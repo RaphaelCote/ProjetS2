@@ -468,9 +468,9 @@ void Game::ShowGameInfo()
     int y1 = ((cons->MaxRows) * 10) - 40;
     int y2 = ((cons->MaxRows) * 10) - 50;
     int y3 = ((cons->MaxRows) * 10) - 60;
-    int y4 = ((cons->MaxRows) * 10) - 70;
-    int y5 = ((cons->MaxRows) * 10) - 80;
-    int y6 = ((cons->MaxRows) * 10) - 90;
+    int y4 = ((cons->MaxRows) * 10) - 80;
+    int y5 = ((cons->MaxRows) * 10) - 90;
+    int y6 = ((cons->MaxRows) * 10) - 100;
     int x = 20;
 
     cons->AfficherTexte(std::cout, s0, x, y0, "s0");
