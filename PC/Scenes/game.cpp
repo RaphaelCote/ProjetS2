@@ -201,6 +201,8 @@ void Game::PlayTurn()
 
         activeLevel->MatBalle(enemyProjectile);
 
+        AnimationProjectile(enemyProjectile);
+
         enemyProjectile->checkIfCharacterHit(*(activeLevel->playerBoats[0]->characters[0]));
 
         isPlayerTurn = true;
@@ -231,6 +233,8 @@ void Game::PlayerShoot()
     {
         activeLevel->MatGrenade(projectile);
     }
+
+    AnimationProjectile(projectile);
 
     projectile->checkIfCharacterHit(*(activeLevel->enemyBoats[0]->characters[0]));
 
