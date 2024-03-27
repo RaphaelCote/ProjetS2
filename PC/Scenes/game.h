@@ -27,6 +27,7 @@ private:
     /*ne pas oublier d'inclure vecteur et le const (si nécessaire)*/
 public:
     bool isNewLevel;
+    Vecteur<Hitbox> allHitboxObject;
     Niveau *activeLevel;
     Game();
     int GetLevelIndex();
@@ -57,6 +58,7 @@ public:
     bool CheckEndCondition();
     bool CheckAvailableProjectile(int type);
     void ShowGameInfo();
+    void ScanHitboxes();
 };
 
 #endif

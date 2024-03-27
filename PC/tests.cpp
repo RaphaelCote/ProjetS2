@@ -189,13 +189,13 @@ void Tests::test_unitaire_characterAndprojectile()
 
    //--------------------- AIDE ---------------------//
    Gameloader *gameloader = new Gameloader();
+   Game *game = new Game();
    Niveau *niveau = gameloader->getLevelFromJson("./levels/level1.json");
    //création d'un ennemi en fonction des JSON (level1)
    EnemyCharacter* ec = (EnemyCharacter *)niveau->enemyBoats[0]->characters[0];
    //création d'un player en fonction des JSON (level1)
    PlayerCharacter* pl = (PlayerCharacter *)niveau->playerBoats[0]->characters[0];
    Projectile *enemyProjectile = ec->createEnemyProjectile();
-   enemyProjectile->ScanHitboxes();
    //on stock tout les joueurs dans un vecteur
    Vecteur<Character*> players;
    

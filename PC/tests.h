@@ -20,6 +20,8 @@
 #include "Game/rocket.h"
 #include "Game/grenade.h"
 
+#include "Scenes/maping.h"
+
 #include <iostream>
 #include <iomanip>
 using namespace std;

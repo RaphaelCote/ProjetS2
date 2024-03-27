@@ -1,6 +1,7 @@
 //projectile.cpp
 #include "projectile.h"
-#include "../raftWars.h"
+#include "../Scenes/game.h"
+//#include "../raftWars.h"
 using namespace std;
 
 Projectile::Projectile(Character& character)
@@ -293,72 +294,72 @@ Coordonnee Projectile::getBulletEndPosition()
 
 // //-------------------BOUNCE-------------------//
 
-void Projectile::ScanHitboxes()
-{
-    Game *game = (Game *)scenes->get(1);
+// void Projectile::ScanHitboxes()
+// {
+//     Game *game = (Game *)scenes->get(1);
     
-    Niveau* niv= game->activeLevel; //si erreur avec crochet appeler get dans vecteur.cpp
-    //-------------------bateaux ennemis----------------------//
-    for(int i=0;i<niv->enemyBoats.getSize();i++)
-    {
-        cout<<"for pour les éléments dans le bateau ennemi"<<endl;
-        for(int j=0;j<niv->enemyBoats[i]->characters.getSize();j++)
-        { 
-            //for pour chaque hitbox du bateau (si un bateau a 3 hitboxes, la for ce fait 3X)
-            cout<<"for pour chaque hitbox du bateau ennemi"<<endl;
-            allHitboxObject.add(niv->enemyBoats[i]->characters[j]->getHitbox());
-        }
-        for(int j=0;j<niv->enemyBoats[i]->hitboxes.getSize();j++)
-        { 
-            cout<<"for pour les personnages dans le bateau ennemi"<<endl;  
-            allHitboxObject.add(*niv->enemyBoats[i]->hitboxes[j]);
-        }
-    }
-    //-------------------bateaux alliés----------------------//
-    for(int i=0;i<niv->playerBoats.getSize();i++)
-    {
-        cout<<"for pour les éléments dans le bateau alliés"<<endl;
-        for(int j=0;j<niv->playerBoats[i]->characters.getSize();j++)
-        { 
-            //for pour chaque hitbox du bateau (si un bateau a 3 hitboxes, la for ce fait 3X)
-            cout<<"for pour chaque hitbox du bateau alliés"<<endl;
-            allHitboxObject.add(niv->playerBoats[i]->characters[j]->getHitbox());
-        }
+//     Niveau* niv= game->activeLevel; //si erreur avec crochet appeler get dans vecteur.cpp
+//     //-------------------bateaux ennemis----------------------//
+//     for(int i=0;i<niv->enemyBoats.getSize();i++)
+//     {
+//         cout<<"for pour les éléments dans le bateau ennemi"<<endl;
+//         for(int j=0;j<niv->enemyBoats[i]->characters.getSize();j++)
+//         { 
+//             //for pour chaque hitbox du bateau (si un bateau a 3 hitboxes, la for ce fait 3X)
+//             cout<<"for pour chaque hitbox du bateau ennemi"<<endl;
+//             allHitboxObject.add(niv->enemyBoats[i]->characters[j]->getHitbox());
+//         }
+//         for(int j=0;j<niv->enemyBoats[i]->hitboxes.getSize();j++)
+//         { 
+//             cout<<"for pour les personnages dans le bateau ennemi"<<endl;  
+//             allHitboxObject.add(*niv->enemyBoats[i]->hitboxes[j]);
+//         }
+//     }
+//     //-------------------bateaux alliés----------------------//
+//     for(int i=0;i<niv->playerBoats.getSize();i++)
+//     {
+//         cout<<"for pour les éléments dans le bateau alliés"<<endl;
+//         for(int j=0;j<niv->playerBoats[i]->characters.getSize();j++)
+//         { 
+//             //for pour chaque hitbox du bateau (si un bateau a 3 hitboxes, la for ce fait 3X)
+//             cout<<"for pour chaque hitbox du bateau alliés"<<endl;
+//             allHitboxObject.add(niv->playerBoats[i]->characters[j]->getHitbox());
+//         }
 
-        //niv->enemyBoats[i]->hitBoxBoat
+//         //niv->enemyBoats[i]->hitBoxBoat
 
 
-        //for pour les hitboxs du bateau aliée
-        for(int j=0;j<niv->playerBoats[i]->hitboxes.getSize();j++)
-        { 
-            //on vérifie si la balle se retrouve entre les extremum en y de chaque surface verticale gauche de chaque hitbox du niveau
-            //si oui, la vitesse en x est inversée (vers le gauche plutot que vers la droite) et réduite de 20
-            allHitboxObject.add(*niv->playerBoats[i]->hitboxes[j]);
-            cout<<"for pour les personnages dans le bateau alliés"<<endl; 
-        }
+//         //for pour les hitboxs du bateau aliée
+//         for(int j=0;j<niv->playerBoats[i]->hitboxes.getSize();j++)
+//         { 
+//             //on vérifie si la balle se retrouve entre les extremum en y de chaque surface verticale gauche de chaque hitbox du niveau
+//             //si oui, la vitesse en x est inversée (vers le gauche plutot que vers la droite) et réduite de 20
+//             allHitboxObject.add(*niv->playerBoats[i]->hitboxes[j]);
+//             cout<<"for pour les personnages dans le bateau alliés"<<endl; 
+//         }
         
-    }
+//     }
     
-    //------------Sorted croissant de la position des hitbox (bubble sort)----------//
+//     //------------Sorted croissant de la position des hitbox (bubble sort)----------//
 
-    for(int i =0; i<allHitboxObject.getSize()-1; i++)
-    {
-        cout<<"premiere for bubble"<<endl;
-        for(int j=0; i< allHitboxObject.getSize()-i-1;j++)
-        {
-            cout<<"deuxieme for bubble"<<endl;
-            if(allHitboxObject[j].coordonnees.x>allHitboxObject[j+1].coordonnees.x)
-            {
-                cout<<"if bubble"<<endl;
-                //Coordonnee coordEnemy = niv->enemyBoats[i]->characters[j]->getPosition();
-                Hitbox temporaire = allHitboxObject[j];
-                allHitboxObject[j] = allHitboxObject[j+1];
-                allHitboxObject[j+1] = temporaire; 
-            }
-        }
-    }
+//     for(int i =0; i<allHitboxObject.getSize()-1; i++)
+//     {
+//         cout<<"premiere for bubble"<<endl;
+//         for(int j=0; i< allHitboxObject.getSize()-i-1;j++)
+//         {
+//             cout<<"deuxieme for bubble"<<endl;
+//             if(allHitboxObject[j].coordonnees.x>allHitboxObject[j+1].coordonnees.x)
+//             {
+//                 cout<<"if bubble"<<endl;
+//                 //Coordonnee coordEnemy = niv->enemyBoats[i]->characters[j]->getPosition();
+//                 Hitbox temporaire = allHitboxObject[j];
+//                 allHitboxObject[j] = allHitboxObject[j+1];
+//                 allHitboxObject[j+1] = temporaire; 
+//             }
+//         }
+//     }
         
-}
+// }
 
 void Projectile::BounceHorizontal()// si elle frape un paroie 
 {
@@ -371,17 +372,20 @@ void Projectile::BounceHorizontal()// si elle frape un paroie
         AU MOINS UNE DE SES DEUX CONDITIONS DOIT ÊTRE VRAI (sinon nous sommes clairement à coté et il n'y a pas de rebond)
         3. la vitesse doit être supérieur a 2% sinon on le considère arrêter
     */
+    Maping * maping = new Maping();
+    maping->ScanHitboxes();
     cout<<"Rentrer dans BounceHorizontal"<<endl;
     if(angledeg>0)
     {
+        
         cout<<"angledeg>0"<<endl;
-        for(int i=0;i<allHitboxObject.getSize();i++)
+        for(int i=0;i<maping->allHitboxObject.getSize();i++)
         {
             cout<<"For angledeg<0"<<endl;
             // JE ne sais pas si VF s'uptade, sinon le coder directement dans le if
             float dy=bulletEndPosition.y-bulletStartPosition.y;
             Vf= sqrt( pow(V0*cos(rad),2) + pow(V0*sin(rad),2) +2*g*dy);
-            if((findBulletPositionY(allHitboxObject[i].coordonnees.x)>=allHitboxObject[i].coordonnees.y && findBulletPositionY(allHitboxObject[i].coordonnees.x)<=allHitboxObject[i].coordonnees.y+allHitboxObject[i].height))
+            if((findBulletPositionY(maping->allHitboxObject[i].coordonnees.x)>=maping->allHitboxObject[i].coordonnees.y && findBulletPositionY(maping->allHitboxObject[i].coordonnees.x)<=maping->allHitboxObject[i].coordonnees.y+maping->allHitboxObject[i].height))
             {
                 
                 //bulletEndPosition.x= allHitboxObject[i].coordonnees.x;
@@ -413,13 +417,13 @@ void Projectile::BounceHorizontal()// si elle frape un paroie
     if(angledeg<0)
     {
         cout<<"angledeg<0"<<endl;
-        for(int i=0;i<allHitboxObject.getSize();i++)
+        for(int i=0;i<maping->allHitboxObject.getSize();i++)
         {
             // JE ne sais pas si VF s'uptade, sinon le coder directement dans le if
             cout<<"For angledeg<0"<<endl;
             float dy=bulletEndPosition.y-bulletStartPosition.y;
             Vf= sqrt( pow(V0*cos(rad),2) + pow(V0*sin(rad),2) +2*g*dy);
-            if((findBulletPositionY(allHitboxObject[i].coordonnees.x+allHitboxObject[i].width)>=allHitboxObject[i].coordonnees.y && findBulletPositionY(allHitboxObject[i].coordonnees.x+allHitboxObject[i].width)<=allHitboxObject[i].coordonnees.y+allHitboxObject[i].height))
+            if((findBulletPositionY(maping->allHitboxObject[i].coordonnees.x+maping->allHitboxObject[i].width)>=maping->allHitboxObject[i].coordonnees.y && findBulletPositionY(maping->allHitboxObject[i].coordonnees.x+maping->allHitboxObject[i].width)<=maping->allHitboxObject[i].coordonnees.y+maping->allHitboxObject[i].height))
             {
                 //inverse l'angle et damp la vitesse de 20% (nouvelle Vi =Vf*0.8)
 
@@ -454,17 +458,11 @@ void Projectile::BounceHorizontal()// si elle frape un paroie
 
 void Projectile::BounceVerticale()//si elle frappe un sol (plancher)
 {
+    Maping * maping = new Maping();
+    maping->ScanHitboxes();
     cout<<"Rentrer dans BounceVerticale"<<endl;
-    for(int i=0;i<allHitboxObject.getSize();i++)
+    for(int i=0;i<maping->allHitboxObject.getSize();i++)
     {
-        // JE ne sais pas si VF s'uptade, sinon le coder directement dans le if
-        cout<<"for bounceVertical"<<endl;
-        if((findBulletPositionX(allHitboxObject[i].coordonnees.y)>=allHitboxObject[i].coordonnees.x && findBulletPositionX(allHitboxObject[i].coordonnees.y)<=allHitboxObject[i].coordonnees.x+allHitboxObject[i].width))
-        {
-            //int bulletHitPositionX = findBulletPositionX(allHitboxObject.coordonnees.y +allHitboxObject.height);
-            //int bulletHitPositionY = findBulletPositionY(bulletHitPositionX);
-            //if(bulletHitPositionY > findBulletPositionYAngle(0) )
-            //{
                 //utilise l'équation verte pour trouver l'angle de frappe 
            // }
             
@@ -473,7 +471,10 @@ void Projectile::BounceVerticale()//si elle frappe un sol (plancher)
             //}
                 
             // demandé a Raph si y faut refaire un projectile
-            angledeg = -findNegativeAngleBulletPositionY(allHitboxObject[i].coordonnees.y+allHitboxObject[i].height);
+        cout<<"for bounceVertical"<<endl;
+        if((findBulletPositionX(maping->allHitboxObject[i].coordonnees.y)>=maping->allHitboxObject[i].coordonnees.x && findBulletPositionX(maping->allHitboxObject[i].coordonnees.y)<=maping->allHitboxObject[i].coordonnees.x+maping->allHitboxObject[i].width))
+        {
+            angledeg = -findNegativeAngleBulletPositionY(maping->allHitboxObject[i].coordonnees.y+maping->allHitboxObject[i].height);
             puissance = dampingProjectile*puissance;
             bulletStartPosition.x=bulletEndPosition.x;
             bulletStartPosition.y=bulletEndPosition.y;

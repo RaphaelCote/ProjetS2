@@ -5,8 +5,8 @@
 #include "character.h"
 #include "../Vecteur.h"
 //c'est le "#include "../raftWars.h"" qui fait chier le pain
+#include "../Scenes/maping.h"
 
-#include "../Scenes/game.h"
 // #include "niveau.h"
 #include <iostream>
 #include <cmath>
@@ -49,7 +49,7 @@ class Projectile {
         Coordonnee bulletCurrentPosition;
         virtual int damageReceived(Character& character)=0;
         //-----------BOUNCE-----------//
-        void ScanHitboxes();
+        //void ScanHitboxes();
         void BounceHorizontal();
         void BounceVerticale();
         void CheckerBounce();
@@ -59,7 +59,7 @@ class Projectile {
         //time_t temps;
         Coordonnee bulletStartPosition;//coordonnée de départ du projectile
         Coordonnee bulletEndPosition;//coordonnée de fin du projectile
-        Vecteur<Hitbox> allHitboxObject;
+        //Vecteur<Hitbox> allHitboxObject;
         //std::vector<std::vector<Hitbox>> allHitboxObject;
         float puissance;
         float angledeg;

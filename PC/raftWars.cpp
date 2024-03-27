@@ -14,7 +14,6 @@ using namespace std;
 
 /*-------------------------- Other file include -----------------------------*/
 #include "raftWars.h"
-#include "Affichage/AffichageConsole.h"
 #include "Controls/eventManager.h"
 #include "Controls/keyboardControls.h"
 #include "Controls/ControllerControls.h"
@@ -54,24 +53,18 @@ Scenes index:
 int main()
 {
     cons = new AffichageConsole();
-
     // === Event manager tests ===
     eventManager = new EventManager();
     controls = new KeyboardControls(eventManager);
     // controls = new ControllerControls(eventManager, "COM3");
 
     tests = new Tests();
-    // tests->testjson();
-    // tests->tests_unitaires_levelGetter();
-
-    tests->tests_unitaires_levelGetter();
-    tests->testjson();
-    system("PAUSE");
+    //tests->testjson();
     tests->test_unitaire_characterAndprojectile();
-    //tests->test_unitaires_affichage(); // Test affichage jeux
+    // // tests->tests_unitaires_levelGetter();
 
     // inventory = new Inventory();
-    // //inventory->addGold(2000);
+    // inventory->addGold(2000);
 
     // activeScene = 0;
 
