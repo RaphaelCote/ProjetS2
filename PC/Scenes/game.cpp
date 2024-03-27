@@ -221,12 +221,12 @@ void Game::PlayTurn()
         Projectile *enemyProjectile = ec->createEnemyProjectile();
 
         cout << "Angle : " << enemyProjectile->getAngleDegre() << " | Puissance : " << enemyProjectile->getPuissance() << endl;
-        Vecteur<Character&> players;
-        for(int i=0;i<activeLevel->enemyBoats.getSize();i++)
+        Vecteur<Character*> players;
+        for(int i=0;i<activeLevel->playerBoats.getSize();i++)
         {
-            for(int j = 0; j < activeLevel->enemyBoats[i]->characters.getSize(); j++) 
+            for(int j = 0; j < activeLevel->playerBoats[i]->characters.getSize(); j++) 
             {
-                players.add(*activeLevel->enemyBoats[i]->characters[j]);
+                players.add(activeLevel->playerBoats[i]->characters[j]);
             }
         }
         enemyProjectile->checkIfCharacterHit(players);
@@ -261,12 +261,12 @@ void Game::PlayerShoot()
     {
         return;
     }
-    Vecteur<Character&> enemies;
+    Vecteur<Character*> enemies;
     for(int i=0;i<activeLevel->enemyBoats.getSize();i++)
     {
         for(int j=0;j<activeLevel->enemyBoats[i]->characters.getCapacity();j++)
         {
-            enemies.add(*activeLevel->enemyBoats[i]->characters[j]);
+            enemies.add(activeLevel->enemyBoats[i]->characters[j]);
         }
     }
     activeLevel->enemyBoats[0]->characters[0];

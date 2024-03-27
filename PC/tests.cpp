@@ -82,6 +82,7 @@ void Tests::test_unitaire_levels()
 
 void Tests::test_unitaire_characterAndprojectile()
 {
+   //-------------------Anciens Tests---------------------//
    std::cout << "-------------RAFT WARS-------------\n";
 
    // EnemyCharacter enemy(2000, 100);
@@ -153,9 +154,91 @@ void Tests::test_unitaire_characterAndprojectile()
    //    cout << "Le projectile n'a pas atteint directement l'adversaire. Il a atteri a la position: (" << p->getBulletEndPosition().x << ", " << p->getBulletEndPosition().y << ")" << endl;
    // }
    // cout << "le personnage vise a actuellement : " << enemy.getHealthPoint() << " point de vie" << endl;
-   Gameloader gameloader;
 
-   Niveau *niveau = gameloader.getLevelFromJson(levelGetter->levels[0]);
+   //------------------Nouveaux Tests-----------------//
+
+   // EnemyCharacter enemy(2000, 100);
+   // PlayerCharacter player(0, 100);
+   // enemy.createEnemyProjectile();
+   
+   //EnemyCharacter(Coordonnee position, Hitbox hitbox, int image)
+   //Character* enemy1 = new EnemyCharacter({2000,100},{100,100},1);
+   //Character* player1 = new PlayerCharacter({0,100},{100,100},2);
+
+   //Vecteur<Boat *> playerBoats;
+   //Vecteur<Boat *> enemyBoats;
+   
+   /*
+      EnemyCharacter *ec = (EnemyCharacter *)activeLevel->enemyBoats[0]->characters[0];
+      Projectile *enemyProjectile = ec->createEnemyProjectile();
+
+      cout << "Angle : " << enemyProjectile->getAngleDegre() << " | Puissance : " << enemyProjectile->getPuissance() << endl;
+      Vecteur<Character*> players;
+      for(int i=0;i<activeLevel->enemyBoats.getSize();i++)
+      {
+         for(int j = 0; j < activeLevel->enemyBoats[i]->characters.getSize(); j++) 
+         {
+               players.add(activeLevel->enemyBoats[i]->characters[j]);
+         }
+      }
+      enemyProjectile->checkIfCharacterHit(players);
+   */
+   
+   //delete enemy1;
+   //delete player1;
+
+   //--------------------- AIDE ---------------------//
+   Gameloader *gameloader = new Gameloader();
+   Niveau *niveau = gameloader->getLevelFromJson("./levels/level1.json");
+   //création d'un ennemi en fonction des JSON (level1)
+   EnemyCharacter* ec = (EnemyCharacter *)niveau->enemyBoats[0]->characters[0];
+   //création d'un player en fonction des JSON (level1)
+   PlayerCharacter* pl = (PlayerCharacter *)niveau->playerBoats[0]->characters[0];
+   Projectile *enemyProjectile = ec->createEnemyProjectile();
+   enemyProjectile->ScanHitboxes();
+   //on stock tout les joueurs dans un vecteur
+   Vecteur<Character*> players;
+   
+   for(int i=0;i<niveau->playerBoats.getSize();i++)
+   {
+      for(int j = 0; j < niveau->playerBoats[i]->characters.getSize(); j++) 
+      {
+         players.add(niveau->playerBoats[i]->characters[j]);
+      }
+   }
+   Vecteur<Character*> ennemies;
+   for(int i=0;i<niveau->enemyBoats.getSize();i++)
+   {
+      for(int j = 0; j < niveau->enemyBoats[i]->characters.getSize(); j++) 
+      {
+         ennemies.add(niveau->enemyBoats[i]->characters[j]);
+      }
+   }
+   enemyProjectile->checkIfCharacterHit(players);
+   cout << "La position finale du projectile est: (" << enemyProjectile->getBulletEndPosition().x << ", " << enemyProjectile->getBulletEndPosition().y << ")" << endl;
+   for(int i=0;i<niveau->playerBoats.getSize();i++)
+   {
+      for(int j = 0; j < niveau->playerBoats[i]->characters.getSize(); j++) 
+      {
+         cout<< "le joueur à la position "<<j << "a actuellement "<< niveau->playerBoats[i]->characters[j]->getHealthPoint();
+      }
+   }
+   // cout << "Bateau joueur" << endl;
+   // niveau->playerBoats[0]->ShowInfo(cout);
+   // cout << "Bateau enemy" << endl;
+   // niveau->enemyBoats[0]->ShowInfo(cout);
+   // cout<<"hauteur enemy"<<endl;
+   // cout<<niveau->enemyBoats[0]->characters[0]->getHitboxHeight()<<endl;
+   // cout<<"largeur player"<<endl;
+   // cout<<niveau->playerBoats[0]->characters[0]->getHitboxWidth()<<endl;
+   // cout<<"image joueur"<<endl;
+   // cout<<niveau->playerBoats[0]->characters[0]->getimage()<<endl;
+   // cout<<"image enemy"<<endl;
+   // cout<<niveau->enemyBoats[0]->characters[0]->getimage()<<endl;
+   // cout<<"playerboat largeur"<<endl;
+   // cout<<niveau->playerBoats[0]->getWidth()<<endl;
+   // cout<<"enemyboat hauteur"<<endl;
+   // cout<<niveau->enemyBoats[0]->getHeight()<<endl;
 
    
 }
@@ -497,7 +580,7 @@ void Tests::tests_application_cas_02()
 void Tests::testjson()
 {
    Gameloader *gameloader = new Gameloader();
-   Niveau *niveau = gameloader->getLevelFromJson("./levels/levelTemplate.txt");
+   Niveau *niveau = gameloader->getLevelFromJson("./levels/level1.json");
    niveau->ShowNiveauinfo();
    cout << "Bateau joueur" << endl;
    niveau->playerBoats[0]->ShowInfo(cout);

@@ -65,27 +65,30 @@ int main()
     // tests->tests_unitaires_levelGetter();
 
     tests->tests_unitaires_levelGetter();
-    tests->test_unitaires_affichage(); // Test affichage jeux
+    tests->testjson();
+    system("PAUSE");
+    tests->test_unitaire_characterAndprojectile();
+    //tests->test_unitaires_affichage(); // Test affichage jeux
 
-    inventory = new Inventory();
-    inventory->addGold(2000);
+    // inventory = new Inventory();
+    // //inventory->addGold(2000);
 
-    activeScene = 0;
+    // activeScene = 0;
 
-    scenes = new Vecteur<Scene *>();
-    scenes->add(new MainMenu());
-    scenes->add(new Game());
-    scenes->add(new LevelSelectionMenu());
-    scenes->add(new EndGameMenu());
-    scenes->add(new PauseMenu());
-    scenes->add(new ShopMenu());
+    // scenes = new Vecteur<Scene *>();
+    // scenes->add(new MainMenu());
+    // scenes->add(new Game());
+    // scenes->add(new LevelSelectionMenu());
+    // scenes->add(new EndGameMenu());
+    // scenes->add(new PauseMenu());
+    // scenes->add(new ShopMenu());
 
-    levelGetter = new LevelGetter();
+    // levelGetter = new LevelGetter();
 
-    while (true)
-    {
-        scenes->get(activeScene)->Update();
-    }
+    // while (true)
+    // {
+    //     scenes->get(activeScene)->Update();
+    // }
 
     return 0;
 }
