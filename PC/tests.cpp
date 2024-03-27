@@ -526,6 +526,9 @@ void Tests::testAffichage()
    Hitbox enemy;
    enemy.height = 20;
    enemy.width = 15;
+   Hitbox hitRocket;
+   hitRocket.height = 3;
+   hitRocket.width = 7;
  
    // création des personnages et du bateau
    Character *pers1 = new PlayerCharacter(10, 60);
@@ -534,16 +537,18 @@ void Tests::testAffichage()
    Character *adv1 = new EnemyCharacter(positionEnemy, enemy, 3);
    Coordonnee positionBoat;
    positionBoat.x = 30;
-   positionBoat.y = 200;
+   positionBoat.y = 20;
    Coordonnee positionEnemyBoat;
    positionEnemyBoat.x = 160;
-   positionEnemyBoat.y = 200;
-
+   positionEnemyBoat.y = 20;
+   
    Boat joueur(2, positionBoat, 40, 100, 3);
    Boat adversaire(2, positionEnemyBoat, 40, 100, 3);
 
-   Projectile *pro = new Canonball({100,200});
-   Projectile *grenade = new Grenade({200,100});
+   Projectile *pro = new Canonball({300,200});
+   Projectile *rocket = new Rocket({650,300}, hitRocket);
+   Projectile *pro = new Canonball({10,20});
+   Projectile *grenade = new Grenade({20,10});
 
 
    // ajouter adversaire
@@ -568,7 +573,8 @@ void Tests::testAffichage()
    niveau.MatGrenade(grenade);
    niveau.MatNuage();
    // Sleep(5000);
-   // niveau.MatRocket();
+
+   niveau.MatRocket2(rocket);
    // Sleep(5000);
    niveau.MatCharacter();
    
@@ -576,9 +582,9 @@ void Tests::testAffichage()
    
 
    int _coor_X8 = 0;
-   int _coor_Y8 = cons->MaxRows-2;
-   int _coor_X9 = 50;
-   int _coor_Y9 = cons->MaxRows-5;
+   int _coor_Y8 = cons->MaxRows-10;
+   int _coor_X9 = 500;
+   int _coor_Y9 = cons->MaxRows-50;
 
    cons->AfficherTexte(std::cout, "Allo, voici du texte que tu peux ecrire", &_coor_X8,&_coor_Y8, "texte1");
    cons->AfficherTexte(std::cout, "Je sais pas voici d'autre texte", &_coor_X9,&_coor_Y9,colors::green,colors::black, "texte2");
