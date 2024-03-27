@@ -22,7 +22,7 @@ int Grenade::pythagore(int xi, int xf, int yi, int yf)
 int Grenade::damageReceived(Character& character){
     
     float dy=bulletEndPosition.y-character.getPosition().y;
-    float Vf= sqrt( pow(V0*cos(rad),2) + pow(V0*sin(rad),2) +2*g*dy);
+    Vf= sqrt( pow(V0*cos(rad),2) + pow(V0*sin(rad),2) +2*g*dy);
     int explosionDamage=0;
     
     //---------------------bulletEndPosition en fonction du temps-----------//

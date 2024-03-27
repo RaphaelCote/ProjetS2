@@ -11,6 +11,6 @@ class Rocket: public Projectile{
         Rocket(Character& character):Projectile(character) {}
         Rocket(Coordonnee positionInitialeTir):Projectile( positionInitialeTir){}
         int damageReceived(Character& character) override;
-        int getProjectileMaxSpeed();
+        int getProjectileMaxSpeed() override;
 };
 #endif

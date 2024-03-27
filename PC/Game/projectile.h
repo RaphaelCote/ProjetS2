@@ -39,13 +39,6 @@ class Projectile {
         //void checkIfCharacterHit(Vecteur<Character&> character);
         void checkIfCharacterHit(Vecteur<Character*> character);
         //void checkIfCharacterHit(Character& character); 
-
-        virtual int damageReceived(Character& character)=0;
-        //-----------BOUNCE-----------//
-        void ScanHitboxes();
-        void BounceHorizontal();
-        void BounceVerticale();
-        void CheckerBounce();
         int findBulletPositionX(int positionY);
         int findBulletPositionYAngle(float angle);// pas utilisé présentement 
         float findNegativeAngleBulletPositionY(int positionY);//pour les rebond vertical courbe bleu
@@ -54,6 +47,13 @@ class Projectile {
         int findBulletPositionYTime(float time);
 
         Coordonnee bulletCurrentPosition;
+        virtual int damageReceived(Character& character)=0;
+        //-----------BOUNCE-----------//
+        void ScanHitboxes();
+        void BounceHorizontal();
+        void BounceVerticale();
+        void CheckerBounce();
+        
         
     protected:
         //time_t temps;
