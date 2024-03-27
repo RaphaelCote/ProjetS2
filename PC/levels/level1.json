@@ -7,13 +7,13 @@
             {
                 "coordoneeX": 100,
                 "coordoneeY": 70,
-                "width": 100,
+                "width": 10,
                 "height": 30,
                 "image": 1,
                 "characterlist": [
                     {
-                        "width": 100,
-                        "height": 100,
+                        "width": 10,
+                        "height": 10,
                         "coordoneeX": 10,
                         "coordoneeY": 30,
                         "image": 1
@@ -25,13 +25,13 @@
             {
                 "coordoneeX": 500,
                 "coordoneeY": 70,
-                "width": 100,
+                "width": 10,
                 "height": 30,
                 "image": 1,
                 "characterlist": [
                     {
-                        "width": 100,
-                        "height": 100,
+                        "width": 10,
+                        "height": 10,
                         "coordoneeX": 0,
                         "coordoneeY": 30,
                         "image": 1
