@@ -90,6 +90,7 @@ public:
 
     ControllerControls(EventManager *em, string com);
     void ThreadReceiveSerial();
+    void ReceiveSerial();
     void UpdateAllValues();
     void InitializeSerial();
     void ListenForControls();

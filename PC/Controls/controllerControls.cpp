@@ -31,34 +31,30 @@ ControllerControls::ControllerControls(EventManager *em, string com) : Controls(
     ready_to_read = false;
     Thread_Actif = true;
 
-    // Create a lambda function to capture the instance of MyClass and call its member function
-    auto lambda = [&](int arg)
-    {
-        this->ThreadReceiveSerial();
-    };
+    // // Create a lambda function to capture the instance of MyClass and call its member function
+    // auto lambda = [&](int arg) {
+    //     this->ThreadReceiveSerial();
+    // };
 
-    // Create a pair to store MyClass instance and the argument
-    auto *data = new std::pair<ControllerControls *, int>(this, 42);
+    // // Create a pair to store MyClass instance and the argument
+    // auto* data = new std::pair<ControllerControls*, int>(this,42);
 
-    // Create a thread and pass the entry point function
-    HANDLE threadHandle = CreateThread(nullptr, 0, ThreadEntry, data, 0, nullptr);
+    // // Create a thread and pass the entry point function
+    // HANDLE threadHandle = CreateThread(nullptr, 0, ThreadEntry, data, 0, nullptr);
 
-    if (threadHandle == nullptr)
-    {
-        std::cerr << "Error creating thread.\n";
-    }
+    // if (threadHandle == nullptr) {
+    //     std::cerr << "Error creating thread.\n";
+    // }
 }
 
 void ControllerControls::ThreadReceiveSerial()
 {
     while (Thread_Actif)
     {
-        while (ready_to_read == false)
-        {
-            Sleep(1);
-        }
+        while(ready_to_read == false)
+        {Sleep(1);}
         Sleep(10);
-        // cout << "Thread is life" << endl;
+        //cout << "Thread is life" << endl;
         messageReceived.clear(); // effacer le message precedent
         if (!RcvFromSerial())
         {
@@ -68,18 +64,49 @@ void ControllerControls::ThreadReceiveSerial()
         {
             try
             {
-                // cout << "Arduino: " << raw_msg << endl;
+                //cout << "Arduino: " << raw_msg << endl;
                 messageReceived = json::parse(raw_msg);
                 this->UpdateAllValues();
-                // cout << "All values are updated: " << etatB1 << endl;
-                // cout << "Message de l'Arduino: " << messageReceived << endl;
+                //cout << "All values are updated: " << etatB1 << endl;
+                //cout << "Message de l'Arduino: " << messageReceived << endl;
             }
-            catch (nlohmann::detail::parse_error e)
+            catch(nlohmann::detail::parse_error e)
             {
-                // cout << "Erreur Parse: " << e.what() << '\n';
+                cout << "Erreur Parse: " << e.what() << '\n';
             }
         }
+        
+        ready_to_read = false;
+        ready_to_send = true;
+    }
+}
 
+void ControllerControls::ReceiveSerial()
+{
+    if(ready_to_read)
+    {
+        Sleep(10);
+        //cout << "Thread is life" << endl;
+        messageReceived.clear(); // effacer le message precedent
+        if (!RcvFromSerial())
+        {
+            cerr << "Erreur lors de la reception du message. " << endl;
+        }
+        else
+        {
+            try
+            {
+                //cout << "Arduino: " << raw_msg << endl;
+                messageReceived = json::parse(raw_msg);
+                this->UpdateAllValues();
+                //cout << "All values are updated: " << etatB1 << endl;
+                //cout << "Message de l'Arduino: " << messageReceived << endl;
+            }
+            catch(nlohmann::detail::parse_error e)
+            {
+                cout << "Erreur Parse: " << e.what() << '\n';
+            }
+        }
         ready_to_read = false;
         ready_to_send = true;
     }
@@ -267,22 +294,6 @@ bool ControllerControls::RcvFromSerial()
     int buffer_size;
 
     raw_msg.clear(); // clear string
-    // Read serialport until '\n' character (Blocking)
-
-    // Version fonctionnel dans VScode, mais non fonctionnel avec Visual Studio
-    /*
-        while(msg.back()!='\n'){
-            if(msg.size()>MSG_MAX_SIZE){
-                return false;
-            }
-
-            buffer_size = arduino->readSerialPort(char_buffer, MSG_MAX_SIZE);
-            str_buffer.assign(char_buffer, buffer_size);
-            msg.append(str_buffer);
-        }
-    */
-
-    // Version fonctionnelle dans VScode et Visual Studio
     buffer_size = arduino->readSerialPort(char_buffer, MSG_MAX_SIZE);
     str_buffer.assign(char_buffer, buffer_size);
     raw_msg.append(str_buffer);

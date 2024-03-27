@@ -383,11 +383,11 @@ void Niveau::MatRocket()
     int coor_Y_rocket = 50;
     cons->AjouterObjet(rocket, &coor_X_rocket, &coor_Y_rocket, 4, 7, 0, "rocket");
 
-    for (int i = 0; i < 4; ++i)
-    {
-        delete[] rocket[i];
-    }
-    delete[] rocket;
+    // for (int i = 0; i < 4; ++i)
+    // {
+    //     delete[] rocket[i];
+    // }
+    // delete[] rocket;
 }
 
 void Niveau::MatNuage()
