@@ -38,6 +38,7 @@ class Projectile {
         int findBulletPositionX(int positionY);
         int findBulletPositionY(int positionX);
         int findBulletPositionYTime(float time);
+        float angledeg;
         
     protected:
         //time_t temps;
@@ -45,7 +46,7 @@ class Projectile {
         
         
         float puissance;
-        float angledeg;
+        
         float V0;
         float rad;
         

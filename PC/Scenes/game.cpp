@@ -234,18 +234,12 @@ void Game::PlayTurn()
         // cout << "Angle : " << enemyProjectile->getAngleDegre() << " | Puissance : " << enemyProjectile->getPuissance() << endl;
 
         activeLevel->MatBalle(enemyProjectile);
+        
+        enemyProjectile->checkIfCharacterHit(*(activeLevel->playerBoats[0]->characters[0]));
 
-        if (enemyProjectile->checkIfCharacterHit(*(activeLevel->playerBoats[0]->characters[0])))
-        {
-            // cout << " (" << enemyProjectile->getBulletEndPosition().x << ", " << enemyProjectile->getBulletEndPosition().y << ")" << endl;
-        }
-        else
-        {
-            // cout << "Le projectile ne vous a pas atteint. Il a atteri a la position: (" << enemyProjectile->getBulletEndPosition().x;
-            // cout << ", " << enemyProjectile->getBulletEndPosition().y << ")" << endl;
-        }
+        AnimationProjectile(enemyProjectile);
 
-        // system("PAUSE");
+
         isPlayerTurn = true;
         // projectile = new Canonball(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition());
     }
@@ -276,15 +270,10 @@ void Game::PlayerShoot()
         activeLevel->MatGrenade(projectile);
     }
 
-    if (projectile->checkIfCharacterHit(*(activeLevel->enemyBoats[0]->characters[0])))
-    {
-        // cout << " (" << projectile->getBulletEndPosition().x << ", " << projectile->getBulletEndPosition().y << ")" << endl;
-    }
-    else
-    {
-        // cout << "Le projectile n'a pas atteint l'adversaire. Il a atteri a la position: (" << projectile->getBulletEndPosition().x;
-        // cout << ", " << projectile->getBulletEndPosition().y << ")" << endl;
-    }
+    projectile->checkIfCharacterHit(*(activeLevel->enemyBoats[0]->characters[0]));
+    
+    AnimationProjectile(projectile);
+
 
     // Remove special projectiles if fired, and if no more special projectiles are available, change to previous type
     if (projectileType == 1)
@@ -463,7 +452,13 @@ void Game::AnimationProjectile(Projectile* projectile)
     float time = 0.0f;
     bool coterAnimationGauche;
 
-    if(currentPosition.x - endPosition.x <= 0)
+    //Pour debug
+    //endPosition.x = 1000;
+    ////////////////////////////////////////////////////////////////////////////////
+
+
+
+    if (currentPosition.x - endPosition.x <= 0)
         coterAnimationGauche = true;
     else
         coterAnimationGauche = false;
@@ -475,18 +470,29 @@ void Game::AnimationProjectile(Projectile* projectile)
     {
         lastClockAnimation = currentclockAnimation;
         const auto now = std::chrono::high_resolution_clock::now();
+        currentclockAnimation = now - startAnimation;
 
-        if ((currentclockAnimation.count() - rcvSerialTimerAnimation.count()) > 1)
+        if ((currentclockAnimation.count() - rcvSerialTimerAnimation.count()) > 10000)
         {
-            time += 0,001;
+            time += 0.0005;
 
             currentPosition.y = projectile->findBulletPositionYTime(time);
             currentPosition.x = projectile->findBulletPositionX(currentPosition.y);
-
+            // currentPosition.x++;
             projectile->bulletCurrentPosition = currentPosition;
-            cons->Mincolums = currentPosition.x - (cons->MaxColumns - cons->Mincolums);
+            cons->Mincolums = (currentPosition.x - (cons->MaxColumns*10 - cons->Mincolums*10)/2)/10;//je fais * 10 pcq c l'affichage console
 
-            if(coterAnimationGauche)
+            cons->SupprimerObjet("text");
+            cons->SupprimerObjet("text2");
+            cons->SupprimerObjet("text3");
+            cons->SupprimerObjet("text4");
+
+            cons->AfficherTexte(std::cout, "BulletPositionX: " + to_string(projectile->bulletCurrentPosition.x), cons->Mincolums*10+(cons->MaxColumns*10 - cons->Mincolums*10)/2, 150, "text");
+            cons->AfficherTexte(std::cout, "BulletEndPositionX: " + to_string(projectile->bulletEndPosition.x), cons->Mincolums*10+(cons->MaxColumns*10 - cons->Mincolums*10)/2, 140, "text2");
+            cons->AfficherTexte(std::cout, "BulletAngle: " + to_string(projectile->angledeg), cons->Mincolums*10+(cons->MaxColumns*10 - cons->Mincolums*10)/2, 130, "text3");
+            cons->AfficherTexte(std::cout, "Time: " + to_string(time), cons->Mincolums*10+(cons->MaxColumns*10 - cons->Mincolums*10)/2, 120, "text4");
+
+            if (coterAnimationGauche)
             {
                 if(currentPosition.x >= endPosition.x)
                     animation = false;
