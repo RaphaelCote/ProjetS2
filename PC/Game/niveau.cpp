@@ -526,26 +526,3 @@ void Niveau::MatRocket(Projectile *pro)
     return;
 }
 
-void Niveau::Delete()
-{
-    for ( int b = 0; b < playerBoats.getSize(); b++)
-    {
-        for (int v = 0; v < playerBoats[b]->getNbCharacters(); v++)
-        {
-            for (int i = 0; i < 10; ++i)
-            {
-                delete[] _character[i];
-            }
-            delete[] MatCharacter;
-        }
-    } 
-
-    for (int i = 0; i < playerBoats.getSize(); ++i)
-    {
-        
-    } 
-    for (int i = 0; i < enemyBoats.getSize(); ++i)
-    {
-        
-    }   
-}
