@@ -21,6 +21,7 @@ private:
     int projectileType;
     Projectile *projectile;
     Gameloader gameloader;
+    bool doOnce;
 
     /*PERSONNAGE 1 ET PERSONNAGE 2*/
     /*ne pas oublier d'inclure vecteur et le const (si nécessaire)*/
@@ -56,6 +57,7 @@ public:
     bool CheckEndCondition();
     bool CheckAvailableProjectile(int type);
     void ShowGameInfo();
+    void UpdateWeaponInfo();
 };
 
 #endif

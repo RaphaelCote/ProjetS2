@@ -183,66 +183,22 @@ void Game::PlayTurn()
     turn++;
     if (isPlayerTurn)
     {
-        // system("cls");
-        // ShowGameInfo();
-
-        // cout << endl;
-        // cout << "Inventaire : " << inventory->getRockets() << " rockets, " << inventory->getGrenade() << " grenades" << endl;
-
-        // cout << "Projectile selectionne : ";
-        if (projectileType == 0)
+        if (doOnce)
         {
-            // cout << "Balle" << endl;
+            ShowGameInfo();
+            doOnce = false;
         }
-        else if (projectileType == 1)
-        {
-            // cout << "Rocket" << endl;
-        }
-        else if (projectileType == 2)
-        {
-            // cout << "Grenade" << endl;
-        }
-
-        // cout << endl;
-
-        // cout << "Votre angle : " << projectile->getAngleDegre() << " | Votre puissance : " << projectile->getPuissance() << endl;
-
-        // cout << "\n"
-        //         "-------FORMULE DE LA PARABOLE-------"
-        //      << endl;
-        // cout << "y = g"
-        //      << "x^2 / (2(" << projectile->getPuissance() << "Vmax)^2 . cos^2(" << projectile->getAngleDegre() * PI / 180 << ") ) + xtan(" << projectile->getAngleDegre() * PI / 180 << ")"
-        //      << "\n"
-        //      << endl;
     }
     else
     {
-        // system("PAUSE");
-
-        // system("cls");
-        // ShowGameInfo();
-        // cout << "Tour enemi :" << endl;
-
         EnemyCharacter *ec = (EnemyCharacter *)activeLevel->enemyBoats[0]->characters[0];
         Projectile *enemyProjectile = ec->createEnemyProjectile();
 
-        // cout << "Angle : " << enemyProjectile->getAngleDegre() << " | Puissance : " << enemyProjectile->getPuissance() << endl;
-
         activeLevel->MatBalle(enemyProjectile);
 
-        if (enemyProjectile->checkIfCharacterHit(*(activeLevel->playerBoats[0]->characters[0])))
-        {
-            // cout << " (" << enemyProjectile->getBulletEndPosition().x << ", " << enemyProjectile->getBulletEndPosition().y << ")" << endl;
-        }
-        else
-        {
-            // cout << "Le projectile ne vous a pas atteint. Il a atteri a la position: (" << enemyProjectile->getBulletEndPosition().x;
-            // cout << ", " << enemyProjectile->getBulletEndPosition().y << ")" << endl;
-        }
+        enemyProjectile->checkIfCharacterHit(*(activeLevel->playerBoats[0]->characters[0]));
 
-        // system("PAUSE");
         isPlayerTurn = true;
-        // projectile = new Canonball(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition());
     }
 
     if (CheckEndCondition())
@@ -271,15 +227,7 @@ void Game::PlayerShoot()
         activeLevel->MatGrenade(projectile);
     }
 
-    if (projectile->checkIfCharacterHit(*(activeLevel->enemyBoats[0]->characters[0])))
-    {
-        // cout << " (" << projectile->getBulletEndPosition().x << ", " << projectile->getBulletEndPosition().y << ")" << endl;
-    }
-    else
-    {
-        // cout << "Le projectile n'a pas atteint l'adversaire. Il a atteri a la position: (" << projectile->getBulletEndPosition().x;
-        // cout << ", " << projectile->getBulletEndPosition().y << ")" << endl;
-    }
+    projectile->checkIfCharacterHit(*(activeLevel->enemyBoats[0]->characters[0]));
 
     // Remove special projectiles if fired, and if no more special projectiles are available, change to previous type
     if (projectileType == 1)
@@ -313,6 +261,7 @@ void Game::EndGame()
     PayPlayer();
     OnDisable();
     StopGame();
+    activeLevel->Delete();
     activeScene = 3;
 }
 
@@ -443,7 +392,49 @@ bool Game::CheckAvailableProjectile(int type)
 
 void Game::ShowGameInfo()
 {
-    // Show player positions and health
-    // cout << "-------Niveau " << currentLevelIndex + 1 << "-------" << endl;
+
+    string s0 = "------- Niveau " + to_string(currentLevelIndex) + " ------- ";
+    string s1 = "Vie du joueur : " + to_string(activeLevel->playerBoats[0]->characters[0]->getHealthPoint()) + " ";
+    string s2 = "Vie des enemies : ";
+    string s3 = "";
+    for (int i = 0; i < activeLevel->enemyBoats.getSize(); i++)
+    {
+        for (int j = 0; j < activeLevel->enemyBoats[i]->characters.getSize(); j++)
+        {
+            s3 += "|Enemy " + to_string(i) + to_string(j) + " : " + to_string(activeLevel->enemyBoats[i]->characters[j]->getHealthPoint()) + " ";
+        }
+    }
+
+    // cout << endl;
+    // cout << "Inventaire : " << inventory->getRockets() << " rockets, " << inventory->getGrenade() << " grenades" << endl;
+
+    // cout << "Projectile selectionne : ";
+    if (projectileType == 0)
+    {
+        // cout << "Balle" << endl;
+    }
+    else if (projectileType == 1)
+    {
+        // cout << "Rocket" << endl;
+    }
+    else if (projectileType == 2)
+    {
+        // cout << "Grenade" << endl;
+    }
+
+    // cout << "Votre angle : " << projectile->getAngleDegre() << " | Votre puissance : " << projectile->getPuissance() << endl;
+
+    // cout << "\n"
+    //         "-------FORMULE DE LA PARABOLE-------"
+    //      << endl;
+    // cout << "y = g"
+    //      << "x^2 / (2(" << projectile->getPuissance() << "Vmax)^2 . cos^2(" << projectile->getAngleDegre() * PI / 180 << ") ) + xtan(" << projectile->getAngleDegre() * PI / 180 << ")"
+    //      << "\n"
+    //      << endl;
+
     activeLevel->ShowLevelInfo(cout);
+}
+
+void Game::UpdateWeaponInfo()
+{
 }
