@@ -67,7 +67,7 @@ int main()
     // tests->tests_unitaires_levelGetter();
     //tests->test_unitaires_affichage(); // Test affichage jeux
     tests->testAffichage();
-    //tests->testOuvertureJsonAffiche();
+   // tests->testOuvertureJsonAffiche();
 
     inventory = new Inventory();
     inventory->addGold(2000);

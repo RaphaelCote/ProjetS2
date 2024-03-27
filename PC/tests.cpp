@@ -527,7 +527,7 @@ void Tests::testAffichage()
    enemy.height = 20;
    enemy.width = 15;
    Hitbox hitRocket;
-   hitRocket.height = 3;
+   hitRocket.height = 3;   //à multiplier par 10 si frank change l'affichage
    hitRocket.width = 7;
  
    // création des personnages et du bateau
@@ -547,7 +547,7 @@ void Tests::testAffichage()
 
    Projectile *pro = new Canonball({300,200});
    Projectile *rocket = new Rocket({650,300}, hitRocket);
-   Projectile *grenade = new Grenade({20,10});
+   Projectile *grenade = new Grenade({200,100});
 
 
    // ajouter adversaire
@@ -604,7 +604,7 @@ void Tests::testOuvertureJsonAffiche()
    //erreur ici dans la fonction
    //niveau.MatPlayer();/////////////////////////////////////////////////////////////////////////////
    //Sleep(5000);
-   niveau->MatEnemy();
+   //niveau.MatEnemy();
    niveau->MatWater();
    niveau->MatRaft();
    
