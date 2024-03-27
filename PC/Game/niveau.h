@@ -36,7 +36,7 @@ public:
     void MatGrenade(Projectile *Grenade);
     void MatNuage();
     void MatCharacter();
-    void MatRocket2(Projectile *pro);
+    
 };
 
 #endif

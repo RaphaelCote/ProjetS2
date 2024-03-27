@@ -547,7 +547,6 @@ void Tests::testAffichage()
 
    Projectile *pro = new Canonball({300,200});
    Projectile *rocket = new Rocket({650,300}, hitRocket);
-   Projectile *pro = new Canonball({10,20});
    Projectile *grenade = new Grenade({20,10});
 
 
@@ -574,7 +573,7 @@ void Tests::testAffichage()
    niveau.MatNuage();
    // Sleep(5000);
 
-   niveau.MatRocket2(rocket);
+   niveau.MatRocket(rocket);
    // Sleep(5000);
    niveau.MatCharacter();
    
