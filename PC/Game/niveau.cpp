@@ -160,7 +160,7 @@ void Niveau::MatEnemy()
             else if (val == '+')
             {
                 _enemy[i][n].FrontColour = colors::black;
-                _enemy[i][n].BackColour = colors::lightblue;
+                _enemy[i][n].BackColour = colors::lightred;
                 _enemy[i][n].texture = CHAR_CONTRAST_LOW;
             }
             else if (val == '<')
@@ -217,9 +217,9 @@ void Niveau::MatWater()
     {
         for (int n = 0; n < 350; n++)
         {
-            eau[i][n].FrontColour = colors::blue;
-            eau[i][n].BackColour = colors::aqua;
-            eau[i][n].texture = '\xB1';
+            eau[i][n].FrontColour = colors::aqua;
+            eau[i][n].BackColour = colors::blue;
+            eau[i][n].texture = '\xAB';
         }
     }
 

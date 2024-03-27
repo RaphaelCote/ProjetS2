@@ -428,11 +428,16 @@ void Game::ShowGameInfo()
     {
         for (int j = 0; j < activeLevel->enemyBoats[i]->characters.getSize(); j++)
         {
-            s3 += "|Enemy " + to_string(i) + to_string(j) + " : " + to_string(activeLevel->enemyBoats[i]->characters[j]->getHealthPoint()) + " ";
+            if (i != 0 && j != 0)
+            {
+                s3 += "| ";
+            }
+
+            s3 += "Enemy " + to_string(i) + to_string(j) + " : " + to_string(activeLevel->enemyBoats[i]->characters[j]->getHealthPoint()) + " ";
         }
     }
     string s4 = "Inventaire : " + to_string(inventory->getRockets()) + " rockets, " + to_string(inventory->getGrenade()) + " grenades ";
-    string s5 = "Projectile selectionné : ";
+    string s5 = "Projectile selectionne : ";
 
     if (projectileType == 0)
     {
@@ -447,7 +452,7 @@ void Game::ShowGameInfo()
         s5 += "Grenade ";
     }
 
-    string s6 = " Votre angle : " + to_string(projectile->getAngleDegre()) + " | Votre puissance : " + to_string(projectile->getPuissance()) + " ";
+    string s6 = "Votre angle : " + to_string(projectile->getAngleDegre()) + " | Votre puissance : " + to_string(projectile->getPuissance()) + " ";
 
     // cout << "\n"
     //         "-------FORMULE DE LA PARABOLE-------"
