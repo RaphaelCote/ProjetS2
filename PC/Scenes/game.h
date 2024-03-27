@@ -59,6 +59,8 @@ public:
     void ShowGameInfo();
     void UpdateWeaponInfo();
     void AnimationProjectile(Projectile *projectile);
+    float positionYTemps(float time, Projectile *projectile);
+    float findX(float y, Projectile *projectile, int which_posX);
 };
 
 #endif
