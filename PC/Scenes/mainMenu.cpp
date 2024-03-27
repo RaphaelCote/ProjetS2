@@ -71,8 +71,6 @@ void MainMenu::Update()
         OnEnable();
         ShowMenu();
         doOnce = false;
-        Sleep(200);
-        ShowMenu();
     }
 }
 
@@ -105,13 +103,13 @@ void MainMenu::ShowMenu()
     s5 += "- Sortir ";
     string s6 = "------------------------------------------------------------------- ";
 
-    int y0 = ((cons->MaxRows)*10) - 30;
-    int y1 = ((cons->MaxRows)*10) - 40;
-    int y2 = ((cons->MaxRows)*10) - 50;
-    int y3 = ((cons->MaxRows)*10) - 60;
-    int y4 = ((cons->MaxRows)*10) - 70;
-    int y5 = ((cons->MaxRows)*10) - 80;
-    int y6 = ((cons->MaxRows)*10) - 90;
+    int y0 = ((cons->MaxRows) * 10) - 30;
+    int y1 = ((cons->MaxRows) * 10) - 40;
+    int y2 = ((cons->MaxRows) * 10) - 50;
+    int y3 = ((cons->MaxRows) * 10) - 60;
+    int y4 = ((cons->MaxRows) * 10) - 70;
+    int y5 = ((cons->MaxRows) * 10) - 80;
+    int y6 = ((cons->MaxRows) * 10) - 90;
     int x = 20;
 
     cons->AfficherTexte(std::cout, s0, x, y0, "s0");
@@ -121,7 +119,6 @@ void MainMenu::ShowMenu()
     cons->AfficherTexte(std::cout, s4, x, y4, "s4");
     cons->AfficherTexte(std::cout, s5, x, y5, "s5");
     cons->AfficherTexte(std::cout, s6, x, y6, "s6");
-    
 }
 
 void MainMenu::ClearMenu()

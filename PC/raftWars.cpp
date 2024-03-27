@@ -45,6 +45,8 @@ int activeScene;
 LevelGetter *levelGetter;
 AffichageConsole *cons;
 std::chrono::duration<double, std::milli> elapsed;
+std::chrono::duration<double, std::milli> totalElapsed;
+
 /*
 Scenes index:
 0 : Main menu
@@ -90,7 +92,9 @@ int main()
 
     levelGetter = new LevelGetter();
 
-    Sleep(1000);
+    Sleep(2000);
+    const auto start = std::chrono::high_resolution_clock::now();
+    totalElapsed = start - start;
 
     // Main loop
     while (true)
@@ -99,9 +103,10 @@ int main()
 
         // Do other processing here
         const auto start = std::chrono::high_resolution_clock::now();
-        Sleep(100);
+        Sleep(50);
         const auto end = std::chrono::high_resolution_clock::now();
         elapsed = end - start;
+        totalElapsed += elapsed;
 
         controls->ListenForControls();
     }

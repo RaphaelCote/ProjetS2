@@ -19,5 +19,6 @@ extern int activeScene;
 extern LevelGetter *levelGetter;
 extern AffichageConsole *cons;
 extern std::chrono::duration<double, std::milli> elapsed;
+extern std::chrono::duration<double, std::milli> totalElapsed;
 
 #endif
