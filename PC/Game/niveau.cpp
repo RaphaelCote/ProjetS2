@@ -314,9 +314,11 @@ void Niveau::MatWater()
       }
    }
 
-   int coor_X3 = 0;
-   int coor_Y3 = 0;
-   cons->AjouterObjet(eau, &coor_X3, &coor_Y3, 300, 4, 0, "eau");
+   int *coor_X3 = new int;
+   *coor_X3 = 0;
+   int *coor_Y3 = new int;
+   *coor_Y3 = 0;
+   cons->AjouterObjet(eau, coor_X3, coor_Y3, 300, 4, 0, "eau");
 
 }
 
