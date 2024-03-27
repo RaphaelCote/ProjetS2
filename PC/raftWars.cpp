@@ -66,8 +66,8 @@ int main()
 
     // === Event manager tests ===
     eventManager = new EventManager();
-    // controls = new KeyboardControls(eventManager);
-    controls = new ControllerControls(eventManager, "COM3");
+    controls = new KeyboardControls(eventManager);
+    // controls = new ControllerControls(eventManager, "COM3");
 
     // tests = new Tests();
     // tests->testjson();
@@ -106,15 +106,15 @@ int main()
 
         scenes->get(activeScene)->Update();
 
-        Sleep(1);
+        Sleep(10);
 
-        if ((currentclock.count() - rcvSerialTimer.count()) > 100)
-        {
-            ControllerControls *controller = (ControllerControls *)controls;
-            controller->ReceiveSerial();
+        // if ((currentclock.count() - rcvSerialTimer.count()) > 100)
+        // {
+        //     ControllerControls *controller = (ControllerControls *)controls;
+        //     controller->ReceiveSerial();
 
-            rcvSerialTimer = currentclock;
-        }
+        //     rcvSerialTimer = currentclock;
+        // }
 
         controls->ListenForControls();
     }

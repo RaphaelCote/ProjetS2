@@ -137,7 +137,7 @@ void LevelSelectionMenu::ClearMenu()
         string key = "sl";
         key += to_string(i);
 
-        cons->SupprimerObjet("sl");
+        cons->SupprimerObjet(key);
     }
 }
 

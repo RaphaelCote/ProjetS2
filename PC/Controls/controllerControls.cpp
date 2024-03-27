@@ -51,10 +51,12 @@ void ControllerControls::ThreadReceiveSerial()
 {
     while (Thread_Actif)
     {
-        while(ready_to_read == false)
-        {Sleep(1);}
+        while (ready_to_read == false)
+        {
+            Sleep(1);
+        }
         Sleep(10);
-        //cout << "Thread is life" << endl;
+        // cout << "Thread is life" << endl;
         messageReceived.clear(); // effacer le message precedent
         if (!RcvFromSerial())
         {
@@ -64,18 +66,18 @@ void ControllerControls::ThreadReceiveSerial()
         {
             try
             {
-                //cout << "Arduino: " << raw_msg << endl;
+                // cout << "Arduino: " << raw_msg << endl;
                 messageReceived = json::parse(raw_msg);
                 this->UpdateAllValues();
-                //cout << "All values are updated: " << etatB1 << endl;
-                //cout << "Message de l'Arduino: " << messageReceived << endl;
+                // cout << "All values are updated: " << etatB1 << endl;
+                // cout << "Message de l'Arduino: " << messageReceived << endl;
             }
-            catch(nlohmann::detail::parse_error e)
+            catch (nlohmann::detail::parse_error e)
             {
                 cout << "Erreur Parse: " << e.what() << '\n';
             }
         }
-        
+
         ready_to_read = false;
         ready_to_send = true;
     }
@@ -83,12 +85,12 @@ void ControllerControls::ThreadReceiveSerial()
 
 void ControllerControls::ReceiveSerial()
 {
-    if(ready_to_read)
+    if (ready_to_read)
     {
         Sleep(10);
-        //cout << "Thread is life" << endl;
+        // cout << "Thread is life" << endl;
         messageReceived.clear(); // effacer le message precedent
-        
+
         if (!RcvFromSerial())
         {
             cerr << "Erreur lors de la reception du message. " << endl;
@@ -98,13 +100,14 @@ void ControllerControls::ReceiveSerial()
             try
             {
                 cons->SupprimerObjet("Json");
-                cons->AfficherTexte(std::cout, raw_msg,20,200,"Json");
+                Sleep(1000);
+                cons->AfficherTexte(std::cout, raw_msg, 20, 200, "Json");
 
                 for (int i = 0; i < raw_msg.length(); i++)
                 {
-                    if(raw_msg[i] != '{')
+                    if (raw_msg[i] != '{')
                     {
-                        raw_msg.erase(0,1);
+                        raw_msg.erase(0, 1);
                         i--;
                     }
                     else
@@ -112,10 +115,9 @@ void ControllerControls::ReceiveSerial()
                         break;
                     }
                 }
-                
 
-                //cout << "Arduino: " << raw_msg << endl;
-                if(raw_msg.length() < 2)
+                // cout << "Arduino: " << raw_msg << endl;
+                if (raw_msg.length() < 2)
                 {
                     ready_to_read = false;
                     ready_to_send = true;
@@ -123,14 +125,16 @@ void ControllerControls::ReceiveSerial()
                 }
                 messageReceived = json::parse(raw_msg);
                 cons->SupprimerObjet("ParseJson");
-                cons->AfficherTexte(std::cout, raw_msg,20,180,"ParseJson");
+                Sleep(1000);
+                cons->AfficherTexte(std::cout, raw_msg, 20, 180, "ParseJson");
+                Sleep(1000);
                 this->UpdateAllValues();
-                //cout << "All values are updated: " << etatB1 << endl;
-                //cout << "Message de l'Arduino: " << messageReceived << endl;
+                // cout << "All values are updated: " << etatB1 << endl;
+                // cout << "Message de l'Arduino: " << messageReceived << endl;
             }
-            catch(nlohmann::detail::parse_error e)
+            catch (nlohmann::detail::parse_error e)
             {
-                cout << "Erreur Parse: " << e.what() << '\n';
+                cerr << "Erreur Parse: " << e.what() << '\n';
             }
         }
         ready_to_read = false;
