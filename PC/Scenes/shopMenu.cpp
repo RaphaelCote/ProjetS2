@@ -49,6 +49,7 @@ void ShopMenu::changeSelection(EventParameters ep)
         {
             choice = 0;
         }
+        ShowMenu();
     }
     else if (ep.parameter2 < -0.5)
     {
@@ -56,9 +57,8 @@ void ShopMenu::changeSelection(EventParameters ep)
         {
             choice++;
         }
+        ShowMenu();
     }
-
-    ShowMenu();
 }
 
 void ShopMenu::Update()
@@ -97,33 +97,42 @@ void ShopMenu::ShowMenu()
     string s1 = "BOUTIQUE ";
     string s2 = "-";
     s2 += (choice == 0 ? "O" : "-");
-    s2 += "- Acheter une roquette : " + PRIXKROCKET;
+    s2 += "- Acheter une roquette : ";
+    s2 += inventory->GetPrixRocket();
     s2 += "$ ";
     string s3 = "-";
     s3 += (choice == 1 ? "O" : "-");
-    s3 += "- Acheter une grenade : " + PRIXGRENADE;
+    s3 += "- Acheter une grenade : ";
+    s3 += inventory->GetPrixGrenade();
     s3 += "$ ";
     string s4 = "-";
     s4 += (choice == 2 ? "O" : "-");
-    s4 += "- Acheter 25 bouclier (max 50) : " + PRIXPETITSHIELD;
+    s4 += "- Acheter 25 bouclier (max 50) : ";
+    s4 += inventory->GetPrixShieldSmall();
     s4 += "$ ";
     string s5 = "-";
     s5 += (choice == 3 ? "O" : "-");
-    s5 += "- Acheter 50 bouclier (max 100) " + PRIXMOYENSHIELD;
+    s5 += "- Acheter 50 bouclier (max 100) ";
+    s5 += inventory->GetPrixShieldMedium();
     s5 += "$ ";
     string s6 = "-";
     s6 += (choice == 4 ? "O" : "-");
-    s6 += "- Acheter 100 bouclier (max 100) : " + PRIXGROSSHIELD;
+    s6 += "- Acheter 100 bouclier (max 100) : ";
+    s6 += inventory->GetPrixShieldBig();
     s6 += "$ ";
     string s7 = "-";
     s7 += (choice == 5 ? "O" : "-");
     s7 += "- Retour ";
     string s8 = "------------------------------------------------------------------- ";
     string s9 = "INVENTAIRE";
-    string s10 = "Argent : " + inventory->getGold();
-    string s11 = "Roquettes : " + inventory->getRockets();
-    string s12 = "Grenades : " + inventory->getGrenade();
-    string s13 = "Bouclier : " + inventory->getShield();
+    string s10 = "Argent : ";
+    s10 += inventory->getGold();
+    string s11 = "Roquettes : ";
+    s11 += inventory->getRockets();
+    string s12 = "Grenades : ";
+    s12 += inventory->getGrenade();
+    string s13 = "Bouclier : ";
+    s13 += inventory->getShield();
     string s14 = "------------------------------------------------------------------- ";
 
     int y0 = ((cons->MaxRows) * 10) - 30;
@@ -150,14 +159,14 @@ void ShopMenu::ShowMenu()
     cons->AfficherTexte(std::cout, s4, x, y4, "s4");
     cons->AfficherTexte(std::cout, s5, x, y5, "s5");
     cons->AfficherTexte(std::cout, s6, x, y6, "s6");
-    cons->AfficherTexte(std::cout, s6, x, y7, "s7");
-    cons->AfficherTexte(std::cout, s6, x, y8, "s8");
-    cons->AfficherTexte(std::cout, s6, x, y9, "s9");
-    cons->AfficherTexte(std::cout, s6, x, y10, "s10");
-    cons->AfficherTexte(std::cout, s6, x, y11, "s11");
-    cons->AfficherTexte(std::cout, s6, x, y12, "s12");
-    cons->AfficherTexte(std::cout, s6, x, y13, "s13");
-    cons->AfficherTexte(std::cout, s6, x, y14, "s14");
+    cons->AfficherTexte(std::cout, s7, x, y7, "s7");
+    cons->AfficherTexte(std::cout, s8, x, y8, "s8");
+    cons->AfficherTexte(std::cout, s9, x, y9, "s9");
+    cons->AfficherTexte(std::cout, s10, x, y10, "s10");
+    cons->AfficherTexte(std::cout, s11, x, y11, "s11");
+    cons->AfficherTexte(std::cout, s12, x, y12, "s12");
+    cons->AfficherTexte(std::cout, s13, x, y13, "s13");
+    cons->AfficherTexte(std::cout, s14, x, y14, "s14");
 }
 
 void ShopMenu::ClearMenu()

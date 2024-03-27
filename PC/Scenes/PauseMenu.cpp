@@ -52,6 +52,7 @@ void PauseMenu::changeSelection(EventParameters ep)
         {
             choice = 0;
         }
+        ShowMenu();
     }
     else if (ep.parameter2 < -0.5)
     {
@@ -59,9 +60,8 @@ void PauseMenu::changeSelection(EventParameters ep)
         {
             choice++;
         }
+        ShowMenu();
     }
-
-    ShowMenu();
 }
 
 void PauseMenu::Update()
@@ -96,18 +96,18 @@ void PauseMenu::ShowMenu()
     s3 += "- Retour au menu ";
     string s4 = "------------------------------------------------------------------- ";
 
-    int y0 = cons->MaxRows - 3;
-    int y1 = cons->MaxRows - 4;
-    int y2 = cons->MaxRows - 5;
-    int y3 = cons->MaxRows - 6;
-    int y4 = cons->MaxRows - 7;
-    int x = 2;
+    int y0 = ((cons->MaxRows) * 10) - 30;
+    int y1 = ((cons->MaxRows) * 10) - 40;
+    int y2 = ((cons->MaxRows) * 10) - 50;
+    int y3 = ((cons->MaxRows) * 10) - 60;
+    int y4 = ((cons->MaxRows) * 10) - 70;
+    int x = 20;
 
-    cons->AfficherTexte(std::cout, s0, &x, &y0, "s0");
-    cons->AfficherTexte(std::cout, s1, &x, &y1, "s1");
-    cons->AfficherTexte(std::cout, s2, &x, &y2, "s2");
-    cons->AfficherTexte(std::cout, s3, &x, &y3, "s3");
-    cons->AfficherTexte(std::cout, s4, &x, &y4, "s4");
+    cons->AfficherTexte(std::cout, s0, x, y0, "s0");
+    cons->AfficherTexte(std::cout, s1, x, y1, "s1");
+    cons->AfficherTexte(std::cout, s2, x, y2, "s2");
+    cons->AfficherTexte(std::cout, s3, x, y3, "s3");
+    cons->AfficherTexte(std::cout, s4, x, y4, "s4");
 }
 
 void PauseMenu::ClearMenu()

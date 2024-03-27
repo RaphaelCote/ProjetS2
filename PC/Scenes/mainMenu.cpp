@@ -38,13 +38,7 @@ MainMenu::MainMenu()
 void MainMenu::changeSelection(EventParameters ep)
 {
     // Ajout de délai entre les changements de sélection de menu
-    // à rajouter dans tout les menus
-    int millis = 600;
-    if (millis < lastMove + 500)
-    {
-        return;
-    }
-
+    // à rajouter dans tout les menus}
     if (ep.parameter2 > 0.5)
     {
         choice--;
@@ -52,6 +46,7 @@ void MainMenu::changeSelection(EventParameters ep)
         {
             choice = 0;
         }
+        ShowMenu();
     }
     else if (ep.parameter2 < -0.5)
     {
@@ -59,9 +54,8 @@ void MainMenu::changeSelection(EventParameters ep)
         {
             choice++;
         }
+        ShowMenu();
     }
-
-    ShowMenu();
 }
 
 void MainMenu::Update()

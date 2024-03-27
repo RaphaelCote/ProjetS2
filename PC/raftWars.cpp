@@ -44,8 +44,10 @@ Inventory *inventory;
 int activeScene;
 LevelGetter *levelGetter;
 AffichageConsole *cons;
-std::chrono::duration<double, std::milli> elapsed;
-std::chrono::duration<double, std::milli> totalElapsed;
+std::chrono::_V2::system_clock::time_point start;
+std::chrono::duration<double, std::milli> currentclock;
+std::chrono::duration<double, std::milli> lastClock;
+std::chrono::duration<double, std::milli> rcvSerialTimer;
 
 /*
 Scenes index:
@@ -64,14 +66,13 @@ int main()
 
     // === Event manager tests ===
     eventManager = new EventManager();
-    controls = new KeyboardControls(eventManager);
-    // controls = new ControllerControls(eventManager, "COM3");
+    // controls = new KeyboardControls(eventManager);
+    controls = new ControllerControls(eventManager, "COM3");
 
     // tests = new Tests();
     // tests->testjson();
     // tests->tests_unitaires_levelGetter();
 
-    // tests->tests_unitaires_levelGetter();
     // tests->test_unitaires_affichage(); // Test affichage jeux
 
     inventory = new Inventory();
@@ -92,21 +93,28 @@ int main()
 
     levelGetter = new LevelGetter();
 
-    Sleep(2000);
-    const auto start = std::chrono::high_resolution_clock::now();
-    totalElapsed = start - start;
+    Sleep(1000);
+    start = std::chrono::high_resolution_clock::now();
+    // totalElapsed = start - start;
 
     // Main loop
     while (true)
     {
+        lastClock = currentclock;
+        const auto now = std::chrono::high_resolution_clock::now();
+        currentclock = now - start;
+
         scenes->get(activeScene)->Update();
 
-        // Do other processing here
-        const auto start = std::chrono::high_resolution_clock::now();
-        Sleep(50);
-        const auto end = std::chrono::high_resolution_clock::now();
-        elapsed = end - start;
-        totalElapsed += elapsed;
+        Sleep(10);
+
+        if ((currentclock.count() - rcvSerialTimer.count()) > 100)
+        {
+            ControllerControls *controller = (ControllerControls *)controls;
+            controller->ReceiveSerial();
+
+            rcvSerialTimer = currentclock;
+        }
 
         controls->ListenForControls();
     }

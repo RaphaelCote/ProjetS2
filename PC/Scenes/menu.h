@@ -19,7 +19,6 @@ public:
 
 protected:
     int choice = 0;
-    int lastMove = 0;
     bool doOnce = true;
 };
 

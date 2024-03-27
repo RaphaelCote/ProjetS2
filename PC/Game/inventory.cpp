@@ -8,6 +8,31 @@ Inventory::Inventory()
     gold = 0;
 }
 
+int Inventory::GetPrixRocket()
+{
+    return PRIXROCKET;
+}
+
+int Inventory::GetPrixGrenade()
+{
+    return PRIXGRENADE;
+}
+
+int Inventory::GetPrixShieldSmall()
+{
+    return PRIXPETITSHIELD;
+}
+
+int Inventory::GetPrixShieldMedium()
+{
+    return PRIXMOYENSHIELD;
+}
+
+int Inventory::GetPrixShieldBig()
+{
+    return PRIXGROSSHIELD;
+}
+
 int Inventory::getGold()
 {
     return gold;
@@ -27,12 +52,12 @@ int Inventory::getRockets()
 }
 void Inventory::addRockets()
 {
-    if (getGold() >= PRIXKROCKET)
+    if (getGold() >= PRIXROCKET)
     {
         if (getRockets() < 2)
         {
             nbRockets++;
-            removeGold(PRIXKROCKET);
+            removeGold(PRIXROCKET);
         }
         else
         {
