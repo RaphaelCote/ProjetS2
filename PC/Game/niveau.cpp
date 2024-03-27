@@ -62,23 +62,23 @@ void Niveau::MatRaft()
     for (int i = 0; i < playerBoats.getSize(); ++i)
     {
         // Pixels couleur[(playerBoats[i]->getHeight())/10][(playerBoats[i]->getWidth())/10];
-        Pixels **playerboat = new Pixels *[(playerBoats[i]->getHeight()) / 10];
+        Pixels **couleur = new Pixels *[(playerBoats[i]->getHeight()) / 10];
         for (int j = 0; j < (playerBoats[i]->getHeight()) / 10; ++j)
         {
-            playerboat[j] = new Pixels[playerBoats[i]->getWidth() / 10];
+            couleur[j] = new Pixels[playerBoats[i]->getWidth() / 10];
         }
 
         for (int j = 0; j < (playerBoats[i]->getHeight()) / 10; j++)
         {
             for (int n = 0; n < (playerBoats[i]->getWidth()) / 10; n++)
             {
-                playerboat[j][n].FrontColour = 6; // gold
-                playerboat[j][n].BackColour = 8;  // grey
-                playerboat[j][n].texture = '\xB1';
+                couleur[j][n].FrontColour = 6; // gold
+                couleur[j][n].BackColour = 8;  // grey
+                couleur[j][n].texture = '\xB1';
             }
         }
 
-        cons->AjouterObjet(playerboat, playerBoats[i], 0, "boat player " + i);
+        cons->AjouterObjet(couleur, playerBoats[i], 0, "boat player " + i);
      
         //  for (int j = 0; j < (playerBoats[i]->getHeight())/10; ++j)
         //     {
@@ -90,23 +90,23 @@ void Niveau::MatRaft()
     for (int i = 0; i < enemyBoats.getSize(); i++)
     {
         // Pixels couleur[(enemyBoats[i]->getHeight())/10][(enemyBoats[i]->getWidth())/10];
-        Pixels **enemyboat = new Pixels *[(enemyBoats[i]->getHeight()) / 10];
+        Pixels **couleur = new Pixels *[(enemyBoats[i]->getHeight()) / 10];
         for (int j = 0; j < (enemyBoats[i]->getHeight()) / 10; ++j)
         {
-            enemyboat[j] = new Pixels[enemyBoats[i]->getWidth() / 10];
+            couleur[j] = new Pixels[enemyBoats[i]->getWidth() / 10];
         }
 
         for (int j = 0; j < (enemyBoats[i]->getHeight()) / 10; j++)
         {
             for (int n = 0; n < (enemyBoats[i]->getWidth()) / 10; n++)
             {
-                enemyboat[j][n].FrontColour = darkpurple; // gold
-                enemyboat[j][n].BackColour = 8;  // grey
-                enemyboat[j][n].texture = '\xB1';
+                couleur[j][n].FrontColour = 6; // gold
+                couleur[j][n].BackColour = 8;  // grey
+                couleur[j][n].texture = '\xB1';
             }
         }
 
-        cons->AjouterObjet(enemyboat, enemyBoats[i], 0, "boat enemy " + i);
+        cons->AjouterObjet(couleur, enemyBoats[i], 0, "boat enemy " + i);
 
         // for (int j = 0; j < (enemyBoats[i]->getHeight()) / 10; ++j)
         // {
@@ -214,7 +214,7 @@ void Niveau::MatEnemy()
                                 {' ',' ',' ','*','*','*',' ',' ',' ',' '},
                                 {' ',' ',' ',' ','*',' ',' ',' ',' ',' '},
                                 {' ',' ',' ',' ','*',' ',' ',' ',' ',' '},
-                                {' ','<','<','<','<','<','<',' ',' ',' '},
+                                {' ',' ','<','<','<','<','<','<',' ',' '},
                                 {' ',' ',' ',' ','*',' ',' ',' ',' ',' '},
                                 {' ',' ',' ','*',' ','*',' ',' ',' ',' '},
                                 {' ',' ','*',' ',' ',' ','*',' ',' ',' '},
@@ -247,7 +247,7 @@ void Niveau::MatEnemy()
             else if(val == '+')
             {
                 _enemy[i][n].FrontColour = colors::black;      
-                _enemy[i][n].BackColour = colors::yellow;       
+                _enemy[i][n].BackColour = colors::lightblue;       
                 _enemy[i][n].texture = CHAR_CONTRAST_LOW;
             }
             else if(val == '<')
@@ -315,7 +315,7 @@ void Niveau::MatWater()
    *coor_X3 = 0;
    int *coor_Y3 = new int;
    *coor_Y3 = 0;
-   cons->AjouterObjet(eau, coor_X3, coor_Y3, 300, 10, 0, "eau");
+   cons->AjouterObjet(eau, coor_X3, coor_Y3, 300, 4, 0, "eau");
 
 }
 
@@ -357,7 +357,7 @@ void Niveau::MatNuage()
 
     int *coor_X = new int;
     int *coor_Y = new int;
-    *coor_X = 650;
+    *coor_X = 550;
     *coor_Y = 550;
 
     char tab_test[4][9] = { {' ',' ',' ','+','+','+',' ',' ',' '},
@@ -572,73 +572,4 @@ void Niveau::MatRocket(Projectile *pro)
     cons->AjouterObjet(_nuage, pro, 0, "projectile");
       
     return;
-}
-
-void Niveau::MatRocket2(Projectile *pro)
-{
-    int n_heigth = 3;
-    int n_width = 7;
-
-    int *coor_X = new int;
-    int *coor_Y = new int;
-    *coor_X = 950;
-    *coor_Y = 250;
-
-    char tab_test[4][9] = { {' ','-',' ',' ',' ',' ',' '},
-                            {'?','+','+','+','+','+','*'},
-                            {' ','-',' ',' ',' ',' ',' '}};
-
-
-    Pixels **_nuage = new Pixels*[n_heigth];
-    for (int i = 0; i < n_heigth; ++i) {
-        _nuage[i] = new Pixels[n_width];
-    }
-
-    //passe a travers tout le tableau pour faire le personnage
-    for (int i = 0; i < n_heigth; i++)
-    {
-        for (int n = 0; n < n_width; n++)
-        {
-            char val = tab_test[i][n];
-            if(val == ' ')
-            {
-                _nuage[i][n].FrontColour = colors::transparant;      
-                _nuage[i][n].BackColour = colors::transparant;       
-                _nuage[i][n].texture = ' ';
-            }
-            else if(val == '+')
-            {
-                _nuage[i][n].FrontColour = colors::grey;      
-                _nuage[i][n].BackColour = colors::grey;       
-                _nuage[i][n].texture = ' ';
-            }
-            else if(val == '-')
-            {
-                _nuage[i][n].FrontColour = colors::lightred;      
-                _nuage[i][n].BackColour = colors::lightred;       
-                _nuage[i][n].texture = ' ';
-            }
-            else if(val == '*')
-            {
-                _nuage[i][n].FrontColour = colors::red;      
-                _nuage[i][n].BackColour = colors::red;       
-                _nuage[i][n].texture = ' ';
-            }
-             else if(val == '?')
-            {
-                _nuage[i][n].FrontColour = colors::yellow;      
-                _nuage[i][n].BackColour = colors::red;       
-                _nuage[i][n].texture = ' ';
-            }
-        }
-    }
-    
-    cons->AjouterObjet(_nuage, pro, 0, "projectile");
-      
-    return;
-}
-
-void Niveau::deleteAffichage()
-{
-
 }
