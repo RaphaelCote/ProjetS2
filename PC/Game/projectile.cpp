@@ -16,6 +16,7 @@ Projectile::Projectile(Coordonnee bulletStartPosition)
     angledeg = 0;
     puissance = 0;
     this->bulletStartPosition=bulletStartPosition;
+    this->bulletCurrentPosition = bulletStartPosition;
 
 }
 float Projectile::getPuissance(){

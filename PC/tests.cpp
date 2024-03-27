@@ -542,6 +542,8 @@ void Tests::testAffichage()
    Boat joueur(2, positionBoat, 40, 100, 3);
    Boat adversaire(2, positionEnemyBoat, 40, 100, 3);
 
+   Projectile *pro = new Canonball({10,20});
+
 
    // ajouter adversaire
    
@@ -555,20 +557,20 @@ void Tests::testAffichage()
 
 
    
-   
+   niveau.MatBalle(pro);
    //erreur ici dans la fonction
    //niveau.MatPlayer();/////////////////////////////////////////////////////////////////////////////
    //Sleep(5000);
    //niveau.MatEnemy();
    niveau.MatWater();
    niveau.MatRaft();
-   Sleep(5000);
+   
    niveau.MatNuage();
    // Sleep(5000);
    // niveau.MatRocket();
    // Sleep(5000);
    niveau.MatCharacter();
-   Sleep(5000);
+   
 
    
 
@@ -581,8 +583,29 @@ void Tests::testAffichage()
    cons->AfficherTexte(std::cout, "Je sais pas voici d'autre texte", &_coor_X9,&_coor_Y9,colors::green,colors::black, "texte2");
 
 
-   Sleep(10000);
+  Sleep(5000);
+}
 
- 
-   system("pause");
+
+void Tests::testOuvertureJsonAffiche()
+{
+   Gameloader *gameloader = new Gameloader();
+   Niveau *niveau = gameloader->getLevelFromJson("./levels/level1.json");
+
+   cons->ResetUI();
+
+   //niveau->MatBalle(pro);
+   //erreur ici dans la fonction
+   //niveau.MatPlayer();/////////////////////////////////////////////////////////////////////////////
+   //Sleep(5000);
+   //niveau.MatEnemy();
+   niveau->MatWater();
+   niveau->MatRaft();
+   
+   niveau->MatNuage();
+   // Sleep(5000);
+   // niveau.MatRocket();
+    
+   niveau->MatCharacter();
+   Sleep(5000);
 }

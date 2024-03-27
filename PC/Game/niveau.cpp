@@ -320,7 +320,7 @@ void Niveau::MatWater()
 
 }
 
-void Niveau::MatBalle()
+void Niveau::MatBalle(Projectile *pro)
 {
     // Pixels balle;
     Pixels **balle = new Pixels *[1];
@@ -328,15 +328,11 @@ void Niveau::MatBalle()
     {
         balle[i] = new Pixels[1];
     }
-    balle[0][0].FrontColour = 15; // white
-    balle[0][0].BackColour = 15;
+    balle[0][0].FrontColour = colors::aqua; // white
+    balle[0][0].BackColour = colors::aqua;
     balle[0][0].texture = ' ';
 
-    for (int i = 0; i < 1; ++i)
-    {
-        delete[] balle[i];
-    }
-    delete[] balle;
+    cons->AjouterObjet(balle, pro, 0, "projectile");
 }
 
 void Niveau::MatGrenade()

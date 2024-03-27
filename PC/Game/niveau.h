@@ -3,6 +3,7 @@
 
 #include "../vecteur.h"
 #include "character.h"
+#include "projectile.h"
 #include "Boat.h"
 
 class Niveau
@@ -30,7 +31,7 @@ public:
     void MatPlayer();
     void MatEnemy();
     void MatWater();
-    void MatBalle();
+    void MatBalle(Projectile *pro);
     void MatGrenade();
     void MatRocket();
     void MatNuage();
