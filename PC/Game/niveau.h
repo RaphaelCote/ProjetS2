@@ -28,7 +28,6 @@ public:
     void addRaftPlayer(int width, int height, Coordonnee position, int image, int capacite);
     void addRaftenemy(int width, int height, Coordonnee position, int image, int capacite);
     void MatRaft();
-    void MatPlayer();
     void MatEnemy();
     void MatWater();
     void MatBalle(Projectile *pro);
