@@ -83,9 +83,9 @@ void LevelSelectionMenu::ShowMenu()
     for (int i = 0; i < levelGetter->nbLevel; i++)
     {
         string key = "sl";
-        key += i;
+        key += to_string(i);
 
-        cons->SupprimerObjet("sl");
+        cons->SupprimerObjet(key);
     }
 
     Sleep(50);
@@ -97,13 +97,13 @@ void LevelSelectionMenu::ShowMenu()
         string sl = "-";
         sl += (choice == i ? "O" : "-");
         sl += "- Niveau ";
-        sl += i + 1;
-
-        string key = "sl";
-        key += i;
+        sl += to_string(i + 1);
 
         int y = ((cons->MaxRows) * 10) - (50 + (i * 10));
         int x = 20;
+
+        string key = "sl";
+        key += to_string(i);
 
         cons->AfficherTexte(std::cout, sl, x, y, key);
     }
@@ -135,7 +135,7 @@ void LevelSelectionMenu::ClearMenu()
     for (int i = 0; i < levelGetter->nbLevel; i++)
     {
         string key = "sl";
-        key += i;
+        key += to_string(i);
 
         cons->SupprimerObjet("sl");
     }
@@ -152,6 +152,7 @@ void LevelSelectionMenu::Selection()
     }
     else if (choice == levelGetter->nbLevel)
     {
+        OnDisable();
         Back();
     }
 }

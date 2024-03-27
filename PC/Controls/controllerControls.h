@@ -7,12 +7,11 @@
 #include "controls.h"
 #include "../include/serial/SerialPort.hpp"
 #include "../include/json.hpp"
-#include "raftWars.h"
-
+#include "../raftWars.h"
 
 using json = nlohmann::json;
 
-#define BAUD 115200         // Frequence de transmission serielle
+#define BAUD 115200       // Frequence de transmission serielle
 #define MSG_MAX_SIZE 1024 // Longueur maximale d'un message
 #define GROSSEUR_TAB_ANGLE 10
 
@@ -38,11 +37,9 @@ enum etatJoystick
     JoystickDown = 7
 };
 
-
 class ControllerControls : public Controls
 {
     bool Thread_Actif;
-    
 
     string comPort;
     string raw_msg;
@@ -50,21 +47,17 @@ class ControllerControls : public Controls
     json messageReceived;
     json message_to_send;
 
-    
-
-    
     DWORD WINAPI threadFunction(LPVOID lpParam);
-    
+
     bool SendToSerial();
     bool RcvFromSerial();
-    etatJoystick GetJoyXMenu0(float* value);
-    etatJoystick GetJoyYMenu0(float* value);
+    etatJoystick GetJoyXMenu0(float *value);
+    etatJoystick GetJoyYMenu0(float *value);
     etatBoutton GetBouttonMenu0(int boutton);
 
 public:
     bool ready_to_send;
     bool ready_to_read;
-
 
     etatBoutton etatB1;
     etatBoutton oldEtatB1;
@@ -88,7 +81,6 @@ public:
     float AngleManette;
     float Tab_AnglesManette[GROSSEUR_TAB_ANGLE];
 
-
     ControllerControls(EventManager *em, string com);
     void ThreadReceiveSerial();
     void ReceiveSerial();
@@ -100,16 +92,12 @@ public:
     void AddMessage(string name, string value);
     void AddMessage(string name, float value);
 
-    void GetValue(string name, int* value);
-    void GetValue(string name, bool* value);
-    void GetValue(string name, string* value);
-    void GetValue(string name, float* value);
+    void GetValue(string name, int *value);
+    void GetValue(string name, bool *value);
+    void GetValue(string name, string *value);
+    void GetValue(string name, float *value);
 
     bool SendMessageJson();
-
-    
-    
-    
 };
 
 #endif

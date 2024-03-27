@@ -106,7 +106,7 @@ int main()
 
         scenes->get(activeScene)->Update();
 
-        Sleep(10);
+        Sleep(1);
 
         if ((currentclock.count() - rcvSerialTimer.count()) > 100)
         {
