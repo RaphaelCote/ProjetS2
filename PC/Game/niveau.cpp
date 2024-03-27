@@ -357,8 +357,8 @@ void Niveau::MatNuage()
 
     int *coor_X = new int;
     int *coor_Y = new int;
-    *coor_X = 450;
-    *coor_Y = 250;
+    *coor_X = 550;
+    *coor_Y = 550;
 
     char tab_test[4][9] = { {' ',' ',' ','+','+','+',' ',' ',' '},
                             {' ','+','+','+','+','+','+','+',' '},
