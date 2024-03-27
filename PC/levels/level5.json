@@ -12,37 +12,56 @@
                 "image": 1,
                 "characterlist": [
                     {
-                        "width": 5,
+                        "width": 10,
                         "height": 10,
                         "coordoneeX": 5,
-                        "coordoneeY": 10,
-                        "image": 1
-                    },
-                    {
-                        "width": 10,
-                        "height": 6,
-                        "coordoneeX": 5,
-                        "coordoneeY": 15,
+                        "coordoneeY": 30,
                         "image": 1
                     }
+     
                 ]
             }
         ],
         "enemyboatlist": [
             {
-                "coordoneeX": 2300,
-                "coordoneeY": 100,
-                "width": 20,
-                "height": 15,
+                "coordoneeX": 2000,
+                "coordoneeY": 70,
+                "width": 30,
+                "height": 30,
                 "image": 1,
                 "characterlist": [
                     {
                         "width": 10,
-                        "height": 7,
-                        "coordoneeX": 5,
-                        "coordoneeY": 7,
+                        "height": 10,
+                        "coordoneeX": 0,
+                        "coordoneeY": 30,
+                        "image": 2
+                    },
+                    {
+                        "width": 10,
+                        "height": 10,
+                        "coordoneeX": 12,
+                        "coordoneeY": 30,
                         "image": 2
                     }
+                    
+                ]
+            },
+            {
+                "coordoneeX": 2000,
+                "coordoneeY": 70,
+                "width": 10,
+                "height": 30,
+                "image": 1,
+                "characterlist": [
+                    {
+                        "width": 10,
+                        "height": 10,
+                        "coordoneeX": 0,
+                        "coordoneeY": 30,
+                        "image": 2
+                    }
+                    
                     
                 ]
             }
