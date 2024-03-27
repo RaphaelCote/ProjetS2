@@ -107,15 +107,16 @@ int main()
         scenes->get(activeScene)->Update();
 
         Sleep(10);
+        Sleep(10);
 
-        // if ((currentclock.count() - rcvSerialTimer.count()) > 100)
-        // {
-        //     ControllerControls *controller = (ControllerControls *)controls;
-        //     controller->ReceiveSerial();
+        if ((currentclock.count() - rcvSerialTimer.count()) > 100)
+        {
+            
+            ((ControllerControls *)controls)->ReceiveSerial();
 
-        //     rcvSerialTimer = currentclock;
-        // }
-
+            rcvSerialTimer = currentclock;
+        }
+        
         controls->ListenForControls();
     }
 

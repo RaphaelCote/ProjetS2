@@ -5,6 +5,7 @@ float TRESHOLD = 0.25;
 
 int led_state = 0;
 long index = 0;
+int nbCount= 0;
 
 static DWORD WINAPI ThreadEntry(LPVOID lpParam)
 {
@@ -99,9 +100,8 @@ void ControllerControls::ReceiveSerial()
         {
             try
             {
-                cons->SupprimerObjet("Json");
-                Sleep(1000);
-                cons->AfficherTexte(std::cout, raw_msg, 20, 200, "Json");
+                // cons->SupprimerObjet("Json");
+                // cons->AfficherTexte(std::cout, raw_msg,20,200,"Json");
 
                 for (int i = 0; i < raw_msg.length(); i++)
                 {
@@ -126,7 +126,7 @@ void ControllerControls::ReceiveSerial()
                 messageReceived = json::parse(raw_msg);
                 cons->SupprimerObjet("ParseJson");
 
-                cons->AfficherTexte(std::cout, raw_msg, 20, 180, "ParseJson");
+                cons->AfficherTexte(std::cout, raw_msg,-20,-180,"ParseJson");
 
                 UpdateAllValues();
                 // cout << "All values are updated: " << etatB1 << endl;
@@ -145,6 +145,7 @@ void ControllerControls::ReceiveSerial()
 void ControllerControls::UpdateAllValues()
 {
     // Joystick
+    
     this->etatJoyX = this->GetJoyXMenu0(&(this->JoystickValX));
     this->etatJoyY = this->GetJoyYMenu0(&(this->JoystickValY));
 
@@ -186,6 +187,11 @@ void ControllerControls::ListenForControls()
         // cout << "Veuillez lancer: ";
     }
 
+    cons->SupprimerObjet("Listen");
+    nbCount++;
+    cons->AfficherTexte(std::cout,"Nombre de fois: " + to_string(nbCount),-20,-20,"Listen");
+    // Sleep(1000);
+    
     // cout << "Message: " << messageReceived << endl;
     // cout << "B1: " << this->etatB1 << endl;
     Angle(AngleManette);
