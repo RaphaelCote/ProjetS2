@@ -2,6 +2,7 @@
 
 #include "tests.h"
 #include "Game/niveau.h"
+#include "Game/utility.h"
 #include "Scenes/game.h"
 #include "raftWars.h"
 #include "Game/enemyCharacter.h"
@@ -449,7 +450,7 @@ void Tests::test_unitaires_affichage()
    cons->SupprimerObjet("Ball1");
    cons->SupprimerObjet("Char2");
 
-   system("pause");
+   // system("pause");
    /////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
@@ -464,8 +465,8 @@ void Tests::tests_unitaires()
    // test_unitaire_games();
    test_unitaire_characterAndprojectile();
 
-   system("pause"); // Wait for user input
-   system("cls");   // Clear terminal
+   // system("pause"); // Wait for user input
+   // system("cls"); // Clear terminal
 }
 
 void Tests::tests_application()
@@ -507,4 +508,97 @@ void Tests::testjson()
    cout << niveau->playerBoats[0]->getWidth() << endl;
    cout << "enemyboat hauteur" << endl;
    cout << niveau->enemyBoats[0]->getHeight() << endl;
+}
+
+void Tests::testAffichage()
+{
+   cons->ResetUI();
+   Niveau niveau;
+   Coordonnee positionEnemy;
+   positionEnemy.x = 600;
+   positionEnemy.y = 100;
+   Hitbox enemy;
+   enemy.height = 20;
+   enemy.width = 15;
+   Hitbox hitRocket;
+   hitRocket.height = 3; // à multiplier par 10 si frank change l'affichage
+   hitRocket.width = 7;
+
+   // création des personnages et du bateau
+   Character *pers1 = new PlayerCharacter(10, 60);
+   Character *pers2 = new PlayerCharacter(250, 60);
+   PlayerCharacter c = PlayerCharacter(150, 60);
+   Character *adv1 = new EnemyCharacter(positionEnemy, enemy, 3);
+   Coordonnee positionBoat;
+   positionBoat.x = 30;
+   positionBoat.y = 20;
+   Coordonnee positionEnemyBoat;
+   positionEnemyBoat.x = 160;
+   positionEnemyBoat.y = 20;
+
+   Boat joueur(2, positionBoat, 40, 100, 3);
+   Boat adversaire(2, positionEnemyBoat, 40, 100, 3);
+
+   Projectile *pro = new Canonball({300, 200});
+   Projectile *rocket = new Rocket({650, 300}, hitRocket);
+   Projectile *grenade = new Grenade({200, 100});
+
+   // ajouter adversaire
+
+   adversaire.addCharacter(adv1);
+
+   joueur.addCharacter(pers1);
+   joueur.addCharacter(pers2);
+
+   niveau.playerBoats.add(&joueur);
+   niveau.enemyBoats.add(&adversaire);
+
+   niveau.MatBalle(pro);
+   // erreur ici dans la fonction
+   // niveau.MatPlayer();/////////////////////////////////////////////////////////////////////////////
+   // Sleep(5000);
+
+   niveau.MatWater();
+   niveau.MatRaft();
+   niveau.MatGrenade(grenade);
+   niveau.MatNuage();
+   // Sleep(5000);
+
+   niveau.MatRocket(rocket);
+   // Sleep(5000);
+   niveau.MatCharacter();
+   niveau.MatEnemy();
+
+   int _coor_X8 = 0;
+   int _coor_Y8 = cons->MaxRows - 10;
+   int _coor_X9 = 500;
+   int _coor_Y9 = cons->MaxRows - 50;
+
+   // cons->AfficherTexte(std::cout, "Allo, voici du texte que tu peux ecrire", &_coor_X8,&_coor_Y8, "texte1");
+   // cons->AfficherTexte(std::cout, "Je sais pas voici d'autre texte", &_coor_X9,&_coor_Y9,colors::green,colors::black, "texte2");
+
+   Sleep(5000);
+}
+
+void Tests::testOuvertureJsonAffiche()
+{
+   Gameloader *gameloader = new Gameloader();
+   Niveau *niveau = gameloader->getLevelFromJson("./levels/level1.json");
+
+   cons->ResetUI();
+
+   // niveau->MatBalle(pro);
+   // erreur ici dans la fonction
+   // niveau.MatPlayer();/////////////////////////////////////////////////////////////////////////////
+   // Sleep(5000);
+   // niveau.MatEnemy();
+   niveau->MatWater();
+   niveau->MatRaft();
+
+   niveau->MatNuage();
+   // Sleep(5000);
+   // niveau.MatRocket();
+
+   niveau->MatCharacter();
+   Sleep(5000);
 }

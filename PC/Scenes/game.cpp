@@ -166,6 +166,12 @@ void Game::Update()
                 activeLevel->playerBoats[i]->characters[j]->setHealthPoint(newHealthPoints);
             }
         }
+
+        activeLevel->MatWater();
+        activeLevel->MatNuage();
+        activeLevel->MatRaft();
+        activeLevel->MatCharacter();
+        activeLevel->MatEnemy();
     }
 
     isNewLevel = false;
@@ -178,7 +184,7 @@ void Game::PlayTurn()
     if (isPlayerTurn)
     {
         // system("cls");
-        ShowGameInfo();
+        // ShowGameInfo();
 
         // cout << endl;
         // cout << "Inventaire : " << inventory->getRockets() << " rockets, " << inventory->getGrenade() << " grenades" << endl;
@@ -208,20 +214,21 @@ void Game::PlayTurn()
         //      << "x^2 / (2(" << projectile->getPuissance() << "Vmax)^2 . cos^2(" << projectile->getAngleDegre() * PI / 180 << ") ) + xtan(" << projectile->getAngleDegre() * PI / 180 << ")"
         //      << "\n"
         //      << endl;
-        controls->ListenForControls();
     }
     else
     {
         // system("PAUSE");
 
         // system("cls");
-        ShowGameInfo();
+        // ShowGameInfo();
         // cout << "Tour enemi :" << endl;
 
         EnemyCharacter *ec = (EnemyCharacter *)activeLevel->enemyBoats[0]->characters[0];
         Projectile *enemyProjectile = ec->createEnemyProjectile();
 
         // cout << "Angle : " << enemyProjectile->getAngleDegre() << " | Puissance : " << enemyProjectile->getPuissance() << endl;
+
+        activeLevel->MatBalle(enemyProjectile);
 
         if (enemyProjectile->checkIfCharacterHit(*(activeLevel->playerBoats[0]->characters[0])))
         {
@@ -233,7 +240,7 @@ void Game::PlayTurn()
             // cout << ", " << enemyProjectile->getBulletEndPosition().y << ")" << endl;
         }
 
-        system("PAUSE");
+        // system("PAUSE");
         isPlayerTurn = true;
         // projectile = new Canonball(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition());
     }
@@ -249,6 +256,19 @@ void Game::PlayerShoot()
     if (!isPlayerTurn)
     {
         return;
+    }
+
+    if (projectileType == 0)
+    {
+        activeLevel->MatBalle(projectile);
+    }
+    else if (projectileType == 1)
+    {
+        activeLevel->MatRocket(projectile);
+    }
+    else if (projectileType == 2)
+    {
+        activeLevel->MatGrenade(projectile);
     }
 
     if (projectile->checkIfCharacterHit(*(activeLevel->enemyBoats[0]->characters[0])))
@@ -291,7 +311,6 @@ void Game::PauseGame()
 void Game::EndGame()
 {
     PayPlayer();
-    // system("PAUSE");
     OnDisable();
     StopGame();
     activeScene = 3;

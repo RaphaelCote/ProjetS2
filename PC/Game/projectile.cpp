@@ -8,6 +8,7 @@ Projectile::Projectile(Character &character)
     angledeg = 0;
     puissance = 0;
     this->bulletStartPosition = character.getWeaponPosition();
+    this->hitbox = {1, 1};
 }
 
 Projectile::Projectile(Coordonnee bulletStartPosition)
@@ -15,7 +16,19 @@ Projectile::Projectile(Coordonnee bulletStartPosition)
     angledeg = 0;
     puissance = 0;
     this->bulletStartPosition = bulletStartPosition;
+    this->bulletCurrentPosition = bulletStartPosition;
+    this->hitbox = {1, 1};
 }
+
+Projectile::Projectile(Coordonnee bulletStartPosition, Hitbox hitboxset)
+{
+    angledeg = 0;
+    puissance = 0;
+    this->bulletStartPosition = bulletStartPosition;
+    this->bulletCurrentPosition = bulletStartPosition;
+    this->hitbox = hitboxset;
+}
+
 float Projectile::getPuissance()
 {
     return puissance;

@@ -47,6 +47,7 @@ public:
    void test_unitaire_characterAndprojectile();
    void tests_unitaires_levelGetter();
    void test_unitaires_affichage();
+   
    void tests_unitaires(); // Appel de tous les tests unitaires
 
    // Methodes pour les tests unitaires des classes
@@ -54,6 +55,8 @@ public:
    void tests_application_cas_02();
    void tests_application(); // Appel de tous les tests applicatifs
    void testjson();
+   void testAffichage();
+   void testOuvertureJsonAffiche();
 };
 
 #endif

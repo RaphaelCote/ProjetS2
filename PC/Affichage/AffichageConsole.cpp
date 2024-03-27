@@ -219,9 +219,9 @@ void AffichageConsole::AjouterObjet(Pixels **tab, Boat *boat, int couche, string
     obj1->pix = tab;
     obj1->pointeur = true;
     obj1->x = boat->getPointerPositionBoat_X();
-    obj1->y = boat->getPointerPositionBoat_X();
-    obj1->width = boat->getHitboxBoat().width;
-    obj1->height = boat->getHitboxBoat().height;
+    obj1->y = boat->getPointerPositionBoat_Y();
+    obj1->width = boat->getHitboxBoat().width/10;
+    obj1->height = boat->getHitboxBoat().height/10;
     obj1->couche = couche;
     obj1->name = name;
 
@@ -235,8 +235,8 @@ void AffichageConsole::AjouterObjet(Pixels **tab, Projectile *project, int couch
     obj1->pointeur = true;
     obj1->x = &project->bulletCurrentPosition.x;
     obj1->y = &project->bulletCurrentPosition.y;
-    obj1->width = 1;
-    obj1->height = 1;
+    obj1->width = project->hitbox.width;
+    obj1->height = project->hitbox.height;
     obj1->couche = couche;
     obj1->name = name;
 
