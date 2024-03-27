@@ -554,7 +554,7 @@ void readPC()
   
   if (comPC.GetValue("led", &ledvalue)) {
     // mettre la led a la valeur doc["led"]
-    Bar.AllumeBits(ledvalue);
+    //Bar.AllumeBits(ledvalue);
   }
 }
 

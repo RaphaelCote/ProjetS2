@@ -126,7 +126,7 @@ void ControllerControls::ReceiveSerial()
                 messageReceived = json::parse(raw_msg);
                 cons->SupprimerObjet("ParseJson");
 
-                cons->AfficherTexte(std::cout, raw_msg,-20,-180,"ParseJson");
+                cons->AfficherTexte(std::cout, raw_msg,20,180,"ParseJson");
 
                 UpdateAllValues();
                 // cout << "All values are updated: " << etatB1 << endl;
