@@ -405,7 +405,7 @@ void Niveau::MatCharacter()
     int c_heigth = 10;
     int c_width = 10;
 
-    char tab_test[10][10] = {{' ',' ',' ','+','+','+',' ',' ',' ',' '},
+    char tab_test[10][10] =     {{' ',' ',' ','+','+','+',' ',' ',' ',' '},
                                 {' ',' ','+','+','+','+','+',' ',' ',' '},
                                 {' ',' ',' ','*','*','*',' ',' ',' ',' '},
                                 {' ',' ',' ',' ','*',' ',' ',' ',' ',' '},
@@ -465,6 +465,8 @@ void Niveau::MatCharacter()
     }   
 }
 
+
+
 void Niveau::MatRocket(Projectile *pro)
 {
     int n_heigth = 3;
@@ -522,4 +524,28 @@ void Niveau::MatRocket(Projectile *pro)
     cons->AjouterObjet(rocket, pro, 0, "projectile");
       
     return;
+}
+
+void Niveau::Delete()
+{
+    for ( int b = 0; b < playerBoats.getSize(); b++)
+    {
+        for (int v = 0; v < playerBoats[b]->getNbCharacters(); v++)
+        {
+            for (int i = 0; i < 10; ++i)
+            {
+                delete[] _character[i];
+            }
+            delete[] MatCharacter;
+        }
+    } 
+
+    for (int i = 0; i < playerBoats.getSize(); ++i)
+    {
+        
+    } 
+    for (int i = 0; i < enemyBoats.getSize(); ++i)
+    {
+        
+    }   
 }

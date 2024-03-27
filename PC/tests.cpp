@@ -521,8 +521,8 @@ void Tests::testAffichage()
    cons->ResetUI();
    Niveau niveau;
    Coordonnee positionEnemy;
-   positionEnemy.x = 2500+60;
-   positionEnemy.y = 60;
+   positionEnemy.x = 600;
+   positionEnemy.y = 100;
    Hitbox enemy;
    enemy.height = 20;
    enemy.width = 15;
@@ -566,7 +566,7 @@ void Tests::testAffichage()
    //erreur ici dans la fonction
    //niveau.MatPlayer();/////////////////////////////////////////////////////////////////////////////
    //Sleep(5000);
-   niveau.MatEnemy();
+   
    niveau.MatWater();
    niveau.MatRaft();
    niveau.MatGrenade(grenade);
@@ -576,6 +576,7 @@ void Tests::testAffichage()
    niveau.MatRocket(rocket);
    // Sleep(5000);
    niveau.MatCharacter();
+   niveau.MatEnemy();
    
 
    
@@ -585,8 +586,8 @@ void Tests::testAffichage()
    int _coor_X9 = 500;
    int _coor_Y9 = cons->MaxRows-50;
 
-   cons->AfficherTexte(std::cout, "Allo, voici du texte que tu peux ecrire", &_coor_X8,&_coor_Y8, "texte1");
-   cons->AfficherTexte(std::cout, "Je sais pas voici d'autre texte", &_coor_X9,&_coor_Y9,colors::green,colors::black, "texte2");
+   // cons->AfficherTexte(std::cout, "Allo, voici du texte que tu peux ecrire", &_coor_X8,&_coor_Y8, "texte1");
+   // cons->AfficherTexte(std::cout, "Je sais pas voici d'autre texte", &_coor_X9,&_coor_Y9,colors::green,colors::black, "texte2");
 
 
   Sleep(5000);
