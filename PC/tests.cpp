@@ -543,6 +543,7 @@ void Tests::testAffichage()
    Boat adversaire(2, positionEnemyBoat, 40, 100, 3);
 
    Projectile *pro = new Canonball({10,20});
+   Projectile *grenade = new Grenade({20,10});
 
 
    // ajouter adversaire
@@ -561,10 +562,10 @@ void Tests::testAffichage()
    //erreur ici dans la fonction
    //niveau.MatPlayer();/////////////////////////////////////////////////////////////////////////////
    //Sleep(5000);
-   //niveau.MatEnemy();
+   niveau.MatEnemy();
    niveau.MatWater();
    niveau.MatRaft();
-   
+   niveau.MatGrenade(grenade);
    niveau.MatNuage();
    // Sleep(5000);
    // niveau.MatRocket();

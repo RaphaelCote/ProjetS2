@@ -8,6 +8,7 @@
 Niveau::Niveau()
 {
 }
+
 Niveau::Niveau(int width, int height, int image)
 {
     backimge = image;
@@ -39,6 +40,7 @@ void Niveau::ShowLevelInfo(ostream &s)
         enemyBoats[i]->ShowInfo(s);
     }
 }
+
 void Niveau::ShowNiveauinfo()
 {
     cout << "hauteur niveau " << height << endl;
@@ -57,7 +59,6 @@ void Niveau::addRaftenemy(int width, int height, Coordonnee position, int image,
 
 void Niveau::MatRaft()
 {
-
     for (int i = 0; i < playerBoats.getSize(); ++i)
     {
         // Pixels couleur[(playerBoats[i]->getHeight())/10][(playerBoats[i]->getWidth())/10];
@@ -78,9 +79,7 @@ void Niveau::MatRaft()
         }
 
         cons->AjouterObjet(couleur, playerBoats[i], 0, "boat player " + i);
-
-        
-
+     
         //  for (int j = 0; j < (playerBoats[i]->getHeight())/10; ++j)
         //     {
         //         delete[] couleur[j];
@@ -108,8 +107,6 @@ void Niveau::MatRaft()
         }
 
         cons->AjouterObjet(couleur, enemyBoats[i], 0, "boat enemy " + i);
-
-        
 
         // for (int j = 0; j < (enemyBoats[i]->getHeight()) / 10; ++j)
         // {
@@ -322,7 +319,7 @@ void Niveau::MatWater()
 
 }
 
-void Niveau::MatBalle(Projectile *pro)
+void Niveau::MatBalle(Projectile *Balle)
 {
     // Pixels balle;
     Pixels **balle = new Pixels *[1];
@@ -330,14 +327,14 @@ void Niveau::MatBalle(Projectile *pro)
     {
         balle[i] = new Pixels[1];
     }
-    balle[0][0].FrontColour = colors::aqua; // white
+    balle[0][0].FrontColour = colors::aqua; // blue
     balle[0][0].BackColour = colors::aqua;
     balle[0][0].texture = ' ';
 
-    cons->AjouterObjet(balle, pro, 0, "projectile");
+    cons->AjouterObjet(balle, Balle, 0, "balle");
 }
 
-void Niveau::MatGrenade()
+void Niveau::MatGrenade(Projectile *Grenade)
 {
     // Pixels grenade;
     Pixels **grenade = new Pixels *[1];
@@ -349,11 +346,7 @@ void Niveau::MatGrenade()
     grenade[0][0].BackColour = 14;
     grenade[0][0].texture = ' ';
 
-    for (int i = 0; i < 1; ++i)
-    {
-        delete[] grenade[i];
-    }
-    delete[] grenade;
+    cons->AjouterObjet(grenade, Grenade, 0, "grenade");
 }
 
 void Niveau::MatRocket()

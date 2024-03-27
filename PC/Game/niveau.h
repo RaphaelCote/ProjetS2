@@ -32,7 +32,7 @@ public:
     void MatEnemy();
     void MatWater();
     void MatBalle(Projectile *pro);
-    void MatGrenade();
+    void MatGrenade(Projectile *Grenade);
     void MatRocket();
     void MatNuage();
     void MatCharacter();
