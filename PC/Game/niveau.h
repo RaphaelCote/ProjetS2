@@ -36,6 +36,7 @@ public:
     void MatRocket();
     void MatNuage();
     void MatCharacter();
+    void deleteAffichage();
 };
 
 #endif

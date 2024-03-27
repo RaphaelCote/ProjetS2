@@ -62,23 +62,23 @@ void Niveau::MatRaft()
     for (int i = 0; i < playerBoats.getSize(); ++i)
     {
         // Pixels couleur[(playerBoats[i]->getHeight())/10][(playerBoats[i]->getWidth())/10];
-        Pixels **couleur = new Pixels *[(playerBoats[i]->getHeight()) / 10];
+        Pixels **playerboat = new Pixels *[(playerBoats[i]->getHeight()) / 10];
         for (int j = 0; j < (playerBoats[i]->getHeight()) / 10; ++j)
         {
-            couleur[j] = new Pixels[playerBoats[i]->getWidth() / 10];
+            playerboat[j] = new Pixels[playerBoats[i]->getWidth() / 10];
         }
 
         for (int j = 0; j < (playerBoats[i]->getHeight()) / 10; j++)
         {
             for (int n = 0; n < (playerBoats[i]->getWidth()) / 10; n++)
             {
-                couleur[j][n].FrontColour = 6; // gold
-                couleur[j][n].BackColour = 8;  // grey
-                couleur[j][n].texture = '\xB1';
+                playerboat[j][n].FrontColour = 6; // gold
+                playerboat[j][n].BackColour = 8;  // grey
+                playerboat[j][n].texture = '\xB1';
             }
         }
 
-        cons->AjouterObjet(couleur, playerBoats[i], 0, "boat player " + i);
+        cons->AjouterObjet(playerboat, playerBoats[i], 0, "boat player " + i);
      
         //  for (int j = 0; j < (playerBoats[i]->getHeight())/10; ++j)
         //     {
@@ -90,23 +90,23 @@ void Niveau::MatRaft()
     for (int i = 0; i < enemyBoats.getSize(); i++)
     {
         // Pixels couleur[(enemyBoats[i]->getHeight())/10][(enemyBoats[i]->getWidth())/10];
-        Pixels **couleur = new Pixels *[(enemyBoats[i]->getHeight()) / 10];
+        Pixels **enemyboat = new Pixels *[(enemyBoats[i]->getHeight()) / 10];
         for (int j = 0; j < (enemyBoats[i]->getHeight()) / 10; ++j)
         {
-            couleur[j] = new Pixels[enemyBoats[i]->getWidth() / 10];
+            enemyboat[j] = new Pixels[enemyBoats[i]->getWidth() / 10];
         }
 
         for (int j = 0; j < (enemyBoats[i]->getHeight()) / 10; j++)
         {
             for (int n = 0; n < (enemyBoats[i]->getWidth()) / 10; n++)
             {
-                couleur[j][n].FrontColour = 6; // gold
-                couleur[j][n].BackColour = 8;  // grey
-                couleur[j][n].texture = '\xB1';
+                enemyboat[j][n].FrontColour = darkpurple; // gold
+                enemyboat[j][n].BackColour = 8;  // grey
+                enemyboat[j][n].texture = '\xB1';
             }
         }
 
-        cons->AjouterObjet(couleur, enemyBoats[i], 0, "boat enemy " + i);
+        cons->AjouterObjet(enemyboat, enemyBoats[i], 0, "boat enemy " + i);
 
         // for (int j = 0; j < (enemyBoats[i]->getHeight()) / 10; ++j)
         // {
@@ -214,7 +214,7 @@ void Niveau::MatEnemy()
                                 {' ',' ',' ','*','*','*',' ',' ',' ',' '},
                                 {' ',' ',' ',' ','*',' ',' ',' ',' ',' '},
                                 {' ',' ',' ',' ','*',' ',' ',' ',' ',' '},
-                                {' ',' ','<','<','<','<','<','<',' ',' '},
+                                {' ','<','<','<','<','<','<',' ',' ',' '},
                                 {' ',' ',' ',' ','*',' ',' ',' ',' ',' '},
                                 {' ',' ',' ','*',' ','*',' ',' ',' ',' '},
                                 {' ',' ','*',' ',' ',' ','*',' ',' ',' '},
@@ -247,7 +247,7 @@ void Niveau::MatEnemy()
             else if(val == '+')
             {
                 _enemy[i][n].FrontColour = colors::black;      
-                _enemy[i][n].BackColour = colors::lightblue;       
+                _enemy[i][n].BackColour = colors::yellow;       
                 _enemy[i][n].texture = CHAR_CONTRAST_LOW;
             }
             else if(val == '<')
@@ -315,7 +315,7 @@ void Niveau::MatWater()
    *coor_X3 = 0;
    int *coor_Y3 = new int;
    *coor_Y3 = 0;
-   cons->AjouterObjet(eau, coor_X3, coor_Y3, 300, 4, 0, "eau");
+   cons->AjouterObjet(eau, coor_X3, coor_Y3, 300, 10, 0, "eau");
 
 }
 
@@ -406,8 +406,8 @@ void Niveau::MatNuage()
 
     int *coor_X = new int;
     int *coor_Y = new int;
-    *coor_X = 450;
-    *coor_Y = 250;
+    *coor_X = 650;
+    *coor_Y = 550;
 
     char tab_test[4][9] = { {' ',' ',' ','+','+','+',' ',' ',' '},
                             {' ','+','+','+','+','+','+','+',' '},
@@ -558,4 +558,9 @@ void Niveau::MatCharacter()
             cons->AjouterObjet(_character, playerBoats[b]->characters[v], 0, "Char"+b + ','+v);
         }
     }   
+}
+
+void Niveau::deleteAffichage()
+{
+
 }

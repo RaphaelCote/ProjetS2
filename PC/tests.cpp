@@ -521,29 +521,29 @@ void Tests::testAffichage()
    cons->ResetUI();
    Niveau niveau;
    Coordonnee positionEnemy;
-   positionEnemy.x = 250+6;
-   positionEnemy.y = 6;
+   positionEnemy.x = 2500+60;
+   positionEnemy.y = 60;
    Hitbox enemy;
    enemy.height = 20;
    enemy.width = 15;
  
    // création des personnages et du bateau
-   Character *pers1 = new PlayerCharacter(1, 6);
-   Character *pers2 = new PlayerCharacter(25, 6);
-   PlayerCharacter c = PlayerCharacter(15, 6);
+   Character *pers1 = new PlayerCharacter(10, 60);
+   Character *pers2 = new PlayerCharacter(250, 60);
+   PlayerCharacter c = PlayerCharacter(150, 60);
    Character *adv1 = new EnemyCharacter(positionEnemy, enemy, 3);
    Coordonnee positionBoat;
-   positionBoat.x = 3;
-   positionBoat.y = 2;
+   positionBoat.x = 30;
+   positionBoat.y = 200;
    Coordonnee positionEnemyBoat;
-   positionEnemyBoat.x = 16;
-   positionEnemyBoat.y = 2;
+   positionEnemyBoat.x = 160;
+   positionEnemyBoat.y = 200;
 
    Boat joueur(2, positionBoat, 40, 100, 3);
    Boat adversaire(2, positionEnemyBoat, 40, 100, 3);
 
-   Projectile *pro = new Canonball({10,20});
-   Projectile *grenade = new Grenade({20,10});
+   Projectile *pro = new Canonball({100,200});
+   Projectile *grenade = new Grenade({200,100});
 
 
    // ajouter adversaire
@@ -599,7 +599,7 @@ void Tests::testOuvertureJsonAffiche()
    //erreur ici dans la fonction
    //niveau.MatPlayer();/////////////////////////////////////////////////////////////////////////////
    //Sleep(5000);
-   //niveau.MatEnemy();
+   niveau->MatEnemy();
    niveau->MatWater();
    niveau->MatRaft();
    
