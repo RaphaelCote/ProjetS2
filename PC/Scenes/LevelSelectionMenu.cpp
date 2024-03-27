@@ -143,6 +143,7 @@ void LevelSelectionMenu::ClearMenu()
 
 void LevelSelectionMenu::Selection()
 {
+    doOnce = true;
     OnDisable();
     ClearMenu();
 

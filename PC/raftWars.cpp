@@ -93,7 +93,7 @@ int main()
 
     levelGetter = new LevelGetter();
 
-    Sleep(1000);
+    Sleep(500);
     start = std::chrono::high_resolution_clock::now();
     // totalElapsed = start - start;
 

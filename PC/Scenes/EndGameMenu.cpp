@@ -136,6 +136,7 @@ void EndGameMenu::ClearMenu()
 
 void EndGameMenu::Selection()
 {
+    doOnce = true;
     OnDisable();
     ShowMenu();
 

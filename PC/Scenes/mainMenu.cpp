@@ -46,6 +46,7 @@ void MainMenu::changeSelection(EventParameters ep)
         {
             choice = 0;
         }
+        Sleep(100);
         ShowMenu();
     }
     else if (ep.parameter2 < -0.5)
@@ -54,6 +55,7 @@ void MainMenu::changeSelection(EventParameters ep)
         {
             choice++;
         }
+        Sleep(100);
         ShowMenu();
     }
 }
@@ -79,7 +81,7 @@ void MainMenu::ShowMenu()
     cons->SupprimerObjet("s5");
     cons->SupprimerObjet("s6");
 
-    Sleep(50);
+    Sleep(10);
 
     string s0 = "------------------------------------------------------------------- ";
     string s1 = "Bienvenue au menu du jeu Raft Wars ";

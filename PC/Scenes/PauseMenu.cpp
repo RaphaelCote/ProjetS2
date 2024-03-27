@@ -121,6 +121,7 @@ void PauseMenu::ClearMenu()
 
 void PauseMenu::Selection()
 {
+    doOnce = true;
     OnDisable();
     ClearMenu();
 
