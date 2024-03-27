@@ -461,30 +461,30 @@ void AffichageConsole::UpdateVecteurUI()
             {
                 if(aff->pointeur)//si les coordonner sont des pointeurs
                 {
-                    if (!(j - (*aff->y) - (aff->height) + NumberRows >= MaxRows || (*aff->x) + i >= MaxColumns))
+                    if (!(j - (*aff->y)/10 - (aff->height) + NumberRows >= MaxRows || (*aff->x)/10 + i >= MaxColumns))
                     {
-                        if (j - (*aff->y) - (aff->height) + NumberRows >= MinRows && (*aff->x) + i >= Mincolums)
+                        if (j - (*aff->y)/10 - (aff->height) + NumberRows >= MinRows && (*aff->x)/10 + i >= Mincolums)
                         {
                             if (!(aff->pix[j][i].FrontColour == colors::transparant || aff->pix[j][i].BackColour == colors::transparant))
                             {
-                                screen[j - (aff->height) - MinRows + NumberRows - (*aff->y)][(*aff->x) + i - Mincolums].BackColour = aff->pix[j][i].BackColour;
-                                screen[j - (aff->height) - MinRows + NumberRows - (*aff->y)][(*aff->x) + i - Mincolums].FrontColour = aff->pix[j][i].FrontColour;
-                                screen[j - (aff->height) - MinRows + NumberRows - (*aff->y)][(*aff->x) + i - Mincolums].texture = aff->pix[j][i].texture;
+                                screen[j - (aff->height) - MinRows + NumberRows - (*aff->y)/10][(*aff->x)/10 + i - Mincolums].BackColour = aff->pix[j][i].BackColour;
+                                screen[j - (aff->height) - MinRows + NumberRows - (*aff->y)/10][(*aff->x)/10 + i - Mincolums].FrontColour = aff->pix[j][i].FrontColour;
+                                screen[j - (aff->height) - MinRows + NumberRows - (*aff->y)/10][(*aff->x)/10 + i - Mincolums].texture = aff->pix[j][i].texture;
                             }
                         }
                     }
                 }
                 else
                 {
-                    if (!(j - (aff->y_coor) - (aff->height) + NumberRows >= MaxRows || (aff->x_coor) + i >= MaxColumns))
+                    if (!(j - (aff->y_coor)/10 - (aff->height) + NumberRows >= MaxRows || (aff->x_coor)/10 + i >= MaxColumns))
                     {
-                        if (j - (aff->y_coor) - (aff->height) + NumberRows >= MinRows && (aff->x_coor) + i >= Mincolums)
+                        if (j - (aff->y_coor)/10 - (aff->height) + NumberRows >= MinRows && (aff->x_coor)/10 + i >= Mincolums)
                         {
                             if (!(aff->pix[j][i].FrontColour == colors::transparant || aff->pix[j][i].BackColour == colors::transparant))
                             {
-                                screen[j - (aff->height) - MinRows + NumberRows - (aff->y_coor)][(aff->x_coor) + i - Mincolums].BackColour = aff->pix[j][i].BackColour;
-                                screen[j - (aff->height) - MinRows + NumberRows - (aff->y_coor)][(aff->x_coor) + i - Mincolums].FrontColour = aff->pix[j][i].FrontColour;
-                                screen[j - (aff->height) - MinRows + NumberRows - (aff->y_coor)][(aff->x_coor) + i - Mincolums].texture = aff->pix[j][i].texture;
+                                screen[j - (aff->height) - MinRows + NumberRows - (aff->y_coor)/10][(aff->x_coor)/10 + i - Mincolums].BackColour = aff->pix[j][i].BackColour;
+                                screen[j - (aff->height) - MinRows + NumberRows - (aff->y_coor)/10][(aff->x_coor)/10 + i - Mincolums].FrontColour = aff->pix[j][i].FrontColour;
+                                screen[j - (aff->height) - MinRows + NumberRows - (aff->y_coor)/10][(aff->x_coor)/10 + i - Mincolums].texture = aff->pix[j][i].texture;
                             }
                         }
                     }
