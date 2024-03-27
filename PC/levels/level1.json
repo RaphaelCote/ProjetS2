@@ -12,10 +12,10 @@
                 "image": 1,
                 "characterlist": [
                     {
-                        "width": 50,
-                        "height": 50,
+                        "width": 100,
+                        "height": 100,
                         "coordoneeX": 50,
-                        "coordoneeY": 50,
+                        "coordoneeY": 10,
                         "image": 1
                     }
                 ]
