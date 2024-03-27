@@ -7,13 +7,13 @@
             {
                 "coordoneeX": 100,
                 "coordoneeY": 70,
-                "width": 10,
+                "width": 100,
                 "height": 30,
                 "image": 1,
                 "characterlist": [
                     {
-                        "width": 10,
-                        "height": 10,
+                        "width": 100,
+                        "height": 100,
                         "coordoneeX": 10,
                         "coordoneeY": 30,
                         "image": 1
@@ -24,22 +24,22 @@
         "enemyboatlist": [
             {
                 "coordoneeX": 2000,
-                "coordoneeY": 300,
-                "width": 30,
+                "coordoneeY": 70,
+                "width": 300,
                 "height": 30,
                 "image": 1,
                 "characterlist": [
                     {
-                        "width": 10,
-                        "height": 10,
+                        "width": 100,
+                        "height": 100,
                         "coordoneeX": 0,
                         "coordoneeY": 30,
                         "image": 1
                     },
                     {
-                        "width": 10,
-                        "height": 10,
-                        "coordoneeX": 12,
+                        "width": 100,
+                        "height": 100,
+                        "coordoneeX": 120,
                         "coordoneeY": 30,
                         "image": 1
                     }
