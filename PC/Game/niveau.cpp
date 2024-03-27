@@ -313,7 +313,7 @@ void Niveau::MatWater()
     *coor_X3 = 0;
     int *coor_Y3 = new int;
     *coor_Y3 = 0;
-    cons->AjouterObjet(eau, coor_X3, coor_Y3, 300, 4, 0, "eau");
+    cons->AjouterObjet(eau, coor_X3, coor_Y3, 300, 10, 0, "eau");
 }
 
 void Niveau::MatBalle(Projectile *Balle)
