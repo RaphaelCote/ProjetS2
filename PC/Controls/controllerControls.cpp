@@ -88,6 +88,7 @@ void ControllerControls::ReceiveSerial()
         Sleep(10);
         //cout << "Thread is life" << endl;
         messageReceived.clear(); // effacer le message precedent
+        
         if (!RcvFromSerial())
         {
             cerr << "Erreur lors de la reception du message. " << endl;
@@ -96,7 +97,27 @@ void ControllerControls::ReceiveSerial()
         {
             try
             {
+                for (int i = 0; i < raw_msg.length(); i++)
+                {
+                    if(raw_msg[i] != '{')
+                    {
+                        raw_msg.erase(0,1);
+                        i--;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                
+
                 //cout << "Arduino: " << raw_msg << endl;
+                if(raw_msg.length() < 2)
+                {
+                    ready_to_read = false;
+                    ready_to_send = true;
+                    return;
+                }
                 messageReceived = json::parse(raw_msg);
                 this->UpdateAllValues();
                 //cout << "All values are updated: " << etatB1 << endl;
