@@ -123,8 +123,10 @@ void ControllerControls::ReceiveSerial()
                 }
                 messageReceived = json::parse(raw_msg);
                 cons->SupprimerObjet("ParseJson");
+
                 cons->AfficherTexte(std::cout, raw_msg,20,180,"ParseJson");
-                this->UpdateAllValues();
+
+                UpdateAllValues();
                 //cout << "All values are updated: " << etatB1 << endl;
                 //cout << "Message de l'Arduino: " << messageReceived << endl;
             }
@@ -356,17 +358,49 @@ void ControllerControls::AddMessage(string name, float value)
 
 void ControllerControls::GetValue(string name, int *value)
 {
-    *value = messageReceived[name.c_str()];
+    if(messageReceived.contains(name))
+        *value = messageReceived[name.c_str()];
+    else
+    {
+        cons->SupprimerObjet("NoName");
+
+        cons->AfficherTexte(std::cout, name,20,160,"NoName");
+        *value = 0;
+    }
 }
 void ControllerControls::GetValue(string name, bool *value)
 {
-    *value = messageReceived[name.c_str()];
+    if(messageReceived.contains(name))
+        *value = messageReceived[name.c_str()];
+    else
+    {
+        cons->SupprimerObjet("NoName");
+
+        cons->AfficherTexte(std::cout, name,20,160,"NoName");
+        *value = false;
+    }
 }
 void ControllerControls::GetValue(string name, string *value)
 {
-    *value = messageReceived[name.c_str()];
+    if(messageReceived.contains(name))
+        *value = messageReceived[name.c_str()];
+    else
+    {
+        cons->SupprimerObjet("NoName");
+
+        cons->AfficherTexte(std::cout, name,20,160,"NoName");
+        *value = "";
+    }
 }
 void ControllerControls::GetValue(string name, float *value)
 {
-    *value = messageReceived[name.c_str()];
+    if(messageReceived.contains(name))
+        *value = messageReceived[name.c_str()];
+    else
+    {
+        cons->SupprimerObjet("NoName");
+
+        cons->AfficherTexte(std::cout, name,20,160,"NoName");
+        *value = 0;
+    }
 }
