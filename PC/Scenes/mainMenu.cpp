@@ -114,13 +114,14 @@ void MainMenu::ShowMenu()
     int y6 = cons->MaxRows - 9;
     int x = 2;
 
-    cons->AfficherTexte(std::cout, s0, &x, &y0, "s0");
-    cons->AfficherTexte(std::cout, s1, &x, &y1, "s1");
-    cons->AfficherTexte(std::cout, s2, &x, &y2, "s2");
-    cons->AfficherTexte(std::cout, s3, &x, &y3, "s3");
-    cons->AfficherTexte(std::cout, s4, &x, &y4, "s4");
-    cons->AfficherTexte(std::cout, s5, &x, &y5, "s5");
-    cons->AfficherTexte(std::cout, s6, &x, &y6, "s6");
+    cons->AfficherTexte(std::cout, s0, x, y0, "s0");
+    cons->AfficherTexte(std::cout, s1, x, y1, "s1");
+    cons->AfficherTexte(std::cout, s2, x, y2, "s2");
+    cons->AfficherTexte(std::cout, s3, x, y3, "s3");
+    cons->AfficherTexte(std::cout, s4, x, y4, "s4");
+    cons->AfficherTexte(std::cout, s5, x, y5, "s5");
+    cons->AfficherTexte(std::cout, s6, x, y6, "s6");
+    
 }
 
 void MainMenu::ClearMenu()

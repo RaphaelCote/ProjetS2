@@ -167,10 +167,26 @@ void AffichageConsole::ResizeConsole()
     MoveWindow(console, rect.left, rect.top, rect.right, rect.bottom, TRUE);
 }
 
+void AffichageConsole::AjouterObjet(Pixels** tab, int x, int y, int width, int height, int couche, string name)
+{
+    ObjetAffichage *obj1 = new ObjetAffichage;
+    obj1->pix = tab;
+    obj1->pointeur = false;
+    obj1->x_coor = x;
+    obj1->y_coor = y;
+    obj1->width = width;
+    obj1->height = height;
+    obj1->couche = couche;
+    obj1->name = name;
+
+    v_objet.add(obj1);
+}
+
 void AffichageConsole::AjouterObjet(Pixels **tab, int *x, int *y, int width, int height, int couche, string name)
 {
     ObjetAffichage *obj1 = new ObjetAffichage;
     obj1->pix = tab;
+    obj1->pointeur = true;
     obj1->x = x;
     obj1->y = y;
     obj1->width = width;
@@ -186,6 +202,7 @@ void AffichageConsole::AjouterObjet(Pixels **tab, Character *charact, int couche
     Coordonnee *coor = charact->PointeurPosition();
     ObjetAffichage *obj1 = new ObjetAffichage;
     obj1->pix = tab;
+    obj1->pointeur = true;
     obj1->x = &coor->x;
     obj1->y = &coor->y;
     obj1->width = charact->getHitboxWidth() / 10;
@@ -200,6 +217,7 @@ void AffichageConsole::AjouterObjet(Pixels **tab, Boat *boat, int couche, string
 {
     ObjetAffichage *obj1 = new ObjetAffichage;
     obj1->pix = tab;
+    obj1->pointeur = true;
     obj1->x = boat->getPointerPositionBoat_X();
     obj1->y = boat->getPointerPositionBoat_X();
     obj1->width = boat->getHitboxBoat().width;
@@ -214,6 +232,7 @@ void AffichageConsole::AjouterObjet(Pixels **tab, Projectile *project, int couch
 {
     ObjetAffichage *obj1 = new ObjetAffichage;
     obj1->pix = tab;
+    obj1->pointeur = true;
     obj1->x = &project->bulletCurrentPosition.x;
     obj1->y = &project->bulletCurrentPosition.y;
     obj1->width = 1;
@@ -277,8 +296,37 @@ void AffichageConsole::AfficherTexte(std::ostream &os, string s, int *x, int *y,
         obj1->pix[0][i].texture = s[i];
     }
 
+    obj1->pointeur = true;
     obj1->x = x;
     obj1->y = y;
+    obj1->width = s.length();
+    obj1->height = 1;
+    obj1->couche = 0;
+    obj1->name = name;
+
+    v_objet.add(obj1);
+}
+
+void AffichageConsole::AfficherTexte(std::ostream &os, string s, int x, int y, string name)
+{
+    ObjetAffichage *obj1 = new ObjetAffichage;
+
+    obj1->pix = new Pixels *[1];
+    for (int i = 0; i < 1; ++i)
+    {
+        obj1->pix[i] = new Pixels[s.length()];
+    }
+
+    for (int i = 0; i < s.length(); i++)
+    {
+        obj1->pix[0][i].BackColour = colors::black;
+        obj1->pix[0][i].FrontColour = colors::white;
+        obj1->pix[0][i].texture = s[i];
+    }
+
+    obj1->pointeur = false;
+    obj1->x_coor = x;
+    obj1->y_coor = y;
     obj1->width = s.length();
     obj1->height = 1;
     obj1->couche = 0;
@@ -313,6 +361,35 @@ void AffichageConsole::AfficherTexte(std::ostream &os, string s, int *x, int *y,
 
     v_objet.add(obj1);
 }
+
+void AffichageConsole::AfficherTexte(std::ostream & os, string s, int x, int y, int background, int frontcolor, string name)
+{
+    ObjetAffichage *obj1 = new ObjetAffichage;
+
+    obj1->pix = new Pixels *[1];
+    for (int i = 0; i < 1; ++i)
+    {
+        obj1->pix[i] = new Pixels[s.length()];
+    }
+
+    for (int i = 0; i < s.length(); i++)
+    {
+        obj1->pix[0][i].BackColour = background;
+        obj1->pix[0][i].FrontColour = frontcolor;
+        obj1->pix[0][i].texture = s[i];
+    }
+
+    obj1->pointeur = false;
+    obj1->x_coor = x;
+    obj1->y_coor = y;
+    obj1->width = s.length();
+    obj1->height = 1;
+    obj1->couche = 0;
+    obj1->name = name;
+
+    v_objet.add(obj1);
+}
+
 
 void AffichageConsole::UpdateUI_Console()
 {
@@ -382,15 +459,33 @@ void AffichageConsole::UpdateVecteurUI()
         {
             for (int i = 0; i < aff->width; i++)
             {
-                if (!(j - (*aff->y) - (aff->height) + NumberRows >= MaxRows || (*aff->x) + i >= MaxColumns))
+                if(aff->pointeur)//si les coordonner sont des pointeurs
                 {
-                    if (j - (*aff->y) - (aff->height) + NumberRows >= MinRows && (*aff->x) + i >= Mincolums)
+                    if (!(j - (*aff->y) - (aff->height) + NumberRows >= MaxRows || (*aff->x) + i >= MaxColumns))
                     {
-                        if (!(aff->pix[j][i].FrontColour == colors::transparant || aff->pix[j][i].BackColour == colors::transparant))
+                        if (j - (*aff->y) - (aff->height) + NumberRows >= MinRows && (*aff->x) + i >= Mincolums)
                         {
-                            screen[j - (aff->height) - MinRows + NumberRows - (*aff->y)][(*aff->x) + i - Mincolums].BackColour = aff->pix[j][i].BackColour;
-                            screen[j - (aff->height) - MinRows + NumberRows - (*aff->y)][(*aff->x) + i - Mincolums].FrontColour = aff->pix[j][i].FrontColour;
-                            screen[j - (aff->height) - MinRows + NumberRows - (*aff->y)][(*aff->x) + i - Mincolums].texture = aff->pix[j][i].texture;
+                            if (!(aff->pix[j][i].FrontColour == colors::transparant || aff->pix[j][i].BackColour == colors::transparant))
+                            {
+                                screen[j - (aff->height) - MinRows + NumberRows - (*aff->y)][(*aff->x) + i - Mincolums].BackColour = aff->pix[j][i].BackColour;
+                                screen[j - (aff->height) - MinRows + NumberRows - (*aff->y)][(*aff->x) + i - Mincolums].FrontColour = aff->pix[j][i].FrontColour;
+                                screen[j - (aff->height) - MinRows + NumberRows - (*aff->y)][(*aff->x) + i - Mincolums].texture = aff->pix[j][i].texture;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (!(j - (aff->y_coor) - (aff->height) + NumberRows >= MaxRows || (aff->x_coor) + i >= MaxColumns))
+                    {
+                        if (j - (aff->y_coor) - (aff->height) + NumberRows >= MinRows && (aff->x_coor) + i >= Mincolums)
+                        {
+                            if (!(aff->pix[j][i].FrontColour == colors::transparant || aff->pix[j][i].BackColour == colors::transparant))
+                            {
+                                screen[j - (aff->height) - MinRows + NumberRows - (aff->y_coor)][(aff->x_coor) + i - Mincolums].BackColour = aff->pix[j][i].BackColour;
+                                screen[j - (aff->height) - MinRows + NumberRows - (aff->y_coor)][(aff->x_coor) + i - Mincolums].FrontColour = aff->pix[j][i].FrontColour;
+                                screen[j - (aff->height) - MinRows + NumberRows - (aff->y_coor)][(aff->x_coor) + i - Mincolums].texture = aff->pix[j][i].texture;
+                            }
                         }
                     }
                 }
