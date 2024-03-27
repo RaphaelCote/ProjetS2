@@ -79,7 +79,7 @@ int main()
     inventory->addGold(2000);
 
     // reset UI
-    // cons->ResetUI();
+    cons->ResetUI();
 
     activeScene = 0;
 
