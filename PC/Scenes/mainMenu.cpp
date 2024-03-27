@@ -105,14 +105,14 @@ void MainMenu::ShowMenu()
     s5 += "- Sortir ";
     string s6 = "------------------------------------------------------------------- ";
 
-    int y0 = cons->MaxRows - 3;
-    int y1 = cons->MaxRows - 4;
-    int y2 = cons->MaxRows - 5;
-    int y3 = cons->MaxRows - 6;
-    int y4 = cons->MaxRows - 7;
-    int y5 = cons->MaxRows - 8;
-    int y6 = cons->MaxRows - 9;
-    int x = 2;
+    int y0 = ((cons->MaxRows)*10) - 30;
+    int y1 = ((cons->MaxRows)*10) - 40;
+    int y2 = ((cons->MaxRows)*10) - 50;
+    int y3 = ((cons->MaxRows)*10) - 60;
+    int y4 = ((cons->MaxRows)*10) - 70;
+    int y5 = ((cons->MaxRows)*10) - 80;
+    int y6 = ((cons->MaxRows)*10) - 90;
+    int x = 20;
 
     cons->AfficherTexte(std::cout, s0, x, y0, "s0");
     cons->AfficherTexte(std::cout, s1, x, y1, "s1");
