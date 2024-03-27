@@ -56,6 +56,7 @@ public:
     bool CheckEndCondition();
     bool CheckAvailableProjectile(int type);
     void ShowGameInfo();
+    void AnimationProjectile(Projectile* projectile);
 };
 
 #endif

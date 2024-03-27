@@ -7,6 +7,11 @@
 #include "../Game/grenade.h"
 #include "../Game/enemyCharacter.h"
 
+std::chrono::_V2::system_clock::time_point startAnimation;
+std::chrono::duration<double, std::milli> currentclockAnimation;
+std::chrono::duration<double, std::milli> lastClockAnimation;
+std::chrono::duration<double, std::milli> rcvSerialTimerAnimation;
+
 /*Méthodes*/
 /*Constructeur (État Initial)*/
 Game::Game()
@@ -446,4 +451,57 @@ void Game::ShowGameInfo()
     // Show player positions and health
     // cout << "-------Niveau " << currentLevelIndex + 1 << "-------" << endl;
     activeLevel->ShowLevelInfo(cout);
+}
+
+
+
+void Game::AnimationProjectile(Projectile* projectile)
+{
+    bool animation = true;
+    Coordonnee currentPosition = projectile->bulletStartPosition;
+    Coordonnee endPosition = projectile->bulletEndPosition;
+    float time = 0.0f;
+    bool coterAnimationGauche;
+
+    if(currentPosition.x - endPosition.x <= 0)
+        coterAnimationGauche = true;
+    else
+        coterAnimationGauche = false;
+
+    startAnimation = std::chrono::high_resolution_clock::now();
+
+
+    while(animation)
+    {
+        lastClockAnimation = currentclockAnimation;
+        const auto now = std::chrono::high_resolution_clock::now();
+
+        if ((currentclockAnimation.count() - rcvSerialTimerAnimation.count()) > 1)
+        {
+            time += 0,001;
+
+            currentPosition.y = projectile->findBulletPositionYTime(time);
+            currentPosition.x = projectile->findBulletPositionX(currentPosition.y);
+
+            projectile->bulletCurrentPosition = currentPosition;
+            cons->Mincolums = currentPosition.x - (cons->MaxColumns - cons->Mincolums);
+
+            if(coterAnimationGauche)
+            {
+                if(currentPosition.x >= endPosition.x)
+                    animation = false;
+            }
+            else
+            {
+                if(currentPosition.x <= endPosition.x)
+                    animation = false;
+            }
+        }
+
+        Sleep(1);
+
+
+
+    }
+
 }
