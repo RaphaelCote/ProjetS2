@@ -9,8 +9,7 @@
 
 std::chrono::_V2::system_clock::time_point startAnimation;
 std::chrono::duration<double, std::milli> currentclockAnimation;
-std::chrono::duration<double, std::milli> lastClockAnimation;
-std::chrono::duration<double, std::milli> rcvSerialTimerAnimation;
+std::chrono::duration<double, std::milli> timerAnimation;
 
 /*Méthodes*/
 /*Constructeur (État Initial)*/
@@ -205,6 +204,8 @@ void Game::PlayTurn()
 
         AnimationProjectile(enemyProjectile);
 
+        cons->SupprimerObjet("projectile");
+
         isPlayerTurn = true;
     }
 
@@ -237,6 +238,8 @@ void Game::PlayerShoot()
     projectile->checkIfCharacterHit(*(activeLevel->enemyBoats[0]->characters[0]));
 
     AnimationProjectile(projectile);
+
+    cons->SupprimerObjet("projectile");
 
     // Remove special projectiles if fired, and if no more special projectiles are available, change to previous type
     if (projectileType == 1)
@@ -489,8 +492,6 @@ void Game::UpdateWeaponInfo()
 void Game::AnimationProjectile(Projectile *projectile)
 {
     bool animation = true;
-    Coordonnee currentPosition = projectile->bulletStartPosition;
-    Coordonnee endPosition = projectile->bulletEndPosition;
     float time = 0.0f;
     bool coterAnimationGauche;
 
@@ -498,7 +499,7 @@ void Game::AnimationProjectile(Projectile *projectile)
     // endPosition.x = 1000;
     ////////////////////////////////////////////////////////////////////////////////
 
-    if (currentPosition.x - endPosition.x <= 0)
+    if (projectile->bulletCurrentPosition.x - projectile->bulletEndPosition.x <= 0)
         coterAnimationGauche = true;
     else
         coterAnimationGauche = false;
@@ -507,19 +508,17 @@ void Game::AnimationProjectile(Projectile *projectile)
 
     while (animation)
     {
-        lastClockAnimation = currentclockAnimation;
         const auto now = std::chrono::high_resolution_clock::now();
         currentclockAnimation = now - startAnimation;
 
-        if ((currentclockAnimation.count() - rcvSerialTimerAnimation.count()) > 10000)
+        if ((currentclockAnimation.count() - timerAnimation.count()) > 50)
         {
-            time += 0.0005;
+            time += 0.001;
 
-            currentPosition.y = projectile->findBulletPositionYTime(time);
-            currentPosition.x = projectile->findBulletPositionX(currentPosition.y);
+            projectile->bulletCurrentPosition.y = projectile->findBulletPositionYTime(time);
+            projectile->bulletCurrentPosition.x = projectile->findBulletPositionX(projectile->bulletCurrentPosition.y);
             // currentPosition.x++;
-            projectile->bulletCurrentPosition = currentPosition;
-            cons->Mincolums = (currentPosition.x - (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2) / 10; // je fais * 10 pcq c l'affichage console
+            cons->Mincolums = (projectile->bulletCurrentPosition.x - (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2) / 10; // je fais * 10 pcq c l'affichage console
 
             cons->SupprimerObjet("text");
             cons->SupprimerObjet("text2");
@@ -533,16 +532,20 @@ void Game::AnimationProjectile(Projectile *projectile)
 
             if (coterAnimationGauche)
             {
-                if (currentPosition.x >= endPosition.x)
+                if ((projectile->bulletCurrentPosition.x >= projectile->bulletCurrentPosition.x) || (projectile->bulletCurrentPosition.x >= (cons->MaxColumns * 10)))
                     animation = false;
             }
             else
             {
-                if (currentPosition.x <= endPosition.x)
+                if ((projectile->bulletCurrentPosition.x <= projectile->bulletCurrentPosition.x) || (projectile->bulletCurrentPosition.x <= 0))
                     animation = false;
             }
+
+            timerAnimation = currentclockAnimation;
         }
 
         Sleep(1);
     }
+
+    cons->Mincolums = 0;
 }
