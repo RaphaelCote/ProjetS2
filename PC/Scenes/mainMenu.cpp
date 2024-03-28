@@ -106,6 +106,8 @@ void MainMenu::ShowMenu()
     int y6 = ((cons->MaxRows) * 10) - 90;
     int x = 20;
 
+    
+
     cons->AfficherTexte(std::cout, s0, x, y0, "s0");
     cons->AfficherTexte(std::cout, s1, x, y1, "s1");
     cons->AfficherTexte(std::cout, s2, x, y2, "s2");

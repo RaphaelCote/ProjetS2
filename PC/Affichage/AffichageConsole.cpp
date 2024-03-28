@@ -2,6 +2,9 @@
 
 #include "AffichageConsole.h"
 
+long compteur = 0;
+long lagfree = 0;
+
 static DWORD WINAPI ThreadEntry(LPVOID lpParam)
 {
     auto *data = reinterpret_cast<std::pair<AffichageConsole *, int> *>(lpParam);
@@ -427,8 +430,13 @@ void AffichageConsole::UpdateUI_Console()
                 }
             }
             // ModificationAFaire = false;
+            SetTerminalCursorPosition(0, 0);
+            lagfree++;
+            PrintInColour(cout, "LagFree: " + to_string(lagfree), colors::white, colors::black);
+            SetTerminalCursorPosition(300, 0);
+            PrintInColour(cout, "Compteur: " + to_string(compteur), colors::white, colors::black);
         }
-        Sleep(10);
+        Sleep(1);
         // std::this_thread::sleep_for(std::chrono::microseconds(1));
     }
 }

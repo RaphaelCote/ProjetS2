@@ -139,6 +139,7 @@ enum colors {
     transparant = 16,
 };
 
+extern long compteur;
 
 class AffichageConsole
 {
