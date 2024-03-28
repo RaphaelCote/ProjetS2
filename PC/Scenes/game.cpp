@@ -540,7 +540,7 @@ void Game::AnimationProjectile(Projectile *projectile)
             }
 
             // currentPosition.y = projectile->findBulletPositionYTime(time);
-            currentPosition.x = projectile->findBulletPositionX(currentPosition.y);
+            // currentPosition.x = projectile->findBulletPositionX(currentPosition.y);
             // currentPosition.x++;
             // currentPosition.y = projectile->findBulletPositionY(currentPosition.x);
             projectile->bulletCurrentPosition = currentPosition;
@@ -572,7 +572,7 @@ void Game::AnimationProjectile(Projectile *projectile)
             timerAnimation = currentclockAnimation;
         }
 
-        Sleep(5);
+        Sleep(1);
     }
 
     Sleep(6000);
