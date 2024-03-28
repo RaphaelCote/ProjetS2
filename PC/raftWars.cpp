@@ -53,8 +53,8 @@ int main()
 {
     // === Event manager tests ===
     eventManager = new EventManager();
-    controls = new KeyboardControls(eventManager);
-    // controls = new ControllerControls(eventManager, "COM3");
+    //controls = new KeyboardControls(eventManager);
+    controls = new ControllerControls(eventManager, "COM3");
 
     tests = new Tests();
     // tests->testjson();

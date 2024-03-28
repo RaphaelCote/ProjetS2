@@ -35,7 +35,7 @@ int Grenade::damageReceived(Character& character){
     {
         
         //on sait qu'il a toucher a la position du projectile en X
-        cout<<"touche cote lateral"<<endl;
+        //cout<<"touche cote lateral"<<endl;
         bulletEndPosition.x=character.getPosition().x;
         bulletEndPosition.y=findBulletPositionY(character.getPosition().x);
         
@@ -48,7 +48,7 @@ int Grenade::damageReceived(Character& character){
     else if(findBulletPositionY(character.getPosition().x+character.getHitboxWidth())<=(character.getPosition().y+character.getHitboxHeight()))
     {
         //on sait qu'il a touché l'ennemie entre son coin supérieur gauche et supérieur droit excluant 
-        cout<<"touche haut de la tete"<<endl;
+        //cout<<"Ennemi touche a la tete!"<<endl;
         bulletEndPosition.x=findBulletPositionX(character.getPosition().y+character.getHitboxHeight());
         bulletEndPosition.y=character.getPosition().y+character.getHitboxHeight(); 
         if(positionFinaleGrenadeYTemps<character.getPosition().y+character.getHitboxHeight())
@@ -60,7 +60,7 @@ int Grenade::damageReceived(Character& character){
     
     
     //check up grenade pour si l'ennemie est touché
-    cout<<"distance finale x: "<<positionFinaleGrenadeXTemps<<endl;
+    //cout<<"distance finale x: "<<positionFinaleGrenadeXTemps<<endl;
     int tableauDistance[7];
     //coin inférieur gauche
     tableauDistance[0]=pythagore(positionFinaleGrenadeXTemps,character.getPosition().x,positionFinaleGrenadeYTemps,character.getPosition().y); 
@@ -96,7 +96,7 @@ int Grenade::damageReceived(Character& character){
     {
         for(int i=0;i<7;i++)
         {
-            cout<<tableauDistance[i]<<endl;
+            //cout<<tableauDistance[i]<<endl;
             if(tableauDistance[i]<distanceMin)
             {
                 distanceMin=tableauDistance[i];

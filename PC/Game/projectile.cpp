@@ -41,13 +41,13 @@ int Projectile::findBulletPositionYTime(float time)
 {
     //une grenade explose après 3 secondes donc entré 3 sec en paramètre
     rad=angledeg*PI/180;
-    cout<<"radian: "<<rad<<endl;
+    //cout<<"radian: "<<rad<<endl;
     V0=puissance*getProjectileMaxSpeed();
-    cout<<"V0 :"<<V0<<endl;
+    //cout<<"V0 :"<<V0<<endl;
     float num= pow((g*time +V0*sin(rad)),2)- pow((V0*sin(rad)),2);
     float denum =2.0f*g;
     int positionfinaleY= round(num/denum+ bulletStartPosition.y);
-    cout<<"Position finale y avant condition: "<<positionfinaleY<<endl;    
+    //cout<<"Position finale y avant condition: "<<positionfinaleY<<endl;    
     return positionfinaleY;
     
 }
@@ -228,7 +228,7 @@ bool Projectile::checkIfCharacterHit(Character& character)
             return true;
         }
         else{
-            cout<<"Else angle négatif"<<endl;
+            //cout<<"Else angle négatif"<<endl;
             //THÉORIQUEMENT rien passe dans le false, mais je le garde pour le déboguage 
             
             bulletEndPosition.x=findBulletPositionX(HAUTEUR_EAU);
