@@ -192,6 +192,7 @@ void Game::PlayTurn()
     {
         if (doOnce)
         {
+            Sleep(10);
             ShowGameInfo();
             doOnce = false;
         }
