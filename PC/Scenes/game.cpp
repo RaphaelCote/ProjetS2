@@ -584,7 +584,10 @@ void Game::AnimationProjectile(Projectile *projectile)
 
 float Game::positionYTemps(float time, Projectile *projectile)
 {
-    float num = pow((g * time + projectile->V0 * sin(projectile->rad)), 2) - pow((projectile->V0 * sin(projectile->rad)), 2);
+    float V0 = projectile->getPuissance() * projectile->getProjectileMaxSpeed();
+    float rad = projectile->getAngleDegre() * PI / 180;
+
+    float num = pow((g * time + V0 * sin(rad)), 2) - pow((V0 * sin(rad)), 2);
     float denum = 2.0 * g;
     float positionfinaleY = (num / denum + projectile->bulletStartPosition.y);
 
@@ -593,13 +596,15 @@ float Game::positionYTemps(float time, Projectile *projectile)
 
 float Game::findX(float y, Projectile *projectile, int which_posX)
 {
+    float V0 = projectile->getPuissance() * projectile->getProjectileMaxSpeed();
+    float rad = (projectile->getAngleDegre() * PI) / 180;
     float positionX;
 
     float deltay = (y - projectile->bulletStartPosition.y);
     // printf("DY = %.1f", deltay);
-    float numeratorx1 = -tan(projectile->rad) + sqrt(pow(tan(projectile->rad), 2) - ((2.0 * g) / (pow(projectile->V0, 2) * pow(cos(projectile->rad), 2))) * -1.0 * deltay);
-    float numeratorx2 = -tan(projectile->rad) - sqrt(pow(tan(projectile->rad), 2) - ((2.0 * g) / (pow(projectile->V0, 2) * pow(cos(projectile->rad), 2))) * -1.0 * deltay);
-    float denominator = g / (pow(0.5 * 2828.0, 2) * pow(cos(projectile->rad), 2));
+    float numeratorx1 = -tan(rad) + sqrt(pow(tan(rad), 2) - ((2.0 * g) / (pow(V0, 2) * pow(cos(rad), 2))) * -1.0 * deltay);
+    float numeratorx2 = -tan(rad) - sqrt(pow(tan(rad), 2) - ((2.0 * g) / (pow(V0, 2) * pow(cos(rad), 2))) * -1.0 * deltay);
+    float denominator = g / (pow(0.5 * 2828.0, 2) * pow(cos(rad), 2));
 
     float positionX1 = (numeratorx1 / denominator) + projectile->bulletStartPosition.x;
     float positionX2 = (numeratorx2 / denominator) + projectile->bulletStartPosition.x;
