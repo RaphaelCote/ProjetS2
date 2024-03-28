@@ -86,7 +86,7 @@ void EndGameMenu::ShowMenu()
     cons->SupprimerObjet("s5");
     cons->SupprimerObjet("s6");
 
-    Sleep(50);
+    Sleep(10);
 
     // Vérifier qu'on est pas au dernier niveau
     string s0 = "------------------------------------------------------------------- ";

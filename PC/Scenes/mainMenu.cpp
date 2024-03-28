@@ -46,7 +46,6 @@ void MainMenu::changeSelection(EventParameters ep)
         {
             choice = 0;
         }
-        Sleep(100);
         ShowMenu();
     }
     else if (ep.parameter2 < -0.5)
@@ -55,7 +54,6 @@ void MainMenu::changeSelection(EventParameters ep)
         {
             choice++;
         }
-        Sleep(100);
         ShowMenu();
     }
 }

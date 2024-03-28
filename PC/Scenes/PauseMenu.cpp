@@ -83,7 +83,7 @@ void PauseMenu::ShowMenu()
     cons->SupprimerObjet("s3");
     cons->SupprimerObjet("s4");
 
-    Sleep(50);
+    Sleep(10);
 
     // system("cls");
     string s0 = "------------------------------------------------------------------- ";
