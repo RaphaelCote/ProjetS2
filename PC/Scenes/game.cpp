@@ -13,6 +13,12 @@
 std::chrono::_V2::system_clock::time_point startAnimation;
 std::chrono::duration<double, std::milli> currentclockAnimation;
 std::chrono::duration<double, std::milli> timerAnimation;
+std::chrono::_V2::system_clock::time_point startWeaponTimer;
+std::chrono::duration<double, std::milli> WeaponTimerclock;
+std::chrono::duration<double, std::milli> weaponInfoTimer;
+
+int x = 20;
+int y = 160;
 
 /*Méthodes*/
 /*Constructeur (État Initial)*/
@@ -197,11 +203,25 @@ void Game::PlayTurn()
             Sleep(10);
             ShowGameInfo();
             doOnce = false;
+
+            startWeaponTimer = std::chrono::high_resolution_clock::now();
         }
-        UpdateWeaponInfo();
+
+        const auto now = std::chrono::high_resolution_clock::now();
+        WeaponTimerclock = now - startWeaponTimer;
+
+        if ((WeaponTimerclock.count() - weaponInfoTimer.count()) > 50)
+        {
+
+            UpdateWeaponInfo();
+
+            weaponInfoTimer = WeaponTimerclock;
+        }
     }
     else
     {
+        ShowGameInfo();
+
         EnemyCharacter *ec = (EnemyCharacter *)activeLevel->enemyBoats[0]->characters[0];
         Projectile *enemyProjectile = ec->createEnemyProjectile();
 
@@ -500,6 +520,7 @@ void Game::UpdateWeaponInfo()
 
 void Game::AnimationProjectile(Projectile *projectile)
 {
+
     bool animation = true;
     Coordonnee currentPosition = projectile->bulletStartPosition;
     Coordonnee endPosition = projectile->bulletEndPosition;
@@ -528,58 +549,68 @@ void Game::AnimationProjectile(Projectile *projectile)
         {
             time += 0.01;
 
-            lastPositionY = currentPosition.y;
+            // lastPositionY = currentPosition.y;
 
-            currentPosition.y = positionYTemps(time, projectile);
+            // currentPosition.y = positionYTemps(time, projectile);
 
-            if (currentPosition.y >= lastPositionY)
-            {
-                currentPosition.x = findX(currentPosition.y, projectile, 1);
-            }
-            else
-            {
-                currentPosition.x = findX(currentPosition.y, projectile, 2);
-            }
+            // if (currentPosition.y >= lastPositionY)
+            // {
+            //     currentPosition.x = findX(currentPosition.y, projectile, 1);
+            // }
+            // else
+            // {
+            //     currentPosition.x = findX(currentPosition.y, projectile, 2);
+            // }
 
             // currentPosition.y = projectile->findBulletPositionYTime(time);
             // currentPosition.x = projectile->findBulletPositionX(currentPosition.y);
-            // currentPosition.x++;
-            // currentPosition.y = projectile->findBulletPositionY(currentPosition.x);
+            if (projectile->getAngleDegre() > 0)
+            {
+                currentPosition.x += 10;
+            }
+            else
+            {
+                currentPosition.x -= 10;
+            }
+            currentPosition.y = projectile->findBulletPositionY(currentPosition.x);
             projectile->bulletCurrentPosition = currentPosition;
             cons->Mincolums = (currentPosition.x - (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2) / 10; // je fais * 10 pcq c l'affichage console
 
-            cons->SupprimerObjet("text");
-            cons->SupprimerObjet("text2");
-            cons->SupprimerObjet("text3");
-            cons->SupprimerObjet("text4");
-            cons->SupprimerObjet("text5");
+            // cons->SupprimerObjet("text");
+            // cons->SupprimerObjet("text2");
+            // cons->SupprimerObjet("text3");
+            // cons->SupprimerObjet("text4");
+            // cons->SupprimerObjet("text5");
 
-            cons->AfficherTexte(std::cout, "BulletPositionX: " + to_string(projectile->bulletCurrentPosition.x), cons->Mincolums * 10 + (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2, 160, "text");
-            cons->AfficherTexte(std::cout, "BulletEndPositionX: " + to_string(projectile->bulletEndPosition.x), cons->Mincolums * 10 + (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2, 150, "text2");
-            cons->AfficherTexte(std::cout, "BulletEndPositionY: " + to_string(projectile->bulletEndPosition.y), cons->Mincolums * 10 + (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2, 140, "text5");
-            cons->AfficherTexte(std::cout, "BulletAngle: " + to_string(projectile->angledeg), cons->Mincolums * 10 + (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2, 130, "text3");
-            cons->AfficherTexte(std::cout, "Time: " + to_string(time), cons->Mincolums * 10 + (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2, 120, "text4");
+            // cons->AfficherTexte(std::cout, "BulletPositionX: " + to_string(projectile->bulletCurrentPosition.x), cons->Mincolums * 10 + (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2, 160, "text");
+            // cons->AfficherTexte(std::cout, "BulletEndPositionX: " + to_string(projectile->bulletEndPosition.x), cons->Mincolums * 10 + (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2, 150, "text2");
+            // cons->AfficherTexte(std::cout, "BulletEndPositionY: " + to_string(projectile->bulletEndPosition.y), cons->Mincolums * 10 + (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2, 140, "text5");
+            // cons->AfficherTexte(std::cout, "BulletAngle: " + to_string(projectile->angledeg), cons->Mincolums * 10 + (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2, 130, "text3");
+            // cons->AfficherTexte(std::cout, "Time: " + to_string(time), cons->Mincolums * 10 + (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2, 120, "text4");
 
             if (coterAnimationGauche)
             {
                 if (currentPosition.x >= endPosition.x || currentPosition.x > (cons->MaxColumns * 10) || currentPosition.y < endPosition.y)
+                {
                     animation = false;
+                    break;
+                }
             }
             else
             {
                 if (currentPosition.x <= endPosition.x || currentPosition.x < 0 || currentPosition.y < endPosition.y)
+                {
                     animation = false;
+                    break;
+                }
             }
 
             timerAnimation = currentclockAnimation;
         }
-
-        Sleep(1);
     }
 
-    Sleep(3000);
-
     cons->SupprimerObjet("projectile");
+    // delete projectile;
 
     cons->Mincolums = 0;
 }

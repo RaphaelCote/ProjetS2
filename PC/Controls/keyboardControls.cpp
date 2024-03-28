@@ -39,6 +39,12 @@ void KeyboardControls::ListenForControls()
 
         if (input == "l")
         {
+            if (activeScene == 1)
+            {
+                Angle(45);
+                Joystick(0.5, 0);
+            }
+
             MainAction();
         }
         else if (input == "w")
@@ -64,25 +70,6 @@ void KeyboardControls::ListenForControls()
         else if (input == "b")
         {
             Back();
-        }
-        else if (input == "1" && activeScene == 1)
-        {
-            float angle;
-            // cout << "Veuillez entrer un angle : ";
-            // cin >> angle;
-
-            Angle(angle);
-        }
-        else if (input == "2" && activeScene == 1)
-        {
-            float joystickX;
-            float joystickY;
-            // cout << "Veuillez entrer un x de Joystick : ";
-            // cin >> joystickX;
-            // cout << "Veuillez entrer un y de Joystick : ";
-            // cin >> joystickY;
-
-            Joystick(joystickX, joystickY);
         }
     }
 }
