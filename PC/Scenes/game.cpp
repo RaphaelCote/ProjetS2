@@ -17,6 +17,7 @@ std::chrono::_V2::system_clock::time_point startWeaponTimer;
 std::chrono::duration<double, std::milli> WeaponTimerclock;
 std::chrono::duration<double, std::milli> weaponInfoTimer;
 
+bool afficheTextCalisse = true;
 int x = 20;
 int y = 160;
 
@@ -213,12 +214,13 @@ void Game::PlayTurn()
 
         const auto now = std::chrono::high_resolution_clock::now();
         WeaponTimerclock = now - startWeaponTimer;
-        UpdateWeaponInfo();
+        
 
-        if ((WeaponTimerclock.count() - weaponInfoTimer.count()) > 200)
+        if ((WeaponTimerclock.count() - weaponInfoTimer.count()) > 50 || afficheTextCalisse)
         {
+            afficheTextCalisse = false;
             
-            
+            UpdateWeaponInfo();
 
             weaponInfoTimer = WeaponTimerclock;
         }
@@ -232,11 +234,15 @@ void Game::PlayTurn()
 
         activeLevel->MatBalle(enemyProjectile);
 
-        enemyProjectile->checkIfCharacterHit(*(activeLevel->playerBoats[0]->characters[0]));
+        if(enemyProjectile->checkIfCharacterHit(*(activeLevel->playerBoats[0]->characters[0])))
+        {
+            compteur+=10000;
+            Sleep(3000);
+        }
 
         AnimationProjectile(enemyProjectile);
         
-        
+        afficheTextCalisse = true;
         isPlayerTurn = true;
         doOnce = true;
     }
@@ -267,7 +273,11 @@ void Game::PlayerShoot()
         activeLevel->MatGrenade(projectile);
     }
 
-    projectile->checkIfCharacterHit(*(activeLevel->enemyBoats[0]->characters[0]));
+    if(projectile->checkIfCharacterHit(*(activeLevel->enemyBoats[0]->characters[0])))
+    {
+        compteur+=50000;
+        Sleep(3000);
+    }
     
     AnimationProjectile(projectile);
     
@@ -549,7 +559,7 @@ void Game::AnimationProjectile(Projectile *proj)
     int lastPositionY = currentPosition.y;
 
     cons->Mincolums = (currentPosition.x - (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2) / 10; // je fais * 10 pcq c l'affichage console
-    Sleep(500);
+    Sleep(1000);
 
     while (animation)
     {
@@ -576,16 +586,16 @@ void Game::AnimationProjectile(Projectile *proj)
             proj->bulletCurrentPosition = currentPosition;
             cons->Mincolums = (currentPosition.x - (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2) / 10; // je fais * 10 pcq c l'affichage console
 
-            cons->SupprimerObjet("text");
-            cons->SupprimerObjet("text2");
+            // cons->SupprimerObjet("text");
+            // cons->SupprimerObjet("text2");
             // cons->SupprimerObjet("text3");
             // cons->SupprimerObjet("text4");
-            cons->SupprimerObjet("text5");
+            // cons->SupprimerObjet("text5");
             
 
-            cons->AfficherTexte(std::cout, "BulletPositionX: " + to_string(proj->bulletCurrentPosition.x), cons->Mincolums * 10 + (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2, 160, "text");
-            cons->AfficherTexte(std::cout, "BulletEndPositionX: " + to_string(proj->bulletEndPosition.x), cons->Mincolums * 10 + (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2, 150, "text2");
-            cons->AfficherTexte(std::cout, "BulletEndPositionY: " + to_string(proj->bulletEndPosition.y), cons->Mincolums * 10 + (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2, 140, "text5");
+            // cons->AfficherTexte(std::cout, "BulletPositionX: " + to_string(proj->bulletCurrentPosition.x), cons->Mincolums * 10 + (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2, 160, "text");
+            // cons->AfficherTexte(std::cout, "BulletEndPositionX: " + to_string(proj->bulletEndPosition.x), cons->Mincolums * 10 + (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2, 150, "text2");
+            // cons->AfficherTexte(std::cout, "BulletEndPositionY: " + to_string(proj->bulletEndPosition.y), cons->Mincolums * 10 + (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2, 140, "text5");
             // cons->AfficherTexte(std::cout, "BulletAngle: " + to_string(proj->angledeg), cons->Mincolums * 10 + (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2, 130, "text3");
             // cons->AfficherTexte(std::cout, "Time: " + to_string(time), cons->Mincolums * 10 + (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2, 120, "text4");
             timerAnimation = currentclockAnimation;
@@ -593,7 +603,6 @@ void Game::AnimationProjectile(Projectile *proj)
             {
                 if (currentPosition.x >= endPosition.x || currentPosition.x > (cons->MaxColumns * 10) || currentPosition.y < endPosition.y)
                 {
-                    Sleep(1000);
                     animation = false;
                     break;
                 }
