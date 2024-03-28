@@ -52,7 +52,7 @@ Scenes index:
 /*----------------------------- Fonction "Main" -----------------------------*/
 int main()
 {
-    cons = new AffichageConsole();
+    //cons = new AffichageConsole();
     // === Event manager tests ===
     eventManager = new EventManager();
     controls = new KeyboardControls(eventManager);

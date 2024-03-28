@@ -9,6 +9,10 @@ Boat::Boat(int n, Coordonnee position, int height, int width, int image)
     heightBoat = height;
     widthBoat = width;
     imageboat = image;
+    Hitbox boatHitbox;
+    boatHitbox.width = width;
+    boatHitbox.height = height;
+    hitboxes.add(&boatHitbox);
 }
 
 int Boat::getNbCharacters() // pour vérifier s'il reste des personnages vivants

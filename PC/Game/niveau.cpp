@@ -20,7 +20,8 @@ Niveau::~Niveau()
 void Niveau::ShowLevelInfo(ostream &s)
 {
     s << "Bateaux joueurs : " << endl;
-
+    cout<<"size: "<< playerBoats.getSize()<<endl;
+    cout<<"capacity: "<< playerBoats.getCapacity()<<endl;
     for (int i = 0; i < playerBoats.getSize(); i++)
     {
         s << "Bateau  " << i + 1 << " :" << endl;

@@ -50,9 +50,10 @@ class Projectile {
         virtual int damageReceived(Character& character)=0;
         //-----------BOUNCE-----------//
         //void ScanHitboxes();
-        void BounceHorizontal();
-        void BounceVerticale();
-        void CheckerBounce();
+        
+        void BounceHorizontal(Niveau* activeLevel);
+        void BounceVerticale(Niveau* activeLevel);
+        void CheckerBounce(Niveau* activeLevel);
         
         
     protected:

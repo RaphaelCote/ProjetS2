@@ -190,37 +190,39 @@ void Tests::test_unitaire_characterAndprojectile()
    //--------------------- AIDE ---------------------//
    Gameloader *gameloader = new Gameloader();
    Game *game = new Game();
-   Niveau *niveau = gameloader->getLevelFromJson("./levels/level1.json");
+   
+   activeLevel = gameloader->getLevelFromJson("./levels/level1.json");
+   activeLevel->ShowLevelInfo(cout);
    //création d'un ennemi en fonction des JSON (level1)
-   EnemyCharacter* ec = (EnemyCharacter *)niveau->enemyBoats[0]->characters[0];
+   EnemyCharacter* ec = (EnemyCharacter *)activeLevel->enemyBoats[0]->characters[0];
    //création d'un player en fonction des JSON (level1)
-   PlayerCharacter* pl = (PlayerCharacter *)niveau->playerBoats[0]->characters[0];
+   PlayerCharacter* pl = (PlayerCharacter *)activeLevel->playerBoats[0]->characters[0];
    Projectile *enemyProjectile = ec->createEnemyProjectile();
    //on stock tout les joueurs dans un vecteur
    Vecteur<Character*> players;
    
-   for(int i=0;i<niveau->playerBoats.getSize();i++)
+   for(int i=0;i<activeLevel->playerBoats.getSize();i++)
    {
-      for(int j = 0; j < niveau->playerBoats[i]->characters.getSize(); j++) 
+      for(int j = 0; j < activeLevel->playerBoats[i]->characters.getSize(); j++) 
       {
-         players.add(niveau->playerBoats[i]->characters[j]);
+         players.add(activeLevel->playerBoats[i]->characters[j]);
       }
    }
    Vecteur<Character*> ennemies;
-   for(int i=0;i<niveau->enemyBoats.getSize();i++)
+   for(int i=0;i<activeLevel->enemyBoats.getSize();i++)
    {
-      for(int j = 0; j < niveau->enemyBoats[i]->characters.getSize(); j++) 
+      for(int j = 0; j < activeLevel->enemyBoats[i]->characters.getSize(); j++) 
       {
-         ennemies.add(niveau->enemyBoats[i]->characters[j]);
+         ennemies.add(activeLevel->enemyBoats[i]->characters[j]);
       }
    }
    enemyProjectile->checkIfCharacterHit(players);
    cout << "La position finale du projectile est: (" << enemyProjectile->getBulletEndPosition().x << ", " << enemyProjectile->getBulletEndPosition().y << ")" << endl;
-   for(int i=0;i<niveau->playerBoats.getSize();i++)
+   for(int i=0;i<activeLevel->playerBoats.getSize();i++)
    {
-      for(int j = 0; j < niveau->playerBoats[i]->characters.getSize(); j++) 
+      for(int j = 0; j < activeLevel->playerBoats[i]->characters.getSize(); j++) 
       {
-         cout<< "le joueur à la position "<<j << "a actuellement "<< niveau->playerBoats[i]->characters[j]->getHealthPoint();
+         cout<< "le joueur à la position "<<j << "a actuellement "<< activeLevel->playerBoats[i]->characters[j]->getHealthPoint();
       }
    }
    // cout << "Bateau joueur" << endl;
