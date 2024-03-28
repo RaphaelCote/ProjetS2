@@ -7,8 +7,8 @@ Character::Character(int posX, int posY)
     this->healthPoint = 100;
 
     Hitbox hitbox;
-    hitbox.height = 50;
-    hitbox.width = 50;
+    hitbox.height = 100;
+    hitbox.width = 100;
 
     this->hitbox = hitbox;
     this->imagecharacter = 1;
@@ -67,7 +67,7 @@ float Character::Aim(float angledeg)
 
 void Character::ShowInfo()
 {
-    cout << "Position : x : " << getPosition().x << " y : " << getPosition().y << " | Vie : " << getHealthPoint() << endl;
+    // cout << "Position : x : " << getPosition().x << " y : " << getPosition().y << " | Vie : " << getHealthPoint() << endl;
 }
 
 Coordonnee Character::getPosition()

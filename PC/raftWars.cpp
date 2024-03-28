@@ -8,7 +8,11 @@
 /*------------------------------ Librairies ---------------------------------*/
 #include <iostream>
 #include <string>
+#include <conio.h>
+#include <chrono>
+#include <thread>
 using namespace std;
+using namespace std::chrono_literals;
 
 /*-------------------------- Librairies externes ----------------------------*/
 
@@ -27,8 +31,6 @@ using namespace std;
 
 /*------------------------------ Constantes ---------------------------------*/
 
-/*------------------------- Prototypes de fonctions -------------------------*/
-
 /*---------------------------- Variables globales ---------------------------*/
 
 EventManager *eventManager;
@@ -39,6 +41,11 @@ Inventory *inventory;
 int activeScene;
 LevelGetter *levelGetter;
 AffichageConsole *cons;
+std::chrono::_V2::system_clock::time_point start;
+std::chrono::duration<double, std::milli> currentclock;
+std::chrono::duration<double, std::milli> lastClock;
+std::chrono::duration<double, std::milli> rcvSerialTimer;
+
 /*
 Scenes index:
 0 : Main menu
@@ -55,16 +62,22 @@ int main()
     //cons = new AffichageConsole();
     // === Event manager tests ===
     eventManager = new EventManager();
-    controls = new KeyboardControls(eventManager);
-    // controls = new ControllerControls(eventManager, "COM3");
+    // controls = new KeyboardControls(eventManager);
+    controls = new ControllerControls(eventManager, "COM3");
 
-    tests = new Tests();
-    //tests->testjson();
+    // tests = new Tests();
+    // tests->testjson();
+    // tests->tests_unitaires_levelGetter();
+
+    // tests->test_unitaires_affichage(); // Test affichage jeux
+    // tests->testAffichage();
+    // tests->testOuvertureJsonAffiche();
     tests->test_unitaire_characterAndprojectile();
-    // // tests->tests_unitaires_levelGetter();
+    inventory = new Inventory();
+    inventory->addGold(2000);
 
-    // inventory = new Inventory();
-    // inventory->addGold(2000);
+    // reset UI
+    cons->ResetUI();
 
     // activeScene = 0;
 
@@ -78,10 +91,31 @@ int main()
 
     // levelGetter = new LevelGetter();
 
-    // while (true)
-    // {
-    //     scenes->get(activeScene)->Update();
-    // }
+    Sleep(500);
+    start = std::chrono::high_resolution_clock::now();
+    // totalElapsed = start - start;
+
+    // Main loop
+    while (true)
+    {
+        lastClock = currentclock;
+        const auto now = std::chrono::high_resolution_clock::now();
+        currentclock = now - start;
+
+        scenes->get(activeScene)->Update();
+
+        Sleep(10);
+
+        if ((currentclock.count() - rcvSerialTimer.count()) > 100)
+        {
+
+            ((ControllerControls *)controls)->ReceiveSerial();
+
+            rcvSerialTimer = currentclock;
+        }
+
+        controls->ListenForControls();
+    }
 
     return 0;
 }

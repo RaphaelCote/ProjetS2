@@ -22,6 +22,7 @@ private:
     int projectileType;
     Projectile *projectile;
     Gameloader gameloader;
+    bool doOnce;
 
     /*PERSONNAGE 1 ET PERSONNAGE 2*/
     /*ne pas oublier d'inclure vecteur et le const (si nécessaire)*/
@@ -59,6 +60,10 @@ public:
     bool CheckAvailableProjectile(int type);
     void ShowGameInfo();
     void ScanHitboxes();
+    void UpdateWeaponInfo();
+    void AnimationProjectile(Projectile *projectile);
+    float positionYTemps(float time, Projectile *projectile);
+    float findX(float y, Projectile *projectile, int which_posX);
 };
 
 #endif

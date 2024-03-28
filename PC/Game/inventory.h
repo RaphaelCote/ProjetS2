@@ -7,13 +7,19 @@ using namespace std;
 #define PRIXPETITSHIELD 200
 #define PRIXMOYENSHIELD 300
 #define PRIXGROSSHIELD 500
-#define PRIXKROCKET 100
+#define PRIXROCKET 100
 #define PRIXGRENADE 200
 
 class Inventory : public ShopMenu
 {
 public:
     Inventory();
+
+    int GetPrixRocket();
+    int GetPrixGrenade();
+    int GetPrixShieldSmall();
+    int GetPrixShieldMedium();
+    int GetPrixShieldBig();
 
     int getGold();
     void addGold(int Gold);

@@ -1,4 +1,4 @@
-//projectile.h
+// projectile.h
 #ifndef PROJECTILE_H
 #define PROJECTILE_H
 #include "utility.h"
@@ -12,63 +12,57 @@
 #include <cmath>
 #include <typeinfo>
 
-// je define des hauteurs de bateau ici, mais il va falloir utiliser des méthode
-//comme getBoatHitbox() pour les avoirs 
-#define hauteurBateau 50
-#define largeurBateau 300
-const float g=-1000;
+#include "utility.h"
+#include "character.h"
+
+const float g = -1000;
 
 const double  PI = 3.14159;
 const float masseProjectile = 0.05; // en kg
 const float dampingProjectile = 0.8;
 class Projectile {
 
-    public:
-        Projectile(Character& character);
-        Projectile(Coordonnee bulletStartPosition);
+public:
+    Projectile(Character &character);
+    Projectile(Coordonnee bulletStartPosition);
+    Projectile(Coordonnee bulletStartPosition, Hitbox hitboxset);
+    float getPuissance();
+    void setPuissance(float puissance);
+    float getAngleDegre();
+    void setAngleDegre(float angledeg);
+    Coordonnee getbulletStartPosition();
+    void setbulletStartPosition(Coordonnee bulletStartPosition);
+    Coordonnee getBulletEndPosition();
+    virtual int getProjectileMaxSpeed() = 0;
+    void checkIfCharacterHit(Vecteur<Character*> character);
+    virtual int damageReceived(Character &character) = 0;
+    Hitbox hitbox;
 
-        float getPuissance();
-        void setPuissance(float puissance);
-        float getAngleDegre();
-        void setAngleDegre(float angledeg);
-        Coordonnee getbulletStartPosition();
-        void setbulletStartPosition(Coordonnee bulletStartPosition);
-        Coordonnee getBulletEndPosition();
-        virtual int getProjectileMaxSpeed() = 0;
-        //void checkIfCharacterHit(Vecteur<Character> character); 
-        //void checkIfCharacterHit(Vecteur<Character&> character);
-        void checkIfCharacterHit(Vecteur<Character*> character);
-        //void checkIfCharacterHit(Character& character); 
-        int findBulletPositionX(int positionY);
-        int findBulletPositionYAngle(float angle);// pas utilisé présentement 
-        float findNegativeAngleBulletPositionY(int positionY);//pour les rebond vertical courbe bleu
-        float findPositiveAngleBulletPositionY(int positionY);//la courbe verte
-        int findBulletPositionY(int positionX);
-        int findBulletPositionYTime(float time);
+    Coordonnee bulletCurrentPosition;
+    Coordonnee bulletStartPosition; // coordonnée de départ du projectile
+    Coordonnee bulletEndPosition;   // coordonnée de fin du projectile
 
-        Coordonnee bulletCurrentPosition;
-        virtual int damageReceived(Character& character)=0;
-        //-----------BOUNCE-----------//
-        //void ScanHitboxes();
+    int findBulletPositionX(int positionY);
+    int findBulletPositionY(int positionX);
+    int findBulletPositionYTime(float time);
+    int findBulletPositionYAngle(float angle);// pas utilisé présentement 
+    float findNegativeAngleBulletPositionY(int positionY);//pour les rebond vertical courbe bleu
+    float findPositiveAngleBulletPositionY(int positionY);//la courbe verte
+    float angledeg;
+    float rad;
+    float V0;
+    //-----------BOUNCE-----------//
+    //void ScanHitboxes();
+    
+    void BounceHorizontal(Niveau* activeLevel);
+    void BounceVerticale(Niveau* activeLevel);
+    void CheckerBounce(Niveau* activeLevel);
         
-        void BounceHorizontal(Niveau* activeLevel);
-        void BounceVerticale(Niveau* activeLevel);
-        void CheckerBounce(Niveau* activeLevel);
-        
-        
-    protected:
-        //time_t temps;
-        Coordonnee bulletStartPosition;//coordonnée de départ du projectile
-        Coordonnee bulletEndPosition;//coordonnée de fin du projectile
-        //Vecteur<Hitbox> allHitboxObject;
-        //std::vector<std::vector<Hitbox>> allHitboxObject;
-        float puissance;
-        float angledeg;
-        float V0;
-        float Vf;
-        float rad;
-        
-        
+
+protected:
+    // time_t temps;
+
+    float puissance;
 };
 
 #endif

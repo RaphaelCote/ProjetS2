@@ -8,6 +8,8 @@ Boat::Boat(int n, Coordonnee position, int height, int width, int image)
     positionBoat = position;
     heightBoat = height;
     widthBoat = width;
+    hitBoxBoat.height = height;
+    hitBoxBoat.width = width;
     imageboat = image;
     Hitbox boatHitbox;
     boatHitbox.width = width;

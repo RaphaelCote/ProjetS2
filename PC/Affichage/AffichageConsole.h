@@ -4,6 +4,7 @@
 #include <iostream>
 #include <windows.h>
 #include <thread>
+#include <chrono>
 #include <string>
 #include <cwchar>
 #include <wincon.h>
@@ -107,7 +108,10 @@ struct Pixels
 struct ObjetAffichage
 {
     Pixels **pix;
+    bool pointeur;
     int couche;
+    int x_coor; 
+    int y_coor; 
     int *x; 
     int *y; 
     int width;
@@ -139,7 +143,7 @@ enum colors {
 class AffichageConsole
 {
     bool Thread_Actif; 
-    bool ModificationAFaire; 
+    
 
     int NumberRows;
     int NumberColumns; 
@@ -185,13 +189,14 @@ public:
 
     int FontX;
     int FontY;
-
+    bool ModificationAFaire; 
 
 
     AffichageConsole();
     AffichageConsole(int width, int height, int fontX, int fontY);
     ~AffichageConsole();
 
+    void AjouterObjet(Pixels** tab, int x, int y, int width, int height, int couche, string name);
     void AjouterObjet(Pixels** tab, int *x, int *y, int width, int height, int couche, string name);
     void AjouterObjet(Pixels** tab, Character *charact, int couche, string name);
     void AjouterObjet(Pixels** tab, Boat *boat, int couche, string name);
@@ -199,7 +204,9 @@ public:
     void SupprimerObjet(string name);
     void AfficherEnBasGauche(Pixels** tab, int x, int y, int width, int height);
     void AfficherTexte(std::ostream & os, string s, int *x, int *y, string name);
+    void AfficherTexte(std::ostream &os, string s, int x, int y, string name);
     void AfficherTexte(std::ostream & os, string s, int *x, int *y, int background, int frontcolor, string name);
+    void AfficherTexte(std::ostream & os, string s, int x, int y, int background, int frontcolor, string name);
     void ResizeConsole();
     bool SetConsoleFontSize(COORD dwFontSize);
 

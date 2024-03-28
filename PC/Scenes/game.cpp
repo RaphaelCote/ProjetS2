@@ -1,4 +1,6 @@
 #include <cmath>
+#include <stdio.h>
+#include <math.h>
 
 #include "game.h"
 #include "../raftWars.h"
@@ -6,6 +8,17 @@
 #include "../Game/canonball.h"
 #include "../Game/grenade.h"
 #include "../Game/enemyCharacter.h"
+#include "../Game/projectile.h"
+
+std::chrono::_V2::system_clock::time_point startAnimation;
+std::chrono::duration<double, std::milli> currentclockAnimation;
+std::chrono::duration<double, std::milli> timerAnimation;
+std::chrono::_V2::system_clock::time_point startWeaponTimer;
+std::chrono::duration<double, std::milli> WeaponTimerclock;
+std::chrono::duration<double, std::milli> weaponInfoTimer;
+
+int x = 20;
+int y = 160;
 
 /*Méthodes*/
 /*Constructeur (État Initial)*/
@@ -110,6 +123,8 @@ void Game::ChangeProjectileType(int typeDif)
 
     projectile->setAngleDegre(angle);
     projectile->setPuissance(puissance);
+
+    ShowGameInfo();
 }
 
 void Game::ChangeProjectileStrength(float strength)
@@ -166,6 +181,12 @@ void Game::Update()
                 activeLevel->playerBoats[i]->characters[j]->setHealthPoint(newHealthPoints);
             }
         }
+
+        activeLevel->MatWater();
+        activeLevel->MatNuage();
+        activeLevel->MatRaft();
+        activeLevel->MatCharacter();
+        activeLevel->MatEnemy();
     }
 
     isNewLevel = false;
@@ -176,49 +197,38 @@ void Game::PlayTurn()
 {
     if (isPlayerTurn)
     {
-        system("cls");
-        ShowGameInfo();
+        if (doOnce)
+        {
+            Sleep(10);
+            ShowGameInfo();
+            doOnce = false;
 
-        cout << endl;
-        cout << "Inventaire : " << inventory->getRockets() << " rockets, " << inventory->getGrenade() << " grenades" << endl;
-
-        cout << "Projectile selectionne : ";
-        if (projectileType == 0)
-        {
-            cout << "Balle" << endl;
-        }
-        else if (projectileType == 1)
-        {
-            cout << "Rocket" << endl;
-        }
-        else if (projectileType == 2)
-        {
-            cout << "Grenade" << endl;
+            startWeaponTimer = std::chrono::high_resolution_clock::now();
         }
 
-        cout << endl;
+        const auto now = std::chrono::high_resolution_clock::now();
+        WeaponTimerclock = now - startWeaponTimer;
 
-        cout << "Votre angle : " << projectile->getAngleDegre() << " | Votre puissance : " << projectile->getPuissance() << endl;
+        if ((WeaponTimerclock.count() - weaponInfoTimer.count()) > 50)
+        {
 
-        cout << "\n"
-                "-------FORMULE DE LA PARABOLE-------"
-             << endl;
-        cout << "y = g"
-             << "x^2 / (2(" << projectile->getPuissance() << "Vmax)^2 . cos^2(" << projectile->getAngleDegre() * PI / 180 << ") ) + xtan(" << projectile->getAngleDegre() * PI / 180 << ")"
-             << "\n"
-             << endl;
-        controls->ListenForControls();
+            UpdateWeaponInfo();
+
+            weaponInfoTimer = WeaponTimerclock;
+        }
     }
     else
     {
-        system("PAUSE");
-
-        system("cls");
         ShowGameInfo();
-        cout << "Tour enemi :" << endl;
 
         EnemyCharacter *ec = (EnemyCharacter *)activeLevel->enemyBoats[0]->characters[0];
         Projectile *enemyProjectile = ec->createEnemyProjectile();
+
+        activeLevel->MatBalle(enemyProjectile);
+
+        enemyProjectile->checkIfCharacterHit(*(activeLevel->playerBoats[0]->characters[0]));
+
+        AnimationProjectile(enemyProjectile);
 
         cout << "Angle : " << enemyProjectile->getAngleDegre() << " | Puissance : " << enemyProjectile->getPuissance() << endl;
         Vecteur<Character*> players;
@@ -245,7 +255,7 @@ void Game::PlayTurn()
 
         system("PAUSE");
         isPlayerTurn = true;
-        // projectile = new Canonball(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition());
+        doOnce = true;
     }
 
     if (CheckEndCondition())
@@ -261,6 +271,23 @@ void Game::PlayerShoot()
     {
         return;
     }
+
+    if (projectileType == 0)
+    {
+        activeLevel->MatBalle(projectile);
+    }
+    else if (projectileType == 1)
+    {
+        activeLevel->MatRocket(projectile);
+    }
+    else if (projectileType == 2)
+    {
+        activeLevel->MatGrenade(projectile);
+    }
+
+    projectile->checkIfCharacterHit(*(activeLevel->enemyBoats[0]->characters[0]));
+
+    AnimationProjectile(projectile);
     Vecteur<Character*> enemies;
     for(int i=0;i<activeLevel->enemyBoats.getSize();i++)
     {
@@ -314,7 +341,6 @@ void Game::PauseGame()
 void Game::EndGame()
 {
     PayPlayer();
-    system("PAUSE");
     OnDisable();
     StopGame();
     activeScene = 3;
@@ -342,21 +368,17 @@ void Game::PayPlayer()
     {
         // Player dead
         inventory->addGold(200);
-        cout << "-------------------------------------------------------------------" << endl;
-        cout << "Vous avec recu 200$" << endl;
-        cout << "-------------------------------------------------------------------" << endl;
+        // cout << "-------------------------------------------------------------------" << endl;
+        // cout << "Vous avec recu 200$" << endl;
+        // cout << "-------------------------------------------------------------------" << endl;
     }
     else
     {
-        if (turn >=2)
-        {   
-
-            cout << "rentre dans condition" << endl;
-            inventory->addGold(600+ round(700*pow((turn-1),-0.5)));
-            cout << "-------------------------------------------------------------------" << endl;
-            cout << "Vous avec recu " << 600+round(700*pow((turn-1),-0.5)) << "$" << endl;
-            cout << "-------------------------------------------------------------------" << endl;
-        }
+        // Enemy dead
+        inventory->addGold(1200);
+        // cout << "-------------------------------------------------------------------" << endl;
+        // cout << "Vous avec recu 1200$" << endl;
+        // cout << "-------------------------------------------------------------------" << endl;
     }
 }
 
@@ -385,6 +407,16 @@ void Game::StoreShield()
 void Game::StopGame()
 {
     StoreShield();
+
+    cons->SupprimerObjet("s0");
+    cons->SupprimerObjet("s1");
+    cons->SupprimerObjet("s2");
+    cons->SupprimerObjet("s3");
+    cons->SupprimerObjet("s4");
+    cons->SupprimerObjet("s5");
+    cons->SupprimerObjet("s6");
+
+    activeLevel->Delete();
 }
 
 bool Game::CheckEndCondition()
@@ -452,7 +484,244 @@ bool Game::CheckAvailableProjectile(int type)
 
 void Game::ShowGameInfo()
 {
-    // Show player positions and health
-    cout << "-------Niveau " << currentLevelIndex + 1 << "-------" << endl;
-    activeLevel->ShowLevelInfo(cout);
+
+    cons->SupprimerObjet("s0");
+    cons->SupprimerObjet("s1");
+    cons->SupprimerObjet("s2");
+    cons->SupprimerObjet("s3");
+    cons->SupprimerObjet("s4");
+    cons->SupprimerObjet("s5");
+
+    Sleep(10);
+
+    string s0 = "------- Niveau " + to_string(currentLevelIndex) + " ------- ";
+    string s1 = "Vie du joueur : " + to_string(activeLevel->playerBoats[0]->characters[0]->getHealthPoint()) + " ";
+    string s2 = "Vie des enemies : ";
+    string s3 = "";
+    for (int i = 0; i < activeLevel->enemyBoats.getSize(); i++)
+    {
+        for (int j = 0; j < activeLevel->enemyBoats[i]->characters.getSize(); j++)
+        {
+            if (i != 0 && j != 0)
+            {
+                s3 += "| ";
+            }
+
+            s3 += "Enemy " + to_string(i) + to_string(j) + " : " + to_string(activeLevel->enemyBoats[i]->characters[j]->getHealthPoint()) + " ";
+        }
+    }
+    string s4 = "Inventaire : " + to_string(inventory->getRockets()) + " rockets, " + to_string(inventory->getGrenade()) + " grenades ";
+    string s5 = "Projectile selectionne : ";
+
+    if (projectileType == 0)
+    {
+        s5 += "Balle ";
+    }
+    else if (projectileType == 1)
+    {
+        s5 += "Rocket ";
+    }
+    else if (projectileType == 2)
+    {
+        s5 += "Grenade ";
+    }
+
+    // cout << "\n"
+    //         "-------FORMULE DE LA PARABOLE-------"
+    //      << endl;
+    // cout << "y = g"
+    //      << "x^2 / (2(" << projectile->getPuissance() << "Vmax)^2 . cos^2(" << projectile->getAngleDegre() * PI / 180 << ") ) + xtan(" << projectile->getAngleDegre() * PI / 180 << ")"
+    //      << "\n"
+    //      << endl;
+
+    // activeLevel->ShowLevelInfo(cout);
+
+    int y0 = ((cons->MaxRows) * 10) - 30;
+    int y1 = ((cons->MaxRows) * 10) - 40;
+    int y2 = ((cons->MaxRows) * 10) - 50;
+    int y3 = ((cons->MaxRows) * 10) - 60;
+    int y4 = ((cons->MaxRows) * 10) - 80;
+    int y5 = ((cons->MaxRows) * 10) - 90;
+    int x = 20;
+
+    cons->AfficherTexte(std::cout, s0, x, y0, "s0");
+    cons->AfficherTexte(std::cout, s1, x, y1, "s1");
+    cons->AfficherTexte(std::cout, s2, x, y2, "s2");
+    cons->AfficherTexte(std::cout, s3, x, y3, "s3");
+    cons->AfficherTexte(std::cout, s4, x, y4, "s4");
+    cons->AfficherTexte(std::cout, s5, x, y5, "s5");
+}
+
+void Game::UpdateWeaponInfo()
+{
+    cons->SupprimerObjet("s6");
+
+    Sleep(10);
+
+    string s6 = "Votre angle : " + to_string(projectile->getAngleDegre()) + " | Votre puissance : " + to_string(projectile->getPuissance()) + " ";
+
+    int y6 = ((cons->MaxRows) * 10) - 100;
+    int x = 20;
+    cons->AfficherTexte(std::cout, s6, x, y6, "s6");
+}
+
+void Game::AnimationProjectile(Projectile *projectile)
+{
+
+    bool animation = true;
+    Coordonnee currentPosition = projectile->bulletStartPosition;
+    Coordonnee endPosition = projectile->bulletEndPosition;
+    float time = 0.0f;
+    bool coterAnimationGauche;
+
+    // Pour debug
+    // endPosition.x = 1000;
+    ////////////////////////////////////////////////////////////////////////////////
+
+    if (currentPosition.x - endPosition.x <= 0)
+        coterAnimationGauche = true;
+    else
+        coterAnimationGauche = false;
+
+    startAnimation = std::chrono::high_resolution_clock::now();
+
+    int lastPositionY = currentPosition.y;
+
+    while (animation)
+    {
+        const auto now = std::chrono::high_resolution_clock::now();
+        currentclockAnimation = now - startAnimation;
+
+        if ((currentclockAnimation.count() - timerAnimation.count()) > 10)
+        {
+            time += 0.01;
+
+            // lastPositionY = currentPosition.y;
+
+            // currentPosition.y = positionYTemps(time, projectile);
+
+            // if (currentPosition.y >= lastPositionY)
+            // {
+            //     currentPosition.x = findX(currentPosition.y, projectile, 1);
+            // }
+            // else
+            // {
+            //     currentPosition.x = findX(currentPosition.y, projectile, 2);
+            // }
+
+            // currentPosition.y = projectile->findBulletPositionYTime(time);
+            // currentPosition.x = projectile->findBulletPositionX(currentPosition.y);
+            if (projectile->getAngleDegre() > 0)
+            {
+                currentPosition.x += 10;
+            }
+            else
+            {
+                currentPosition.x -= 10;
+            }
+            currentPosition.y = projectile->findBulletPositionY(currentPosition.x);
+            projectile->bulletCurrentPosition = currentPosition;
+            cons->Mincolums = (currentPosition.x - (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2) / 10; // je fais * 10 pcq c l'affichage console
+
+            // cons->SupprimerObjet("text");
+            // cons->SupprimerObjet("text2");
+            // cons->SupprimerObjet("text3");
+            // cons->SupprimerObjet("text4");
+            // cons->SupprimerObjet("text5");
+
+            // cons->AfficherTexte(std::cout, "BulletPositionX: " + to_string(projectile->bulletCurrentPosition.x), cons->Mincolums * 10 + (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2, 160, "text");
+            // cons->AfficherTexte(std::cout, "BulletEndPositionX: " + to_string(projectile->bulletEndPosition.x), cons->Mincolums * 10 + (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2, 150, "text2");
+            // cons->AfficherTexte(std::cout, "BulletEndPositionY: " + to_string(projectile->bulletEndPosition.y), cons->Mincolums * 10 + (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2, 140, "text5");
+            // cons->AfficherTexte(std::cout, "BulletAngle: " + to_string(projectile->angledeg), cons->Mincolums * 10 + (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2, 130, "text3");
+            // cons->AfficherTexte(std::cout, "Time: " + to_string(time), cons->Mincolums * 10 + (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2, 120, "text4");
+
+            if (coterAnimationGauche)
+            {
+                if (currentPosition.x >= endPosition.x || currentPosition.x > (cons->MaxColumns * 10) || currentPosition.y < endPosition.y)
+                {
+                    animation = false;
+                    break;
+                }
+            }
+            else
+            {
+                if (currentPosition.x <= endPosition.x || currentPosition.x < 0 || currentPosition.y < endPosition.y)
+                {
+                    animation = false;
+                    break;
+                }
+            }
+
+            timerAnimation = currentclockAnimation;
+        }
+    }
+
+    cons->SupprimerObjet("projectile");
+    // delete projectile;
+
+    cons->Mincolums = 0;
+}
+
+float Game::positionYTemps(float time, Projectile *projectile)
+{
+    float V0 = projectile->getPuissance() * projectile->getProjectileMaxSpeed();
+    float rad = projectile->getAngleDegre() * PI / 180;
+
+    float num = pow((g * time + V0 * sin(rad)), 2) - pow((V0 * sin(rad)), 2);
+    float denum = 2.0 * g;
+    float positionfinaleY = (num / denum + projectile->bulletStartPosition.y);
+
+    return positionfinaleY;
+}
+
+float Game::findX(float y, Projectile *projectile, int which_posX)
+{
+    float V0 = projectile->getPuissance() * projectile->getProjectileMaxSpeed();
+    float rad = (projectile->getAngleDegre() * PI) / 180;
+    float positionX;
+
+    float deltay = (y - projectile->bulletStartPosition.y);
+    // printf("DY = %.1f", deltay);
+    float numeratorx1 = -tan(rad) + sqrt(pow(tan(rad), 2) - ((2.0 * g) / (pow(V0, 2) * pow(cos(rad), 2))) * -1.0 * deltay);
+    float numeratorx2 = -tan(rad) - sqrt(pow(tan(rad), 2) - ((2.0 * g) / (pow(V0, 2) * pow(cos(rad), 2))) * -1.0 * deltay);
+    float denominator = g / (pow(0.5 * 2828.0, 2) * pow(cos(rad), 2));
+
+    float positionX1 = (numeratorx1 / denominator) + projectile->bulletStartPosition.x;
+    float positionX2 = (numeratorx2 / denominator) + projectile->bulletStartPosition.x;
+
+    if (projectile->rad >= 0)
+    {
+
+        if (which_posX == 1)
+        {
+            positionX = positionX1;
+        }
+        else
+        {
+            positionX = positionX2;
+        }
+    }
+    else
+    {
+        if (which_posX == 1)
+        {
+            positionX = positionX2;
+        }
+        else
+        {
+            positionX = positionX1;
+        }
+    }
+    // printf("positionX1 = %.1f ", positionX1);
+    // printf("positionX2 = %.1f\n", positionX2);
+    /*if (positionX2 < positionX1)
+    {
+        positionX = positionX2;
+    }
+    else
+    {
+        positionX = positionX1;
+    }*/
+
+    return positionX;
 }

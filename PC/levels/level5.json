@@ -5,7 +5,7 @@
         "height": 1080,
         "friendlyboatlist": [
             {
-                "coordoneeX": 200,
+                "coordoneeX": 400,
                 "coordoneeY": 70,
                 "width": 100,
                 "height": 30,
@@ -14,16 +14,41 @@
                     {
                         "width": 100,
                         "height": 100,
-                        "coordoneeX": 0,
+                        "coordoneeX": 5,
                         "coordoneeY": 30,
                         "image": 1
                     }
+     
                 ]
             }
         ],
         "enemyboatlist": [
             {
-                "coordoneeX": 1800,
+                "coordoneeX": 2000,
+                "coordoneeY": 70,
+                "width": 300,
+                "height": 30,
+                "image": 1,
+                "characterlist": [
+                    {
+                        "width": 100,
+                        "height": 100,
+                        "coordoneeX": 0,
+                        "coordoneeY": 30,
+                        "image": 2
+                    },
+                    {
+                        "width": 100,
+                        "height": 100,
+                        "coordoneeX": 120,
+                        "coordoneeY": 30,
+                        "image": 2
+                    }
+                    
+                ]
+            },
+            {
+                "coordoneeX": 2400,
                 "coordoneeY": 70,
                 "width": 100,
                 "height": 30,
@@ -34,8 +59,10 @@
                         "height": 100,
                         "coordoneeX": 0,
                         "coordoneeY": 30,
-                        "image": 1
+                        "image": 2
                     }
+                    
+                    
                 ]
             }
         ]

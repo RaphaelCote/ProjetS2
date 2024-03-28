@@ -1,41 +1,61 @@
-//projectile.cpp
+// projectile.cpp
 #include "projectile.h"
 //#include "../raftWars.h"
 using namespace std;
 
-Projectile::Projectile(Character& character)
+Projectile::Projectile(Character &character)
 {
-    
+
     angledeg = 0;
     puissance = 0;
-    this->bulletStartPosition=character.getWeaponPosition();
-    
+    this->bulletStartPosition.x = character.getWeaponPosition().x;
+    this->bulletStartPosition.y = character.getWeaponPosition().y;
+    this->hitbox = {1, 1};
 }
 
 Projectile::Projectile(Coordonnee bulletStartPosition)
 {
     angledeg = 0;
     puissance = 0;
-    this->bulletStartPosition=bulletStartPosition;
-
+    this->bulletStartPosition.x = bulletStartPosition.x;
+    this->bulletStartPosition.y = bulletStartPosition.y;
+    this->bulletCurrentPosition.x = bulletStartPosition.x;
+    this->bulletCurrentPosition.y = bulletStartPosition.y;
+    this->hitbox = {1, 1};
 }
-float Projectile::getPuissance(){
+
+Projectile::Projectile(Coordonnee bulletStartPosition, Hitbox hitboxset)
+{
+    angledeg = 0;
+    puissance = 0;
+    this->bulletStartPosition = bulletStartPosition;
+    this->bulletCurrentPosition = bulletStartPosition;
+    this->hitbox = hitboxset;
+}
+
+float Projectile::getPuissance()
+{
     return puissance;
 }
-void Projectile::setPuissance(float puissance){
-    this->puissance=puissance;
+void Projectile::setPuissance(float puissance)
+{
+    this->puissance = puissance;
 }
-float Projectile::getAngleDegre(){
+float Projectile::getAngleDegre()
+{
     return angledeg;
 }
-void Projectile::setAngleDegre(float angledeg){
-    this->angledeg=angledeg;
+void Projectile::setAngleDegre(float angledeg)
+{
+    this->angledeg = angledeg;
 }
-Coordonnee Projectile::getbulletStartPosition(){
+Coordonnee Projectile::getbulletStartPosition()
+{
     return bulletStartPosition;
 }
-void Projectile::setbulletStartPosition(Coordonnee bulletStartPosition){
-    this->bulletStartPosition=bulletStartPosition;
+void Projectile::setbulletStartPosition(Coordonnee bulletStartPosition)
+{
+    this->bulletStartPosition = bulletStartPosition;
 }
 int Projectile::findBulletPositionYAngle(float angle)
 {
@@ -60,72 +80,71 @@ float Projectile::findPositiveAngleBulletPositionY(int positionY)//courbe verte 
 }
 int Projectile::findBulletPositionYTime(float time)
 {
-    //une grenade explose après 3 secondes donc entré 3 sec en paramètre
-    rad=angledeg*PI/180;
-    cout<<"radian: "<<rad<<endl;
-    V0=puissance*getProjectileMaxSpeed();
-    cout<<"V0 :"<<V0<<endl;
-    float num= pow((g*time +V0*sin(rad)),2)- pow((V0*sin(rad)),2);
-    float denum =2.0f*g;
-    int positionfinaleY= round(num/denum+ bulletStartPosition.y);
-    cout<<"Position finale y avant condition: "<<positionfinaleY<<endl;    
+    // une grenade explose après 3 secondes donc entré 3 sec en paramètre
+    rad = angledeg * PI / 180;
+    // cout<<"radian: "<<rad<<endl;
+    V0 = puissance * getProjectileMaxSpeed();
+    // cout<<"V0 :"<<V0<<endl;
+    float num = pow((g * time + V0 * sin(rad)), 2) - pow((V0 * sin(rad)), 2);
+    float denum = 2.0f * g;
+    int positionfinaleY = round(num / denum + bulletStartPosition.y);
+    // cout<<"Position finale y avant condition: "<<positionfinaleY<<endl;
     return positionfinaleY;
-    
 }
 int Projectile::findBulletPositionY(int positionX)
 {
-    V0=puissance*getProjectileMaxSpeed();
-    
-    rad=angledeg*PI/180;
-    
-    float deltax= (positionX - (bulletStartPosition.x));
+    V0 = puissance * getProjectileMaxSpeed();
+
+    rad = angledeg * PI / 180;
+
+    float deltax = (positionX - (bulletStartPosition.x));
     double positionY = ((g * deltax * deltax) / (2 * V0 * V0 * pow(cos(rad), 2)) + deltax * tan(rad)) + bulletStartPosition.y;
-   
+
     return round(positionY);
 }
 
 int Projectile::findBulletPositionX(int positionY)
 {
-    V0=puissance*getProjectileMaxSpeed();
-    int positionX=0;
-    
-    rad=angledeg*PI/180;
-    //cout<<"conversion de deg a rad= "<< rad<<endl;
-    //float rad=angledeg;
-    float deltay=( positionY-bulletStartPosition.y);
-    float numeratorx1 = -tan(rad) + sqrt(pow(tan(rad), 2) - ((2 * g) / (pow(V0, 2) * pow(cos(rad), 2))) * -1*deltay);
-    float numeratorx2 = -tan(rad) - sqrt(pow(tan(rad), 2) - ((2 * g) / (pow(V0, 2) * pow(cos(rad), 2))) * -1*deltay);
+    V0 = puissance * getProjectileMaxSpeed();
+    int positionX = 0;
+
+    rad = angledeg * PI / 180;
+    // cout<<"conversion de deg a rad= "<< rad<<endl;
+    // float rad=angledeg;
+    float deltay = (positionY - bulletStartPosition.y);
+    float numeratorx1 = -tan(rad) + sqrt(pow(tan(rad), 2) - ((2 * g) / (pow(V0, 2) * pow(cos(rad), 2))) * -1 * deltay);
+    float numeratorx2 = -tan(rad) - sqrt(pow(tan(rad), 2) - ((2 * g) / (pow(V0, 2) * pow(cos(rad), 2))) * -1 * deltay);
     float denominator = g / (pow(V0, 2) * pow(cos(rad), 2));
 
-    float positionX1=(numeratorx1/denominator)+bulletStartPosition.x;
-    float positionX2=(numeratorx2/denominator)+bulletStartPosition.x;
-    //SI l'angle est négatif, faire un autre code, sinon prendre lui qu'on a live
-    //cout<<"positionX1: "<<positionX1<<endl;
-    //cout<<"positionX2: "<<positionX2<<endl;
-    if(angledeg>0)
+    float positionX1 = (numeratorx1 / denominator) + bulletStartPosition.x;
+    float positionX2 = (numeratorx2 / denominator) + bulletStartPosition.x;
+    // SI l'angle est négatif, faire un autre code, sinon prendre lui qu'on a live
+    // cout<<"positionX1: "<<positionX1<<endl;
+    // cout<<"positionX2: "<<positionX2<<endl;
+    if (angledeg > 0)
     {
-        if(positionX1>=0 &&positionX1>positionX2)
+        if (positionX1 >= 0 && positionX1 > positionX2)
         {
-            positionX= round(positionX1);
+            positionX = round(positionX1);
         }
-        if(positionX2>=0 &&positionX2>positionX1)
+        if (positionX2 >= 0 && positionX2 > positionX1)
         {
-            positionX=round(positionX2);
+            positionX = round(positionX2);
         }
     }
-    if(angledeg<0)
+    if (angledeg < 0)
     {
 
-        if( positionX1<positionX2 )
+        if (positionX1 < positionX2)
         {
-            positionX= round(positionX1);
+            positionX = round(positionX1);
         }
-        if(positionX2<positionX1)
+        if (positionX2 < positionX1)
         {
-            positionX=round(positionX2);
+            positionX = round(positionX2);
         }
     }
-    
+
     return positionX;
 }
 

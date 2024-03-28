@@ -110,6 +110,13 @@ void setup() {
 void loop() 
 {
   //MainAffichage();
+  int valY;
+  joystick.GetY(&valY);
+  float fal2 = map(valY, 0, 1023, -100, 100);
+  fal2 = fal2>=0 ? fal2 : fal2*-1;
+  Bar.AllumeBargraphePuissance(fal2);
+
+
 
   if(comPC.shouldRead_){
     readPC();
@@ -531,9 +538,6 @@ void SetupJson()
   comPC.AddMessage("JoyX", fal1/100.0f);//map -1 a 1
   comPC.AddMessage("JoyY", fal2/100.0f);//map -1 a 1
 
-  fal2 = fal2>=0 ? fal2 : fal2*-1;
-  Bar.AllumeBargraphePuissance(fal2);
-
   comPC.AddMessage("B1", b1.Update());
   comPC.AddMessage("B2", b2.Update());
   comPC.AddMessage("B3", b3.Update());
@@ -554,7 +558,7 @@ void readPC()
   
   if (comPC.GetValue("led", &ledvalue)) {
     // mettre la led a la valeur doc["led"]
-    Bar.AllumeBits(ledvalue);
+    //Bar.AllumeBits(ledvalue);
   }
 }
 
