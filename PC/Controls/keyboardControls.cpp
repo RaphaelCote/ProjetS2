@@ -42,7 +42,7 @@ void KeyboardControls::ListenForControls()
             if (activeScene == 1)
             {
                 Angle(45);
-                Joystick(0.5, 0);
+                Joystick(0.54, 0);
             }
 
             MainAction();
