@@ -35,5 +35,10 @@ struct Velocity
     float puissance = 0;
     float angledeg = 0;
 };
+struct infoHitbox
+{   
+    Hitbox hitbox;
+    Coordonnee coordonnees;
+};
 
 #endif

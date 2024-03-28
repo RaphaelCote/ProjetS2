@@ -31,7 +31,10 @@ Projectile::Projectile(Coordonnee bulletStartPosition, Hitbox hitboxset)
     this->bulletCurrentPosition = bulletStartPosition;
     this->hitbox = hitboxset;
 }
+Projectile::~Projectile()
+{
 
+}
 float Projectile::getPuissance()
 {
     return puissance;
@@ -126,6 +129,21 @@ int Projectile::findBulletPositionX(int positionY)
 
     return positionX;
 }
+float Projectile::findNegativeAngleBulletPositionY(int positionY)//courbe bleu dans le desmos
+{  
+    float num = -sqrt( pow((puissance*getProjectileMaxSpeed() * sin(angledeg * PI/180)), 2) +2*g*(positionY- bulletStartPosition.y) );
+    float denum = puissance*getProjectileMaxSpeed()*cos(angledeg*PI/180);
+    float angleFinal = atan(num/denum)*180/PI;
+    return angleFinal;
+    //float denum =;
+}
+float Projectile::findPositiveAngleBulletPositionY(int positionY)//courbe verte dans le desmos 
+{
+    float num = sqrt( pow((puissance*getProjectileMaxSpeed() * sin(angledeg * PI/180)), 2) +2*g*(positionY- bulletStartPosition.y) );
+    float denum = puissance*getProjectileMaxSpeed()*cos(angledeg*PI/180);
+    float angleFinal = atan(num/denum)*180/PI;
+    return angleFinal;
+}
 
 bool Projectile::checkIfCharacterHit(Character &character)
 {
@@ -144,7 +162,7 @@ bool Projectile::checkIfCharacterHit(Character &character)
             // pour les coordonnées de la balle, ce sera a changé éventuellement (vérifier si cela a touché bateau ou l'eau)
             // cout<<"Premier if angle positif"<<endl;
 
-            // il va falloir modifier cette condition (si elle touche le bateau ou non)
+            
             bulletEndPosition.x = findBulletPositionX(characterPosition.y);
             bulletEndPosition.y = characterPosition.y;
             damageReceived(character);
@@ -260,8 +278,196 @@ bool Projectile::checkIfCharacterHit(Character &character)
         }
     }
 }
+void Projectile::checkVecteurCharacters(Vecteur<Character*> character)
+{
+    do
+    {
+        for(int i=0;i<character.getCapacity();i++)
+        {
+            checkIfCharacterHit(*character[0]);
+        }
+    } 
+    while (Vf>50 || bulletEndPosition.y>100);
+    
+}
+
 
 Coordonnee Projectile::getBulletEndPosition()
 {
     return bulletEndPosition;
+}
+void Projectile::AjouterInfoHitbox (infoHitbox infohitbox)
+{
+    infoHitbox* newInfoHitbox = new infoHitbox;
+    newInfoHitbox->coordonnees = infohitbox.coordonnees;
+    newInfoHitbox->hitbox = infohitbox.hitbox;
+    vecteurInfohitbox.add(newInfoHitbox);
+
+
+}
+void Projectile::bubbleSortInfoHitbox(bool CharacterType)//if bool CharacterType==true, we sort the vector in ascending order, otherwise we sort the vector in descending order
+{
+
+    if(CharacterType)// c'est que le player tire l'ennemi
+    {
+        for(int i =0; i<vecteurInfohitbox.getSize()-1; i++)
+        {
+            cout<<"premiere for bubble"<<endl;
+            for(int j=0; j<vecteurInfohitbox.getSize()-i-1;j++)
+            {
+                cout<<"deuxieme for bubble"<<endl;
+                if(vecteurInfohitbox[j]->coordonnees.x >vecteurInfohitbox[j+1]->coordonnees.x)
+                {
+                    cout<<"if bubble"<<endl;
+                    
+                    infoHitbox* temporaire = vecteurInfohitbox[j];
+                    vecteurInfohitbox[j] = vecteurInfohitbox[j+1];
+                    vecteurInfohitbox[j+1] = temporaire; 
+                }
+            }
+        }
+    }
+    else
+    {
+        for(int i =0; i<vecteurInfohitbox.getSize()-1; i++)
+        {
+            cout<<"premiere for bubble"<<endl;
+            for(int j=0; j<vecteurInfohitbox.getSize()-i-1;j++)
+            {
+                cout<<"deuxieme for bubble"<<endl;
+                if(vecteurInfohitbox[j]->coordonnees.x <vecteurInfohitbox[j+1]->coordonnees.x)
+                {
+                    cout<<"if bubble"<<endl;
+                    //Coordonnee coordEnemy = niv->enemyBoats[i]->characters[j]->getPosition();
+                    infoHitbox* temporaire = vecteurInfohitbox[j];
+                    vecteurInfohitbox[j] = vecteurInfohitbox[j+1];
+                    vecteurInfohitbox[j+1] = temporaire; 
+                }
+            }
+        }
+    }
+    
+}
+void Projectile::BounceHorizontal()// si elle frape un paroie 
+{
+    //---------Explication de la if en deux segments segments---------//
+    /*
+        1. (findBulletPositionY(coordEnemyBoatHitboxes.x)>=coordEnemyBoatHitboxes.y && findBulletPositionY(coordEnemyBoatHitboxes.x)<=coordEnemyBoatHitboxes.y+heightHitboxEnemyBoat)    (avant le ||)
+        on vérifie si on est entre le coin inférieur gauche et le coin supérieur gauche de la hitbox 
+        2. (findBulletPositionY(coordEnemyBoatHitboxes.x+widthHitboxEnemyBoat)>=coordEnemyBoatHitboxes.y && findBulletPositionY(coordEnemyBoatHitboxes.x+widthHitboxEnemyBoat)<=coordEnemyBoatHitboxes.y+heightHitboxEnemyBoat)   (après le || )
+        on vérifie si on est entre le coin inférieur droit et le coin supérieur droit de la hitbox
+        AU MOINS UNE DE SES DEUX CONDITIONS DOIT ÊTRE VRAI (sinon nous sommes clairement à coté et il n'y a pas de rebond)
+        3. la vitesse doit être supérieur a 2% sinon on le considère arrêter
+    */
+    
+    cout<<"Rentrer dans BounceHorizontal"<<endl;
+    if(angledeg>0)
+    {
+        
+        cout<<"angledeg>0"<<endl;
+        for(int i=0;i<vecteurInfohitbox.getSize();i++)
+        {
+            cout<<"For angledeg<0"<<endl;
+            // JE ne sais pas si VF s'uptade, sinon le coder directement dans le if
+            float dy=bulletEndPosition.y-bulletStartPosition.y;
+            Vf= sqrt( pow(V0*cos(rad),2) + pow(V0*sin(rad),2) +2*g*dy);
+            if((findBulletPositionY(vecteurInfohitbox[i]->coordonnees.x)>=vecteurInfohitbox[i]->coordonnees.y && findBulletPositionY(vecteurInfohitbox[i]->coordonnees.x)<=vecteurInfohitbox[i]->coordonnees.y+vecteurInfohitbox[i]->hitbox.height))
+            {
+                
+                //bulletEndPosition.x= allHitboxObject[i].coordonnees.x;
+                //bulletEndPosition.y=findBulletPositionY(allHitboxObject[i].coordonnees.x);
+                //a vérifier
+                float dy=bulletEndPosition.y - bulletStartPosition.y; 
+                float Vfy= sqrt(pow(V0*sin(rad),2) +2*g*dy)>0;
+                if(Vfy>0)
+                {
+                    angledeg= -findPositiveAngleBulletPositionY(bulletEndPosition.y);//courbe verte
+                    puissance = dampingProjectile*puissance; 
+                }
+                else if(Vfy==0)
+                {
+                    angledeg = 0;
+                    puissance = dampingProjectile*puissance; 
+                }
+                else if(Vfy<0)
+                {
+                    angledeg= -findNegativeAngleBulletPositionY(bulletEndPosition.y);//pour les rebond vertical courbe bleu
+                    puissance = dampingProjectile*puissance; 
+                }
+                // demandé a Raph si y faut refaire un projectile
+                bulletStartPosition.x=bulletEndPosition.x;
+                bulletStartPosition.y=bulletEndPosition.y;
+            }
+        }
+    }
+    if(angledeg<0)
+    {
+        cout<<"angledeg<0"<<endl;
+        for(int i=0;i<vecteurInfohitbox.getSize();i++)
+        {
+            // JE ne sais pas si VF s'uptade, sinon le coder directement dans le if
+            cout<<"For angledeg<0"<<endl;
+            float dy=bulletEndPosition.y-bulletStartPosition.y;
+            Vf= sqrt( pow(V0*cos(rad),2) + pow(V0*sin(rad),2) +2*g*dy);
+            if((findBulletPositionY(vecteurInfohitbox[i]->coordonnees.x+vecteurInfohitbox[i]->hitbox.width)>=vecteurInfohitbox[i]->coordonnees.y && findBulletPositionY(vecteurInfohitbox[i]->coordonnees.x+vecteurInfohitbox[i]->hitbox.width)<=vecteurInfohitbox[i]->coordonnees.y+vecteurInfohitbox[i]->hitbox.height))
+            {
+                //inverse l'angle et damp la vitesse de 20% (nouvelle Vi =Vf*0.8)
+
+
+                //bulletEndPosition.x= allHitboxObject[i].coordonnees.x+allHitboxObject[i].width;
+                //bulletEndPosition.y=findBulletPositionY(allHitboxObject[i].coordonnees.x+allHitboxObject[i].width);
+                
+                float dy=bulletEndPosition.y - bulletStartPosition.y; 
+                float Vfy= sqrt(pow(V0*sin(rad),2) +2*g*dy)>0;
+                if(Vfy>0)
+                {
+                    angledeg= -findPositiveAngleBulletPositionY(bulletEndPosition.y);
+                    puissance = dampingProjectile*puissance; 
+                }
+                else if(Vfy==0)
+                {
+                    angledeg = 0;
+                    puissance = dampingProjectile*puissance; 
+                }
+                else if(Vfy<0)
+                {
+                    angledeg= -findNegativeAngleBulletPositionY(bulletEndPosition.y);
+                    puissance = dampingProjectile*puissance; 
+                }
+                bulletStartPosition.x=bulletEndPosition.x;
+                bulletStartPosition.y=bulletEndPosition.y;
+            }
+        }
+    }
+    
+}
+void Projectile::BounceVerticale()//si elle frappe un sol (plancher)
+{
+   
+    cout<<"Rentrer dans BounceVerticale"<<endl;
+    for(int i=0;i<vecteurInfohitbox.getSize();i++)
+    {
+                //utilise l'équation verte pour trouver l'angle de frappe 
+           // }
+            
+            //else{
+               //utilise l'équation bleu pour trouver l'angle de frappe  
+            //}
+                
+            // demandé a Raph si y faut refaire un projectile
+        cout<<"for bounceVertical"<<endl;
+        if((findBulletPositionX(vecteurInfohitbox[i]->coordonnees.y)>=vecteurInfohitbox[i]->coordonnees.x && findBulletPositionX(vecteurInfohitbox[i]->coordonnees.y)<=vecteurInfohitbox[i]->coordonnees.x+vecteurInfohitbox[i]->hitbox.width))
+        {
+            angledeg = -findNegativeAngleBulletPositionY(vecteurInfohitbox[i]->coordonnees.y+vecteurInfohitbox[i]->hitbox.height);
+            puissance = dampingProjectile*puissance;
+            bulletStartPosition.x=bulletEndPosition.x;
+            bulletStartPosition.y=bulletEndPosition.y;
+        }
+    }
+
+}
+void Projectile::CheckerBounce()
+{
+    BounceHorizontal();
+    BounceVerticale();
 }

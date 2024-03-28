@@ -60,64 +60,70 @@ Scenes index:
 /*----------------------------- Fonction "Main" -----------------------------*/
 int main()
 {
-    cons = new AffichageConsole();
-
-    // === Event manager tests ===
-    eventManager = new EventManager();
-    // controls = new KeyboardControls(eventManager);
-    controls = new ControllerControls(eventManager, "COM3");
-
-    // tests = new Tests();
+    //-------------Section des tests-------------//
+    tests = new Tests();
     // tests->testjson();
     // tests->tests_unitaires_levelGetter();
 
     // tests->test_unitaires_affichage(); // Test affichage jeux
     // tests->testAffichage();
     // tests->testOuvertureJsonAffiche();
+    tests->test_unitaire_characterAndprojectile();
+    //-------------Section Main-------------//
+    //-------------Code a Frank-------------//
+    //-----A décomenté après les tests------//
+    // cons = new AffichageConsole();
 
-    inventory = new Inventory();
-    inventory->addGold(2000);
+    // // === Event manager tests ===
+    // eventManager = new EventManager();
+    // // controls = new KeyboardControls(eventManager);
+    // controls = new ControllerControls(eventManager, "COM3");
 
-    // reset UI
-    cons->ResetUI();
+    
+    
+    // inventory = new Inventory();
+    // inventory->addGold(2000);
 
-    activeScene = 0;
+    // // reset UI
+    // cons->ResetUI();
 
-    scenes = new Vecteur<Scene *>();
-    scenes->add(new MainMenu());
-    scenes->add(new Game());
-    scenes->add(new LevelSelectionMenu());
-    scenes->add(new EndGameMenu());
-    scenes->add(new PauseMenu());
-    scenes->add(new ShopMenu());
+    // activeScene = 0;
 
-    levelGetter = new LevelGetter();
+    // scenes = new Vecteur<Scene *>();
+    // scenes->add(new MainMenu());
+    // scenes->add(new Game());
+    // scenes->add(new LevelSelectionMenu());
+    // scenes->add(new EndGameMenu());
+    // scenes->add(new PauseMenu());
+    // scenes->add(new ShopMenu());
 
-    Sleep(500);
-    start = std::chrono::high_resolution_clock::now();
-    // totalElapsed = start - start;
+    // levelGetter = new LevelGetter();
 
-    // Main loop
-    while (true)
-    {
-        lastClock = currentclock;
-        const auto now = std::chrono::high_resolution_clock::now();
-        currentclock = now - start;
+    // Sleep(500);
+    // start = std::chrono::high_resolution_clock::now();
+    // // totalElapsed = start - start;
 
-        scenes->get(activeScene)->Update();
+    // // Main loop
+    // while (true)
+    // {
+    //     lastClock = currentclock;
+    //     const auto now = std::chrono::high_resolution_clock::now();
+    //     currentclock = now - start;
 
-        Sleep(10);
+    //     scenes->get(activeScene)->Update();
 
-        if ((currentclock.count() - rcvSerialTimer.count()) > 100)
-        {
+    //     Sleep(10);
 
-            ((ControllerControls *)controls)->ReceiveSerial();
+    //     if ((currentclock.count() - rcvSerialTimer.count()) > 100)
+    //     {
 
-            rcvSerialTimer = currentclock;
-        }
+    //         ((ControllerControls *)controls)->ReceiveSerial();
 
-        controls->ListenForControls();
-    }
+    //         rcvSerialTimer = currentclock;
+    //     }
+
+    //     controls->ListenForControls();
+    // }
 
     return 0;
 }

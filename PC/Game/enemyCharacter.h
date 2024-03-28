@@ -3,7 +3,7 @@
 #define ENEMYCHARACTER_H
 #include "character.h"
 #include "projectile.h"
-
+#include "canonball.h"
 #include <iostream> 
 //faire un randomize pour savoir s'il hit ou pas 
 class EnemyCharacter : public Character

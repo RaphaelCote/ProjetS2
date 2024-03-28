@@ -36,6 +36,7 @@ public:
     void MatNuage();
     void MatCharacter();
     void Delete();
+    void ScanHitboxes(Projectile* projectile,bool player);//if player true, we store in memory only ennemy related hitbox, else we store player related hitbox 
 };
 
 #endif

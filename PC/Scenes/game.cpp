@@ -260,7 +260,8 @@ void Game::PlayerShoot()
     {
         activeLevel->MatGrenade(projectile);
     }
-
+    activeLevel->ScanHitboxes(projectile,true);
+    projectile->bubbleSortInfoHitbox(true);
     projectile->checkIfCharacterHit(*(activeLevel->enemyBoats[0]->characters[0]));
 
     AnimationProjectile(projectile);

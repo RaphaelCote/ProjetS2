@@ -24,7 +24,7 @@ int Grenade::damageReceived(Character &character)
 {
 
     float dy = bulletEndPosition.y - character.getPosition().y;
-    float Vf = sqrt(pow(V0 * cos(rad), 2) + pow(V0 * sin(rad), 2) + 2 * g * dy);
+    Vf = sqrt(pow(V0 * cos(rad), 2) + pow(V0 * sin(rad), 2) + 2 * g * dy);
     int explosionDamage = 0;
 
     //---------------------bulletEndPosition en fonction du temps-----------//
@@ -84,12 +84,12 @@ int Grenade::damageReceived(Character &character)
     {
         explosionDamage = 120;
     }
-    else if (positionFinaleGrenadeYTemps <= 100)
+    else if (positionFinaleGrenadeYTemps <= HauteurEau)
     {
         if (positionFinaleGrenadeXTemps < character.getPosition().x || positionFinaleGrenadeXTemps > character.getPosition().x + character.getHitboxWidth())
         {
             explosionDamage = 0;
-            positionFinaleGrenadeYTemps = 100;
+            positionFinaleGrenadeYTemps = HauteurEau;
         }
     }
     else

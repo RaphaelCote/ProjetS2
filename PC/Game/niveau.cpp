@@ -468,3 +468,55 @@ void Niveau::Delete()
         }
     }
 }
+void Niveau::ScanHitboxes(Projectile* projectile,bool player)
+{
+    if(player==true)//si c'est un joueur, on va seulement verifier les hitbox ennemie (bateau ennemi et ennemi)
+    {
+        for(int i=0;i<enemyBoats.getSize();i++)
+        {
+        
+            for(int j=0;j<enemyBoats[i]->characters.getSize();j++)
+            { 
+                //CONFIRMATION QU'IL STOCK BELLE ET BIEN LES INFOS QUI SONT DANS CETTE BOUCLE, SOIT LES HITBOX DES PERSONNAGES
+                //for pour chaque hitbox du bateau (si un bateau a 3 hitboxes, la for ce fait 3X)
+                cout<<"for pour les personnages dans le bateau ennemi"<<endl;
+                //allHitboxObject.add(enemyBoats[i]->characters[j]->getHitbox());
+                infoHitbox infotempPersonnage;
+                infotempPersonnage.coordonnees = enemyBoats[i]->characters[j]->getPosition();
+                infotempPersonnage.hitbox = enemyBoats[i]->characters[j]->getHitbox();
+                
+                projectile->AjouterInfoHitbox(infotempPersonnage);
+            }
+            //cout<<"je stock en theorie la hitbox du bateau ennemi"<<endl;
+            infoHitbox infotempBateau;
+            infotempBateau.hitbox = enemyBoats[i]->getHitboxBoat();
+            infotempBateau.coordonnees = enemyBoats[i]->getPositionBoat();
+            projectile->AjouterInfoHitbox(infotempBateau);
+        }
+    }  
+    else
+    {
+        for(int i=0;i<playerBoats.getSize();i++)
+        {
+        
+            for(int j=0;j<playerBoats[i]->characters.getSize();j++)
+            { 
+                //CONFIRMATION QU'IL STOCK BELLE ET BIEN LES INFOS QUI SONT DANS CETTE BOUCLE, SOIT LES HITBOX DES PERSONNAGES
+                //for pour chaque hitbox du bateau (si un bateau a 3 hitboxes, la for ce fait 3X)
+                cout<<"for pour les personnages dans le bateau player"<<endl;
+                //allHitboxObject.add(playerBoats[i]->characters[j]->getHitbox());
+                infoHitbox infotempPersonnage;
+                infotempPersonnage.coordonnees = playerBoats[i]->characters[j]->getPosition();
+                infotempPersonnage.hitbox = playerBoats[i]->characters[j]->getHitbox();
+                
+                projectile->AjouterInfoHitbox(infotempPersonnage);
+            }
+            cout<<"je stock en theorie la hitbox du bateau joueur"<<endl;
+            infoHitbox infotempBateau;
+            infotempBateau.hitbox = playerBoats[i]->getHitboxBoat();
+            infotempBateau.coordonnees = playerBoats[i]->getPositionBoat();
+            projectile->AjouterInfoHitbox(infotempBateau);
+        }
+    }
+    
+}

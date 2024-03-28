@@ -34,7 +34,10 @@ void Character::setHealthPoint(int healthPoint)
 {
     this->healthPoint = healthPoint;
 }
-
+Hitbox Character::getHitbox()
+{
+    return hitbox;
+}
 int Character::getHitboxWidth()
 {
     return hitbox.width;

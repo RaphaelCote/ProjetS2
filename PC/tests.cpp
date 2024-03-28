@@ -153,9 +153,31 @@ void Tests::test_unitaire_characterAndprojectile()
    //    cout << "Le projectile n'a pas atteint directement l'adversaire. Il a atteri a la position: (" << p->getBulletEndPosition().x << ", " << p->getBulletEndPosition().y << ")" << endl;
    // }
    // cout << "le personnage vise a actuellement : " << enemy.getHealthPoint() << " point de vie" << endl;
-   Gameloader gameloader;
+   Gameloader *gameloader = new Gameloader();
+   //Niveau *niveau = gameloader->getLevelFromJson(levelGetter->levels[0]);
+   Niveau *niveau = gameloader->getLevelFromJson("./levels/level1.json");
+   EnemyCharacter* ec = (EnemyCharacter *)niveau->enemyBoats[0]->characters[0];
+   PlayerCharacter* pc = (PlayerCharacter*)niveau->playerBoats[0]->characters[0];
+   Projectile* projectileJoueur = new Canonball(pc->getWeaponPosition());
+   Projectile *enemyProjectile = ec->createEnemyProjectile();
+   
+   niveau->ScanHitboxes(enemyProjectile,false);
+   enemyProjectile->bubbleSortInfoHitbox(false);
+   
+   for(int i=0;i<enemyProjectile->vecteurInfohitbox.getSize();i++)
+   {
+      cout<<"Coordonnee du "<<i<<" elements du vecteur de hitbox: ("<<enemyProjectile->vecteurInfohitbox[i]->coordonnees.x<<","<<enemyProjectile->vecteurInfohitbox[i]->coordonnees.y<<")"<<endl;
+      cout<<"Dimension  du "<<i<<" elements du vecteur de hitbox (largeur,hauteur) : ("<<enemyProjectile->vecteurInfohitbox[i]->hitbox.width<<","<<enemyProjectile->vecteurInfohitbox[i]->hitbox.height<<")"<<endl;
+   }
+   cout<<"--------------------------------------------------------------------"<<endl;
+   niveau->ScanHitboxes(projectileJoueur,true);
+   projectileJoueur->bubbleSortInfoHitbox(true);
+   for(int i=0;i<projectileJoueur->vecteurInfohitbox.getSize();i++)
+   {
+      cout<<"Coordonnee du "<<i<<" elements du vecteur de hitbox: ("<<projectileJoueur->vecteurInfohitbox[i]->coordonnees.x<<","<<projectileJoueur->vecteurInfohitbox[i]->coordonnees.y<<")"<<endl;
+      cout<<"Dimension  du "<<i<<" elements du vecteur de hitbox (largeur,hauteur) : ("<<projectileJoueur->vecteurInfohitbox[i]->hitbox.width<<","<<projectileJoueur->vecteurInfohitbox[i]->hitbox.height<<")"<<endl;
+   }
 
-   Niveau *niveau = gameloader.getLevelFromJson(levelGetter->levels[0]);
 }
 
 void Tests::test_unitaire_Boat()
