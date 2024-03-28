@@ -117,6 +117,8 @@ void Game::ChangeProjectileType(int typeDif)
 
     projectile->setAngleDegre(angle);
     projectile->setPuissance(puissance);
+
+    ShowGameInfo();
 }
 
 void Game::ChangeProjectileStrength(float strength)
@@ -575,7 +577,7 @@ void Game::AnimationProjectile(Projectile *projectile)
         Sleep(1);
     }
 
-    Sleep(6000);
+    Sleep(3000);
 
     cons->SupprimerObjet("projectile");
 
