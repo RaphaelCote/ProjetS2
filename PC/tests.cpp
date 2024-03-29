@@ -163,20 +163,43 @@ void Tests::test_unitaire_characterAndprojectile()
    
    niveau->ScanHitboxes(enemyProjectile,false);
    enemyProjectile->bubbleSortInfoHitbox(false);
+
+   Vecteur<Character*> players;
    
-   for(int i=0;i<enemyProjectile->vecteurInfohitbox.getSize();i++)
+   for(int i=0;i<niveau->playerBoats.getSize();i++)
    {
-      cout<<"Coordonnee du "<<i<<" elements du vecteur de hitbox: ("<<enemyProjectile->vecteurInfohitbox[i]->coordonnees.x<<","<<enemyProjectile->vecteurInfohitbox[i]->coordonnees.y<<")"<<endl;
-      cout<<"Dimension  du "<<i<<" elements du vecteur de hitbox (largeur,hauteur) : ("<<enemyProjectile->vecteurInfohitbox[i]->hitbox.width<<","<<enemyProjectile->vecteurInfohitbox[i]->hitbox.height<<")"<<endl;
+      for(int j = 0; j < niveau->playerBoats[i]->characters.getSize(); j++) 
+      {
+         players.add(niveau->playerBoats[i]->characters[j]);
+      }
    }
-   cout<<"--------------------------------------------------------------------"<<endl;
-   niveau->ScanHitboxes(projectileJoueur,true);
-   projectileJoueur->bubbleSortInfoHitbox(true);
-   for(int i=0;i<projectileJoueur->vecteurInfohitbox.getSize();i++)
+   Vecteur<Character*> ennemies;
+   for(int i=0;i<niveau->enemyBoats.getSize();i++)
    {
-      cout<<"Coordonnee du "<<i<<" elements du vecteur de hitbox: ("<<projectileJoueur->vecteurInfohitbox[i]->coordonnees.x<<","<<projectileJoueur->vecteurInfohitbox[i]->coordonnees.y<<")"<<endl;
-      cout<<"Dimension  du "<<i<<" elements du vecteur de hitbox (largeur,hauteur) : ("<<projectileJoueur->vecteurInfohitbox[i]->hitbox.width<<","<<projectileJoueur->vecteurInfohitbox[i]->hitbox.height<<")"<<endl;
+      for(int j = 0; j < niveau->enemyBoats[i]->characters.getSize(); j++) 
+      {
+         ennemies.add(niveau->enemyBoats[i]->characters[j]);
+      }
    }
+   enemyProjectile->checkVecteurCharacters(players);
+   for(int i=0;i<players.getSize();i++)
+   {
+      cout<<"player "<<i<<" healthpoint: "<<players[i]->getHealthPoint()<<endl;
+   }
+   //-------------Tests pour voir ce qui a dans vecteurInfohitbox----------------//
+   // for(int i=0;i<enemyProjectile->vecteurInfohitbox.getSize();i++)
+   // {
+   //    cout<<"Coordonnee du "<<i<<" elements du vecteur de hitbox: ("<<enemyProjectile->vecteurInfohitbox[i]->coordonnees.x<<","<<enemyProjectile->vecteurInfohitbox[i]->coordonnees.y<<")"<<endl;
+   //    cout<<"Dimension  du "<<i<<" elements du vecteur de hitbox (largeur,hauteur) : ("<<enemyProjectile->vecteurInfohitbox[i]->hitbox.width<<","<<enemyProjectile->vecteurInfohitbox[i]->hitbox.height<<")"<<endl;
+   // }
+   // cout<<"--------------------------------------------------------------------"<<endl;
+   // niveau->ScanHitboxes(projectileJoueur,true);
+   // projectileJoueur->bubbleSortInfoHitbox(true);
+   // for(int i=0;i<projectileJoueur->vecteurInfohitbox.getSize();i++)
+   // {
+   //    cout<<"Coordonnee du "<<i<<" elements du vecteur de hitbox: ("<<projectileJoueur->vecteurInfohitbox[i]->coordonnees.x<<","<<projectileJoueur->vecteurInfohitbox[i]->coordonnees.y<<")"<<endl;
+   //    cout<<"Dimension  du "<<i<<" elements du vecteur de hitbox (largeur,hauteur) : ("<<projectileJoueur->vecteurInfohitbox[i]->hitbox.width<<","<<projectileJoueur->vecteurInfohitbox[i]->hitbox.height<<")"<<endl;
+   // }
 
 }
 

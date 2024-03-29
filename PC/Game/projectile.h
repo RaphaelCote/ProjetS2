@@ -31,7 +31,7 @@ public:
     void setbulletStartPosition(Coordonnee bulletStartPosition);
     Coordonnee getBulletEndPosition();
     virtual int getProjectileMaxSpeed() = 0;
-    bool checkIfCharacterHit(Character &character);
+    bool checkIfCharacterHit(Character* character);
     void checkVecteurCharacters(Vecteur<Character*> character);
     virtual int damageReceived(Character &character) = 0;
     Hitbox hitbox;

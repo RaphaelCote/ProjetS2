@@ -224,10 +224,19 @@ void Game::PlayTurn()
 
         EnemyCharacter *ec = (EnemyCharacter *)activeLevel->enemyBoats[0]->characters[0];
         Projectile *enemyProjectile = ec->createEnemyProjectile();
-
+        activeLevel->ScanHitboxes(enemyProjectile,false);
+        projectile->bubbleSortInfoHitbox(false);
         activeLevel->MatBalle(enemyProjectile);
-
-        enemyProjectile->checkIfCharacterHit(*(activeLevel->playerBoats[0]->characters[0]));
+        Vecteur<Character*> players;
+        for(int i=0;i<activeLevel->playerBoats.getSize();i++)
+        {
+            for(int j = 0; j < activeLevel->playerBoats[i]->characters.getSize(); j++) 
+            {
+                players.add(activeLevel->playerBoats[i]->characters[j]);
+            }
+        }
+        //enemyProjectile->checkVecteurCharacters(players);
+        //enemyProjectile->checkIfCharacterHit(*(activeLevel->playerBoats[0]->characters[0]));
 
         AnimationProjectile(enemyProjectile);
 
@@ -262,7 +271,16 @@ void Game::PlayerShoot()
     }
     activeLevel->ScanHitboxes(projectile,true);
     projectile->bubbleSortInfoHitbox(true);
-    projectile->checkIfCharacterHit(*(activeLevel->enemyBoats[0]->characters[0]));
+    Vecteur<Character*> enemies;
+    for(int i=0;i<activeLevel->enemyBoats.getSize();i++)
+    {
+        for(int j=0;j<activeLevel->enemyBoats[i]->characters.getCapacity();j++)
+        {
+            enemies.add(activeLevel->enemyBoats[i]->characters[j]);
+        }
+    }
+    projectile->checkVecteurCharacters(enemies);
+    //projectile->checkIfCharacterHit(*(activeLevel->enemyBoats[0]->characters[0]));
 
     AnimationProjectile(projectile);
 
