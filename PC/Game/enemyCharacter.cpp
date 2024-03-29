@@ -21,13 +21,15 @@ Projectile *EnemyCharacter::createEnemyProjectile()
     p = new Canonball(this->getWeaponPosition());
 
     srand(time(0));
-    float random_angledeg = (float)(90.0 + (rand() % (15))) / 100;
+    //float random_angledeg = (float)(97.0 + (rand() % (6))) / 100;
     srand(time(0) + 071234263);
-    float random_puissance = (float)(90.0 + (rand() % (15))) / 100;
-    // cout << "random angleDeg : " << random_angledeg << endl;
-    // cout << "random puissance : " << random_puissance << endl;
+    //float random_puissance = (float)(97.0 + (rand() % (6))) / 100;
+    float random_angledeg=1;
+    float random_puissance=1;
+    cout << "random angleDeg : " << random_angledeg << endl;
+    cout << "random puissance : " << random_puissance << endl;
     p->setAngleDegre(-45.0 * random_angledeg);
-    p->setPuissance(0.5 * random_puissance);
+    p->setPuissance(0.5245 * random_puissance);
 
     return p;
 }

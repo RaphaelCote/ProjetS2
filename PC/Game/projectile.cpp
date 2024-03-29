@@ -62,15 +62,30 @@ void Projectile::setbulletStartPosition(Coordonnee bulletStartPosition)
 
 int Projectile::findBulletPositionYTime(float time)
 {
-    // une grenade explose après 3 secondes donc entré 3 sec en paramètre
-    rad = angledeg * PI / 180;
-    // cout<<"radian: "<<rad<<endl;
-    V0 = puissance * getProjectileMaxSpeed();
-    // cout<<"V0 :"<<V0<<endl;
-    float num = pow((g * time + V0 * sin(rad)), 2) - pow((V0 * sin(rad)), 2);
-    float denum = 2.0f * g;
-    int positionfinaleY = round(num / denum + bulletStartPosition.y);
-    // cout<<"Position finale y avant condition: "<<positionfinaleY<<endl;
+    int positionfinaleY;
+    if(angledeg<0)
+    {
+        rad = -angledeg * PI / 180;
+        // cout<<"radian: "<<rad<<endl;
+        V0 = puissance * getProjectileMaxSpeed();
+        // cout<<"V0 :"<<V0<<endl;
+        float num = pow((g * time + V0 * sin(rad)), 2) - pow((V0 * sin(rad)), 2);
+        float denum = 2.0f * g;
+        positionfinaleY = round(num / denum + bulletStartPosition.y);
+    }
+    if(angledeg>0)
+    {
+        // une grenade explose après 3 secondes donc entré 3 sec en paramètre
+        rad = angledeg * PI / 180;
+        // cout<<"radian: "<<rad<<endl;
+        V0 = puissance * getProjectileMaxSpeed();
+        // cout<<"V0 :"<<V0<<endl;
+        float num = pow((g * time + V0 * sin(rad)), 2) - pow((V0 * sin(rad)), 2);
+        float denum = 2.0f * g;
+        positionfinaleY = round(num / denum + bulletStartPosition.y);
+        // cout<<"Position finale y avant condition: "<<positionfinaleY<<endl;
+    }
+    
     return positionfinaleY;
 }
 int Projectile::findBulletPositionY(int positionX)
@@ -89,7 +104,7 @@ int Projectile::findBulletPositionX(int positionY)
 {
     V0 = puissance * getProjectileMaxSpeed();
     int positionX = 0;
-
+    
     rad = angledeg * PI / 180;
     // cout<<"conversion de deg a rad= "<< rad<<endl;
     // float rad=angledeg;
@@ -144,6 +159,15 @@ float Projectile::findPositiveAngleBulletPositionY(int positionY)//courbe verte 
     float angleFinal = atan(num/denum)*180/PI;
     return angleFinal;
 }
+int Projectile::findHalfTrajectoryBulletPosition()
+{
+    //formule du temps de vole
+    float tempsVol = abs((2*V0*sin(rad))/g);
+    int positionY = findBulletPositionYTime(tempsVol/2);
+    int positionX = findBulletPositionX(positionY);
+    return positionX;
+
+}
 
 bool Projectile::checkIfCharacterHit(Character* character)
 {
@@ -164,6 +188,9 @@ bool Projectile::checkIfCharacterHit(Character* character)
             bulletEndPosition.x = findBulletPositionX(characterPosition.y);
             bulletEndPosition.y = characterPosition.y;
             damageReceived(*character);
+            cout<<"bulletEndPosition.x = "<<bulletEndPosition.x<<endl;
+            cout<<"bulletEndPosition.y = "<<bulletEndPosition.y<<endl;
+            cout<<"Vf= "<<Vf<<endl;
             CheckerBounce();
             return false;
         }
@@ -175,6 +202,9 @@ bool Projectile::checkIfCharacterHit(Character* character)
             bulletEndPosition.y = findBulletPositionY(characterPosition.x);
             damageReceived(*character);
             CheckerBounce();
+            cout<<"bulletEndPosition.x = "<<bulletEndPosition.x<<endl;
+            cout<<"bulletEndPosition.y = "<<bulletEndPosition.y<<endl;
+            cout<<"Vf= "<<Vf<<endl;
             return true;
         }
         else if (findBulletPositionY(characterPosition.x + character->getHitboxWidth()) > (characterPosition.y + character->getHitboxHeight()))
@@ -187,6 +217,9 @@ bool Projectile::checkIfCharacterHit(Character* character)
             bulletEndPosition.y = characterPosition.y;
             damageReceived(*character);
             CheckerBounce();
+            cout<<"bulletEndPosition.x = "<<bulletEndPosition.x<<endl;
+            cout<<"bulletEndPosition.y = "<<bulletEndPosition.y<<endl;
+            cout<<"Vf= "<<Vf<<endl;
             return false;
         }
         else if (findBulletPositionY(characterPosition.x + character->getHitboxWidth()) == (characterPosition.y + character->getHitboxHeight()))
@@ -197,6 +230,9 @@ bool Projectile::checkIfCharacterHit(Character* character)
             bulletEndPosition.y = findBulletPositionY(characterPosition.x + character->getHitboxWidth());
             damageReceived(*character);
             CheckerBounce();
+            cout<<"bulletEndPosition.x = "<<bulletEndPosition.x<<endl;
+            cout<<"bulletEndPosition.y = "<<bulletEndPosition.y<<endl;
+            cout<<"Vf= "<<Vf<<endl;
             return true;
         }
         else if (findBulletPositionY(characterPosition.x + character->getHitboxWidth()) <= (characterPosition.y + character->getHitboxHeight()))
@@ -207,6 +243,9 @@ bool Projectile::checkIfCharacterHit(Character* character)
             bulletEndPosition.y = characterPosition.y + character->getHitboxHeight();
             damageReceived(*character);
             CheckerBounce();
+            cout<<"bulletEndPosition.x = "<<bulletEndPosition.x<<endl;
+            cout<<"bulletEndPosition.y = "<<bulletEndPosition.y<<endl;
+            cout<<"Vf= "<<Vf<<endl;
             return true;
         }
         else
@@ -232,6 +271,9 @@ bool Projectile::checkIfCharacterHit(Character* character)
             bulletEndPosition.y = characterPosition.y;
             damageReceived(*character);
             CheckerBounce();
+            cout<<"bulletEndPosition.x = "<<bulletEndPosition.x<<endl;
+            cout<<"bulletEndPosition.y = "<<bulletEndPosition.y<<endl;
+            cout<<"Vf= "<<Vf<<endl;
             return false;
         }
         else if (findBulletPositionY(characterPosition.x + character->getHitboxWidth()) <= (characterPosition.y + character->getHitboxHeight()))
@@ -242,6 +284,10 @@ bool Projectile::checkIfCharacterHit(Character* character)
             bulletEndPosition.y = findBulletPositionY(characterPosition.x + character->getHitboxWidth());
             damageReceived(*character);
             CheckerBounce();
+            
+            cout<<"bulletEndPosition.x = "<<bulletEndPosition.x<<endl;
+            cout<<"bulletEndPosition.y = "<<bulletEndPosition.y<<endl;
+            cout<<"Vf= "<<Vf<<endl;
             return true;
         }
         else if (findBulletPositionY(characterPosition.x) > (characterPosition.y + character->getHitboxHeight()))
@@ -252,6 +298,9 @@ bool Projectile::checkIfCharacterHit(Character* character)
             bulletEndPosition.y = characterPosition.y;
             damageReceived(*character);
             CheckerBounce();
+            cout<<"bulletEndPosition.x = "<<bulletEndPosition.x<<endl;
+            cout<<"bulletEndPosition.y = "<<bulletEndPosition.y<<endl;
+            cout<<"Vf= "<<Vf<<endl;
             return false;
         }
         else if (findBulletPositionY(characterPosition.x) == (characterPosition.y + character->getHitboxHeight()))
@@ -262,6 +311,9 @@ bool Projectile::checkIfCharacterHit(Character* character)
             bulletEndPosition.y = findBulletPositionY(characterPosition.x);
             damageReceived(*character);
             CheckerBounce();
+            cout<<"bulletEndPosition.x = "<<bulletEndPosition.x<<endl;
+            cout<<"bulletEndPosition.y = "<<bulletEndPosition.y<<endl;
+            cout<<"Vf= "<<Vf<<endl;
             return true;
         }
         else if (findBulletPositionY(characterPosition.x) <= (characterPosition.y + character->getHitboxHeight()))
@@ -272,6 +324,9 @@ bool Projectile::checkIfCharacterHit(Character* character)
             bulletEndPosition.y = characterPosition.y + character->getHitboxHeight();
             damageReceived(*character);
             CheckerBounce();
+            cout<<"bulletEndPosition.x = "<<bulletEndPosition.x<<endl;
+            cout<<"bulletEndPosition.y = "<<bulletEndPosition.y<<endl;
+            cout<<"Vf= "<<Vf<<endl;
             return true;
         }
         else
@@ -283,6 +338,7 @@ bool Projectile::checkIfCharacterHit(Character* character)
             bulletEndPosition.y = characterPosition.y;
             damageReceived(*character);
             CheckerBounce();
+            
             return false;
         }
     }
@@ -388,18 +444,21 @@ void Projectile::BounceHorizontal()// si elle frape un paroie
                 //bulletEndPosition.y=findBulletPositionY(allHitboxObject[i].coordonnees.x);
                 //a vérifier
                 float dy=bulletEndPosition.y - bulletStartPosition.y; 
-                float Vfy= sqrt(pow(V0*sin(rad),2) +2*g*dy)>0;
-                if(Vfy>0)
+                float Vfy= sqrt(pow(V0*sin(rad),2) +2*g*dy);
+                int positionFinaleTempsVol = findHalfTrajectoryBulletPosition();
+                cout<<"positionFinaleTempsVol: "<<positionFinaleTempsVol<<endl;
+                //float angleCourant = 
+                if(bulletEndPosition.x<positionFinaleTempsVol)
                 {
                     angledeg= -findPositiveAngleBulletPositionY(bulletEndPosition.y);//courbe verte
                     puissance = dampingProjectile*puissance; 
                 }
-                else if(Vfy==0)
+                else if(bulletEndPosition.x==positionFinaleTempsVol)
                 {
                     angledeg = 0;
                     puissance = dampingProjectile*puissance; 
                 }
-                else if(Vfy<0)
+                else if(bulletEndPosition.x>positionFinaleTempsVol)
                 {
                     angledeg= -findNegativeAngleBulletPositionY(bulletEndPosition.y);//pour les rebond vertical courbe bleu
                     puissance = dampingProjectile*puissance; 
@@ -422,25 +481,30 @@ void Projectile::BounceHorizontal()// si elle frape un paroie
             if((findBulletPositionY(vecteurInfohitbox[i]->coordonnees.x+vecteurInfohitbox[i]->hitbox.width)>=vecteurInfohitbox[i]->coordonnees.y && findBulletPositionY(vecteurInfohitbox[i]->coordonnees.x+vecteurInfohitbox[i]->hitbox.width)<=vecteurInfohitbox[i]->coordonnees.y+vecteurInfohitbox[i]->hitbox.height))
             {
                 //inverse l'angle et damp la vitesse de 20% (nouvelle Vi =Vf*0.8)
-
-
+                //à ce moment là, on sait qu'on a frappé une hitbox sur sa paroie latéral droite
+                cout<<"if bounceHorizontal"<<endl;
                 //bulletEndPosition.x= allHitboxObject[i].coordonnees.x+allHitboxObject[i].width;
                 //bulletEndPosition.y=findBulletPositionY(allHitboxObject[i].coordonnees.x+allHitboxObject[i].width);
                 
                 float dy=bulletEndPosition.y - bulletStartPosition.y; 
-                float Vfy= sqrt(pow(V0*sin(rad),2) +2*g*dy)>0;
-                if(Vfy>0)
+                float Vfy= sqrt(pow(V0*sin(rad),2) +2*g*dy);
+                int positionFinaleTempsVol = findHalfTrajectoryBulletPosition();
+                cout<<"positionFinaleTempsVol: "<<positionFinaleTempsVol<<endl;
+                if(bulletEndPosition.x>positionFinaleTempsVol)
                 {
+                    cout<<"bulletEndPosition.x>positionFinaleTempsVol"<<endl;
                     angledeg= -findPositiveAngleBulletPositionY(bulletEndPosition.y);
                     puissance = dampingProjectile*puissance; 
                 }
-                else if(Vfy==0)
+                else if(bulletEndPosition.x==positionFinaleTempsVol)
                 {
+                    cout<<"bulletEndPosition.x==positionFinaleTempsVol"<<endl;
                     angledeg = 0;
                     puissance = dampingProjectile*puissance; 
                 }
-                else if(Vfy<0)
+                else if(bulletEndPosition.x<positionFinaleTempsVol)
                 {
+                    cout<<"bulletEndPosition.x<positionFinaleTempsVol"<<endl;
                     angledeg= -findNegativeAngleBulletPositionY(bulletEndPosition.y);
                     puissance = dampingProjectile*puissance; 
                 }
@@ -468,6 +532,7 @@ void Projectile::BounceVerticale()//si elle frappe un sol (plancher)
         cout<<"for bounceVertical"<<endl;
         if((findBulletPositionX(vecteurInfohitbox[i]->coordonnees.y)>=vecteurInfohitbox[i]->coordonnees.x && findBulletPositionX(vecteurInfohitbox[i]->coordonnees.y)<=vecteurInfohitbox[i]->coordonnees.x+vecteurInfohitbox[i]->hitbox.width))
         {
+            cout<<"if bounceVertical"<<endl;
             angledeg = -findNegativeAngleBulletPositionY(vecteurInfohitbox[i]->coordonnees.y+vecteurInfohitbox[i]->hitbox.height);
             puissance = dampingProjectile*puissance;
             bulletStartPosition.x=bulletEndPosition.x;

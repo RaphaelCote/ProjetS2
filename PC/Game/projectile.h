@@ -45,6 +45,7 @@ public:
     int findBulletPositionYTime(float time);
     float findPositiveAngleBulletPositionY(int positionY);//la courbe verte
     float findNegativeAngleBulletPositionY(int positionY);//pour les rebond vertical courbe bleu
+    int findHalfTrajectoryBulletPosition();
     float angledeg;
     float rad;
     float V0;
