@@ -6,7 +6,7 @@ int Canonball::damageReceived(Character& character){
     Vf= sqrt( pow(V0*cos(rad),2) + pow(V0*sin(rad),2) +2*g*dy);
     int D=0;
     //je vérifie avec ma première condition si je touche directement l'ennemie
-    if(bulletEndPosition.x==character.getPosition().x ||bulletEndPosition.y==character.getPosition().y +character.getHitboxHeight())
+    if(bulletEndPosition.x==character.getPosition().x || bulletEndPosition.x ==character.getPosition().x +character.getHitboxWidth()||bulletEndPosition.y==character.getPosition().y +character.getHitboxHeight())
     {
         //je touche donc l'ennemie directement
         //je vérifie a quelle endroit je touche l'ennemie 

@@ -188,15 +188,15 @@ bool Projectile::checkIfCharacterHit(Character* character)
             bulletEndPosition.x = findBulletPositionX(characterPosition.y);
             bulletEndPosition.y = characterPosition.y;
             damageReceived(*character);
+            CheckerBounce();
             cout<<"bulletEndPosition.x = "<<bulletEndPosition.x<<endl;
             cout<<"bulletEndPosition.y = "<<bulletEndPosition.y<<endl;
             cout<<"Vf= "<<Vf<<endl;
-            CheckerBounce();
             return false;
         }
         else if (findBulletPositionY(characterPosition.x) <= (characterPosition.y + character->getHitboxHeight()))
         {
-            // on sait qu'il a toucher a la position du projectile en X
+            // on sait qu'il a toucher le cote lateral droit du personnage
             cout<<"Premier else if angle positif"<<endl;
             bulletEndPosition.x = characterPosition.x;
             bulletEndPosition.y = findBulletPositionY(characterPosition.x);
