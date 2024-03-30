@@ -181,7 +181,25 @@ void Tests::test_unitaire_characterAndprojectile()
          ennemies.add(niveau->enemyBoats[i]->characters[j]);
       }
    }
+
+   // for(int k=0;k<enemyProjectile->vecteurInfohitbox.getSize();k++)
+   // {
+   //    if(enemyProjectile->vecteurInfohitbox[k]->type == HitboxCharacter)
+   //    {
+   //       Character* player = (EnemyCharacter* )enemyProjectile->vecteurInfohitbox[k];
+   //       enemyProjectile->checkIfCharacterHit(player);
+   //    }
+   // }
+   // Vecteur<Vecteur<Character*> > allCharacters;
+   // allCharacters.add(ennemies);
+   // allCharacters.add(players);
+   
+   // do
+   // {
+   //    enemyProjectile->checkVecteurCharacters(allCharacters);
+   // } while (enemyProjectile->V0 || enemyProjectile->bulletEndPosition.y>=101);
    enemyProjectile->checkVecteurCharacters(players);
+   
    for(int i=0;i<players.getSize();i++)
    {
       cout<<"player "<<i<<" healthpoint: "<<players[i]->getHealthPoint()<<endl;

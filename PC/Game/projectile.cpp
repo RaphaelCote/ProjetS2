@@ -120,6 +120,8 @@ int Projectile::findBulletPositionX(int positionY)
     // cout<<"positionX2: "<<positionX2<<endl;
     if (angledeg > 0)
     {
+        // float tempsVol = abs((2*V0*sin(rad))/g);
+        // int positionY = findBulletPositionYTime(tempsVol/2);
         if (positionX1 >= 0 && positionX1 > positionX2)
         {
             positionX = round(positionX1);
@@ -345,6 +347,7 @@ bool Projectile::checkIfCharacterHit(Character* character)
 }
 void Projectile::checkVecteurCharacters(Vecteur<Character*> character)
 {
+    //il mnaque une condition pour que ça puisse marcher correctement
     do
     {
         for(int i=0;i<character.getSize();i++)
@@ -365,6 +368,7 @@ Coordonnee Projectile::getBulletEndPosition()
 void Projectile::AjouterInfoHitbox (infoHitbox infohitbox)
 {
     infoHitbox* newInfoHitbox = new infoHitbox;
+    newInfoHitbox->type = infohitbox.type;
     newInfoHitbox->coordonnees = infohitbox.coordonnees;
     newInfoHitbox->hitbox = infohitbox.hitbox;
     vecteurInfohitbox.add(newInfoHitbox);

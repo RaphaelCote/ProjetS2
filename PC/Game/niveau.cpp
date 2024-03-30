@@ -482,6 +482,7 @@ void Niveau::ScanHitboxes(Projectile* projectile,bool player)
                 cout<<"for pour les personnages dans le bateau ennemi"<<endl;
                 //allHitboxObject.add(enemyBoats[i]->characters[j]->getHitbox());
                 infoHitbox infotempPersonnage;
+                infotempPersonnage.type =HitboxCharacter;
                 infotempPersonnage.coordonnees = enemyBoats[i]->characters[j]->getPosition();
                 infotempPersonnage.hitbox = enemyBoats[i]->characters[j]->getHitbox();
                 
@@ -489,6 +490,7 @@ void Niveau::ScanHitboxes(Projectile* projectile,bool player)
             }
             //cout<<"je stock en theorie la hitbox du bateau ennemi"<<endl;
             infoHitbox infotempBateau;
+            infotempBateau.type = HitboxBoat;
             infotempBateau.hitbox = enemyBoats[i]->getHitboxBoat();
             infotempBateau.coordonnees = enemyBoats[i]->getPositionBoat();
             projectile->AjouterInfoHitbox(infotempBateau);
@@ -506,6 +508,7 @@ void Niveau::ScanHitboxes(Projectile* projectile,bool player)
                 cout<<"for pour les personnages dans le bateau player"<<endl;
                 //allHitboxObject.add(playerBoats[i]->characters[j]->getHitbox());
                 infoHitbox infotempPersonnage;
+                infotempPersonnage.type = HitboxCharacter;
                 infotempPersonnage.coordonnees = playerBoats[i]->characters[j]->getPosition();
                 infotempPersonnage.hitbox = playerBoats[i]->characters[j]->getHitbox();
                 
@@ -513,6 +516,7 @@ void Niveau::ScanHitboxes(Projectile* projectile,bool player)
             }
             cout<<"je stock en theorie la hitbox du bateau joueur"<<endl;
             infoHitbox infotempBateau;
+            infotempBateau.type = HitboxBoat;
             infotempBateau.hitbox = playerBoats[i]->getHitboxBoat();
             infotempBateau.coordonnees = playerBoats[i]->getPositionBoat();
             projectile->AjouterInfoHitbox(infotempBateau);

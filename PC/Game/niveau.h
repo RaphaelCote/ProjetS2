@@ -5,7 +5,8 @@
 #include "character.h"
 #include "projectile.h"
 #include "Boat.h"
-
+#define HitboxCharacter 1
+#define HitboxBoat 2
 class Niveau
 {
 private:

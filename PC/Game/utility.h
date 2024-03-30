@@ -37,6 +37,7 @@ struct Velocity
 };
 struct infoHitbox
 {   
+    int type;// 1 est une hitbox de joueur et 2 de bateau
     Hitbox hitbox;
     Coordonnee coordonnees;
 };

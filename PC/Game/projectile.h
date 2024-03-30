@@ -13,6 +13,8 @@ const float g = -1000;
 
 const double PI = 3.1415926;
 const float dampingProjectile = 0.8;
+const int HitboxCharacter =1;
+const int HitboxBoat =2;
 //class Niveau;
 
 class Projectile
