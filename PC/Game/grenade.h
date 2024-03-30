@@ -15,7 +15,7 @@ class Grenade : public Projectile{
     public:
         Grenade(Character& character):Projectile(character) {}
         Grenade(Coordonnee positionInitialeTir):Projectile( positionInitialeTir){}
-        int damageReceived(Character& character) override; 
+        int damageReceived(Character* character) override; 
         bool zoneGrenade(int h,int k,int x,int y);
         int pythagore(int xi, int xf, int yi, int yf);
         int getProjectileMaxSpeed() override;

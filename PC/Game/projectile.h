@@ -8,13 +8,16 @@
 #include "utility.h"
 #include "../vecteur.h"
 #include "character.h"
-
+#define DirectionDroite 1
+#define DirectionGauche -1
+#define longeurMap 3000
 const float g = -1000;
 
 const double PI = 3.1415926;
 const float dampingProjectile = 0.8;
 const int HitboxCharacter =1;
 const int HitboxBoat =2;
+const int HAUTEUR_EAU = 100;
 //class Niveau;
 
 class Projectile
@@ -35,7 +38,8 @@ public:
     virtual int getProjectileMaxSpeed() = 0;
     bool checkIfCharacterHit(Character* character);
     void checkVecteurCharacters(Vecteur<Character*> character);
-    virtual int damageReceived(Character &character) = 0;
+    void checkVecteurAllCharacters( Vecteur<Vecteur<Character*> > allCharacters);//pt inutile
+    virtual int damageReceived(Character* character) = 0;
     Hitbox hitbox;
 
     Coordonnee bulletCurrentPosition;
@@ -54,17 +58,20 @@ public:
     float Vf;
     void AjouterInfoHitbox (infoHitbox infohitbox);
     Vecteur<infoHitbox*> vecteurInfohitbox;
+    Vecteur<Character*> targetCharacters;// vecteur de personnages que le projectile vise (ex, si projectile joueur, characters = tous les ennemis)
     void bubbleSortInfoHitbox(bool CharacterType);//if bool CharacterType==true, we sort the vector in ascending order, otherwise we sort the vector in descending order
     //-----------BOUNCE-----------//
     //void ScanHitboxes();
     
-    void BounceHorizontal();
-    void BounceVerticale();
+    bool BounceHorizontal(infoHitbox* hitbox);
+    bool BounceVerticale(infoHitbox* hitbox);
     void CheckerBounce();
 
 protected:
     // time_t temps;
     bool characterType;
+    int direction;
+    int currentCharacter;
     float puissance;
 };
 

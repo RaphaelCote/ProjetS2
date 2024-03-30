@@ -170,39 +170,26 @@ void Tests::test_unitaire_characterAndprojectile()
    {
       for(int j = 0; j < niveau->playerBoats[i]->characters.getSize(); j++) 
       {
+         enemyProjectile->targetCharacters.add(niveau->playerBoats[i]->characters[j]);
          players.add(niveau->playerBoats[i]->characters[j]);
       }
    }
-   Vecteur<Character*> ennemies;
+   
    for(int i=0;i<niveau->enemyBoats.getSize();i++)
    {
       for(int j = 0; j < niveau->enemyBoats[i]->characters.getSize(); j++) 
       {
-         ennemies.add(niveau->enemyBoats[i]->characters[j]);
+         projectileJoueur->targetCharacters.add(niveau->enemyBoats[i]->characters[j]);
+
       }
    }
 
-   // for(int k=0;k<enemyProjectile->vecteurInfohitbox.getSize();k++)
-   // {
-   //    if(enemyProjectile->vecteurInfohitbox[k]->type == HitboxCharacter)
-   //    {
-   //       Character* player = (EnemyCharacter* )enemyProjectile->vecteurInfohitbox[k];
-   //       enemyProjectile->checkIfCharacterHit(player);
-   //    }
-   // }
-   // Vecteur<Vecteur<Character*> > allCharacters;
-   // allCharacters.add(ennemies);
-   // allCharacters.add(players);
-   
-   // do
-   // {
-   //    enemyProjectile->checkVecteurCharacters(allCharacters);
-   // } while (enemyProjectile->V0 || enemyProjectile->bulletEndPosition.y>=101);
-   enemyProjectile->checkVecteurCharacters(players);
-   
-   for(int i=0;i<players.getSize();i++)
+   enemyProjectile->checkVecteurCharacters(enemyProjectile->targetCharacters);
+   for(int i=0;i<enemyProjectile->targetCharacters.getSize();i++)
    {
-      cout<<"player "<<i<<" healthpoint: "<<players[i]->getHealthPoint()<<endl;
+      //niveau->playerBoats[i]->characters[0]->getHealthPoint();
+      cout<<"player "<<i<<" healthpoint: "<<niveau->playerBoats[i]->characters[0]->getHealthPoint()<<endl;// il actualise la vie ici 
+      cout<<"player "<<i<<" healthpoint: "<<enemyProjectile->targetCharacters[i]->getHealthPoint()<<endl;// il n'actualise pas la vie ici
    }
    //-------------Tests pour voir ce qui a dans vecteurInfohitbox----------------//
    // for(int i=0;i<enemyProjectile->vecteurInfohitbox.getSize();i++)
