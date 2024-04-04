@@ -185,12 +185,24 @@ void Tests::test_unitaire_characterAndprojectile()
    }
 
    enemyProjectile->checkVecteurCharacters(enemyProjectile->targetCharacters);
-   for(int i=0;i<enemyProjectile->targetCharacters.getSize();i++)
+   // for(int i=0;i<enemyProjectile->targetCharacters.getSize();i++)
+   // {
+   //    //niveau->playerBoats[i]->characters[0]->getHealthPoint();
+   //    cout<<"player "<<i<<" healthpoint: "<<niveau->playerBoats[i]->characters[0]->getHealthPoint()<<endl;// il actualise la vie ici 
+   //    cout<<"player "<<i<<" healthpoint: "<<niveau->playerBoats[i]->characters[1]->getHealthPoint()<<endl;// il actualise la vie ici 
+   //    cout<<"player "<<i<<" healthpoint: "<<enemyProjectile->targetCharacters[i]->getHealthPoint()<<endl;// il n'actualise pas la vie ici
+   // }
+   
+   for(int i=0;i<niveau->playerBoats.getSize();i++)
    {
-      //niveau->playerBoats[i]->characters[0]->getHealthPoint();
-      cout<<"player "<<i<<" healthpoint: "<<niveau->playerBoats[i]->characters[0]->getHealthPoint()<<endl;// il actualise la vie ici 
-      cout<<"player "<<i<<" healthpoint: "<<enemyProjectile->targetCharacters[i]->getHealthPoint()<<endl;// il n'actualise pas la vie ici
+      for(int j=0;j<niveau->playerBoats[i]->characters.getSize();j++)
+      {
+         cout<<"player "<<j<<" healthpoint: "<<niveau->playerBoats[i]->characters[j]->getHealthPoint()<<endl;// il actualise la vie ici 
+         cout<<"magouille "<<j<<" healthpoint: "<<enemyProjectile->targetCharacters[j]->getHealthPoint()<<endl;// il n'actualise pas la vie ici
+         
+      }
    }
+   cout<<"merci"<<endl;
    //-------------Tests pour voir ce qui a dans vecteurInfohitbox----------------//
    // for(int i=0;i<enemyProjectile->vecteurInfohitbox.getSize();i++)
    // {

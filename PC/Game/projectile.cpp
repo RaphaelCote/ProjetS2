@@ -8,6 +8,7 @@ Projectile::Projectile(Character &character)
     angledeg = 0;
     puissance = 0;
     direction = 0;
+    ballDirection = 0;
     currentCharacter = 0;
     this->bulletStartPosition.x = character.getWeaponPosition().x;
     this->bulletStartPosition.y = character.getWeaponPosition().y;
@@ -19,6 +20,7 @@ Projectile::Projectile(Coordonnee bulletStartPosition)
     angledeg = 0;
     puissance = 0;
     direction = 0;
+    ballDirection = 0;
     currentCharacter = 0;
     this->bulletStartPosition.x = bulletStartPosition.x;
     this->bulletStartPosition.y = bulletStartPosition.y;
@@ -32,6 +34,7 @@ Projectile::Projectile(Coordonnee bulletStartPosition, Hitbox hitboxset)
     angledeg = 0;
     puissance = 0;
     direction = 0;
+    ballDirection = 0;
     currentCharacter = 0;
     this->bulletStartPosition = bulletStartPosition;
     this->bulletCurrentPosition = bulletStartPosition;
@@ -188,6 +191,7 @@ bool Projectile::checkIfCharacterHit(Character* character)
 
     if (angledeg > 0)
     {
+        ballDirection = 1;
         if (findBulletPositionX(characterPosition.y) < characterPosition.x && findBulletPositionY(characterPosition.x) < characterPosition.y)
         {
             // on sait qu'il n'a pas toucher directement l'ennemie
@@ -270,6 +274,7 @@ bool Projectile::checkIfCharacterHit(Character* character)
     }
     if (angledeg < 0)
     {
+        ballDirection = -1;
         if (findBulletPositionX(characterPosition.y) > characterPosition.x + character->getHitboxWidth() && findBulletPositionY(characterPosition.x + character->getHitboxWidth()) < characterPosition.y)
         {
             // on sait qu'il n'a pas toucher directement l'ennemie
@@ -293,9 +298,9 @@ bool Projectile::checkIfCharacterHit(Character* character)
             damageReceived(character);
             CheckerBounce();
             
-            cout<<"bulletEndPosition.x = "<<bulletEndPosition.x<<endl;
-            cout<<"bulletEndPosition.y = "<<bulletEndPosition.y<<endl;
-            cout<<"Vf= "<<Vf<<endl;
+            //cout<<"bulletEndPosition.x = "<<bulletEndPosition.x<<endl;
+            //cout<<"bulletEndPosition.y = "<<bulletEndPosition.y<<endl;
+            //cout<<"Vf= "<<Vf<<endl;
             return true;
         }
         else if (findBulletPositionY(characterPosition.x) > (characterPosition.y + character->getHitboxHeight()))
@@ -383,6 +388,8 @@ void Projectile::checkVecteurCharacters(Vecteur<Character*> character)
             }
         } 
         while (Vf>50 && bulletEndPosition.y>=101);//bulletEndPosition.y>=a la hauteur de l'eau +1
+        cout<<"bulletEndPosition.x: "<<bulletEndPosition.x<<endl;
+        cout<<"bulletEndPosition.y: "<<bulletEndPosition.y<<endl;
         Vf=0;
         direction = 0;
         currentCharacter = 0;
@@ -533,10 +540,12 @@ bool Projectile::BounceHorizontal(infoHitbox* hitbox)// si elle frape un paroie
                 if(bulletEndPosition.x>=targetCharacters[currentCharacter]->getPosition().x + targetCharacters[currentCharacter]->getHitbox().width)
                 {
                     direction = 0;
+                   
                 }
                 if(bulletEndPosition.x<=targetCharacters[currentCharacter]->getPosition().x)
                 {
                     direction = -1;
+                   
                 }
             }
             if(targetCharacters[currentCharacter]->getPosition().x<longeurMap/2)// on sait que le currentCharacter est un allié
@@ -551,6 +560,7 @@ bool Projectile::BounceHorizontal(infoHitbox* hitbox)// si elle frape un paroie
                 }
 
             }
+            
             // if(bulletEndPosition.x> targetCharacters[currentCharacter]->getPosition().x)
             // {
             //     direction = 0;
@@ -567,6 +577,7 @@ bool Projectile::BounceHorizontal(infoHitbox* hitbox)// si elle frape un paroie
             //     }
             //     //direction =-1;
             // }
+            ballDirection=-1;
             bulletStartPosition.x=bulletEndPosition.x;
             bulletStartPosition.y=bulletEndPosition.y;
             //direction =1;
@@ -649,7 +660,7 @@ bool Projectile::BounceHorizontal(infoHitbox* hitbox)// si elle frape un paroie
             //     }
             //     //direction = -1;
             // }
-            
+            ballDirection=1;
             bulletStartPosition.x=bulletEndPosition.x;
             bulletStartPosition.y=bulletEndPosition.y;
             return true;
@@ -689,6 +700,7 @@ bool Projectile::BounceVerticale(infoHitbox* hitbox)//si elle frappe un sol (pla
             {
                 direction = 1;
             }
+        ballDirection = 1;
         }
         if(bulletStartPosition.x > bulletEndPosition.x){//ca veux dire que tu tire initialement de droite a gauche
             if(bulletEndPosition.x> targetCharacters[currentCharacter]->getPosition().x + targetCharacters[currentCharacter]->getHitbox().width)// le projectile est attérie devant le joueur vise
@@ -699,6 +711,7 @@ bool Projectile::BounceVerticale(infoHitbox* hitbox)//si elle frappe un sol (pla
             {
                 direction = 1;
             }
+            ballDirection = -1;
             
         }
         bulletStartPosition.x=bulletEndPosition.x;
@@ -710,37 +723,96 @@ bool Projectile::BounceVerticale(infoHitbox* hitbox)//si elle frappe un sol (pla
     
 
 }
+// void Projectile::CheckerBounce()
+// {
+//     //direction (variable de la classe projectile)
+//     //direction = 1   : on va regarder a droite pour le prochain coup (SI IL Y EN A UN)
+//     //direction = 0   : regarde le joueur que tu es présentement (i)
+//     //direction =-1   : on va regarder a gauche pour le prochain coup (SI IL Y EN A UN)
+
+//     //pour un résusltat optimal, il faudrait améliorer le CheckerBounce pour eviter que celui-ci soit uniquement base sur des probabilitees
+//     infoHitbox* firstHitbox = nullptr;
+//     for(int i=0;i<vecteurInfohitbox.getSize();i++)
+//     {
+        
+//         // if(bulletStartPosition.x < bulletEndPosition.x)//ca veux dire que tu tire initialement de gauche a droite
+//         // {
+//         //     int hitboxYPosition = findBulletPositionY(vecteurInfohitbox[i]->coordonnees.x);// hitbox avec un h majuscule
+//         // }
+//         // if(bulletStartPosition.x > bulletEndPosition.x)//ca veux dire que tu tire initialement de droite a gauche
+//         // {
+//         //     int HitboxYPosition = findBulletPositionY(vecteurInfohitbox[i]->coordonnees.x);// Hitbox avec un H majuscule
+//         // }
+//         if( BounceHorizontal(vecteurInfohitbox[i]))
+//         {
+//             if(this->characterType == false)
+//             {
+//                 characterType =true;
+//                 this->bubbleSortInfoHitbox(characterType);
+//             }
+//             else if(this->characterType == true)
+//             {
+//                 characterType =false;
+//                 this->bubbleSortInfoHitbox(characterType);
+//             }
+            
+//             break;
+//         }
+//         if(BounceVerticale(vecteurInfohitbox[i]))
+//         {
+//             break;
+//         }
+//     }
+// }
 void Projectile::CheckerBounce()
 {
-    //direction (variable de la classe projectile)
-    //direction = 1   : on va regarder a droite pour le prochain coup (SI IL Y EN A UN)
-    //direction = 0   : regarde le joueur que tu es présentement (i)
-    //direction =-1   : on va regarder a gauche pour le prochain coup (SI IL Y EN A UN)
+    int currentYPosition = bulletStartPosition.y; 
+    int currentXPosition = bulletStartPosition.x; 
+    //rajouter une variable balle direction (soit 1 pour dire que la balle va aller a droite, soit -1 ppur dire que la balle va aller a gauche et l'ajouter correctement dans BounceHorizontal et BounceVertical pis vérifier dans bounce checker si on incrémente ou décrémente le x)
 
-    //pour un résusltat optimal, il faudrait améliorer le CheckerBounce pour eviter que celui-ci soit uniquement base sur des probabilitees
-    for(int i=0;i<vecteurInfohitbox.getSize();i++)
+    // Parcourir la trajectoire du projectile jusqu'à ce qu'il atteigne la hauteur maximale de l'eau
+    while (currentYPosition >= HAUTEUR_EAU)
     {
-        if( BounceHorizontal(vecteurInfohitbox[i]))
+        // Parcourir toutes les hitbox pour vérifier la collision à cette position X
+        for (int i = 0; i < vecteurInfohitbox.getSize(); i++)
         {
-            if(this->characterType == false)
+            // Vérifier si le projectile entre en collision avec la hitbox à la position X actuelle
+            if (( currentXPosition >= vecteurInfohitbox[i]->coordonnees.x && currentYPosition>=vecteurInfohitbox[i]->coordonnees.y && currentYPosition<=vecteurInfohitbox[i]->coordonnees.y + vecteurInfohitbox[i]->hitbox.height)  &&
+            (currentXPosition<= vecteurInfohitbox[i]->coordonnees.x + vecteurInfohitbox[i]->hitbox.width && currentYPosition>=vecteurInfohitbox[i]->coordonnees.y && currentYPosition<=vecteurInfohitbox[i]->coordonnees.y + vecteurInfohitbox[i]->hitbox.height) ||
+            (currentYPosition == vecteurInfohitbox[i]->coordonnees.y + vecteurInfohitbox[i]->hitbox.height && currentXPosition<=vecteurInfohitbox[i]->coordonnees.x+vecteurInfohitbox[i]->hitbox.width && currentXPosition>=vecteurInfohitbox[i]->coordonnees.x))
             {
-                characterType =true;
-                this->bubbleSortInfoHitbox(characterType);
-            }
-            else if(this->characterType == true)
-            {
-                characterType =false;
-                this->bubbleSortInfoHitbox(characterType);
-            }
+                if(vecteurInfohitbox[i]->type==1)//si le type de la hitbox est un personnage
+                {
+                   for(int j=0;j<targetCharacters.getSize();j++)
+                   {
+                        if(vecteurInfohitbox[i]->coordonnees.x==targetCharacters[j]->getPosition().x && vecteurInfohitbox[i]->coordonnees.y == targetCharacters[j]->getPosition().y)
+                        {
+                            cout<<"La balle a rebondit sur un autre joueur que celui visé"<<endl;
+                            damageReceived(targetCharacters[j]);
+                        }
+                   }
+                }
+                // Le projectile a frappé une hitbox
+                //cout<<"----------------------------------------------------------------------------------------------------------------------------------"<<endl;
+                BounceHorizontal(vecteurInfohitbox[i]);// on pourrait resort le array comme on le faisait avant 
+                BounceVerticale(vecteurInfohitbox[i]);
             
-            break;
+                break;
+            }
         }
-        if(BounceVerticale(vecteurInfohitbox[i]))
+        //vérifier la valeur de bulletEndPosition.x, car je ne suis pas sur si elle est la même que bulletStartPosition.x
+        if(ballDirection==-1)//ca veux dire que tu tire initialement de gauche a droite, la balle vient d'attérir sur une cible qui ce situe a droite de sa position de départ
         {
-            break;
+            currentXPosition=currentXPosition-2;
         }
+        if(ballDirection==1){//ca veux dire que tu tire initialement de droite a gauche, la balle vient d'attérir sur une cible qui ce situe a gauche de sa position de départ, elle va donc rebondir 
+            currentXPosition=currentXPosition+2;
+        }
+        currentYPosition = findBulletPositionY(currentXPosition); // Mettre à jour la position Y en fonction de la trajectoire du projectile
+        cout<<"Position courante du projectile: ("<<currentXPosition<<","<<currentYPosition<<")"<<endl;
     }
-    
+    //
+}   
     
         //on vérifie le signe de l'angle
         //si celui-ci est positif, on sait que c'était l'ennemie qui tirait juste avant
@@ -760,4 +832,3 @@ void Projectile::CheckerBounce()
         //si celui-ci est negatif, on sait que c'était le joueur qui tirait juste avant
 
     
-}

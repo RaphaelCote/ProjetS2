@@ -14,7 +14,7 @@
 const float g = -1000;
 
 const double PI = 3.1415926;
-const float dampingProjectile = 0.8;
+const float dampingProjectile = 0.5;
 const int HitboxCharacter =1;
 const int HitboxBoat =2;
 const int HAUTEUR_EAU = 100;
@@ -70,7 +70,8 @@ public:
 protected:
     // time_t temps;
     bool characterType;
-    int direction;
+    int direction;//1= va a droite dans le vecteur de targetCharacters, -1 = va a gauche dans le targetCharacter, 0 = continue de regarder ce character dans targetCharacters
+    int ballDirection;//-1 = la balle va continuer sa trajectoire a gauche, 1= la balle continue sa trajectoire a droite 
     int currentCharacter;
     float puissance;
 };

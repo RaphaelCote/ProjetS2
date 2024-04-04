@@ -481,10 +481,12 @@ void Niveau::ScanHitboxes(Projectile* projectile,bool player)
                 //for pour chaque hitbox du bateau (si un bateau a 3 hitboxes, la for ce fait 3X)
                 cout<<"for pour les personnages dans le bateau ennemi"<<endl;
                 //allHitboxObject.add(enemyBoats[i]->characters[j]->getHitbox());
+                
                 infoHitbox infotempPersonnage;
                 infotempPersonnage.type =HitboxCharacter;
                 infotempPersonnage.coordonnees = enemyBoats[i]->characters[j]->getPosition();
                 infotempPersonnage.hitbox = enemyBoats[i]->characters[j]->getHitbox();
+                
                 
                 projectile->AjouterInfoHitbox(infotempPersonnage);
             }

@@ -70,8 +70,11 @@ int main()
     // tests->testOuvertureJsonAffiche();
     tests->test_unitaire_characterAndprojectile();
     //-------------Section Main-------------//
+
+    //--------------------------------------//
     //-------------Code a Frank-------------//
     //-----A décomenté après les tests------//
+    //--------------------------------------//
     // cons = new AffichageConsole();
 
     // // === Event manager tests ===
