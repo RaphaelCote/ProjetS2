@@ -163,15 +163,16 @@ void Tests::test_unitaire_characterAndprojectile()
    
    niveau->ScanHitboxes(enemyProjectile,false);
    enemyProjectile->bubbleSortInfoHitbox(false);
-
    Vecteur<Character*> players;
    
    for(int i=0;i<niveau->playerBoats.getSize();i++)
    {
       for(int j = 0; j < niveau->playerBoats[i]->characters.getSize(); j++) 
       {
-         enemyProjectile->targetCharacters.add(niveau->playerBoats[i]->characters[j]);
+         Character* playerCharacter = niveau->playerBoats[i]->characters[j];
+         enemyProjectile->targetCharacters.add(playerCharacter);// en théorie, enemyProjectile->targetCharacters[j] et niveau->playerBoats[i]->characters[j] pointeront tous deux vers le même objet 
          players.add(niveau->playerBoats[i]->characters[j]);
+         cout<<"Point de vie du target character "<<j<<": "<<enemyProjectile->targetCharacters[j]->getHealthPoint()<<endl;
       }
    }
    
@@ -180,7 +181,6 @@ void Tests::test_unitaire_characterAndprojectile()
       for(int j = 0; j < niveau->enemyBoats[i]->characters.getSize(); j++) 
       {
          projectileJoueur->targetCharacters.add(niveau->enemyBoats[i]->characters[j]);
-
       }
    }
 
@@ -198,11 +198,11 @@ void Tests::test_unitaire_characterAndprojectile()
       for(int j=0;j<niveau->playerBoats[i]->characters.getSize();j++)
       {
          cout<<"player "<<j<<" healthpoint: "<<niveau->playerBoats[i]->characters[j]->getHealthPoint()<<endl;// il actualise la vie ici 
-         cout<<"magouille "<<j<<" healthpoint: "<<enemyProjectile->targetCharacters[j]->getHealthPoint()<<endl;// il n'actualise pas la vie ici
+         //cout<<"magouille "<<j<<" healthpoint: "<<enemyProjectile->targetCharacters[j]->getHealthPoint()<<endl;// il n'actualise pas la vie ici
          
       }
    }
-   cout<<"merci"<<endl;
+   cout<<"merci bien"<<endl;
    //-------------Tests pour voir ce qui a dans vecteurInfohitbox----------------//
    // for(int i=0;i<enemyProjectile->vecteurInfohitbox.getSize();i++)
    // {

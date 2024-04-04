@@ -28,7 +28,7 @@ Projectile *EnemyCharacter::createEnemyProjectile()
     float random_puissance=1;
     cout << "random angleDeg : " << random_angledeg << endl;
     cout << "random puissance : " << random_puissance << endl;
-    p->setAngleDegre(-45.0 * random_angledeg);
+    p->setAngleDegre(-48.0 * random_angledeg);
     p->setPuissance(0.5245 * random_puissance);
 
     return p;
