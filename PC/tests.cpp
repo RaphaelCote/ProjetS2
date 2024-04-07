@@ -79,6 +79,10 @@ void Tests::test_unitaire_levels()
    ptrlevls->ShowNiveauinfo();
    delete ptrlevls;
 }
+void Tests:: test_projectile()
+{
+   
+}
 
 void Tests::test_unitaire_characterAndprojectile()
 {
