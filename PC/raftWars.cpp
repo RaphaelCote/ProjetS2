@@ -18,8 +18,8 @@ using namespace std::chrono;
 
 /*-------------------------- Other file include -----------------------------*/
 #include "raftWars.h"
-#include "Affichage/AffichageConsole.h"
-#include "Controls/eventManager.h"
+#include "Affichage/Global.h"
+#include "Affichage/MainMenuQt.h"
 #include "Controls/keyboardControls.h"
 #include "Controls/ControllerControls.h"
 #include "tests.h"
@@ -29,6 +29,8 @@ using namespace std::chrono;
 #include "Scenes/endGameMenu.h"
 #include "Scenes/levelSelectionMenu.h"
 #include "Scenes/shopMenu.h"
+#include "Affichage/AffichageConsole.h"
+#include "Affichage/GameWindow.h"
 #include <QTimer>
 #include <QApplication>
 #include <thread>
@@ -54,6 +56,7 @@ using namespace std::chrono;
 EventManager *eventManager;
 Tests *tests;
 Controls *controls;
+//Controls* controlsG;
 GameWindow* gameWindow;
 std::vector<Scene *> *scenes;
 /*
@@ -96,12 +99,7 @@ public:
     void run() override 
     {
         cons = new AffichageConsole();
-
-        // === Event manager tests ===
-        eventManager = new EventManager();
-         controls = new KeyboardControls(eventManager);
-        //controls = new ControllerControls(eventManager, "COM3");
-
+        
         // tests = new Tests();
         // tests->testjson();
         // tests->tests_unitaires_levelGetter();
@@ -186,17 +184,19 @@ int main(int argc, char* argv[]) {
     QApplication app(argc, argv);
     qDebug() << "Main thread started";
 
+    gameWindow = new GameWindow();
+    MainMenuQt* mainMenu = new MainMenuQt();
+
     // Lecture du fichier audio
     MyThread thread;
     thread.start();
 
+    eventManager = new EventManager();
+    controls = new KeyboardControls(eventManager);
+    //controls = new ControllerControls(eventManager, "COM3");
 
-    gameWindow = new GameWindow();
-
-
-
-    /*gameWindow->AddContent(mainMenu);
-    gameWindow->AddContent(levelMenu);
+    gameWindow->AddContent(mainMenu);
+   /* gameWindow->AddContent(levelMenu);
     gameWindow->AddContent(shopMenu);*/
 
     gameWindow->ShowContent(0);

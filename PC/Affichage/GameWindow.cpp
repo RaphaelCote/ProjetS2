@@ -1,5 +1,5 @@
 #include "GameWindow.h"
-//#include "GenericMenu.h"
+#include "../Controls/keyboardControlsRedirect.h"
 #include <QtWidgets>
 
 GameWindow::GameWindow() : QMainWindow()
@@ -35,4 +35,44 @@ bool GameWindow::IsCurrentWidget(QWidget* widget) {
 void GameWindow::timerEvent(QTimerEvent* event)
 {
     canInput = true;
+}
+
+bool GameWindow::eventFilter(QObject* obj, QEvent* event) {
+    //Si les controls sont pas keyboard
+    if (!isKeyboardControls) {
+        return QWidget::eventFilter(obj, event);
+    }
+
+    //Si l'envent est pas un input
+    if (!(event->type() == QEvent::KeyPress)) {
+    	return QWidget::eventFilter(obj, event);
+    }
+
+    //Si le temps entre les input est pas fini
+    if (!canInput) {
+    	return QWidget::eventFilter(obj, event);
+    }
+
+    //Si this est pas le menu affiche dw
+    if (!IsCurrentWidget(this)) {
+    	return QWidget::eventFilter(obj, event);
+    }
+
+    canInput = false;
+    
+    QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
+    KeyboardControlsRedirect kcr;
+
+
+    if (keyEvent->key() == Qt::Key_Up) {
+        kcr.Joystick(0, 1);
+    }
+    else if (keyEvent->key() == Qt::Key_Down) {
+        kcr.Joystick(0, -1);
+    }
+    else if (keyEvent->key() == Qt::Key_Space) {
+        kcr.MainAction();
+    }
+    
+    return QWidget::eventFilter(obj, event);
 }

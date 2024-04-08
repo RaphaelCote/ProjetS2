@@ -10,6 +10,8 @@ class GameWindow : public QMainWindow
 public:
 	bool canInput = true;
 
+	bool isKeyboardControls = false;
+
 	GameWindow();
 	~GameWindow();
 
@@ -22,6 +24,7 @@ private:
 	QStackedWidget* stackedWidget;
 
 	void timerEvent(QTimerEvent* event);
+	bool eventFilter(QObject* obj, QEvent* event) override;
 };
 
 #endif

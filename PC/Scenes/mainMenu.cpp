@@ -3,7 +3,6 @@
 
 #include "mainMenu.h"
 #include "../raftWars.h"
-#include "../controls/EventManager.h"
 #include "LevelSelectionMenu.h"
 #include "shopMenu.h"
 

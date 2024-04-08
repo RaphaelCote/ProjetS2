@@ -1,5 +1,6 @@
 #include "keyboardControls.h"
 #include "../raftWars.h"
+#include "Global.h"
 #include <conio.h>
 
 KeyboardControls::KeyboardControls(EventManager *em) : Controls(em)
@@ -14,6 +15,8 @@ KeyboardControls::KeyboardControls(EventManager *em) : Controls(em)
     // DWORD mode;
     // GetConsoleMode(consoleHandle, &mode);
     // SetConsoleMode(consoleHandle, mode & (~ENABLE_ECHO_INPUT) & (~ENABLE_LINE_INPUT));
+
+    gameWindow->isKeyboardControls = true;
 }
 
 void KeyboardControls::ListenForControls()

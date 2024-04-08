@@ -26,7 +26,8 @@ private:
     std::map<std::string, std::vector<void (*)(EventParameters)>> events;
 
 public:
-    EventManager() {}
+    EventManager() {
+    }
 
     EventManager *on(std::string event_name, void (*callback)(EventParameters))
     {

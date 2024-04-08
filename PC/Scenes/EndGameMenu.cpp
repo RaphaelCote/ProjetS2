@@ -3,7 +3,6 @@
 
 #include "EndGameMenu.h"
 #include "../raftWars.h"
-#include "../controls/EventManager.h"
 #include "../Controls/keyboardControls.h"
 #include "shopMenu.h"
 

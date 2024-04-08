@@ -1,6 +1,5 @@
 #include "shopMenu.h"
 #include "../raftWars.h"
-#include "../controls/EventManager.h"
 #include "../Game/inventory.h"
 
 void OnShopMainActionCall(EventParameters ep)

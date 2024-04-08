@@ -3,8 +3,8 @@
 
 #include "PauseMenu.h"
 #include "../raftWars.h"
-#include "../controls/EventManager.h"
 #include "../Controls/keyboardControls.h"
+#include "game.h"
 
 PauseMenu::PauseMenu()
 {

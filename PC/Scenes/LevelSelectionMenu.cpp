@@ -1,6 +1,5 @@
 #include "LevelSelectionMenu.h"
 #include "../raftWars.h"
-#include "../controls/EventManager.h"
 #include "../Controls/keyboardControls.h"
 #include "../Game/levelGetter.h"
 

@@ -9,8 +9,8 @@
 class EndGameMenu : public Menu
 {
 private:
-    int lastLevel;
-    int nextLevel;
+    int lastLevel = 0;
+    int nextLevel = 0;
     bool hasCheckedLevel = false;
 
 public:

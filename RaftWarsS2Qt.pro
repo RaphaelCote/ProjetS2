@@ -10,6 +10,9 @@ HEADERS     += \
 	PC/Affichage/AffichageConsole.h \
 	PC/Affichage/GameWindow.h \
 	PC/Affichage/MenuButton.h \	
+	PC/Affichage/GenericMenu.h \
+	PC/Affichage/MainMenuQt.h \
+	PC/Affichage/Global.h \	
 	#------Controls------#
 	PC/Controls/controllerControls.h \
 	PC/Controls/controls.h \
@@ -17,6 +20,7 @@ HEADERS     += \
 	PC/Controls/EventManager.h \
 	PC/Controls/EventParameters.h \
 	PC/Controls/keyboardControls.h \
+	PC/Controls/keyboardControlsRedirect.h \
 	#---------Game---------#
 	PC/Game/character.h \
     	PC/Game/enemyCharacter.h \
@@ -53,11 +57,14 @@ SOURCES     += \
 	#------Affichage------#
 	PC/Affichage/AffichageConsole.cpp \
 	PC/Affichage/GameWindow.cpp \
-	PC/Affichage/MenuButton.cpp \	
+	PC/Affichage/MenuButton.cpp \
+	PC/Affichage/GenericMenu.cpp \
+	PC/Affichage/MainMenuQt.cpp \	
 	#------Controls------#
 	PC/Controls/controllerControls.cpp \
 	PC/Controls/controls.cpp \
 	PC/Controls/keyboardControls.cpp \
+	PC/Controls/keyboardControlsRedirect.cpp \
 	#---------Game---------#
 	PC/Game/grenade.cpp \
     	PC/Game/inventory.cpp \
