@@ -18,6 +18,7 @@ struct Frank_PixMap
     QPixmap pix;
     int* x;
     int* y;
+    //Coordonnee coor;
     Hitbox box;
     float rotation;
     int couche;

@@ -184,12 +184,10 @@ int main(int argc, char* argv[]) {
     window.Initialiser();
     MyThread thread;
     thread.start();
-    
+
     Tests test2;
 
-    test2.testAffichageQt(&window, &app);
-
-    window.show();
+    test2.testAffichageQt(&window);
     
     
     return app.exec();

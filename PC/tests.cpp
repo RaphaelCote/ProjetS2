@@ -605,7 +605,7 @@ void Tests::testOuvertureJsonAffiche()
 
 
 
-void Tests::testAffichageQt(MainWindow* window, QApplication* app)
+void Tests::testAffichageQt(MainWindow* window)
 {
     window->setWindowState(Qt::WindowMaximized);
 
@@ -615,7 +615,7 @@ void Tests::testAffichageQt(MainWindow* window, QApplication* app)
     int screenHeight = screenGeometry.height();
 
 
-    QPixmap map3("Images/LevelBackground.png");
+    QPixmap map3("Images/Background/LevelBackground.png");
     map3 = map3.scaled(screenWidth, screenHeight);
 
     int* x1 = new int;
@@ -642,7 +642,7 @@ void Tests::testAffichageQt(MainWindow* window, QApplication* app)
     *y2 = 175;
 
 
-    QPixmap map2("Images/Enemy1.png");
+    QPixmap map2("Images/Character/Enemy1.png");
     // Load the first image
     Frank_PixMap* image3 = new Frank_PixMap;
     image3->pix = map2;
@@ -657,5 +657,4 @@ void Tests::testAffichageQt(MainWindow* window, QApplication* app)
     window->addImage(image3);
 
     window->show();
-    app->exec();
 }
