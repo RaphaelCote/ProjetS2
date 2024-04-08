@@ -146,6 +146,7 @@ public:
         
        
         // Main loop
+        Sleep(2000);// minimum de 2 secondes sinon, sa crash
         //----------------------Sans QTimer----------------------//
         while (true)
         {
@@ -196,8 +197,8 @@ int main(int argc, char* argv[]) {
     thread.start();
 
     eventManager = new EventManager();
-    controls = new KeyboardControls(eventManager);
-    //controls = new ControllerControls(eventManager, "COM3");
+    //controls = new KeyboardControls(eventManager);
+    controls = new ControllerControls(eventManager, "COM4");
 
     gameWindow->AddContent(mainMenu);
     gameWindow->AddContent(levelMenu);
