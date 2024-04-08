@@ -602,3 +602,60 @@ void Tests::testOuvertureJsonAffiche()
    niveau->MatCharacter();
    Sleep(5000);
 }
+
+
+
+void Tests::testAffichageQt(MainWindow* window, QApplication* app)
+{
+    window->setWindowState(Qt::WindowMaximized);
+
+    QScreen* screen = QGuiApplication::primaryScreen();
+    QRect screenGeometry = screen->geometry();
+    int screenWidth = screenGeometry.width();
+    int screenHeight = screenGeometry.height();
+
+
+    QPixmap map3("Images/LevelBackground.png");
+    map3 = map3.scaled(screenWidth, screenHeight);
+
+    int* x1 = new int;
+    int* y1 = new int;
+
+    *x1 = 0;
+    *y1 = 0;
+
+    Frank_PixMap* image4 = new Frank_PixMap;
+    image4->pix = map3;
+    image4->x = x1;
+    image4->y = y1;
+    //image4->coor = { 0,0 };
+    image4->box = { screenHeight,50 };
+    image4->name = "allo2";
+    image4->couche = -1;
+    image4->rotation = 0;
+    window->addImage(image4);
+
+    int* x2 = new int;
+    int* y2 = new int;
+
+    *x2 = 200;
+    *y2 = 175;
+
+
+    QPixmap map2("Images/Enemy1.png");
+    // Load the first image
+    Frank_PixMap* image3 = new Frank_PixMap;
+    image3->pix = map2;
+    image3->x = x2;
+    image3->y = y2;
+    //image3->coor = { 200, 175 };
+    image3->box = { 125,50 };
+    image3->name = "allo4";
+    image3->couche = 1;
+    image3->rotation = 0;
+
+    window->addImage(image3);
+
+    window->show();
+    app->exec();
+}
