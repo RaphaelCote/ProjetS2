@@ -3,7 +3,6 @@
 #include "../Scenes/shopMenu.h"
 #include <iostream>
 
-using namespace std;
 #define PRIXPETITSHIELD 200
 #define PRIXMOYENSHIELD 300
 #define PRIXGROSSHIELD 500

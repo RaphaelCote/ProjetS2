@@ -1,13 +1,15 @@
 #include <iostream>
 #include <fstream>
-
+#include <sstream>
+//fstream permet de traiter des fichiers
 #include "gameloader.h"
 #include "../include/json.hpp"
 #include "niveau.h"
 #include "playerCharacter.h"
 #include "enemyCharacter.h"
 #include "utility.h"
-
+// si on ne met pas ça, sa scarp le code laule/lol
+//sstream permet de manipuler des strings en mémoire 
 using json = nlohmann::json;
 
 Gameloader::Gameloader()
@@ -18,15 +20,16 @@ Gameloader::~Gameloader()
 {
 }
 
-Niveau *Gameloader::getLevelFromJson(string filename)
+Niveau *Gameloader::getLevelFromJson(std::string filename)
 {
     // To test
     // "./levels/levelTemplate.txt"
-    std::ifstream gameFile(filename);
+    
+    std::ifstream gameFile(filename);// en théorie c'est  <fstream> qui doit être include pour cela 
 
-    std::stringstream buffer;
+    std::stringstream buffer;//en théorie c'est <sstream> qui doit être include pour cela 
     buffer << gameFile.rdbuf();
-    string gameFileString = buffer.str();
+    std::string gameFileString = buffer.str();
 
     json gamedata = json::parse(gameFileString);
 

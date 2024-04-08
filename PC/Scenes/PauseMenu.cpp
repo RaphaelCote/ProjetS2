@@ -12,19 +12,19 @@ PauseMenu::PauseMenu()
 
 void OnPauseMenuMainActionCall(EventParameters)
 {
-    Menu *menu = (Menu *)scenes->get(activeScene);
+    Menu *menu = (Menu *)scenes->at(activeScene);
     menu->Selection();
 }
 
 void OnPauseMenuJoystickCall(EventParameters ep)
 {
-    Menu *menu = (Menu *)scenes->get(activeScene);
+    Menu *menu = (Menu *)scenes->at(activeScene);
     menu->changeSelection(ep);
 }
 
 void OnPauseMenuBackCall(EventParameters)
 {
-    PauseMenu *menu = (PauseMenu *)scenes->get(activeScene);
+    PauseMenu *menu = (PauseMenu *)scenes->at(activeScene);
     menu->Continu();
     menu->OnDisable();
 }
@@ -83,18 +83,18 @@ void PauseMenu::ShowMenu()
     cons->SupprimerObjet("s3");
     cons->SupprimerObjet("s4");
 
-    Sleep(50);
+    Sleep(10);
 
     // system("cls");
-    string s0 = "------------------------------------------------------------------- ";
-    string s1 = "Pause ";
-    string s2 = "-";
+    std::string s0 = "------------------------------------------------------------------- ";
+    std::string s1 = "Pause ";
+    std::string s2 = "-";
     s2 += (choice == 0 ? "O" : "-");
     s2 += "- Continuer ";
-    string s3 = "-";
+    std::string s3 = "-";
     s3 += (choice == 1 ? "O" : "-");
     s3 += "- Retour au menu ";
-    string s4 = "------------------------------------------------------------------- ";
+    std::string s4 = "------------------------------------------------------------------- ";
 
     int y0 = ((cons->MaxRows) * 10) - 30;
     int y1 = ((cons->MaxRows) * 10) - 40;
@@ -144,7 +144,7 @@ void PauseMenu::Continu()
 void PauseMenu::ReturnToMenu()
 {
     choice = 0;
-    Game *game = (Game *)scenes->get(1);
+    Game *game = (Game *)scenes->at(1);
     game->StopGame();
     activeScene = 0;
 }

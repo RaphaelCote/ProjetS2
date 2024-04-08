@@ -8,7 +8,7 @@ Raphael Côté : cotr1509
 #define VECTEUR_H
 
 #include "iostream"
-using namespace std;
+
 
 template <class T>
 class Vecteur
@@ -36,19 +36,19 @@ public:
 	}
 
 	// Méthode pour afficher un seul item void
-	show(int i, ostream &s)
+	void show(int i, std::ostream &s)
 	{
-		// T obj = get(i); // Récupérer l'obj de type T
+		 T obj = get(i); // Récupérer l'obj de type T
 
-		// if (obj != T{})
-		// {
-		// 	if constexpr (std::is_pointer_v<T>) // S'assurer que get n'a pas retourné un objet null
-		// 		obj->show(s);
-		// }
+		 if (obj != T{})
+		 {
+		 	if constexpr (std::is_pointer_v<T>) // S'assurer que get n'a pas retourné un objet null
+		 		obj->show(s);
+		 }
 	}
 
 	// Méthode pour afficher tous les items
-	void showAll(ostream &s)
+	void showAll(std::ostream &s)
 	{
 		for (int i = 0; i < size; i++)
 			show(i, s);
@@ -245,21 +245,21 @@ private:
 };
 
 template <typename T>
-void operator<<(ostringstream &s, const Vecteur<T> &v)
+void operator<<(std::ostringstream &s, const Vecteur<T> &v)
 {
 	for (int i = 0; i < v.getSize(); i++)
 		s << v[i];
 }
 
 template <typename T>
-void operator<<(ostream &s, const Vecteur<T> &v)
+void operator<<(std::ostream &s, const Vecteur<T> &v)
 {
 	for (int i = 0; i < v.getSize(); i++)
 		v[i]->show(s);
 }
 
 template <typename T>
-void operator>>(ifstream &s, const Vecteur<T> &v)
+void operator>>(std::ifstream &s, const Vecteur<T> &v)
 {
 	for (int i = 0; i < v.getSize(); i++)
 		s >> v[i];

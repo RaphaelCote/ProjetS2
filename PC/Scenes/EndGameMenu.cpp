@@ -13,19 +13,19 @@ EndGameMenu::EndGameMenu()
 
 void OnEndGameMenuMainActionCall(EventParameters ep)
 {
-    Menu *menu = (Menu *)scenes->get(activeScene);
+    Menu *menu = (Menu *)scenes->at(activeScene);
     menu->Selection();
 }
 
 void OnEndGameMenuJoystickCall(EventParameters ep)
 {
-    Menu *menu = (Menu *)scenes->get(activeScene);
+    Menu *menu = (Menu *)scenes->at(activeScene);
     menu->changeSelection(ep);
 }
 
 void OnEndGameMenuBackCall(EventParameters)
 {
-    EndGameMenu *menu = (EndGameMenu *)scenes->get(activeScene);
+    EndGameMenu *menu = (EndGameMenu *)scenes->at(activeScene);
     menu->ReturnToMenu();
     menu->OnDisable();
 }
@@ -86,24 +86,24 @@ void EndGameMenu::ShowMenu()
     cons->SupprimerObjet("s5");
     cons->SupprimerObjet("s6");
 
-    Sleep(50);
+    Sleep(10);
 
     // Vérifier qu'on est pas au dernier niveau
-    string s0 = "------------------------------------------------------------------- ";
-    string s1 = "Fin du niveau ";
-    string s2 = "-";
+    std::string s0 = "------------------------------------------------------------------- ";
+    std::string s1 = "Fin du niveau ";
+    std::string s2 = "-";
     s2 += (choice == 0 ? "O" : "-");
     s2 += "- Prochain niveau ";
-    string s3 = "-";
+    std::string s3 = "-";
     s3 += (choice == 1 ? "O" : "-");
     s3 += "- Selectionner un niveau ";
-    string s4 = "-";
+    std::string s4 = "-";
     s4 += (choice == 2 ? "O" : "-");
     s4 += "- Magasin ";
-    string s5 = "-";
+    std::string s5 = "-";
     s5 += (choice >= 3 ? "O" : "-");
     s5 += "- Retour au menu ";
-    string s6 = "------------------------------------------------------------------- ";
+    std::string s6 = "------------------------------------------------------------------- ";
 
     int y0 = ((cons->MaxRows) * 10) - 30;
     int y1 = ((cons->MaxRows) * 10) - 40;
@@ -161,7 +161,7 @@ void EndGameMenu::Selection()
 void EndGameMenu::NextLevel()
 {
     choice = 0;
-    Game *game = (Game *)scenes->get(1);
+    Game *game = (Game *)scenes->at(1);
     game->SetLevelIndex(game->GetLevelIndex() + 1);
     game->isNewLevel = true;
     activeScene = 1;
@@ -170,7 +170,7 @@ void EndGameMenu::NextLevel()
 void EndGameMenu::GotoShop()
 {
     choice = 0;
-    ShopMenu *shop = (ShopMenu *)scenes->get(5);
+    ShopMenu *shop = (ShopMenu *)scenes->at(5);
     shop->lastMenu = 3;
     activeScene = 5;
 }
@@ -178,7 +178,7 @@ void EndGameMenu::GotoShop()
 void EndGameMenu::GotoLevelSelect()
 {
     choice = 0;
-    LevelSelectionMenu *lsm = (LevelSelectionMenu *)scenes->get(2);
+    LevelSelectionMenu *lsm = (LevelSelectionMenu *)scenes->at(2);
     lsm->lastMenu = 3;
     activeScene = 2;
 }

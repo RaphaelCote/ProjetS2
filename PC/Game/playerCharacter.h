@@ -7,7 +7,7 @@
 #include <cmath>
 #include <iostream>
 
-#define PI 3.14159265358979323846
+#define PI 3.14159265358979323846// si je le met en const double sa scrap ailleurs dans le code
 class PlayerCharacter : public Character
 {
 public:

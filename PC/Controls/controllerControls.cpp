@@ -18,7 +18,7 @@ static DWORD WINAPI ThreadEntry(LPVOID lpParam)
     return 0;
 }
 
-ControllerControls::ControllerControls(EventManager *em, string com) : Controls(em)
+ControllerControls::ControllerControls(EventManager *em, std::string com) : Controls(em)
 {
     comPort = com;
     InitializeSerial();
@@ -57,25 +57,25 @@ void ControllerControls::ThreadReceiveSerial()
             Sleep(1);
         }
         Sleep(10);
-        // cout << "Thread is life" << endl;
+        // std::cout << "Thread is life" << endl;
         messageReceived.clear(); // effacer le message precedent
         if (!RcvFromSerial())
         {
-            cerr << "Erreur lors de la reception du message. " << endl;
+            std::cerr << "Erreur lors de la reception du message. " << std::endl;
         }
         else
         {
             try
             {
-                // cout << "Arduino: " << raw_msg << endl;
+                // std::cout << "Arduino: " << raw_msg << endl;
                 messageReceived = json::parse(raw_msg);
                 this->UpdateAllValues();
-                // cout << "All values are updated: " << etatB1 << endl;
-                // cout << "Message de l'Arduino: " << messageReceived << endl;
+                // std::cout << "All values are updated: " << etatB1 << endl;
+                // std::cout << "Message de l'Arduino: " << messageReceived << endl;
             }
             catch (nlohmann::detail::parse_error e)
             {
-                cout << "Erreur Parse: " << e.what() << '\n';
+                std::cout << "Erreur Parse: " << e.what() << '\n';
             }
         }
 
@@ -89,12 +89,12 @@ void ControllerControls::ReceiveSerial()
     if (ready_to_read)
     {
         Sleep(10);
-        // cout << "Thread is life" << endl;
+        // std::cout << "Thread is life" << endl;
         messageReceived.clear(); // effacer le message precedent
 
         if (!RcvFromSerial())
         {
-            cerr << "Erreur lors de la reception du message. " << endl;
+            std::cerr << "Erreur lors de la reception du message. " << std::endl;
         }
         else
         {
@@ -116,7 +116,7 @@ void ControllerControls::ReceiveSerial()
                     }
                 }
 
-                // cout << "Arduino: " << raw_msg << endl;
+                // std::std::string << "Arduino: " << raw_msg << endl;
                 if (raw_msg.length() < 2)
                 {
                     ready_to_read = false;
@@ -126,15 +126,15 @@ void ControllerControls::ReceiveSerial()
                 messageReceived = json::parse(raw_msg);
                 cons->SupprimerObjet("ParseJson");
 
-                cons->AfficherTexte(std::cout, raw_msg, -20, -180, "ParseJson");
+                cons->AfficherTexte(std::cout, raw_msg, -20, -220, "ParseJson");
 
                 UpdateAllValues();
-                // cout << "All values are updated: " << etatB1 << endl;
-                // cout << "Message de l'Arduino: " << messageReceived << endl;
+                // std::cout << "All values are updated: " << etatB1 << endl;
+                // std::cout << "Message de l'Arduino: " << messageReceived << endl;
             }
             catch (nlohmann::detail::parse_error e)
             {
-                cerr << "Erreur Parse: " << e.what() << '\n';
+                std::cerr << "Erreur Parse: " << e.what() << '\n';
             }
         }
         ready_to_read = false;
@@ -179,26 +179,26 @@ void ControllerControls::ListenForControls()
 {
     if (ready_to_send == true)
     {
-        // cout << "Sending" << endl;
+        // std::cout << "Sending" << endl;
         this->AddMessage("Moteur", 0);
         if (!this->SendMessageJson())
             return;
 
-        // cout << "Veuillez lancer: ";
+        // std::cout << "Veuillez lancer: ";
     }
 
     cons->SupprimerObjet("Listen");
     nbCount++;
-    cons->AfficherTexte(std::cout, "Nombre de fois: " + to_string(nbCount), -20, -20, "Listen");
+    cons->AfficherTexte(std::cout, "Nombre de fois: " + std::to_string(nbCount), -20, -20, "Listen");
     // Sleep(1000);
 
-    // cout << "Message: " << messageReceived << endl;
-    // cout << "B1: " << this->etatB1 << endl;
+    // std::cout << "Message: " << messageReceived << endl;
+    // std::cout << "B1: " << this->etatB1 << endl;
     Angle(AngleManette);
     Joystick(JoystickValY, 0);
-    // cout << "Sleep for 1" << endl;
+    // std::cout << "Sleep for 1" << endl;
     // Sleep(1000);
-    // cout << " Finished" << endl;
+    // std::cout << " Finished" << endl;
     // Sleep(100);
 
     if (etatB1 == etatBoutton::BouttonAppuyer && etatB1 != oldEtatB1)
@@ -279,7 +279,7 @@ etatBoutton ControllerControls::GetBouttonMenu0(int boutton)
 {
     int B1;
 
-    this->GetValue("B" + to_string(boutton), &B1);
+    this->GetValue("B" + std::to_string(boutton), &B1);
 
     if (B1 == 1)
     {
@@ -299,7 +299,7 @@ void ControllerControls::InitializeSerial()
     // SerialPort arduino = SerialPort("\\\\.\\COM3");
     if (!arduino->isConnected())
     {
-        cerr << "Impossible de se connecter au port " << string(comPort) << ". Fermeture du programme!" << endl;
+        std::cerr << "Impossible de se connecter au port " << std::string(comPort) << ". Fermeture du programme!" << std::endl;
         exit(1);
     }
 }
@@ -309,14 +309,14 @@ bool ControllerControls::SendToSerial()
     if (!ready_to_send)
         return false;
     // Return 0 if error
-    string msg = message_to_send.dump();
-    // cout << "Message: " << msg << endl;
+    std::string msg = message_to_send.dump();
+    // std::cout << "Message: " << msg << endl;
     bool ret = arduino->writeSerialPort(msg.c_str(), msg.length());
     message_to_send.clear();
     ready_to_read = true;
     ready_to_send = false;
 
-    // cout << "B1 Send: " << this->etatB1 << endl;
+    // std::cout << "B1 Send: " << this->etatB1 << endl;
 
     return ret;
 }
@@ -325,7 +325,7 @@ bool ControllerControls::RcvFromSerial()
 {
     // Return 0 if error
     // Message output in msg
-    string str_buffer;
+    std::string str_buffer;
     char char_buffer[MSG_MAX_SIZE];
     int buffer_size;
 
@@ -344,27 +344,27 @@ bool ControllerControls::SendMessageJson()
     return SendToSerial();
 }
 
-void ControllerControls::AddMessage(string name, int value)
+void ControllerControls::AddMessage(std::string name, int value)
 {
     message_to_send[name.c_str()] = value;
 }
 
-void ControllerControls::AddMessage(string name, bool value)
+void ControllerControls::AddMessage(std::string name, bool value)
 {
     message_to_send[name.c_str()] = value;
 }
 
-void ControllerControls::AddMessage(string name, string value)
+void ControllerControls::AddMessage(std::string name, std::string value)
 {
     message_to_send[name.c_str()] = value;
 }
 
-void ControllerControls::AddMessage(string name, float value)
+void ControllerControls::AddMessage(std::string name, float value)
 {
     message_to_send[name.c_str()] = value;
 }
 
-void ControllerControls::GetValue(string name, int *value)
+void ControllerControls::GetValue(std::string name, int *value)
 {
     if (messageReceived.contains(name))
         *value = messageReceived[name.c_str()];
@@ -376,7 +376,7 @@ void ControllerControls::GetValue(string name, int *value)
         *value = 0;
     }
 }
-void ControllerControls::GetValue(string name, bool *value)
+void ControllerControls::GetValue(std::string name, bool *value)
 {
     if (messageReceived.contains(name))
         *value = messageReceived[name.c_str()];
@@ -388,7 +388,7 @@ void ControllerControls::GetValue(string name, bool *value)
         *value = false;
     }
 }
-void ControllerControls::GetValue(string name, string *value)
+void ControllerControls::GetValue(std::string name, std::string *value)
 {
     if (messageReceived.contains(name))
         *value = messageReceived[name.c_str()];
@@ -400,7 +400,7 @@ void ControllerControls::GetValue(string name, string *value)
         *value = "";
     }
 }
-void ControllerControls::GetValue(string name, float *value)
+void ControllerControls::GetValue(std::string name, float *value)
 {
     if (messageReceived.contains(name))
         *value = messageReceived[name.c_str()];

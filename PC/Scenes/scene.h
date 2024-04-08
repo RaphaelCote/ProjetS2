@@ -3,7 +3,6 @@
 
 #include "../controls/EventListener.h"
 
-using namespace std;
 
 class Scene : public EventListener
 {

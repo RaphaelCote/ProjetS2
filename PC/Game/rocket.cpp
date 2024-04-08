@@ -1,8 +1,7 @@
 #include "rocket.h"
-using namespace std;
 int Rocket::damageReceived(Character& character){
     float dy=bulletEndPosition.y-character.getPosition().y;
-    float Vf= sqrt( pow(V0*cos(rad),2) + pow(V0*sin(rad),2) +2*g*dy);
+    float Vf= std::sqrt( std::pow(V0*std::cos(rad),2) + std::pow(V0*std::sin(rad),2) +2*g*dy);
     int D=0;
 
     //je vérifie avec ma première condition si je touche directement l'ennemie
@@ -27,7 +26,7 @@ int Rocket::damageReceived(Character& character){
         }
     }
     
-    int directDamage= round(Vf/rocketMaxSpeed*D);
+    int directDamage= std::round(Vf/rocketMaxSpeed*D);
     
     character.setHealthPoint(character.getHealthPoint()-directDamage);
     if(character.getHealthPoint()<=0)

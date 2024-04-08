@@ -2,15 +2,11 @@
 #define GAME_H
 
 #include <iostream>
-#include "../vecteur.h"
 #include "../Game/niveau.h"
 #include "../Game/projectile.h"
 #include "../controls/EventParameters.h"
 #include "scene.h"
 #include "../Game/gameloader.h"
-
-using namespace std;
-
 class Game : public Scene
 {
 private:
@@ -21,6 +17,7 @@ private:
     int projectileType;
     Projectile *projectile;
     Gameloader gameloader;
+    bool doOnce;
 
     /*PERSONNAGE 1 ET PERSONNAGE 2*/
     /*ne pas oublier d'inclure vecteur et le const (si nécessaire)*/
@@ -56,6 +53,10 @@ public:
     bool CheckEndCondition();
     bool CheckAvailableProjectile(int type);
     void ShowGameInfo();
+    void UpdateWeaponInfo();
+    void AnimationProjectile(Projectile *projectile);
+    float positionYTemps(float time, Projectile *projectile);
+    float findX(float y, Projectile *projectile, int which_posX);
 };
 
 #endif

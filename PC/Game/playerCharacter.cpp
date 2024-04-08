@@ -4,7 +4,7 @@
 #include "canonball.h"
 #include "rocket.h"
 #include "grenade.h"
-using namespace std;
+
 
 PlayerCharacter::PlayerCharacter(int posX, int posY) : Character(posX, posY)
 {

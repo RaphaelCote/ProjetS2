@@ -5,7 +5,6 @@
 // #include "projectile.h"
 #include <iostream>
 
-using namespace std;
 
 class Character
 {

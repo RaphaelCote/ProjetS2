@@ -5,7 +5,7 @@
 
 LevelGetter::LevelGetter()
 {
-    const char *folderPath = ".\\levels\\*.json";
+    const char *folderPath = "PC\\levels\\*.json";
     WIN32_FIND_DATAA findData;
     HANDLE hFind = FindFirstFileA(folderPath, &findData);
     if (hFind != INVALID_HANDLE_VALUE)
@@ -13,11 +13,11 @@ LevelGetter::LevelGetter()
         // cout << "Valid Handle" << endl;
         do
         {
-            string fullPath;
-            fullPath = ".\\levels\\";
+            std::string fullPath;
+            fullPath = "PC\\levels\\";
             fullPath += findData.cFileName;
             // cout << "filetype : " << findData.dwFileAttributes << " | fileName : " << findData.cFileName << " | filePath : " << fullPath << endl;
-            levels.add(fullPath);
+            levels.push_back(fullPath);
             // cout << "File " << nbLevel << ":" << levels[nbLevel] << endl;
             nbLevel++;
         } while (FindNextFileA(hFind, &findData) != 0);

@@ -3,8 +3,6 @@
 
 #include "menu.h"
 
-using namespace std;
-
 class PauseMenu : public Menu
 {
 public:

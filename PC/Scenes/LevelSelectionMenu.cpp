@@ -6,19 +6,19 @@
 
 void OnLevelSelectionMenuMainActionCall(EventParameters ep)
 {
-    Menu *menu = (Menu *)scenes->get(activeScene);
+    Menu *menu = (Menu *)scenes->at(activeScene);
     menu->Selection();
 }
 
 void OnLevelSelectionMenuJoystickCall(EventParameters ep)
 {
-    Menu *menu = (Menu *)scenes->get(activeScene);
+    Menu *menu = (Menu *)scenes->at(activeScene);
     menu->changeSelection(ep);
 }
 
 void OnLevelSelectionMenuBackCall(EventParameters)
 {
-    LevelSelectionMenu *menu = (LevelSelectionMenu *)scenes->get(activeScene);
+    LevelSelectionMenu *menu = (LevelSelectionMenu *)scenes->at(activeScene);
     menu->Back();
     menu->OnDisable();
 }
@@ -82,35 +82,35 @@ void LevelSelectionMenu::ShowMenu()
 
     for (int i = 0; i < levelGetter->nbLevel; i++)
     {
-        string key = "sl";
-        key += to_string(i);
+        std::string key = "sl";
+        key += std::to_string(i);
 
         cons->SupprimerObjet(key);
     }
 
     Sleep(50);
 
-    string s0 = "------------------------------------------------------------------- ";
-    string s1 = "Selectionner un niveau";
+    std::string s0 = "------------------------------------------------------------------- ";
+    std::string s1 = "Selectionner un niveau";
     for (int i = 0; i < levelGetter->nbLevel; i++)
     {
-        string sl = "-";
+        std::string sl = "-";
         sl += (choice == i ? "O" : "-");
         sl += "- Niveau ";
-        sl += to_string(i + 1);
+        sl += std::to_string(i + 1);
 
         int y = ((cons->MaxRows) * 10) - (50 + (i * 10));
         int x = 20;
 
-        string key = "sl";
-        key += to_string(i);
+        std::string key = "sl";
+        key += std::to_string(i);
 
         cons->AfficherTexte(std::cout, sl, x, y, key);
     }
-    string s2 = "-";
+    std::string s2 = "-";
     s2 += (choice >= levelGetter->nbLevel ? "O" : "-");
     s2 += "- Retour ";
-    string s3 = "------------------------------------------------------------------- ";
+    std::string s3 = "------------------------------------------------------------------- ";
 
     int y0 = ((cons->MaxRows) * 10) - 30;
     int y1 = ((cons->MaxRows) * 10) - 40;
@@ -134,8 +134,8 @@ void LevelSelectionMenu::ClearMenu()
 
     for (int i = 0; i < levelGetter->nbLevel; i++)
     {
-        string key = "sl";
-        key += to_string(i);
+        std::string key = "sl";
+        key += std::to_string(i);
 
         cons->SupprimerObjet(key);
     }
@@ -162,7 +162,7 @@ void LevelSelectionMenu::SelectLevel(int level)
 {
     choice = 0;
     system("cls");
-    Game *game = (Game *)scenes->get(1);
+    Game *game = (Game *)scenes->at(1);
     game->SetLevelIndex(level);
     game->isNewLevel = true;
     activeScene = 1;

@@ -42,7 +42,7 @@ void Tests::test_unitaire_Controls()
    testControls = new KeyboardControls(eventManager);
 
    // Add eventListener
-   // cout << "Assigning some controls" << endl;
+   // std::cout << "Assigning some controls" << std::cout;
    // OnEnable();
 
    // Call events
@@ -51,22 +51,22 @@ void Tests::test_unitaire_Controls()
    testControls->Angle(2.4);
 
    // OnDisable();
-   // cout << "Unassigning some controls" << endl;
+   // std::cout << "Unassigning some controls" << std::endl;
 }
 
 void Tests::OnMainAction(EventParameters ep)
 {
-   std::cout << "Main action called" << endl;
+   std::cout << "Main action called" << std::endl;
 }
 
 void Tests::OnJoystick(EventParameters ep)
 {
-   std::cout << "Joystick X : " << ep.parameter1 << " | Y : " << ep.parameter2 << endl;
+   std::cout << "Joystick X : " << ep.parameter1 << " | Y : " << ep.parameter2 << std::endl;
 }
 
 void Tests::OnAngle(EventParameters ep)
 {
-   std::cout << "Angle : " << ep.parameter1 << endl;
+   std::cout << "Angle : " << ep.parameter1 << std::endl;
 }
 
 //==== FIN Controls ====
@@ -75,7 +75,7 @@ void Tests::test_unitaire_levels()
 {
    Niveau *ptrlevls;
    ptrlevls = new Niveau;
-   cout << "debut test niveau hauteur (1080) et largeur (3000)" << endl;
+   std::cout << "debut test niveau hauteur (1080) et largeur (3000)" << std::endl;
    ptrlevls->ShowNiveauinfo();
    delete ptrlevls;
 }
@@ -88,16 +88,16 @@ void Tests::test_unitaire_characterAndprojectile()
    // PlayerCharacter player(0, 100);
    // enemy.createEnemyProjectile();
 
-   // cout << fixed << setprecision(2);
+   // std::cout << fixed << setprecision(2);
    // int choix = 0;
 
    // Projectile *p; // projectile player
    // Projectile *e; // projectile ennemi
-   // cout << "Entrez la valeur 1 pour lancer une balle, 2 pour lancer une roquette et 3 pour la grenade." << endl;
+   // std::cout << "Entrez la valeur 1 pour lancer une balle, 2 pour lancer une roquette et 3 pour la grenade." << std::endl;
    // cin >> choix;
    // while (choix != 1 && choix != 2 && choix != 3)
    // {
-   //    cout << "Choix invalide. Entrez la valeur 1 pour lancer une balle, 2 pour lancer une roquette et 3 pour la grenade." << endl;
+   //    std::cout << "Choix invalide. Entrez la valeur 1 pour lancer une balle, 2 pour lancer une roquette et 3 pour la grenade." << std::endl;
    //    cin >> choix;
    // }
    // if (choix == 1)
@@ -117,42 +117,42 @@ void Tests::test_unitaire_characterAndprojectile()
    // }
    // e = new Rocket(enemy.getWeaponPosition());
 
-   // cout << "Entrez une puissance (entre 0 et 1)" << endl;
+   // std::cout << "Entrez une puissance (entre 0 et 1)" << std::endl;
    // float puissance;
    // cin >> puissance;
    // while (puissance < 0 || puissance > 1)
    // {
-   //    cout << "Choix invalide. Entrez une puissance (entre 0 et 1)." << endl;
+   //    std::cout << "Choix invalide. Entrez une puissance (entre 0 et 1)." << std::endl;
    //    cin >> puissance;
    // }
    // p->setPuissance(puissance);
-   // cout << "Entrez un angle (en degrés)." << endl;
+   // std::cout << "Entrez un angle (en degrés)." << std::endl;
    // float angle;
    // cin >> angle;
    // while (angle < 0 || angle > 90)
    // {
-   //    cout << "Choix invalide. Entrez un angle (en degrés)." << endl;
+   //    std::cout << "Choix invalide. Entrez un angle (en degrés)." << std::endl;
    //    cin >> angle;
    // }
    // p->setAngleDegre(angle);
 
-   // cout << "\n"
+   // std::cout << "\n"
    //         "-------FORMULE DE LA PARABOLE-------"
-   //      << endl;
-   // cout << "y = g"
+   //      << std::endl;
+   // std::cout << "y = g"
    //      << "x^2 / (2(" << puissance << "Vmax)^2 · cos^2(" << angle * PI / 180 << ") ) + xtan(" << angle * PI / 180 << ")"
    //      << "\n"
-   //      << endl;
+   //      << std::endl;
 
    // if (p->checkIfCharacterHit(enemy))
    // {
-   //    cout << "Le projectile a atteint directement l'adversaire. Il a atteri a la position: (" << p->getBulletEndPosition().x << ", " << p->getBulletEndPosition().y << ")" << endl;
+   //    std::cout << "Le projectile a atteint directement l'adversaire. Il a atteri a la position: (" << p->getBulletEndPosition().x << ", " << p->getBulletEndPosition().y << ")" << std::endl;
    // }
    // else
    // {
-   //    cout << "Le projectile n'a pas atteint directement l'adversaire. Il a atteri a la position: (" << p->getBulletEndPosition().x << ", " << p->getBulletEndPosition().y << ")" << endl;
+   //    std::cout << "Le projectile n'a pas atteint directement l'adversaire. Il a atteri a la position: (" << p->getBulletEndPosition().x << ", " << p->getBulletEndPosition().y << ")" << std::endl;
    // }
-   // cout << "le personnage vise a actuellement : " << enemy.getHealthPoint() << " point de vie" << endl;
+   // std::cout << "le personnage vise a actuellement : " << enemy.getHealthPoint() << " point de vie" << std::endl;
    Gameloader gameloader;
 
    Niveau *niveau = gameloader.getLevelFromJson(levelGetter->levels[0]);
@@ -160,42 +160,42 @@ void Tests::test_unitaire_characterAndprojectile()
 
 void Tests::test_unitaire_Boat()
 {
-   // cout << "TESTS UNITAIRES BOAT" << endl
-   //      << endl;
+   // std::cout << "TESTS UNITAIRES BOAT" << std::endl
+   //      << std::endl;
    // // création des personnages et du bateau
-   // cout << "créer les personnages et les bateaux" << endl;
+   // std::cout << "créer les personnages et les bateaux" << std::endl;
    // Character *pers1 = new PlayerCharacter(1, 0);
    // Character *pers2 = new PlayerCharacter(3, 0);
    // Character *adv1 = new EnemyCharacter(10, 0);
    // Boat joueur(3, 0, 0);
    // Boat adversaire(3, 10, 0);
-   // cout << "position j: (" << joueur.getPositionBoat().x << "," << joueur.getPositionBoat().y << ")" << endl;
-   // cout << "position a:(" << adversaire.getPositionBoat().x << "," << adversaire.getPositionBoat().y << ")" << endl;
+   // std::cout << "position j: (" << joueur.getPositionBoat().x << "," << joueur.getPositionBoat().y << ")" << std::endl;
+   // std::cout << "position a:(" << adversaire.getPositionBoat().x << "," << adversaire.getPositionBoat().y << ")" << std::endl;
 
    // // ajouter adversaire
-   // cout << "ajouter les ennemis" << endl;
+   // std::cout << "ajouter les ennemis" << std::endl;
    // adversaire.addCharacter(adv1);
-   // cout << "size a :" << adversaire.getNbCharacters() << endl;
-   // adversaire.ShowInfo(cout);
+   // std::cout << "size a :" << adversaire.getNbCharacters() << std::endl;
+   // adversaire.ShowInfo(std::cout);
 
    // // ajouter les personnages
-   // cout << "ajouter les deux personnages" << endl;
+   // std::cout << "ajouter les deux personnages" << std::endl;
    // joueur.addCharacter(pers1);
    // joueur.addCharacter(pers2);
 
    // // retourner les informations des bateaux
-   // joueur.ShowInfo(cout);
-   // cout << "size j: " << joueur.getNbCharacters() << endl;
-   // cout << "capacité j: " << joueur.getCapacite() << endl;
+   // joueur.ShowInfo(std::cout);
+   // std::cout << "size j: " << joueur.getNbCharacters() << std::endl;
+   // std::cout << "capacité j: " << joueur.getCapacite() << std::endl;
 
    // // retirer le personnage 0
-   // cout << "retirer index 0 de joueur" << endl;
+   // std::cout << "retirer index 0 de joueur" << std::endl;
    // joueur.removeCharacters(0);
 
    // // retourner les informations du bateau
-   // joueur.ShowInfo(cout);
-   // cout << "size j: " << joueur.getNbCharacters() << endl;
-   // cout << "capacité j: " << joueur.getCapacite() << endl;
+   // joueur.ShowInfo(std::cout);
+   // std::cout << "size j: " << joueur.getNbCharacters() << std::endl;
+   // std::cout << "capacité j: " << joueur.getCapacite() << std::endl;
 
    // // delete
    // delete pers1;
@@ -205,15 +205,15 @@ void Tests::test_unitaire_Boat()
 
 void Tests::tests_unitaires_levelGetter()
 {
-   cout << endl
-        << "TESTS UNITAIRES levelGetter" << endl
+   std::cout << std::endl
+        << "TESTS UNITAIRES levelGetter" << std::endl
         << "-----------------------------------------------------"
-        << endl;
+        << std::endl;
    LevelGetter *listlevels = new LevelGetter();
-   string a = listlevels->levels[0];
-   cout << "Level 0 : " << a << endl;
-   cout << "Level 1" << listlevels->levels[1] << endl;
-   cout << "nb level: " << listlevels->nbLevel << endl;
+   std::string a = listlevels->levels[0];
+   std::cout << "Level 0 : " << a << std::endl;
+   std::cout << "Level 1" << listlevels->levels[1] << std::endl;
+   std::cout << "nb level: " << listlevels->nbLevel << std::endl;
 }
 
 void Tests::test_unitaires_affichage()
@@ -459,7 +459,7 @@ void Tests::tests_unitaires()
    // Fait tous les tests unitaires
    test_unitaire_Controls();
    test_unitaire_Boat();
-   cout << "Début des tests unitaires" << endl;
+   std::cout << "Début des tests unitaires" << std::endl;
    // test_unitaire_Controls();
    // test_unitaire_levels();
    // test_unitaire_games();
@@ -478,13 +478,13 @@ void Tests::tests_application()
 
 void Tests::tests_application_cas_01()
 {
-   cout << "TESTS APPLICATION (CAS 01)" << endl;
+   std::cout << "TESTS APPLICATION (CAS 01)" << std::endl;
    // Il faut ajouter les operations realisant ce scenario de test.
 }
 
 void Tests::tests_application_cas_02()
 {
-   cout << "TESTS APPLICATION (CAS 02)" << endl;
+   std::cout << "TESTS APPLICATION (CAS 02)" << std::endl;
    // Il faut ajouter les operations realisant ce scenario de test.
 }
 void Tests::testjson()
@@ -492,22 +492,22 @@ void Tests::testjson()
    Gameloader *gameloader = new Gameloader();
    Niveau *niveau = gameloader->getLevelFromJson("./levels/levelTemplate.txt");
    niveau->ShowNiveauinfo();
-   cout << "Bateau joueur" << endl;
-   niveau->playerBoats[0]->ShowInfo(cout);
-   cout << "Bateau enemy" << endl;
-   niveau->enemyBoats[0]->ShowInfo(cout);
-   cout << "hauteur enemy" << endl;
-   cout << niveau->enemyBoats[0]->characters[0]->getHitboxHeight() << endl;
-   cout << "largeur player" << endl;
-   cout << niveau->playerBoats[0]->characters[0]->getHitboxWidth() << endl;
-   cout << "image joueur" << endl;
-   cout << niveau->playerBoats[0]->characters[0]->getimage() << endl;
-   cout << "image enemy" << endl;
-   cout << niveau->enemyBoats[0]->characters[0]->getimage() << endl;
-   cout << "playerboat largeur" << endl;
-   cout << niveau->playerBoats[0]->getWidth() << endl;
-   cout << "enemyboat hauteur" << endl;
-   cout << niveau->enemyBoats[0]->getHeight() << endl;
+   std::cout << "Bateau joueur" << std::endl;
+   niveau->playerBoats[0]->ShowInfo(std::cout);
+   std::cout << "Bateau enemy" << std::endl;
+   niveau->enemyBoats[0]->ShowInfo(std::cout);
+   std::cout << "hauteur enemy" << std::endl;
+   std::cout << niveau->enemyBoats[0]->characters[0]->getHitboxHeight() << std::endl;
+   std::cout << "largeur player" << std::endl;
+   std::cout << niveau->playerBoats[0]->characters[0]->getHitboxWidth() << std::endl;
+   std::cout << "image joueur" << std::endl;
+   std::cout << niveau->playerBoats[0]->characters[0]->getimage() << std::endl;
+   std::cout << "image enemy" << std::endl;
+   std::cout << niveau->enemyBoats[0]->characters[0]->getimage() << std::endl;
+   std::cout << "playerboat largeur" << std::endl;
+   std::cout << niveau->playerBoats[0]->getWidth() << std::endl;
+   std::cout << "enemyboat hauteur" << std::endl;
+   std::cout << niveau->enemyBoats[0]->getHeight() << std::endl;
 }
 
 void Tests::testAffichage()
@@ -550,8 +550,8 @@ void Tests::testAffichage()
    joueur.addCharacter(pers1);
    joueur.addCharacter(pers2);
 
-   niveau.playerBoats.add(&joueur);
-   niveau.enemyBoats.add(&adversaire);
+   niveau.playerBoats.push_back(&joueur);
+   niveau.enemyBoats.push_back(&adversaire);
 
    niveau.MatBalle(pro);
    // erreur ici dans la fonction

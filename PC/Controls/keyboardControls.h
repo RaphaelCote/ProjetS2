@@ -3,13 +3,13 @@
 
 #include "controls.h"
 
-using namespace std;
 
 class KeyboardControls : public Controls
 {
 public:
     KeyboardControls(EventManager *em);
     void ListenForControls();
+    void ReceiveSerial() {};
 };
 
 #endif

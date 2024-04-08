@@ -20,22 +20,22 @@ Niveau::~Niveau()
 {
 }
 
-void Niveau::ShowLevelInfo(ostream &s)
+void Niveau::ShowLevelInfo(std::ostream &s)
 {
-    s << "Bateaux joueurs : " << endl;
+    s << "Bateaux joueurs : " << std::endl;
 
-    for (int i = 0; i < playerBoats.getSize(); i++)
+    for (int i = 0; i < playerBoats.size(); i++)
     {
-        s << "Bateau  " << i + 1 << " :" << endl;
+        s << "Bateau  " << i + 1 << " :" << std::endl;
 
         playerBoats[i]->ShowInfo(s);
     }
 
-    s << "Bateaux enemies : " << endl;
+    s << "Bateaux enemies : " << std::endl;
 
-    for (int i = 0; i < enemyBoats.getSize(); i++)
+    for (int i = 0; i < enemyBoats.size(); i++)
     {
-        s << "Bateau  " << i + 1 << " :" << endl;
+        s << "Bateau  " << i + 1 << " :" << std::endl;
 
         enemyBoats[i]->ShowInfo(s);
     }
@@ -43,23 +43,23 @@ void Niveau::ShowLevelInfo(ostream &s)
 
 void Niveau::ShowNiveauinfo()
 {
-    // cout << "hauteur niveau " << height << endl;
-    // cout << "largeur niveau " << width << endl;
+    // cout << "hauteur niveau " << height << std::endl;
+    // cout << "largeur niveau " << width << std::endl;
 }
 
 void Niveau::addRaftPlayer(int width, int height, Coordonnee position, int image, int capacite)
 {
-    playerBoats.add(new Boat(capacite, position, height, width, image));
+    playerBoats.push_back(new Boat(capacite, position, height, width, image));
 }
 
 void Niveau::addRaftenemy(int width, int height, Coordonnee position, int image, int capacite)
 {
-    enemyBoats.add(new Boat(capacite, position, height, width, image));
+    enemyBoats.push_back(new Boat(capacite, position, height, width, image));
 }
 
 void Niveau::MatRaft()
 {
-    for (int i = 0; i < playerBoats.getSize(); ++i)
+    for (int i = 0; i < playerBoats.size(); ++i)
     {
         // Pixels couleur[(playerBoats[i]->getHeight())/10][(playerBoats[i]->getWidth())/10];
         Pixels **couleur = new Pixels *[(playerBoats[i]->getHeight()) / 10];
@@ -86,7 +86,7 @@ void Niveau::MatRaft()
         //      delete[] couleur;
     }
 
-    for (int i = 0; i < enemyBoats.getSize(); i++)
+    for (int i = 0; i < enemyBoats.size(); i++)
     {
         // Pixels couleur[(enemyBoats[i]->getHeight())/10][(enemyBoats[i]->getWidth())/10];
         Pixels **couleur = new Pixels *[(enemyBoats[i]->getHeight()) / 10];
@@ -160,7 +160,7 @@ void Niveau::MatEnemy()
             else if (val == '+')
             {
                 _enemy[i][n].FrontColour = colors::black;
-                _enemy[i][n].BackColour = colors::lightblue;
+                _enemy[i][n].BackColour = colors::lightred;
                 _enemy[i][n].texture = CHAR_CONTRAST_LOW;
             }
             else if (val == '<')
@@ -172,7 +172,7 @@ void Niveau::MatEnemy()
         }
     }
 
-    for (int b = 0; b < enemyBoats.getSize(); b++)
+    for (int b = 0; b < enemyBoats.size(); b++)
     {
         for (int v = 0; v < enemyBoats[b]->getNbCharacters(); v++)
         {
@@ -217,9 +217,9 @@ void Niveau::MatWater()
     {
         for (int n = 0; n < 350; n++)
         {
-            eau[i][n].FrontColour = colors::blue;
-            eau[i][n].BackColour = colors::aqua;
-            eau[i][n].texture = '\xB1';
+            eau[i][n].FrontColour = colors::aqua;
+            eau[i][n].BackColour = colors::blue;
+            eau[i][n].texture = '\xAB';
         }
     }
 
@@ -242,7 +242,7 @@ void Niveau::MatBalle(Projectile *Balle)
     balle[0][0].BackColour = colors::aqua;
     balle[0][0].texture = ' ';
 
-    cons->AjouterObjet(balle, Balle, 0, "balle");
+    cons->AjouterObjet(balle, Balle, 0, "projectile");
 }
 
 void Niveau::MatGrenade(Projectile *Grenade)
@@ -257,7 +257,7 @@ void Niveau::MatGrenade(Projectile *Grenade)
     grenade[0][0].BackColour = 14;
     grenade[0][0].texture = ' ';
 
-    cons->AjouterObjet(grenade, Grenade, 0, "grenade");
+    cons->AjouterObjet(grenade, Grenade, 0, "projectile");
 }
 
 void Niveau::MatNuage()
@@ -364,7 +364,7 @@ void Niveau::MatCharacter()
         }
     }
 
-    for (int b = 0; b < playerBoats.getSize(); b++)
+    for (int b = 0; b < playerBoats.size(); b++)
     {
         for (int v = 0; v < playerBoats[b]->getNbCharacters(); v++)
         {
@@ -433,24 +433,38 @@ void Niveau::MatRocket(Projectile *pro)
 
 void Niveau::Delete()
 {
-    // for ( int b = 0; b < playerBoats.getSize(); b++)
-    // {
-    //     for (int v = 0; v < playerBoats[b]->getNbCharacters(); v++)
-    //     {
-    //         for (int i = 0; i < 10; ++i)
-    //         {
-    //             delete[] _character[i];
-    //         }
-    //         delete[] MatCharacter;
-    //     }
-    // }
+    // Delete de l'eau
+    cons->SupprimerObjet("eau");
 
-    // for (int i = 0; i < playerBoats.getSize(); ++i)
-    // {
+    // Delete du nuage
+    cons->SupprimerObjet("nuage");
 
-    // }
-    // for (int i = 0; i < enemyBoats.getSize(); ++i)
-    // {
+    // Delete des bateaux
+    for (int i = 0; i < playerBoats.size(); i++)
+    {
+        cons->SupprimerObjet("boat player " + i);
+    }
 
-    // }
+    for (int i = 0; i < enemyBoats.size(); i++)
+    {
+        cons->SupprimerObjet("boat enemy " + i);
+    }
+
+    // Delete des joueurs
+    for (int b = 0; b < playerBoats.size(); b++)
+    {
+        for (int v = 0; v < playerBoats[b]->getNbCharacters(); v++)
+        {
+            cons->SupprimerObjet("Char" + b + ',' + v);
+        }
+    }
+
+    // Delete des Enemies
+    for (int b = 0; b < enemyBoats.size(); b++)
+    {
+        for (int v = 0; v < enemyBoats[b]->getNbCharacters(); v++)
+        {
+            cons->SupprimerObjet("enemy" + b + ',' + v);
+        }
+    }
 }

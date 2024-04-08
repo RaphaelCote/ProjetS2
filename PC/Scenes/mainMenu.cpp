@@ -9,13 +9,13 @@
 
 void OnMainMenuMainActionCall(EventParameters ep)
 {
-    Menu *menu = (Menu *)scenes->get(activeScene);
+    Menu *menu = (Menu *)scenes->at(activeScene);
     menu->Selection();
 }
 
 void OnMainMenuJoystickCall(EventParameters ep)
 {
-    Menu *menu = (Menu *)scenes->get(activeScene);
+    Menu *menu = (Menu *)scenes->at(activeScene);
     menu->changeSelection(ep);
 }
 
@@ -46,7 +46,6 @@ void MainMenu::changeSelection(EventParameters ep)
         {
             choice = 0;
         }
-        Sleep(100);
         ShowMenu();
     }
     else if (ep.parameter2 < -0.5)
@@ -55,7 +54,6 @@ void MainMenu::changeSelection(EventParameters ep)
         {
             choice++;
         }
-        Sleep(100);
         ShowMenu();
     }
 }
@@ -83,21 +81,21 @@ void MainMenu::ShowMenu()
 
     Sleep(10);
 
-    string s0 = "------------------------------------------------------------------- ";
-    string s1 = "Bienvenue au menu du jeu Raft Wars ";
-    string s2 = "-";
+    std::string s0 = "------------------------------------------------------------------- ";
+    std::string s1 = "Bienvenue au menu du jeu Raft Wars ";
+    std::string s2 = "-";
     s2 += (choice == 0 ? "O" : "-");
     s2 += "- Jouer ";
-    string s3 = "-";
+    std::string s3 = "-";
     s3 += (choice == 1 ? "O" : "-");
     s3 += "- Niveaux ";
-    string s4 = "-";
+    std::string s4 = "-";
     s4 += (choice == 2 ? "O" : "-");
     s4 += "- Magasin ";
-    string s5 = "-";
+    std::string s5 = "-";
     s5 += (choice >= 3 ? "O" : "-");
     s5 += "- Sortir ";
-    string s6 = "------------------------------------------------------------------- ";
+    std::string s6 = "------------------------------------------------------------------- ";
 
     int y0 = ((cons->MaxRows) * 10) - 30;
     int y1 = ((cons->MaxRows) * 10) - 40;
@@ -107,6 +105,8 @@ void MainMenu::ShowMenu()
     int y5 = ((cons->MaxRows) * 10) - 80;
     int y6 = ((cons->MaxRows) * 10) - 90;
     int x = 20;
+
+    
 
     cons->AfficherTexte(std::cout, s0, x, y0, "s0");
     cons->AfficherTexte(std::cout, s1, x, y1, "s1");
@@ -150,15 +150,16 @@ void MainMenu::Selection()
     {
         int x = 2;
         int y = cons->MaxRows - 4;
-        cons->AfficherTexte(cout, "Au plaisir..", &x, &y, "AuPlaisir");
+        cons->AfficherTexte(std::cout, "Au plaisir..", &x, &y, "AuPlaisir");
         exit(0);
     }
 }
 
+
 void MainMenu::PlayGame()
 {
     choice = 0;
-    Game *game = (Game *)scenes->get(1);
+    Game *game = (Game *)scenes->at(1);
     game->isNewLevel = true;
     activeScene = 1;
 }
@@ -166,7 +167,7 @@ void MainMenu::PlayGame()
 void MainMenu::GotoLevelSelect()
 {
     choice = 0;
-    LevelSelectionMenu *lsm = (LevelSelectionMenu *)scenes->get(2);
+    LevelSelectionMenu *lsm = (LevelSelectionMenu *)scenes->at(2);
     lsm->lastMenu = 0;
     activeScene = 2;
 }
@@ -174,7 +175,7 @@ void MainMenu::GotoLevelSelect()
 void MainMenu::GotoShop()
 {
     choice = 0;
-    ShopMenu *shop = (ShopMenu *)scenes->get(5);
+    ShopMenu *shop = (ShopMenu *)scenes->at(5);
     shop->lastMenu = 0;
     activeScene = 5;
 }

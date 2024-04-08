@@ -6,7 +6,6 @@
 #include "../Controls/EventListener.h"
 #include "menu.h"
 
-using namespace std;
 
 class ShopMenu : public Menu
 {

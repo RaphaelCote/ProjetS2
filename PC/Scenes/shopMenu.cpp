@@ -5,19 +5,19 @@
 
 void OnShopMainActionCall(EventParameters ep)
 {
-    Menu *menu = (Menu *)scenes->get(activeScene);
+    Menu *menu = (Menu *)scenes->at(activeScene);
     menu->Selection();
 }
 
 void OnShopJoystickCall(EventParameters ep)
 {
-    Menu *menu = (Menu *)scenes->get(activeScene);
+    Menu *menu = (Menu *)scenes->at(activeScene);
     menu->changeSelection(ep);
 }
 
 void OnShopBackCall(EventParameters)
 {
-    ShopMenu *menu = (ShopMenu *)scenes->get(activeScene);
+    ShopMenu *menu = (ShopMenu *)scenes->at(activeScene);
     menu->Back();
     menu->OnDisable();
 }
@@ -93,47 +93,47 @@ void ShopMenu::ShowMenu()
     Sleep(10);
 
     // récupérer les qté et les prix dans inventaire, afficher l'argent
-    string s0 = "------------------------------------------------------------------- ";
-    string s1 = "BOUTIQUE ";
-    string s2 = "-";
+    std::string s0 = "------------------------------------------------------------------- ";
+    std::string s1 = "BOUTIQUE ";
+    std::string s2 = "-";
     s2 += (choice == 0 ? "O" : "-");
     s2 += "- Acheter une roquette : ";
-    s2 += to_string(inventory->GetPrixRocket());
+    s2 += std::to_string(inventory->GetPrixRocket());
     s2 += "$ ";
-    string s3 = "-";
+    std::string s3 = "-";
     s3 += (choice == 1 ? "O" : "-");
     s3 += "- Acheter une grenade : ";
-    s3 += to_string(inventory->GetPrixGrenade());
+    s3 += std::to_string(inventory->GetPrixGrenade());
     s3 += "$ ";
-    string s4 = "-";
+    std::string s4 = "-";
     s4 += (choice == 2 ? "O" : "-");
     s4 += "- Acheter 25 bouclier (max 50) : ";
-    s4 += to_string(inventory->GetPrixShieldSmall());
+    s4 += std::to_string(inventory->GetPrixShieldSmall());
     s4 += "$ ";
-    string s5 = "-";
+    std::string s5 = "-";
     s5 += (choice == 3 ? "O" : "-");
     s5 += "- Acheter 50 bouclier (max 100) ";
-    s5 += to_string(inventory->GetPrixShieldMedium());
+    s5 += std::to_string(inventory->GetPrixShieldMedium());
     s5 += "$ ";
-    string s6 = "-";
+    std::string s6 = "-";
     s6 += (choice == 4 ? "O" : "-");
     s6 += "- Acheter 100 bouclier (max 100) : ";
-    s6 += to_string(inventory->GetPrixShieldBig());
+    s6 += std::to_string(inventory->GetPrixShieldBig());
     s6 += "$ ";
-    string s7 = "-";
+    std::string s7 = "-";
     s7 += (choice == 5 ? "O" : "-");
     s7 += "- Retour ";
-    string s8 = "------------------------------------------------------------------- ";
-    string s9 = "INVENTAIRE";
-    string s10 = "Argent : ";
-    s10 += to_string(inventory->getGold());
-    string s11 = "Roquettes : ";
-    s11 += to_string(inventory->getRockets());
-    string s12 = "Grenades : ";
-    s12 += to_string(inventory->getGrenade());
-    string s13 = "Bouclier : ";
-    s13 += to_string(inventory->getShield());
-    string s14 = "------------------------------------------------------------------- ";
+    std::string s8 = "------------------------------------------------------------------- ";
+    std::string s9 = "INVENTAIRE";
+    std::string s10 = "Argent : ";
+    s10 += std::to_string(inventory->getGold());
+    std::string s11 = "Roquettes : ";
+    s11 += std::to_string(inventory->getRockets());
+    std::string s12 = "Grenades : ";
+    s12 += std::to_string(inventory->getGrenade());
+    std::string s13 = "Bouclier : ";
+    s13 += std::to_string(inventory->getShield());
+    std::string s14 = "------------------------------------------------------------------- ";
 
     cons->AfficherTexte(std::cout, s0, 20, ((cons->MaxRows) * 10) - 30, "s0");
     cons->AfficherTexte(std::cout, s1, 20, ((cons->MaxRows) * 10) - 40, "s1");

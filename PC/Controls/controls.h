@@ -6,7 +6,6 @@
 #include "EventManager.h"
 #include "EventParameters.h"
 
-using namespace std;
 
 class Controls
 {
@@ -16,10 +15,10 @@ public:
     // Pour faire des vrais contrôles (keyboard, manette), il faut juste implémenter cette méthode
     // qui va écouter pour des contrôles (touches, boutons) et appeler la bonne action à exécuter
     virtual void ListenForControls() = 0;
-    virtual void AddMessage(string name, int value){}
+    virtual void AddMessage(std::string name, int value){}
     virtual bool SendMessageJson(){return true;}
-    virtual void GetValue(string name, float* value){}
-
+    virtual void GetValue(std::string name, float* value){}
+    virtual void ReceiveSerial()= 0;
 
     // Actions
     void MainAction();

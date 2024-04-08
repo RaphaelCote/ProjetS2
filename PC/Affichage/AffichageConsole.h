@@ -8,37 +8,14 @@
 #include <string>
 #include <cwchar>
 #include <wincon.h>
-#include "../Vecteur.h"
+#include <vector>
 #include "../Game/Boat.h"
 #include "../Game/character.h"
 #include "../Game/projectile.h"
 
-using namespace std;
-
-#define _WIN32_WINNT 0x0601
-
-typedef struct _CONSOLE_FONT_INFOEX
-{
-    ULONG cbSize;
-    DWORD nFont;
-    COORD dwFontSize;
-    UINT  FontFamily;
-    UINT  FontWeight;
-    WCHAR FaceName[LF_FACESIZE];
-}CONSOLE_FONT_INFOEX, *PCONSOLE_FONT_INFOEX;
-//the function declaration begins
-#ifdef __cplusplus
-extern "C" {
-#endif
-BOOL WINAPI GetCurrentConsoleFontEx(HANDLE hConsoleOutput,BOOL bMaximumWindow,PCONSOLE_FONT_INFOEX lpConsoleCurrentFont);
-BOOL WINAPI SetCurrentConsoleFontEx(HANDLE hConsoleOutput, BOOL bMaximumWindow, PCONSOLE_FONT_INFOEX lpConsoleCurrentFontEx);
-#ifdef __cplusplus
-}
-#endif
 
 
 
-using namespace std;
 
 #define CHAR_HEARTH                         '\x03'
 #define CHAR_DIAMONDS                       '\x04'
@@ -116,7 +93,7 @@ struct ObjetAffichage
     int *y; 
     int width;
     int height;
-    string name;
+    std::string name;
 };
 
 enum colors {
@@ -139,6 +116,7 @@ enum colors {
     transparant = 16,
 };
 
+extern long compteur;
 
 class AffichageConsole
 {
@@ -151,7 +129,8 @@ class AffichageConsole
     Pixels **screen;
     Pixels **screen_new;
 
-    Vecteur<ObjetAffichage *> v_objet;
+
+    std::vector< ObjetAffichage*> v_objet;// nouveau vecteur
     
     
     DWORD WINAPI threadFunction(LPVOID lpParam);
@@ -196,17 +175,17 @@ public:
     AffichageConsole(int width, int height, int fontX, int fontY);
     ~AffichageConsole();
 
-    void AjouterObjet(Pixels** tab, int x, int y, int width, int height, int couche, string name);
-    void AjouterObjet(Pixels** tab, int *x, int *y, int width, int height, int couche, string name);
-    void AjouterObjet(Pixels** tab, Character *charact, int couche, string name);
-    void AjouterObjet(Pixels** tab, Boat *boat, int couche, string name);
-    void AjouterObjet(Pixels** tab, Projectile *project, int couche, string name);
-    void SupprimerObjet(string name);
+    void AjouterObjet(Pixels** tab, int x, int y, int width, int height, int couche, std::string name);
+    void AjouterObjet(Pixels** tab, int *x, int *y, int width, int height, int couche, std::string name);
+    void AjouterObjet(Pixels** tab, Character *charact, int couche, std::string name);
+    void AjouterObjet(Pixels** tab, Boat *boat, int couche, std::string name);
+    void AjouterObjet(Pixels** tab, Projectile *project, int couche, std::string name);
+    void SupprimerObjet(std::string name);
     void AfficherEnBasGauche(Pixels** tab, int x, int y, int width, int height);
-    void AfficherTexte(std::ostream & os, string s, int *x, int *y, string name);
-    void AfficherTexte(std::ostream &os, string s, int x, int y, string name);
-    void AfficherTexte(std::ostream & os, string s, int *x, int *y, int background, int frontcolor, string name);
-    void AfficherTexte(std::ostream & os, string s, int x, int y, int background, int frontcolor, string name);
+    void AfficherTexte(std::ostream & os, std::string s, int *x, int *y, std::string name);
+    void AfficherTexte(std::ostream &os, std::string s, int x, int y, std::string name);
+    void AfficherTexte(std::ostream & os, std::string s, int *x, int *y, int background, int frontcolor, std::string name);
+    void AfficherTexte(std::ostream & os, std::string s, int x, int y, int background, int frontcolor, std::string name);
     void ResizeConsole();
     bool SetConsoleFontSize(COORD dwFontSize);
 

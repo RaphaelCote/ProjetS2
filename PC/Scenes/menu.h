@@ -4,7 +4,6 @@
 #include "../Controls/EventParameters.h"
 #include "scene.h"
 
-using namespace std;
 
 class Menu : public Scene
 {

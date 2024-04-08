@@ -4,8 +4,7 @@
 #include "rocket.h"
 #include "grenade.h"
 #include "utility.h"
-using namespace std;
-
+#include <cstdlib>
 EnemyCharacter::~EnemyCharacter() {}
 
 EnemyCharacter::EnemyCharacter(Coordonnee position, Hitbox hitboxsset, int image) : Character(position, hitboxsset, image)
@@ -20,10 +19,10 @@ Projectile *EnemyCharacter::createEnemyProjectile()
 
     p = new Canonball(this->getWeaponPosition());
 
-    srand(time(0));
-    float random_angledeg = (float)(90.0 + (rand() % (15))) / 100;
-    srand(time(0) + 071234263);
-    float random_puissance = (float)(90.0 + (rand() % (15))) / 100;
+    std::srand(std::time(0));
+    float random_angledeg = (float)(90.0 + (std::rand() % (15))) / 100;
+    std::srand(std::time(0) + 071234263);
+    float random_puissance = (float)(90.0 + (std::rand() % (15))) / 100;
     // cout << "random angleDeg : " << random_angledeg << endl;
     // cout << "random puissance : " << random_puissance << endl;
     p->setAngleDegre(-45.0 * random_angledeg);

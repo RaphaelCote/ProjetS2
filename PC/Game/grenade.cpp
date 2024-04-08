@@ -1,10 +1,7 @@
 #include "grenade.h"
-
-using namespace std;
-
 bool Grenade::zoneGrenade(int h, int k, int x, int y)
 {
-    if (pow((x - h), 2) + pow((y - k), 2) <= 175 * 175)
+    if (std::pow((x - h), 2) + std::pow((y - k), 2) <= 175 * 175)
     {
         return true;
     }
@@ -17,14 +14,14 @@ int Grenade::pythagore(int xi, int xf, int yi, int yf)
 {
     int deltax = xf - xi;
     int deltay = yf - yi;
-    int distance = round(sqrt(pow((deltax), 2) + pow((deltay), 2)));
+    int distance = std::round(std::sqrt(std::pow((deltax), 2) + std::pow((deltay), 2)));
     return distance;
 }
 int Grenade::damageReceived(Character &character)
 {
 
     float dy = bulletEndPosition.y - character.getPosition().y;
-    float Vf = sqrt(pow(V0 * cos(rad), 2) + pow(V0 * sin(rad), 2) + 2 * g * dy);
+    float Vf = std::sqrt(std::pow(V0 * std::cos(rad), 2) + std::pow(V0 * std::sin(rad), 2) + 2 * g * dy);
     int explosionDamage = 0;
 
     //---------------------bulletEndPosition en fonction du temps-----------//
@@ -105,7 +102,7 @@ int Grenade::damageReceived(Character &character)
         if (distanceMin <= RayonCercleExplosion)
         {
             // tu sais que t'es dans le cercle
-            explosionDamage = round(exp(-0.015 * distanceMin) * MaxDamage);
+            explosionDamage = std::round(std::exp(-0.015 * distanceMin) * MaxDamage);
         }
     }
     character.setHealthPoint(character.getHealthPoint() - explosionDamage);

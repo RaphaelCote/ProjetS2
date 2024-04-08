@@ -2,6 +2,9 @@
 
 #include "AffichageConsole.h"
 
+long compteur = 0;
+long lagfree = 0;
+
 static DWORD WINAPI ThreadEntry(LPVOID lpParam)
 {
     auto *data = reinterpret_cast<std::pair<AffichageConsole *, int> *>(lpParam);
@@ -167,7 +170,7 @@ void AffichageConsole::ResizeConsole()
     MoveWindow(console, rect.left, rect.top, rect.right, rect.bottom, TRUE);
 }
 
-void AffichageConsole::AjouterObjet(Pixels** tab, int x, int y, int width, int height, int couche, string name)
+void AffichageConsole::AjouterObjet(Pixels **tab, int x, int y, int width, int height, int couche, std::string name)
 {
     ObjetAffichage *obj1 = new ObjetAffichage;
     obj1->pix = tab;
@@ -179,10 +182,10 @@ void AffichageConsole::AjouterObjet(Pixels** tab, int x, int y, int width, int h
     obj1->couche = couche;
     obj1->name = name;
 
-    v_objet.add(obj1);
+    v_objet.push_back(obj1);
 }
 
-void AffichageConsole::AjouterObjet(Pixels **tab, int *x, int *y, int width, int height, int couche, string name)
+void AffichageConsole::AjouterObjet(Pixels **tab, int *x, int *y, int width, int height, int couche, std::string name)
 {
     ObjetAffichage *obj1 = new ObjetAffichage;
     obj1->pix = tab;
@@ -194,10 +197,10 @@ void AffichageConsole::AjouterObjet(Pixels **tab, int *x, int *y, int width, int
     obj1->couche = couche;
     obj1->name = name;
 
-    v_objet.add(obj1);
+    v_objet.push_back(obj1);
 }
 
-void AffichageConsole::AjouterObjet(Pixels **tab, Character *charact, int couche, string name)
+void AffichageConsole::AjouterObjet(Pixels **tab, Character *charact, int couche, std::string name)
 {
     Coordonnee *coor = charact->PointeurPosition();
     ObjetAffichage *obj1 = new ObjetAffichage;
@@ -210,25 +213,25 @@ void AffichageConsole::AjouterObjet(Pixels **tab, Character *charact, int couche
     obj1->couche = couche;
     obj1->name = name;
 
-    v_objet.add(obj1);
+    v_objet.push_back(obj1);
 }
 
-void AffichageConsole::AjouterObjet(Pixels **tab, Boat *boat, int couche, string name)
+void AffichageConsole::AjouterObjet(Pixels **tab, Boat *boat, int couche, std::string name)
 {
     ObjetAffichage *obj1 = new ObjetAffichage;
     obj1->pix = tab;
     obj1->pointeur = true;
     obj1->x = boat->getPointerPositionBoat_X();
     obj1->y = boat->getPointerPositionBoat_Y();
-    obj1->width = boat->getHitboxBoat().width/10;
-    obj1->height = boat->getHitboxBoat().height/10;
+    obj1->width = boat->getHitboxBoat().width / 10;
+    obj1->height = boat->getHitboxBoat().height / 10;
     obj1->couche = couche;
     obj1->name = name;
 
-    v_objet.add(obj1);
+    v_objet.push_back(obj1);
 }
 
-void AffichageConsole::AjouterObjet(Pixels **tab, Projectile *project, int couche, string name)
+void AffichageConsole::AjouterObjet(Pixels **tab, Projectile *project, int couche, std::string name)
 {
     ObjetAffichage *obj1 = new ObjetAffichage;
     obj1->pix = tab;
@@ -240,16 +243,16 @@ void AffichageConsole::AjouterObjet(Pixels **tab, Projectile *project, int couch
     obj1->couche = couche;
     obj1->name = name;
 
-    v_objet.add(obj1);
+    v_objet.push_back(obj1);
 }
 
-void AffichageConsole::SupprimerObjet(string name)
+void AffichageConsole::SupprimerObjet(std::string name)
 {
-    for (int i = 0; i < v_objet.getSize(); i++)
+    for (int i = 0; i < v_objet.size(); i++)
     {
         if (v_objet[i]->name == name)
         {
-            v_objet.remove(i);
+            v_objet.erase(v_objet.begin()+i);// retire l'élément a l'index i
             // cout << "Removed: " << i << "  " << name;
             // Sleep(1000);
             return;
@@ -282,7 +285,7 @@ void AffichageConsole::AfficherEnBasGauche(Pixels **tab, int x, int y, int width
     ModificationAFaire = true;
 }
 
-void AffichageConsole::AfficherTexte(std::ostream &os, string s, int *x, int *y, string name)
+void AffichageConsole::AfficherTexte(std::ostream &os, std::string s, int *x, int *y, std::string name)
 {
     ObjetAffichage *obj1 = new ObjetAffichage;
 
@@ -307,10 +310,10 @@ void AffichageConsole::AfficherTexte(std::ostream &os, string s, int *x, int *y,
     obj1->couche = 0;
     obj1->name = name;
 
-    v_objet.add(obj1);
+    v_objet.push_back(obj1);
 }
 
-void AffichageConsole::AfficherTexte(std::ostream &os, string s, int x, int y, string name)
+void AffichageConsole::AfficherTexte(std::ostream &os, std::string s, int x, int y, std::string name)
 {
     ObjetAffichage *obj1 = new ObjetAffichage;
 
@@ -335,10 +338,10 @@ void AffichageConsole::AfficherTexte(std::ostream &os, string s, int x, int y, s
     obj1->couche = 0;
     obj1->name = name;
 
-    v_objet.add(obj1);
+    v_objet.push_back(obj1);
 }
 
-void AffichageConsole::AfficherTexte(std::ostream &os, string s, int *x, int *y, int background, int frontcolor, string name)
+void AffichageConsole::AfficherTexte(std::ostream &os, std::string s, int *x, int *y, int background, int frontcolor, std::string name)
 {
     ObjetAffichage *obj1 = new ObjetAffichage;
 
@@ -362,10 +365,10 @@ void AffichageConsole::AfficherTexte(std::ostream &os, string s, int *x, int *y,
     obj1->couche = 0;
     obj1->name = name;
 
-    v_objet.add(obj1);
+    v_objet.push_back(obj1);
 }
 
-void AffichageConsole::AfficherTexte(std::ostream & os, string s, int x, int y, int background, int frontcolor, string name)
+void AffichageConsole::AfficherTexte(std::ostream &os, std::string s, int x, int y, int background, int frontcolor, std::string name)
 {
     ObjetAffichage *obj1 = new ObjetAffichage;
 
@@ -390,9 +393,8 @@ void AffichageConsole::AfficherTexte(std::ostream & os, string s, int x, int y, 
     obj1->couche = 0;
     obj1->name = name;
 
-    v_objet.add(obj1);
+    v_objet.push_back(obj1);
 }
-
 
 void AffichageConsole::UpdateUI_Console()
 {
@@ -416,7 +418,7 @@ void AffichageConsole::UpdateUI_Console()
                             screen_new[j][i].FrontColour = screen[j][i].FrontColour;
                             screen_new[j][i].texture = screen[j][i].texture;
                             SetTerminalCursorPosition(i, j);
-                            ConsecutiveChar(cout, screen_new[j][i].texture, screen_new[j][i].FrontColour, screen_new[j][i].BackColour, 1, false);
+                            ConsecutiveChar(std::cout, screen_new[j][i].texture, screen_new[j][i].FrontColour, screen_new[j][i].BackColour, 1, false);
                         }
                     }
                     else
@@ -428,6 +430,11 @@ void AffichageConsole::UpdateUI_Console()
                 }
             }
             // ModificationAFaire = false;
+            SetTerminalCursorPosition(0, 0);
+            lagfree++;
+            PrintInColour(std::cout, "LagFree: " + std::to_string(lagfree), colors::white, colors::black);
+            SetTerminalCursorPosition(300, 0);
+            PrintInColour(std::cout, "Compteur: " + std::to_string(compteur), colors::white, colors::black);
         }
         Sleep(1);
         // std::this_thread::sleep_for(std::chrono::microseconds(1));
@@ -452,7 +459,7 @@ void AffichageConsole::UpdateVecteurUI()
     ResetUI();
     MaxRows = MinRows + NumberRows;
     MaxColumns = Mincolums + NumberColumns;
-    for (int comptObjet = 0; comptObjet < v_objet.getSize(); comptObjet++)
+    for (int comptObjet = 0; comptObjet < v_objet.size(); comptObjet++)
     {
         ObjetAffichage *aff = v_objet[comptObjet];
 
@@ -460,32 +467,32 @@ void AffichageConsole::UpdateVecteurUI()
         {
             for (int i = 0; i < aff->width; i++)
             {
-                if(aff->pointeur)//si les coordonner sont des pointeurs
+                if (aff->pointeur) // si les coordonner sont des pointeurs
                 {
-                    if (!(j - (*aff->y)/10 - (aff->height) + NumberRows >= MaxRows || (*aff->x)/10 + i >= MaxColumns))
+                    if (!(j - (*aff->y) / 10 - (aff->height) + NumberRows >= MaxRows || (*aff->x) / 10 + i >= MaxColumns))
                     {
-                        if (j - (*aff->y)/10 - (aff->height) + NumberRows >= MinRows && (*aff->x)/10 + i >= Mincolums)
+                        if (j - (*aff->y) / 10 - (aff->height) + NumberRows >= MinRows && (*aff->x) / 10 + i >= Mincolums)
                         {
                             if (!(aff->pix[j][i].FrontColour == colors::transparant || aff->pix[j][i].BackColour == colors::transparant))
                             {
-                                screen[j - (aff->height) - MinRows + NumberRows - (*aff->y)/10][(*aff->x)/10 + i - Mincolums].BackColour = aff->pix[j][i].BackColour;
-                                screen[j - (aff->height) - MinRows + NumberRows - (*aff->y)/10][(*aff->x)/10 + i - Mincolums].FrontColour = aff->pix[j][i].FrontColour;
-                                screen[j - (aff->height) - MinRows + NumberRows - (*aff->y)/10][(*aff->x)/10 + i - Mincolums].texture = aff->pix[j][i].texture;
+                                screen[j - (aff->height) - MinRows + NumberRows - (*aff->y) / 10][(*aff->x) / 10 + i - Mincolums].BackColour = aff->pix[j][i].BackColour;
+                                screen[j - (aff->height) - MinRows + NumberRows - (*aff->y) / 10][(*aff->x) / 10 + i - Mincolums].FrontColour = aff->pix[j][i].FrontColour;
+                                screen[j - (aff->height) - MinRows + NumberRows - (*aff->y) / 10][(*aff->x) / 10 + i - Mincolums].texture = aff->pix[j][i].texture;
                             }
                         }
                     }
                 }
                 else
                 {
-                    if (!(j - (aff->y_coor)/10 - (aff->height) + NumberRows >= MaxRows || (aff->x_coor)/10 + i >= MaxColumns))
+                    if (!(j - (aff->y_coor) / 10 - (aff->height) + NumberRows >= MaxRows || (aff->x_coor) / 10 + i >= MaxColumns))
                     {
-                        if (j - (aff->y_coor)/10 - (aff->height) + NumberRows >= MinRows && (aff->x_coor)/10 + i >= Mincolums)
+                        if (j - (aff->y_coor) / 10 - (aff->height) + NumberRows >= MinRows && (aff->x_coor) / 10 + i >= Mincolums)
                         {
                             if (!(aff->pix[j][i].FrontColour == colors::transparant || aff->pix[j][i].BackColour == colors::transparant))
                             {
-                                screen[j - (aff->height) - MinRows + NumberRows - (aff->y_coor)/10][(aff->x_coor)/10 + i - Mincolums].BackColour = aff->pix[j][i].BackColour;
-                                screen[j - (aff->height) - MinRows + NumberRows - (aff->y_coor)/10][(aff->x_coor)/10 + i - Mincolums].FrontColour = aff->pix[j][i].FrontColour;
-                                screen[j - (aff->height) - MinRows + NumberRows - (aff->y_coor)/10][(aff->x_coor)/10 + i - Mincolums].texture = aff->pix[j][i].texture;
+                                screen[j - (aff->height) - MinRows + NumberRows - (aff->y_coor) / 10][(aff->x_coor) / 10 + i - Mincolums].BackColour = aff->pix[j][i].BackColour;
+                                screen[j - (aff->height) - MinRows + NumberRows - (aff->y_coor) / 10][(aff->x_coor) / 10 + i - Mincolums].FrontColour = aff->pix[j][i].FrontColour;
+                                screen[j - (aff->height) - MinRows + NumberRows - (aff->y_coor) / 10][(aff->x_coor) / 10 + i - Mincolums].texture = aff->pix[j][i].texture;
                             }
                         }
                     }
@@ -503,7 +510,7 @@ void AffichageConsole::SetTerminalCursorPosition(int column, int row)
     return;
 }
 
-void AffichageConsole::PrintInColour(std::ostream &os, string toBePrinted, int foregroundColour, int backgroundColour)
+void AffichageConsole::PrintInColour(std::ostream &os, std::string toBePrinted, int foregroundColour, int backgroundColour)
 {
     HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
     int colour = backgroundColour * 16 + foregroundColour;

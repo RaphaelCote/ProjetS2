@@ -6,19 +6,17 @@
 #include "tests.h"
 #include "Scenes/menu.h"
 #include "Scenes/game.h"
-#include "vecteur.h"
 #include "./Scenes/scene.h"
 #include "Game/inventory.h"
+#include <vector>
 
 extern EventManager *eventManager;
 extern Controls *controls;
 extern Tests *tests;
-extern Vecteur<Scene *> *scenes;
+extern std::vector<Scene *> *scenes;
 extern Inventory *inventory;
 extern int activeScene;
 extern LevelGetter *levelGetter;
 extern AffichageConsole *cons;
-extern std::chrono::duration<double, std::milli> currentClock;
-extern std::chrono::duration<double, std::milli> lastClock;
 
 #endif

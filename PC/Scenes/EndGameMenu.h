@@ -5,7 +5,6 @@
 #include "LevelSelectionMenu.h"
 #include "mainMenu.h"
 
-using namespace std;
 
 class EndGameMenu : public Menu
 {

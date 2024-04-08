@@ -3,16 +3,14 @@
 
 #include <iostream>
 #include <windows.h>
+#include <vector>
 
-#include "../Vecteur.h"
-
-using namespace std;
 
 class LevelGetter
 {
 public: 
     LevelGetter();
-    Vecteur<string> levels;
+    std::vector<std::string> levels;
     int nbLevel = 0;
 };
 

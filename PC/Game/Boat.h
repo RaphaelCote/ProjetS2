@@ -3,16 +3,14 @@
 
 #include <ostream>
 #include "character.h"
-#include "../Vecteur.h"
 #include "utility.h"
 
-using namespace std;
 
 class Boat
 {
 public:
     Boat(int n, Coordonnee position, int height, int width, int image);
-    Vecteur<Character *> characters;
+    std::vector<Character *> characters;
 
     ~Boat();
 
@@ -26,7 +24,7 @@ public:
     Hitbox getHitboxBoat();
     bool addCharacter(Character *characterAdded);
     bool removeCharacters(int index);
-    void ShowInfo(ostream &s);
+    void ShowInfo(std::ostream &s);
 
 private:
     int nbCharacters;

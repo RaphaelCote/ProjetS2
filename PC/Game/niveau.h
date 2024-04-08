@@ -1,10 +1,10 @@
 #ifndef NIVEAU_H
 #define NIVEAU_H
 
-#include "../vecteur.h"
 #include "character.h"
 #include "projectile.h"
 #include "Boat.h"
+#include <vector>
 
 class Niveau
 {
@@ -16,14 +16,14 @@ private:
 public:
     int height = 1080;
     int width = 3000;
-    Vecteur<Boat *> playerBoats;
-    Vecteur<Boat *> enemyBoats;
+    std::vector<Boat *> playerBoats;
+    std::vector<Boat *> enemyBoats;
 
     Niveau();
     Niveau(int width, int height, int image);
     ~Niveau();
 
-    void ShowLevelInfo(ostream &s);
+    void ShowLevelInfo(std::ostream &s);
     void ShowNiveauinfo();
     void addRaftPlayer(int width, int height, Coordonnee position, int image, int capacite);
     void addRaftenemy(int width, int height, Coordonnee position, int image, int capacite);

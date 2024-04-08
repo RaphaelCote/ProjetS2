@@ -15,7 +15,6 @@ using json = nlohmann::json;
 #define MSG_MAX_SIZE 1024 // Longueur maximale d'un message
 #define GROSSEUR_TAB_ANGLE 10
 
-using namespace std;
 
 enum etatBoutton
 {
@@ -41,8 +40,8 @@ class ControllerControls : public Controls
 {
     bool Thread_Actif;
 
-    string comPort;
-    string raw_msg;
+    std::string comPort;
+    std::string raw_msg;
     SerialPort *arduino;
     json messageReceived;
     json message_to_send;
@@ -81,21 +80,21 @@ public:
     float AngleManette;
     float Tab_AnglesManette[GROSSEUR_TAB_ANGLE];
 
-    ControllerControls(EventManager *em, string com);
+    ControllerControls(EventManager *em, std::string com);
     void ThreadReceiveSerial();
     void ReceiveSerial();
     void UpdateAllValues();
     void InitializeSerial();
     void ListenForControls();
-    void AddMessage(string name, int value);
-    void AddMessage(string name, bool value);
-    void AddMessage(string name, string value);
-    void AddMessage(string name, float value);
+    void AddMessage(std::string name, int value);
+    void AddMessage(std::string name, bool value);
+    void AddMessage(std::string name, std::string value);
+    void AddMessage(std::string name, float value);
 
-    void GetValue(string name, int *value);
-    void GetValue(string name, bool *value);
-    void GetValue(string name, string *value);
-    void GetValue(string name, float *value);
+    void GetValue(std::string name, int *value);
+    void GetValue(std::string name, bool *value);
+    void GetValue(std::string name, std::string *value);
+    void GetValue(std::string name, float *value);
 
     bool SendMessageJson();
 };
