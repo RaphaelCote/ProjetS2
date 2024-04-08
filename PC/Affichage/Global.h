@@ -4,5 +4,6 @@
 #include "GameWindow.h"
 
 extern GameWindow* gameWindow;
+extern int levelQty;
 
 #endif

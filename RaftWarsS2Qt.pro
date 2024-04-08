@@ -12,6 +12,7 @@ HEADERS     += \
 	PC/Affichage/MenuButton.h \	
 	PC/Affichage/GenericMenu.h \
 	PC/Affichage/MainMenuQt.h \
+	PC/Affichage/LevelMenu.h \
 	PC/Affichage/Global.h \	
 	#------Controls------#
 	PC/Controls/controllerControls.h \
@@ -59,7 +60,8 @@ SOURCES     += \
 	PC/Affichage/GameWindow.cpp \
 	PC/Affichage/MenuButton.cpp \
 	PC/Affichage/GenericMenu.cpp \
-	PC/Affichage/MainMenuQt.cpp \	
+	PC/Affichage/MainMenuQt.cpp \
+	PC/Affichage/LevelMenu.cpp \	
 	#------Controls------#
 	PC/Controls/controllerControls.cpp \
 	PC/Controls/controls.cpp \

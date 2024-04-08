@@ -24,7 +24,6 @@ public:
 	GenericMenu();
 	void CreateButtons(int btnQty);
 	void SetChecked(int index);
-	void virtual SelectChecked() = 0;
 
 protected:
 	

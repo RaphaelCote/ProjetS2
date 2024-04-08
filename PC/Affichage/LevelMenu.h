@@ -1,21 +1,22 @@
-#ifndef MAINMENUQT_H
-#define MAINMENUQT_H
+#ifndef LEVELMENU_H
+#define LEVELMENU_H
 
 #include <QtWidgets>
 
 #include "GenericMenu.h"
 
-class MainMenuQt : public GenericMenu
+class LevelMenu : public GenericMenu
 {
 	Q_OBJECT
 
 public:
-    MainMenuQt();
-    int minX;
-    int minY;
+	LevelMenu();
+	int minX;
+	int minY;
 
 private:
 	QVector<Frank_PixMap*> vectorPixMap;
+
 
 protected:
     void paintEvent(QPaintEvent* event) override {

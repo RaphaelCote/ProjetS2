@@ -19,7 +19,10 @@ using namespace std::chrono;
 /*-------------------------- Other file include -----------------------------*/
 #include "raftWars.h"
 #include "Affichage/Global.h"
+#include "Affichage/AffichageConsole.h"
+#include "Affichage/GameWindow.h"
 #include "Affichage/MainMenuQt.h"
+#include "Affichage/LevelMenu.h"
 #include "Controls/keyboardControls.h"
 #include "Controls/ControllerControls.h"
 #include "tests.h"
@@ -29,8 +32,6 @@ using namespace std::chrono;
 #include "Scenes/endGameMenu.h"
 #include "Scenes/levelSelectionMenu.h"
 #include "Scenes/shopMenu.h"
-#include "Affichage/AffichageConsole.h"
-#include "Affichage/GameWindow.h"
 #include <QTimer>
 #include <QApplication>
 #include <thread>
@@ -58,6 +59,7 @@ Tests *tests;
 Controls *controls;
 //Controls* controlsG;
 GameWindow* gameWindow;
+int levelQty;
 std::vector<Scene *> *scenes;
 /*
 Scenes index:
@@ -124,6 +126,7 @@ public:
         scenes->push_back(new PauseMenu());
         scenes->push_back(new ShopMenu());
         levelGetter = new LevelGetter();
+        levelQty = levelGetter->nbLevel;
 
         Sleep(500);
         /*std::chrono::system_clock::time_point start = std::chrono::high_resolution_clock::now();*/
@@ -186,6 +189,7 @@ int main(int argc, char* argv[]) {
 
     gameWindow = new GameWindow();
     MainMenuQt* mainMenu = new MainMenuQt();
+    LevelMenu* levelMenu = new LevelMenu();
 
     // Lecture du fichier audio
     MyThread thread;
@@ -196,14 +200,14 @@ int main(int argc, char* argv[]) {
     //controls = new ControllerControls(eventManager, "COM3");
 
     gameWindow->AddContent(mainMenu);
-   /* gameWindow->AddContent(levelMenu);
-    gameWindow->AddContent(shopMenu);*/
+    gameWindow->AddContent(levelMenu);
+    //gameWindow->AddContent(shopMenu);
 
     gameWindow->ShowContent(0);
 
     gameWindow->setWindowState(Qt::WindowMaximized);
     gameWindow->show();
-    Sleep(2000);
+    Sleep(500);
     // Lecture de la musique
 
 

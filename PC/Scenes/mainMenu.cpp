@@ -143,6 +143,7 @@ void MainMenu::Selection()
     else if (choice == 1)
     {
         GotoLevelSelect();
+        gameWindow->ShowContent(1);
     }
     else if (choice == 2)
     {
@@ -150,9 +151,9 @@ void MainMenu::Selection()
     }
     else if (choice >= 3)
     {
-        int x = 2;
-        int y = cons->MaxRows - 4;
-        cons->AfficherTexte(std::cout, "Au plaisir..", &x, &y, "AuPlaisir");
+        //int x = 2;
+        //int y = cons->MaxRows - 4;
+        //cons->AfficherTexte(std::cout, "Au plaisir..", &x, &y, "AuPlaisir");
         exit(0);
     }
 }

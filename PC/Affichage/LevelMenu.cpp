@@ -1,10 +1,10 @@
-#include "MainMenu.h"
+#include "LevelMenu.h"
 #include "Global.h"
 #include <QtWidgets>
 
-MainMenuQt::MainMenuQt() : GenericMenu()
+LevelMenu::LevelMenu() : GenericMenu()
 {
-	CreateButtons(4);
+	CreateButtons(levelQty);
 
 	QScreen* screen = QGuiApplication::primaryScreen();
 	QRect screenGeometry = screen->geometry();
@@ -21,15 +21,18 @@ MainMenuQt::MainMenuQt() : GenericMenu()
 	vbox->addWidget(titleLabel);
 	vbox->addItem(new QSpacerItem(20, 20, QSizePolicy::Minimum, QSizePolicy::Fixed));
 
-	buttons[0]->setText("Jouer");
-	buttons[1]->setText("Selection du niveau");
-	buttons[2]->setText("Magasin");
-	buttons[3]->setText("Sortir");
+	for (int i = 0; i < levelQty; i++) {
+		if (i == levelQty - 1) {
+			buttons[i]->setText("Retour");
+			continue;
+		}
 
-	vbox->addWidget(buttons[0]);
-	vbox->addWidget(buttons[1]);
-	vbox->addWidget(buttons[2]);
-	vbox->addWidget(buttons[3]);
+		QString text = "Niveau ";
+		text += std::to_string(i);
+		buttons[i]->setText(text);
+
+		vbox->addWidget(buttons[i]);
+	}
 
 	QPixmap map3("C:/home/DEVUniversite/ProjetS2/Images/beach.jpg");
 	map3 = map3.scaled(screenWidth, screenHeight);
