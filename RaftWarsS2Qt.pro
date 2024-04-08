@@ -8,7 +8,8 @@ HEADERS     += \
 	PC/vecteur.h \
 	#------Affichage------#
 	PC/Affichage/AffichageConsole.h \
-	PC/Affichage/MainWindow.h \	
+	PC/Affichage/GameWindow.h \
+	PC/Affichage/MenuButton.h \	
 	#------Controls------#
 	PC/Controls/controllerControls.h \
 	PC/Controls/controls.h \
@@ -51,7 +52,8 @@ SOURCES     += \
 	PC/tests.cpp \
 	#------Affichage------#
 	PC/Affichage/AffichageConsole.cpp \
-	PC/Affichage/MainWindow.cpp \
+	PC/Affichage/GameWindow.cpp \
+	PC/Affichage/MenuButton.cpp \	
 	#------Controls------#
 	PC/Controls/controllerControls.cpp \
 	PC/Controls/controls.cpp \
