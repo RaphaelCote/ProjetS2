@@ -5,6 +5,7 @@
 #include "../raftWars.h"
 #include "../Controls/keyboardControls.h"
 #include "game.h"
+#include "../Affichage/Global.h"
 
 PauseMenu::PauseMenu()
 {
@@ -53,6 +54,7 @@ void PauseMenu::changeSelection(EventParameters ep)
             choice = 0;
         }
         ShowMenu();
+        gameWindow->SetChecked(choice);
     }
     else if (ep.parameter2 < -0.5)
     {
@@ -61,6 +63,7 @@ void PauseMenu::changeSelection(EventParameters ep)
             choice++;
         }
         ShowMenu();
+        gameWindow->SetChecked(choice);
     }
 }
 

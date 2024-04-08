@@ -3,6 +3,7 @@
 
 #include "mainMenu.h"
 #include "../raftWars.h"
+#include "../Affichage/Global.h"
 #include "LevelSelectionMenu.h"
 #include "shopMenu.h"
 
@@ -46,6 +47,7 @@ void MainMenu::changeSelection(EventParameters ep)
             choice = 0;
         }
         ShowMenu();
+        gameWindow->SetChecked(choice);
     }
     else if (ep.parameter2 < -0.5)
     {
@@ -54,6 +56,7 @@ void MainMenu::changeSelection(EventParameters ep)
             choice++;
         }
         ShowMenu();
+        gameWindow->SetChecked(choice);
     }
 }
 

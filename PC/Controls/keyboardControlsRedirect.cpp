@@ -33,6 +33,7 @@ void KeyboardControlsRedirect::Menu()
 void KeyboardControlsRedirect::Joystick(float x, float y)
 {
     controls->Joystick(x, y);
+    cons->AfficherTexte(std::cout, "Joystick", 50, 100, "Joystick");
 }
 
 void KeyboardControlsRedirect::Angle(float angle)

@@ -18,13 +18,14 @@ public:
 	void ShowContent(int widgetIndex);
 	void AddContent(QWidget* widget);
 	bool IsCurrentWidget(QWidget* widget);
+	void SetChecked(int index);
 
 private:
 	int timerId;
 	QStackedWidget* stackedWidget;
 
-	void timerEvent(QTimerEvent* event);
-	bool eventFilter(QObject* obj, QEvent* event) override;
+	void timerEvent(QTimerEvent* event); 
+	void keyPressEvent(QKeyEvent* event) override;
 };
 
 #endif

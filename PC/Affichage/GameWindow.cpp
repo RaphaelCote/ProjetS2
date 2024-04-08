@@ -1,5 +1,6 @@
 #include "GameWindow.h"
 #include "../Controls/keyboardControlsRedirect.h"
+#include "GenericMenu.h"
 #include <QtWidgets>
 
 GameWindow::GameWindow() : QMainWindow()
@@ -10,7 +11,7 @@ GameWindow::GameWindow() : QMainWindow()
 
     setCentralWidget(stackedWidget);
 
-    timerId = startTimer(2000);
+    timerId = startTimer(200);
 }
 
 GameWindow::~GameWindow()
@@ -21,7 +22,7 @@ GameWindow::~GameWindow()
 void GameWindow::ShowContent(int widgetIndex) {
     stackedWidget->setCurrentIndex(widgetIndex);
     Sleep(1);
-    //(qobject_cast<GenericMenu*>(stackedWidget->currentWidget()))->SetChecked(0);
+    (qobject_cast<GenericMenu*>(stackedWidget->currentWidget()))->SetChecked(0);
 }
 
 void GameWindow::AddContent(QWidget* widget) {
@@ -32,47 +33,37 @@ bool GameWindow::IsCurrentWidget(QWidget* widget) {
     return stackedWidget->currentIndex() == stackedWidget->indexOf(widget);
 }
 
+void GameWindow::SetChecked(int index) {
+    (qobject_cast<GenericMenu*>(stackedWidget->currentWidget()))->SetChecked(index);
+}
+
 void GameWindow::timerEvent(QTimerEvent* event)
 {
     canInput = true;
 }
 
-bool GameWindow::eventFilter(QObject* obj, QEvent* event) {
+void GameWindow::keyPressEvent(QKeyEvent* event) {
     //Si les controls sont pas keyboard
     if (!isKeyboardControls) {
-        return QWidget::eventFilter(obj, event);
-    }
-
-    //Si l'envent est pas un input
-    if (!(event->type() == QEvent::KeyPress)) {
-    	return QWidget::eventFilter(obj, event);
+        return;
     }
 
     //Si le temps entre les input est pas fini
     if (!canInput) {
-    	return QWidget::eventFilter(obj, event);
-    }
-
-    //Si this est pas le menu affiche dw
-    if (!IsCurrentWidget(this)) {
-    	return QWidget::eventFilter(obj, event);
+        return;
     }
 
     canInput = false;
-    
-    QKeyEvent* keyEvent = static_cast<QKeyEvent*>(event);
+
     KeyboardControlsRedirect kcr;
 
-
-    if (keyEvent->key() == Qt::Key_Up) {
+    if (event->key() == Qt::Key_W) {
         kcr.Joystick(0, 1);
     }
-    else if (keyEvent->key() == Qt::Key_Down) {
+    else if (event->key() == Qt::Key_S) {
         kcr.Joystick(0, -1);
     }
-    else if (keyEvent->key() == Qt::Key_Space) {
+    else if (event->key() == Qt::Key_L) {
         kcr.MainAction();
     }
-    
-    return QWidget::eventFilter(obj, event);
 }

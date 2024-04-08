@@ -2,6 +2,7 @@
 #include "../raftWars.h"
 #include "../Controls/keyboardControls.h"
 #include "../Game/levelGetter.h"
+#include "../Affichage/Global.h"
 
 void OnLevelSelectionMenuMainActionCall(EventParameters ep)
 {
@@ -50,6 +51,7 @@ void LevelSelectionMenu::changeSelection(EventParameters ep)
             choice = 0;
         }
         ShowMenu();
+        gameWindow->SetChecked(choice);
     }
     else if (ep.parameter2 < -0.5)
     {
@@ -58,6 +60,7 @@ void LevelSelectionMenu::changeSelection(EventParameters ep)
             choice++;
         }
         ShowMenu();
+        gameWindow->SetChecked(choice);
     }
 }
 
