@@ -587,3 +587,23 @@ void Niveau::Delete()
         }
     }
 }
+
+
+
+void Niveau::BackgroundQt()
+{
+    QString str = QString::fromUtf8(this->backimge.c_str());//fuck you that why
+    QPixmap map3(str);
+    map3 = map3.scaled(gameWindow->width(), gameWindow->height());    
+
+    Raph_PixMap* image4 = new Raph_PixMap;
+    image4->pix = map3;
+    image4->x = 0;
+    image4->y = 0;
+    //image4->coor = { 0,0 };
+    image4->box = { gameWindow->height(),50 };
+    image4->name = "Background";
+    image4->couche = -1;
+    image4->rotation = 0;
+    gameWindow->GetGameWidget()->addImage(image4);
+}

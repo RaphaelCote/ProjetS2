@@ -41,6 +41,7 @@ public:
     void MatNuage();
     void MatCharacter();
     void CharacterQt();
+    void BackgroundQt();
     void Delete();
 };
 

@@ -9,6 +9,7 @@
 #include "../Game/grenade.h"
 #include "../Game/enemyCharacter.h"
 #include "../Game/projectile.h"
+#include "../Affichage/Global.h"
 
 bool afficheTextCalisse = true;
 int x = 20;
@@ -186,6 +187,7 @@ void Game::Update()
             }
         }
 
+        activeLevel->BackgroundQt();
         activeLevel->MatWater();
         activeLevel->MatNuage();
         activeLevel->MatRaft();
@@ -194,6 +196,7 @@ void Game::Update()
         
         activeLevel->RaftQt();
         activeLevel->CharacterQt();
+        gameWindow->GetGameWidget()->refresh();
     }
 
     isNewLevel = false;
@@ -225,6 +228,7 @@ void Game::PlayTurn()
         Projectile *enemyProjectile = ec->createEnemyProjectile();
 
         activeLevel->MatBalle(enemyProjectile);
+        activeLevel->BalleQt(enemyProjectile);
 
         if(enemyProjectile->checkIfCharacterHit(*(activeLevel->playerBoats[0]->characters[0])))
         {
@@ -255,10 +259,12 @@ void Game::PlayerShoot()
     if (projectileType == 0)
     {
         activeLevel->MatBalle(projectile);
+        activeLevel->BalleQt(projectile);
     }
     else if (projectileType == 1)
     {
         activeLevel->MatRocket(projectile);
+        activeLevel->RocketQt(projectile);
     }
     else if (projectileType == 2)
     {
@@ -531,6 +537,7 @@ void Game::AnimationProjectile(Projectile* proj)
 {
     bool faireunefois = true;
     bool animation = true;
+    Coordonnee startPosition = proj->bulletStartPosition;
     Coordonnee currentPosition = proj->bulletStartPosition;
     Coordonnee endPosition = proj->bulletEndPosition;
     float time = 0.0f;
@@ -550,7 +557,8 @@ void Game::AnimationProjectile(Projectile* proj)
     int lastPositionY = currentPosition.y;
 
     cons->Mincolums = (currentPosition.x - (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2) / 10; // je fais * 10 pcq c l'affichage console
-    cons->Mincolums = (currentPosition.x - (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2) / 10;
+    gameWindow->GetGameWidget()->minX = (startPosition.x);
+    gameWindow->GetGameWidget()->refresh();
     Sleep(1000);
 
     while (animation)
@@ -568,16 +576,25 @@ void Game::AnimationProjectile(Projectile* proj)
 
             if (proj->getAngleDegre() > 0)
             {
-                currentPosition.x += 10;
+                currentPosition.x += 1;
             }
             else
             {
-                currentPosition.x -= 10;
+                currentPosition.x -= 1;
             }
             currentPosition.y = proj->findBulletPositionY(currentPosition.x);
             proj->bulletCurrentPosition = currentPosition;
             cons->Mincolums = (currentPosition.x - (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2) / 10; // je fais * 10 pcq c l'affichage console
-
+            
+            if (proj->getAngleDegre() > 0)
+            {
+                gameWindow->GetGameWidget()->minX = ((gameWindow->GetGameWidget()->width()/2) - currentPosition.x);
+            }
+            else
+            {
+                gameWindow->GetGameWidget()->minX = ((gameWindow->GetGameWidget()->width() / 2) -currentPosition.x);
+            }
+            
              /*cons->SupprimerObjet("text");
              cons->SupprimerObjet("text2");
              cons->SupprimerObjet("text3");
@@ -591,6 +608,9 @@ void Game::AnimationProjectile(Projectile* proj)
              cons->AfficherTexte(std::cout, "BulletAngle: " + std::to_string(proj->angledeg), cons->Mincolums * 10 + (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2, 130, "text3");
              cons->AfficherTexte(std::cout, "Time: " + std::to_string(time), cons->Mincolums * 10 + (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2, 120, "text4");*/
             timerAnimation = currentclockAnimation;
+
+            gameWindow->GetGameWidget()->refresh();
+
             if (coterAnimationGauche)
             {
                 if (currentPosition.x >= endPosition.x || currentPosition.x > (cons->MaxColumns * 10))
@@ -616,6 +636,7 @@ void Game::AnimationProjectile(Projectile* proj)
     // delete projectile;
 
     cons->Mincolums = 0;
+    gameWindow->GetGameWidget()->minX = 0;
 }
 
 

@@ -698,29 +698,8 @@ void Tests::LoadJsonAffichageQt()
     int screenWidth = screenGeometry.width();
     int screenHeight = screenGeometry.height();
 
-    QString str = QString::fromUtf8(niveau->backimge.c_str());//fuck you that why
-    QPixmap map3(str);
-    map3 = map3.scaled(screenWidth, screenHeight);
 
-    int* x1 = new int;
-    int* y1 = new int;
-    float* r1 = new float;
-
-    *x1 = 0;
-    *y1 = 0;
-    *r1 = 0;
-
-    Frank_PixMap* image4 = new Frank_PixMap;
-    image4->pix = map3;
-    image4->x = x1;
-    image4->y = y1;
-    //image4->coor = { 0,0 };
-    image4->box = { screenHeight,50 };
-    image4->name = "allo2";
-    image4->couche = -1;
-    image4->rotation = 0;
-    gameWindow->GetGameWidget()->addImage(image4);
-
+    niveau->BackgroundQt();
     niveau->RaftQt();
     niveau->CharacterQt();
 
