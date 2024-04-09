@@ -588,6 +588,19 @@ void Game::AnimationProjectile(Projectile* proj)
             proj->bulletCurrentPosition = currentPosition;
             cons->Mincolums = (currentPosition.x - (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2) / 10; // je fais * 10 pcq c l'affichage console
             gameWindow->GetGameWidget()->minX = ((gameWindow->GetGameWidget()->width() / 2) - currentPosition.x);
+
+            if (projectileType == 0)
+            {
+
+            }
+            else if (projectileType == 1)
+            {
+
+            }
+            else if (projectileType == 2)
+            {
+
+            }
             
              /*cons->SupprimerObjet("text");
              cons->SupprimerObjet("text2");

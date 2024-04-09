@@ -125,6 +125,10 @@ public:
 
         QEvent *event = new QEvent(QEvent::User);
         QApplication::postEvent(gameWindow, event);
+        if (((ControllerControls*)controls)->Connected == true)
+        {
+            ((ControllerControls*)controls)->ready_to_send = true;
+        }
         //----------------------Sans QTimer----------------------//
         while (true)
         {
@@ -207,7 +211,7 @@ int main(int argc, char *argv[])
 
     eventManager = new EventManager();
     controls = new KeyboardControls(eventManager);
-    // controls = new ControllerControls(eventManager, "COM4");
+    //controls = new ControllerControls(eventManager, "COM3");
 
     gameWindow->AddContent(mainMenu);
     gameWindow->AddContent(gameQt);
