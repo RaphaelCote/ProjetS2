@@ -32,6 +32,7 @@ Game::Game()
     isNewLevel = true;
     doOnce = false;
     projectileType = 0;
+
 }
 
 int Game::GetLevelIndex()
@@ -198,7 +199,10 @@ void Game::Update()
 
 void Game::PlayTurn()
 {
-    
+   /* soundManager->functionDecider = stop_Music;
+    soundManager->music = gameMusic;
+    soundManager->functionDecider = play_Music;
+    */
     if (isPlayerTurn)
     {
         if (doOnce)
@@ -298,6 +302,8 @@ void Game::PauseGame()
 
 void Game::EndGame()
 {
+    soundManager->music = victoryMusic;
+    soundManager->functionDecider = play_Music;
     PayPlayer();
     OnDisable();
     StopGame();
