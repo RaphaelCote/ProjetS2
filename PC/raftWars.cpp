@@ -17,6 +17,7 @@ using namespace std::chrono;
 #include "Affichage/GameWindow.h"
 #include "Affichage/MainMenuQt.h"
 #include "Affichage/PauseMenuQt.h"
+#include "Affichage/EndGameMenuQt.h"
 #include "Affichage/LevelMenu.h"
 #include "Controls/keyboardControls.h"
 #include "Controls/ControllerControls.h"
@@ -174,7 +175,7 @@ int main(int argc, char *argv[])
     MainMenuQt *mainMenu = new MainMenuQt();
     GameWidget *gameQt = new GameWidget();
     LevelMenu *levelMenu = new LevelMenu();
-    GenericMenu *endgameMenu = new GenericMenu();
+    EndGameMenuQt *endgameMenu = new EndGameMenuQt();
     PauseMenuQt *pauseMenu = new PauseMenuQt();
     GenericMenu *shopMenu = new GenericMenu();
     GenericMenu *loadingScreen = new GenericMenu();

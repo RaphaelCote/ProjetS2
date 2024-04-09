@@ -167,6 +167,7 @@ void EndGameMenu::NextLevel()
     game->SetLevelIndex(game->GetLevelIndex() + 1);
     game->isNewLevel = true;
     activeScene = 1;
+    gameWindow->ShowContent(1);
 }
 
 void EndGameMenu::GotoShop()
@@ -175,6 +176,7 @@ void EndGameMenu::GotoShop()
     ShopMenu *shop = (ShopMenu *)scenes->at(5);
     shop->lastMenu = 3;
     activeScene = 5;
+    gameWindow->ShowContent(5);
 }
 
 void EndGameMenu::GotoLevelSelect()
@@ -183,10 +185,12 @@ void EndGameMenu::GotoLevelSelect()
     LevelSelectionMenu *lsm = (LevelSelectionMenu *)scenes->at(2);
     lsm->lastMenu = 3;
     activeScene = 2;
+    gameWindow->ShowContent(2);
 }
 
 void EndGameMenu::ReturnToMenu()
 {
     choice = 0;
     activeScene = 0;
+    gameWindow->ShowContent(0);
 }
