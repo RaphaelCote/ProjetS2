@@ -72,6 +72,9 @@ void fonctionBatard()
 {
     window->minX--;
     window->refresh();
+
+    if (window->minX < -2900)
+        window->minX = 2200;
 }
 
 
@@ -180,7 +183,7 @@ int main(int argc, char* argv[]) {
     test2.LoadJsonAffichageQt();
 
     QTimer timer;
-    timer.setInterval(10); // Interval in milliseconds
+    timer.setInterval(1); // Interval in milliseconds
     QObject::connect(&timer, &QTimer::timeout, [&]() {
             
             fonctionBatard();
