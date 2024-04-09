@@ -6,6 +6,8 @@ ShopMenuQt::ShopMenuQt() : GenericMenu()
 {
 	CreateButtons(6, false);
 
+	// TODO : On doit ajouter du texte pour la quantité d'argent, de bouclier, de grenade et de rocket
+
 	QHBoxLayout* Hlayout3 = new QHBoxLayout(gameWindow);
 
 	QVBoxLayout* Vlayout = new QVBoxLayout(this);
