@@ -281,6 +281,22 @@ void Niveau::MatBalle(Projectile *Balle)
     cons->AjouterObjet(balle, Balle, 0, "projectile");
 }
 
+void Niveau::BalleQt(Projectile* pro)
+{
+    Frank_PixMap* pixmap = new Frank_PixMap;
+
+    QString str("Images/Projectile/Ball.png");
+    pixmap->pix = QPixmap(str);
+    pixmap->box = { pixmap->pix.height(), pixmap->pix.width() };
+    pixmap->x = &pro->bulletCurrentPosition.x;
+    pixmap->y = &pro->bulletCurrentPosition.y;
+    pixmap->couche = 3;
+    pixmap->name = "Projectile";
+    pixmap->rotation = 0;
+
+    window->addImage(pixmap);
+}
+
 void Niveau::MatGrenade(Projectile *Grenade)
 {
     // Pixels grenade;
@@ -513,6 +529,23 @@ void Niveau::MatRocket(Projectile *pro)
     cons->AjouterObjet(rocket, pro, 0, "projectile");
 
     return;
+}
+
+
+void Niveau::RocketQt(Projectile* pro)
+{
+    Frank_PixMap_Rotation* pixmap = new Frank_PixMap_Rotation;
+
+    QString str("Images/Projectile/Missile.png");
+    pixmap->pix = QPixmap(str);
+    pixmap->box = { pixmap->pix.height(), pixmap->pix.width() };
+    pixmap->x = &pro->bulletCurrentPosition.x;
+    pixmap->y = &pro->bulletCurrentPosition.y;
+    pixmap->couche = 3;
+    pixmap->name = "Projectile";
+    pixmap->rotation = &pro->angleRotationProjectile;
+
+    window->addImage(pixmap);
 }
 
 void Niveau::Delete()

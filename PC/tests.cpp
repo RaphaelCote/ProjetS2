@@ -9,6 +9,8 @@
 #include "Game/gameloader.h"
 #include "Game/character.h"
 
+#include <QTimer>
+
 //==== DEBUT Controls ====
 void test_unitaire_Controls_OnMainActionCall(EventParameters ep)
 {
@@ -620,9 +622,11 @@ void Tests::testAffichageQt()
 
     int* x1 = new int;
     int* y1 = new int;
+    float* r1 = new float;
 
     *x1 = 0;
     *y1 = 0;
+    *r1 = 0;
 
     Frank_PixMap* image4 = new Frank_PixMap;
     image4->pix = map3;
@@ -637,9 +641,11 @@ void Tests::testAffichageQt()
 
     int* x2 = new int;
     int* y2 = new int;
+    float* r2 = new float;
 
     *x2 = 200;
     *y2 = 175;
+    *r2 = 0;
 
 
     QPixmap map2("Images/Character/Enemy1.png");
@@ -659,7 +665,21 @@ void Tests::testAffichageQt()
     window->show();
 }
 
+Projectile* rocket;
+void fonctionBatard(Projectile* proj)
+{
+    window->minX -= 3;
+    window->refresh();
+    proj->bulletCurrentPosition.x += 3;
+    proj->angleRotationProjectile += 1;
 
+    if (window->minX < -2900)
+    {
+        window->minX = 2200;
+        proj->bulletCurrentPosition.x = -2000;
+    }
+        
+}
 
 void Tests::LoadJsonAffichageQt()
 {
@@ -679,9 +699,11 @@ void Tests::LoadJsonAffichageQt()
 
     int* x1 = new int;
     int* y1 = new int;
+    float* r1 = new float;
 
     *x1 = 0;
     *y1 = 0;
+    *r1 = 0;
 
     Frank_PixMap* image4 = new Frank_PixMap;
     image4->pix = map3;
@@ -697,8 +719,24 @@ void Tests::LoadJsonAffichageQt()
     niveau->RaftQt();
     niveau->CharacterQt();
 
+    Hitbox hitRocket;
+    hitRocket.height = 3; // à multiplier par 10 si frank change l'affichage
+    hitRocket.width = 7;
+    rocket = new Rocket({ 200, 300 }, hitRocket);
+
+    niveau->RocketQt(rocket);
+
 
     window->show();
+
+
+    QTimer *timer = new QTimer;
+    timer->setInterval(1); // Interval in milliseconds
+    QObject::connect(timer, &QTimer::timeout, [&]() {
+        
+        fonctionBatard(rocket);
+        });
+    timer->start();
 
     
 

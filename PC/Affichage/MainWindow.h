@@ -25,6 +25,18 @@ struct Frank_PixMap
     QString name;
 };
 
+struct Frank_PixMap_Rotation
+{
+    QPixmap pix;
+    int* x;
+    int* y;
+    //Coordonnee coor;
+    Hitbox box;
+    float* rotation;
+    int couche;
+    QString name;
+};
+
 
 
 class MainWindow : public QMainWindow {
@@ -34,6 +46,7 @@ public:
 
     void Initialiser();
     void addImage(Frank_PixMap* pixmap);
+    void addImage(Frank_PixMap_Rotation* pixmap);
     void removeImage(QString name);
     void removeAllImages();
     void refresh();
@@ -48,6 +61,7 @@ protected:
 
 private:
     QVector<Frank_PixMap*> vectorPixMap;
+    QVector<Frank_PixMap_Rotation*> vectorPixMapRotation;
 
     QWidget* widg;
 };

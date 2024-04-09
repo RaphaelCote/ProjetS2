@@ -24,6 +24,11 @@ void MainWindow::addImage(Frank_PixMap* pixmap)
     vectorPixMap.append(pixmap);
 }
 
+void MainWindow::addImage(Frank_PixMap_Rotation* pixmap)
+{
+    vectorPixMapRotation.append(pixmap);
+}
+
 void MainWindow::removeImage(QString name)
 {
     for (int i = 0; i < vectorPixMap.size(); i++)
@@ -36,11 +41,23 @@ void MainWindow::removeImage(QString name)
             return;
         }
     }
+
+    for (int i = 0; i < vectorPixMapRotation.size(); i++)
+    {
+        if (vectorPixMapRotation[i]->name == name)
+        {
+            vectorPixMapRotation.removeAt(i);// retire l'élément a l'index i
+            // cout << "Removed: " << i << "  " << name;
+            // Sleep(1000);
+            return;
+        }
+    }
 }
 
 void MainWindow::removeAllImages()
 {
     vectorPixMap.clear();
+    vectorPixMapRotation.clear();
 }
 
 
@@ -85,8 +102,8 @@ void MainWindow::paintEvent(QPaintEvent* event)
     {
         int x = 0;
         int y = 0;
-
-        if (vectorPixMap[i]->rotation != 0)
+        float angle = vectorPixMap[i]->rotation;
+        if ( angle != 0)
         {
             QPixmap rotatedPixmap = rotatePixmap(vectorPixMap[i]->pix, vectorPixMap[i]->rotation);
 
@@ -95,7 +112,6 @@ void MainWindow::paintEvent(QPaintEvent* event)
 
             painter.drawPixmap(x, y, rotatedPixmap);
             continue;
-
         }
 
         if (vectorPixMap[i]->couche == -1)
@@ -111,6 +127,38 @@ void MainWindow::paintEvent(QPaintEvent* event)
 
 
         painter.drawPixmap(x, y, vectorPixMap[i]->pix);
+    }
+
+
+    for (int i = 0; i < vectorPixMapRotation.length(); i++)
+    {
+        int x = 0;
+        int y = 0;
+        float angle = *(vectorPixMapRotation[i]->rotation);
+        if (angle != 0)
+        {
+            QPixmap rotatedPixmap = rotatePixmap(vectorPixMapRotation[i]->pix, angle);
+
+            x = *(vectorPixMapRotation[i]->x) + minX;
+            y = windowHeight - *(vectorPixMapRotation[i]->y) - vectorPixMapRotation[i]->box.height + minY;
+
+            painter.drawPixmap(x, y, rotatedPixmap);
+            continue;
+        }
+
+        if (vectorPixMapRotation[i]->couche == -1)
+        {
+            x = *(vectorPixMapRotation[i]->x);
+            y = windowHeight - *(vectorPixMapRotation[i]->y) - vectorPixMapRotation[i]->box.height;
+        }
+        else
+        {
+            x = *(vectorPixMapRotation[i]->x) + minX;
+            y = windowHeight - *(vectorPixMapRotation[i]->y) - vectorPixMapRotation[i]->box.height + minY;
+        }
+
+
+        painter.drawPixmap(x, y, vectorPixMapRotation[i]->pix);
     }
 
 }

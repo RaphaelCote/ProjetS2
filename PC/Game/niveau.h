@@ -34,7 +34,9 @@ public:
     void MatEnemy();
     void MatWater();
     void MatBalle(Projectile *pro);
+    void BalleQt(Projectile* pro);
     void MatRocket(Projectile *pro);
+    void RocketQt(Projectile* pro);
     void MatGrenade(Projectile *Grenade);
     void MatNuage();
     void MatCharacter();
