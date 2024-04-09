@@ -14,6 +14,7 @@ HEADERS     += \
 	PC/Affichage/MainMenuQt.h \
 	PC/Affichage/PauseMenuQt.h \
 	PC/Affichage/EndGameMenuQt.h \
+	PC/Affichage/ShopMenuQt.h \
 	PC/Affichage/LevelMenu.h \
 	PC/Affichage/GameWidget.h \
 	PC/Affichage/Pixmaps.h \
@@ -67,6 +68,7 @@ SOURCES     += \
 	PC/Affichage/MainMenuQt.cpp \
 	PC/Affichage/PauseMenuQt.cpp \
 	PC/Affichage/EndGameMenuQt.cpp \
+	PC/Affichage/ShopMenuQt.cpp \
 	PC/Affichage/LevelMenu.cpp \
 	PC/Affichage/GameWidget.cpp \
 	#------Controls------#

@@ -11,7 +11,7 @@ GenericMenu::GenericMenu()
 	minX = 0;
 	minY = 0;
 
-	QPixmap map3("C:/home/DEVUniversite/ProjetS2/Images/beach.jpg");
+	QPixmap map3("Images/background/beach.jpg");
 	map3 = map3.scaled(screenWidth, screenHeight);
 
 	Raph_PixMap* image4 = new Raph_PixMap;
