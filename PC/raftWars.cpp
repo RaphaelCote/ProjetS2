@@ -83,6 +83,10 @@ class MyThread : public QThread
 public:
     void run() override
     {
+        eventManager = new EventManager();
+        controls = new KeyboardControls(eventManager);
+        // controls = new ControllerControls(eventManager, "COM4");
+
         cons = new AffichageConsole();
 
         // tests = new Tests();
@@ -205,10 +209,6 @@ int main(int argc, char *argv[])
     // Lecture du fichier audio
     MyThread thread;
     thread.start();
-
-    eventManager = new EventManager();
-    controls = new KeyboardControls(eventManager);
-    // controls = new ControllerControls(eventManager, "COM4");
 
     gameWindow->AddContent(mainMenu);
     gameWindow->AddContent(gameWidget);
