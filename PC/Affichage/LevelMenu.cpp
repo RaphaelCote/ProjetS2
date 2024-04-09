@@ -8,12 +8,6 @@ LevelMenu::LevelMenu() : GenericMenu()
 
 	QVBoxLayout* vbox = new QVBoxLayout();
 
-	QPixmap logo("C:/home/DEVUniversite/ProjetS2/Images/logo.png");
-	QLabel* titleLabel = new QLabel(this);
-	titleLabel->setPixmap(logo.scaled(650, 200, Qt::KeepAspectRatio));
-	vbox->addWidget(titleLabel);
-	vbox->addItem(new QSpacerItem(20, 20, QSizePolicy::Minimum, QSizePolicy::Fixed));
-
 	for (int i = 0; i <= levelQty; i++) {
 		if (i == levelQty) {
 			buttons[i]->setText("Retour");

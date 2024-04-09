@@ -9,6 +9,7 @@
 #include "../Game/grenade.h"
 #include "../Game/enemyCharacter.h"
 #include "../Game/projectile.h"
+#include "../Affichage/Global.h"
 
 bool afficheTextCalisse = true;
 int x = 20;
@@ -298,6 +299,7 @@ void Game::PauseGame()
 {
     OnDisable();
     activeScene = 4;
+    gameWindow->ShowContent(4);
 }
 
 void Game::EndGame()
@@ -306,6 +308,7 @@ void Game::EndGame()
     OnDisable();
     StopGame();
     activeScene = 3;
+    gameWindow->ShowContent(3);
 }
 
 void Game::PayPlayer()

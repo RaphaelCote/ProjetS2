@@ -74,6 +74,18 @@ void GameWindow::keyPressEvent(QKeyEvent* event) {
     else if (event->key() == Qt::Key_L) {
         kcr.MainAction();
     }
+    else if (event->key() == Qt::Key_P) {
+        kcr.Menu();
+    }
+    else if (event->key() == Qt::Key_Q) {
+        kcr.PreviousSelection();
+    }
+    else if (event->key() == Qt::Key_E) {
+        kcr.NextSelection();
+    }
+    else if (event->key() == Qt::Key_B) {
+        kcr.Back();
+    }
 }
 
 bool GameWindow::event(QEvent* event)

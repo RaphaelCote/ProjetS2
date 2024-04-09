@@ -139,17 +139,14 @@ void MainMenu::Selection()
     if (choice == 0)
     {
         PlayGame();
-        gameWindow->ShowContent(1);
     }
     else if (choice == 1)
     {
         GotoLevelSelect();
-        gameWindow->ShowContent(2);
     }
     else if (choice == 2)
     {
         GotoShop();
-        gameWindow->ShowContent(3);
     }
     else if (choice >= 3)
     {
@@ -166,6 +163,7 @@ void MainMenu::PlayGame()
     Game *game = (Game *)scenes->at(1);
     game->isNewLevel = true;
     activeScene = 1;
+    gameWindow->ShowContent(1);
 }
 
 void MainMenu::GotoLevelSelect()
@@ -174,6 +172,7 @@ void MainMenu::GotoLevelSelect()
     LevelSelectionMenu *lsm = (LevelSelectionMenu *)scenes->at(2);
     lsm->lastMenu = 0;
     activeScene = 2;
+    gameWindow->ShowContent(2);
 }
 
 void MainMenu::GotoShop()
@@ -182,6 +181,7 @@ void MainMenu::GotoShop()
     ShopMenu *shop = (ShopMenu *)scenes->at(5);
     shop->lastMenu = 0;
     activeScene = 5;
+    gameWindow->ShowContent(5);
 }
 
 void MainMenu::ExitGame()

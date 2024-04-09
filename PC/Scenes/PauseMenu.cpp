@@ -6,6 +6,7 @@
 #include "../Controls/keyboardControls.h"
 #include "game.h"
 #include "../Affichage/Global.h"
+#include "../Affichage/Global.h"
 
 PauseMenu::PauseMenu()
 {
@@ -131,10 +132,12 @@ void PauseMenu::Selection()
     if (choice == 0)
     {
         Continu();
+        gameWindow->ShowContent(1);
     }
     else if (choice == 1)
     {
         ReturnToMenu();
+        gameWindow->ShowContent(0);
     }
 }
 
