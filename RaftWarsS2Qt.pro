@@ -22,6 +22,7 @@ HEADERS     += \
 	PC/Controls/EventParameters.h \
 	PC/Controls/keyboardControls.h \
 	PC/Controls/keyboardControlsRedirect.h \
+	PC/Controls/SoundManager.h \
 	#---------Game---------#
 	PC/Game/character.h \
     	PC/Game/enemyCharacter.h \
@@ -67,6 +68,7 @@ SOURCES     += \
 	PC/Controls/controls.cpp \
 	PC/Controls/keyboardControls.cpp \
 	PC/Controls/keyboardControlsRedirect.cpp \
+	PC/Controls/SoundManager.cpp \
 	#---------Game---------#
 	PC/Game/grenade.cpp \
     	PC/Game/inventory.cpp \

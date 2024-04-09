@@ -6,6 +6,7 @@
 #include "../Affichage/Global.h"
 #include "LevelSelectionMenu.h"
 #include "shopMenu.h"
+#include "../Controls/SoundManager.h"
 
 void OnMainMenuMainActionCall(EventParameters ep)
 {
@@ -33,6 +34,8 @@ void MainMenu::OnDisable()
 
 MainMenu::MainMenu()
 {
+    soundManager->music = Music;
+    soundManager->functionDecider = play_Music;
 }
 
 void MainMenu::changeSelection(EventParameters ep)

@@ -7,10 +7,12 @@
 #include "Scenes/scene.h"
 #include "Game/inventory.h"
 #include "Affichage/AffichageConsole.h"
+#include "Controls/SoundManager.h"
 #include <vector>
 
 extern EventManager *eventManager;
 extern Controls *controls;
+extern SoundManager* soundManager;
 extern Tests *tests;
 extern std::vector<Scene *> *scenes;
 extern Inventory *inventory;

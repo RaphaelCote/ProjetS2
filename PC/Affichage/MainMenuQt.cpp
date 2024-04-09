@@ -5,7 +5,6 @@
 MainMenuQt::MainMenuQt() : GenericMenu()
 {
 	CreateButtons(4);
-
 	QScreen* screen = QGuiApplication::primaryScreen();
 	QRect screenGeometry = screen->geometry();
 	int screenWidth = screenGeometry.width();
@@ -15,7 +14,7 @@ MainMenuQt::MainMenuQt() : GenericMenu()
 
 	QVBoxLayout* vbox = new QVBoxLayout();
 
-	QPixmap logo("C:/home/DEVUniversite/ProjetS2/Images/logo.png");
+	QPixmap logo("Images/logo.png");
 	QLabel* titleLabel = new QLabel(this);
 	titleLabel->setPixmap(logo.scaled(650, 200, Qt::KeepAspectRatio));
 	vbox->addWidget(titleLabel);
@@ -31,7 +30,7 @@ MainMenuQt::MainMenuQt() : GenericMenu()
 	vbox->addWidget(buttons[2]);
 	vbox->addWidget(buttons[3]);
 
-	QPixmap map3("C:/home/DEVUniversite/ProjetS2/Images/beach.jpg");
+	QPixmap map3("Images/beach.jpg");
 	map3 = map3.scaled(screenWidth, screenHeight);
 
 	Frank_PixMap* image4 = new Frank_PixMap;

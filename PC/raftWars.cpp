@@ -32,6 +32,7 @@ using namespace std::chrono;
 #include "Scenes/endGameMenu.h"
 #include "Scenes/levelSelectionMenu.h"
 #include "Scenes/shopMenu.h"
+#include "Controls/SoundManager.h"
 #include <QTimer>
 #include <QApplication>
 #include <thread>
@@ -43,8 +44,6 @@ using namespace std::chrono;
 #include <QMenu>
 #include <QMenuBar>
 #include <QMessageBox>
-#include <QMediaPlayer>
-#include <QAudioOutput>
 #include <QFileInfo>
 //#include <QMediaPlaylist>
 #include <thread>
@@ -57,6 +56,7 @@ using namespace std::chrono;
 EventManager *eventManager;
 Tests *tests;
 Controls *controls;
+SoundManager* soundManager;
 //Controls* controlsG;
 GameWindow* gameWindow;
 int levelQty;
@@ -96,11 +96,31 @@ void timerFunction()
         std::this_thread::sleep_for(std::chrono::milliseconds(10));
     }
 }
+
+
+class MyThreadMusic : public QThread {
+public:
+
+    void run() override
+    {
+       /* soundManager = new SoundManager();
+        soundManager->playMusic(rightRound, 0.8);*/
+
+        
+      
+    }
+};
+
 class MyThread : public QThread {
 public:
+    
     void run() override 
     {
+        
         cons = new AffichageConsole();
+       /* soundManager = new SoundManager();
+        soundManager->playMusic(rightRound, 0.8);*/
+        
         
         // tests = new Tests();
         // tests->testjson();
@@ -180,25 +200,41 @@ public:
 
             controls->ListenForControls();
         }*/
-
     }
 };
 
 int main(int argc, char* argv[]) {
     QApplication app(argc, argv);
     qDebug() << "Main thread started";
-
+   // MyThreadMusic threadMusic;
+    //threadMusic.start();
     gameWindow = new GameWindow();
+    
     MainMenuQt* mainMenu = new MainMenuQt();
     LevelMenu* levelMenu = new LevelMenu();
+    soundManager = new SoundManager();
+    
+   /* soundManager->music = rightRound;
+    soundManager->functionDecider = play_Music;*/
+
+    //QTimer* timer = new QTimer;
+    //timer->setInterval(5000);
+    //QObject::connect(timer, &QTimer::timeout, [&]()
+    //    {
+    //        soundManager->music = introMusic;
+    //        soundManager->functionDecider = play_Music;
+    //        timer->deleteLater();
+    //    });
+    //// Démarrage du timer
+    //timer->start();
 
     // Lecture du fichier audio
     MyThread thread;
     thread.start();
-
     eventManager = new EventManager();
-    //controls = new KeyboardControls(eventManager);
-    controls = new ControllerControls(eventManager, "COM4");
+    controls = new KeyboardControls(eventManager);
+    //controls = new ControllerControls(eventManager, "COM4");
+    
 
     gameWindow->AddContent(mainMenu);
     gameWindow->AddContent(levelMenu);
@@ -209,29 +245,7 @@ int main(int argc, char* argv[]) {
     gameWindow->setWindowState(Qt::WindowMaximized);
     gameWindow->show();
     Sleep(500);
-    // Lecture de la musique
+    
 
-
-    //QMediaPlayer* musicPlayer = new QMediaPlayer;
-    //QMediaPlaylist* playlist = new QMediaPlaylist;
-
-    //playlist->addMedia(QUrl("C:\\chemin\\vers\\votre\\fichier\\audio.mp3")); // Remplacez le chemin par le chemin de votre fichier audio
-    //playlist->setPlaybackMode(QMediaPlaylist::Loop);
-
-    //musicPlayer->setPlaylist(playlist);
-    //musicPlayer->play();
-
-   
-
-
-
-    //QTimer timer;
-    //timer.setInterval(100); // Interval in milliseconds
-    //QObject::connect(&timer, &QTimer::timeout, &fonctionBatard);
-    //timer.start();
-   // std::thread timerThread(timerFunction);
-
-    // Attendre que le thread se termine
-    //timerThread.join();
     return app.exec();
 }
