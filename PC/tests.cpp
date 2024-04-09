@@ -666,17 +666,21 @@ void Tests::testAffichageQt()
 }
 
 Projectile* rocket;
-void fonctionBatard(Projectile* proj)
+Projectile* ball;
+void fonctionBatard(Projectile* proj, Projectile* ball)
 {
     window->minX -= 3;
     window->refresh();
     proj->bulletCurrentPosition.x += 3;
     proj->angleRotationProjectile += 1;
+    ball->bulletCurrentPosition.x += 3;
+    ball->angleRotationProjectile += 1;
 
     if (window->minX < -2900)
     {
         window->minX = 2200;
         proj->bulletCurrentPosition.x = -2000;
+        ball->bulletCurrentPosition.x = -1700;
     }
         
 }
@@ -719,12 +723,22 @@ void Tests::LoadJsonAffichageQt()
     niveau->RaftQt();
     niveau->CharacterQt();
 
+
+    
+    
     Hitbox hitRocket;
     hitRocket.height = 3; // à multiplier par 10 si frank change l'affichage
     hitRocket.width = 7;
     rocket = new Rocket({ 200, 300 }, hitRocket);
 
+    
+    Hitbox hitBall;
+    hitBall.height = 3; // à multiplier par 10 si frank change l'affichage
+    hitBall.width = 7;
+    ball = new Canonball({ 500, 400 }, hitBall);
+
     niveau->RocketQt(rocket);
+    niveau->BalleQt(ball);
 
 
     window->show();
@@ -734,7 +748,7 @@ void Tests::LoadJsonAffichageQt()
     timer->setInterval(1); // Interval in milliseconds
     QObject::connect(timer, &QTimer::timeout, [&]() {
         
-        fonctionBatard(rocket);
+        fonctionBatard(rocket, ball);
         });
     timer->start();
 

@@ -546,6 +546,7 @@ void Game::AnimationProjectile(Projectile* proj)
     int lastPositionY = currentPosition.y;
 
     cons->Mincolums = (currentPosition.x - (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2) / 10; // je fais * 10 pcq c l'affichage console
+    cons->Mincolums = (currentPosition.x - (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2) / 10;
     Sleep(1000);
 
     while (animation)
