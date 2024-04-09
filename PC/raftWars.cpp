@@ -146,7 +146,7 @@ public:
         
        
         // Main loop
-        Sleep(2000);// minimum de 2 secondes sinon, sa crash
+        Sleep(2000);// minimum de 2 secondes sinon, sa crash 
         //----------------------Sans QTimer----------------------//
         while (true)
         {
