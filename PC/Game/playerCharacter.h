@@ -12,7 +12,7 @@ class PlayerCharacter : public Character
 {
 public:
     PlayerCharacter(int posX, int posY);
-    PlayerCharacter(Coordonnee position, Hitbox hitbox, int image);
+    PlayerCharacter(Coordonnee position, Hitbox hitbox, std::string image);
     ~PlayerCharacter();
     Coordonnee getWeaponPosition() override;
     void setWeaponPosition(Coordonnee WeaponPosition);

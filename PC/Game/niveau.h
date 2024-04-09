@@ -27,9 +27,10 @@ public:
 
     void ShowLevelInfo(std::ostream &s);
     void ShowNiveauinfo();
-    void addRaftPlayer(int width, int height, Coordonnee position, int image, int capacite);
-    void addRaftenemy(int width, int height, Coordonnee position, int image, int capacite);
+    void addRaftPlayer(int width, int height, Coordonnee position, std::string image, int capacite);
+    void addRaftenemy(int width, int height, Coordonnee position, std::string image, int capacite);
     void MatRaft();
+    void RaftQt();
     void MatEnemy();
     void MatWater();
     void MatBalle(Projectile *pro);

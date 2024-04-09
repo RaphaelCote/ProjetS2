@@ -528,7 +528,7 @@ void Tests::testAffichage()
    Character *pers1 = new PlayerCharacter(10, 60);
    Character *pers2 = new PlayerCharacter(250, 60);
    PlayerCharacter c = PlayerCharacter(150, 60);
-   Character *adv1 = new EnemyCharacter(positionEnemy, enemy, 3);
+   Character *adv1 = new EnemyCharacter(positionEnemy, enemy, "Met un path");
    Coordonnee positionBoat;
    positionBoat.x = 30;
    positionBoat.y = 20;
@@ -536,8 +536,8 @@ void Tests::testAffichage()
    positionEnemyBoat.x = 160;
    positionEnemyBoat.y = 20;
 
-   Boat joueur(2, positionBoat, 40, 100, 3);
-   Boat adversaire(2, positionEnemyBoat, 40, 100, 3);
+   Boat joueur(2, positionBoat, 40, 100, "Images/Character/Enemy1.png");
+   Boat adversaire(2, positionEnemyBoat, 40, 100, "Images/Character/Enemy1.png");
 
    Projectile *pro = new Canonball({300, 200});
    Projectile *rocket = new Rocket({650, 300}, hitRocket);
@@ -694,8 +694,12 @@ void Tests::LoadJsonAffichageQt()
     image4->rotation = 0;
     window->addImage(image4);
 
+    niveau->RaftQt();
+
 
     window->show();
+
+    
 
     // niveau->MatBalle(pro);
     // erreur ici dans la fonction
@@ -703,7 +707,7 @@ void Tests::LoadJsonAffichageQt()
     // Sleep(5000);
     // niveau.MatEnemy();
     //niveau->MatWater();
-    //niveau->MatRaft();
+    
 
     //niveau->MatNuage();
     //// Sleep(5000);

@@ -68,7 +68,11 @@ std::chrono::duration<double, std::milli> currentclock;
 std::chrono::duration<double, std::milli> lastClock;
 std::chrono::duration<double, std::milli> rcvSerialTimer;
 
-
+void fonctionBatard()
+{
+    window->minX--;
+    window->refresh();
+}
 
 
 class MyThread : public QThread {
@@ -174,7 +178,14 @@ int main(int argc, char* argv[]) {
     Tests test2;
 
     test2.LoadJsonAffichageQt();
-    
+
+    QTimer timer;
+    timer.setInterval(10); // Interval in milliseconds
+    QObject::connect(&timer, &QTimer::timeout, [&]() {
+            
+            fonctionBatard();
+            });
+    timer.start();
     
     return app.exec();
 }

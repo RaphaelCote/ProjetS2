@@ -9,14 +9,14 @@
                 "coordoneeY": 70,
                 "width": 100,
                 "height": 30,
-                "image": 1,
+                "image": "Images/Boat/Boat.png",
                 "characterlist": [
                     {
                         "width": 100,
                         "height": 100,
                         "coordoneeX": 0,
                         "coordoneeY": 30,
-                        "image": 1
+                        "image": "Images/Character/Enemy1.png"
                     }
                 ]
             }
@@ -27,14 +27,14 @@
                 "coordoneeY": 70,
                 "width": 100,
                 "height": 30,
-                "image": 1,
+                "image": "Images/Boat/Boat.png",
                 "characterlist": [
                     {
                         "width": 100,
                         "height": 100,
                         "coordoneeX": 0,
                         "coordoneeY": 30,
-                        "image": 1
+                        "image": "Images/Character/Enemy1.png"
                     }
                 ]
             }

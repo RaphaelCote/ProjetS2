@@ -10,7 +10,7 @@ class Character
 {
 public:
     Character(int posX, int posY);
-    Character(Coordonnee position, Hitbox hitbox, int image);
+    Character(Coordonnee position, Hitbox hitbox, std::string image);
     ~Character();
 
     int getHealthPoint();
@@ -23,7 +23,7 @@ public:
     int getHitboxHeight();
     virtual float Aim(float angle);
     void ShowInfo();
-    int getimage();
+    std::string getimage();
     void setPosition(Coordonnee coor);
 
 protected:
@@ -31,7 +31,7 @@ protected:
 
     Coordonnee WeaponPosition;
     Hitbox hitbox;
-    int imagecharacter;
+    std::string imagecharacter;
     Coordonnee position;
 };
 

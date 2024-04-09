@@ -12,7 +12,7 @@ PlayerCharacter::PlayerCharacter(int posX, int posY) : Character(posX, posY)
     WeaponPosition.y = position.y + hitbox.height / 2;
 };
 
-PlayerCharacter::PlayerCharacter(Coordonnee position, Hitbox hitboxset, int image) : Character(position, hitboxset, image)
+PlayerCharacter::PlayerCharacter(Coordonnee position, Hitbox hitboxset, std::string image) : Character(position, hitboxset, image)
 {
 
     WeaponPosition.x = position.x + hitbox.width;

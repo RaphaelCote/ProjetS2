@@ -47,12 +47,12 @@ void Niveau::ShowNiveauinfo()
     // cout << "largeur niveau " << width << std::endl;
 }
 
-void Niveau::addRaftPlayer(int width, int height, Coordonnee position, int image, int capacite)
+void Niveau::addRaftPlayer(int width, int height, Coordonnee position, std::string image, int capacite)
 {
     playerBoats.push_back(new Boat(capacite, position, height, width, image));
 }
 
-void Niveau::addRaftenemy(int width, int height, Coordonnee position, int image, int capacite)
+void Niveau::addRaftenemy(int width, int height, Coordonnee position, std::string image, int capacite)
 {
     enemyBoats.push_back(new Boat(capacite, position, height, width, image));
 }
@@ -112,6 +112,42 @@ void Niveau::MatRaft()
         //     delete[] couleur[j];
         // }
         // delete[] couleur;
+    }
+}
+
+void Niveau::RaftQt()
+{
+    for (int i = 0; i < playerBoats.size(); ++i)
+    {
+        Frank_PixMap* pixmap = new Frank_PixMap;
+
+        QString str = QString::fromUtf8(playerBoats[i]->imageboat.c_str());//fuck you that why
+        pixmap->pix = QPixmap(str);
+        pixmap->box = { pixmap->pix.height(), pixmap->pix.width() };
+        pixmap->x = playerBoats[i]->getPointerPositionBoat_X();
+        pixmap->y = playerBoats[i]->getPointerPositionBoat_Y();
+        pixmap->couche = 1;
+        pixmap->name = "Boat1";
+        pixmap->rotation = 0;
+
+        window->addImage(pixmap);
+
+    }
+
+    for (int i = 0; i < enemyBoats.size(); i++)
+    {
+        Frank_PixMap* pixmap = new Frank_PixMap;
+
+        QString str = QString::fromUtf8(enemyBoats[i]->imageboat.c_str());//fuck you that why
+        pixmap->pix = QPixmap(str);
+        pixmap->box = { pixmap->pix.height(), pixmap->pix.width() };
+        pixmap->x = enemyBoats[i]->getPointerPositionBoat_X();
+        pixmap->y = enemyBoats[i]->getPointerPositionBoat_Y();
+        pixmap->couche = 1;
+        pixmap->name = "EnemyBoat1";
+        pixmap->rotation = 0;
+
+        window->addImage(pixmap);
     }
 }
 

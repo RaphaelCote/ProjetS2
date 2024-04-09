@@ -9,7 +9,7 @@
 class Boat
 {
 public:
-    Boat(int n, Coordonnee position, int height, int width, int image);
+    Boat(int n, Coordonnee position, int height, int width, std::string image);
     std::vector<Character *> characters;
 
     ~Boat();
@@ -26,10 +26,12 @@ public:
     bool removeCharacters(int index);
     void ShowInfo(std::ostream &s);
 
+    std::string imageboat;
+
 private:
     int nbCharacters;
     int capacite;
-    int imageboat;
+    
     int widthBoat;
     int heightBoat;
     Coordonnee positionBoat;

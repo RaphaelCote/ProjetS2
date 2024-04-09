@@ -14,7 +14,7 @@ Character::Character(int posX, int posY)
     this->imagecharacter = 1;
 }
 
-Character::Character(Coordonnee positionset, Hitbox hitboxset, int image)
+Character::Character(Coordonnee positionset, Hitbox hitboxset, std::string image)
 {
     this->position = positionset;
     this->healthPoint = 100;
@@ -69,7 +69,7 @@ Coordonnee Character::getPosition()
 {
     return position;
 }
-int Character::getimage()
+std::string Character::getimage()
 {
     return imagecharacter;
 }
