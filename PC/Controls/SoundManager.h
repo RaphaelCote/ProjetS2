@@ -15,18 +15,19 @@
 //type de media
 const int play_Music = 1;
 const int play_SoundTrack = 2;
-const int stop_Music = 11;
-const int stop_SoundTrack = 12;
+const int stop_Music = 3;
+const int stop_SoundTrack = 4;
 //type de musique
-const int introMusic = 3;
-const int gameMusic = 4;
-const int victoryMusic = 5;
-const int rightRound = 6;//when you win every level
+const int introMusic = 5;
+const int gameMusic = 6;
+const int victoryMusic = 7;
+const int rightRound = 8;//when you win every level
 //type de soundtrack
-const int canonSoundEffect = 7;
-const int explosionSoundEffect = 8;
-const int timerBombSoundEffect = 9;
-const int warDrumSoundEffect = 10;
+const int canonSoundEffect = 9;
+const int explosionSoundEffect = 10;
+const int timerBombSoundEffect = 11;
+const int warDrumSoundEffect = 12;
+const int selectionClickSoundEffect = 13;
 
 
 class SoundManager :public QObject

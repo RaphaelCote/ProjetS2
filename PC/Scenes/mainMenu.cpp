@@ -34,8 +34,8 @@ void MainMenu::OnDisable()
 
 MainMenu::MainMenu()
 {
-    soundManager->music = Music;
-    soundManager->functionDecider = play_Music;
+   /* soundManager->music = introMusic;
+    soundManager->functionDecider = play_Music;*/
 }
 
 void MainMenu::changeSelection(EventParameters ep)
@@ -65,6 +65,8 @@ void MainMenu::changeSelection(EventParameters ep)
 
 void MainMenu::Update()
 {
+    
+    
     if (doOnce)
     {
         OnEnable();
@@ -75,6 +77,8 @@ void MainMenu::Update()
 
 void MainMenu::ShowMenu()
 {
+    soundManager->soundTrack = selectionClickSoundEffect;
+    soundManager->functionDecider = play_SoundTrack;
     // ClearMenu();
     cons->SupprimerObjet("s0");
     cons->SupprimerObjet("s1");
@@ -85,7 +89,10 @@ void MainMenu::ShowMenu()
     cons->SupprimerObjet("s6");
 
     Sleep(10);
-
+    
+    
+    /*soundManager->music = rightRound;
+    soundManager->functionDecider = play_Music;*/
     std::string s0 = "------------------------------------------------------------------- ";
     std::string s1 = "Bienvenue au menu du jeu Raft Wars ";
     std::string s2 = "-";
@@ -135,6 +142,8 @@ void MainMenu::ClearMenu()
 
 void MainMenu::Selection()
 {
+    soundManager->music = gameMusic;
+    soundManager->functionDecider = play_Music;
     doOnce = true;
     ClearMenu();
     OnDisable();

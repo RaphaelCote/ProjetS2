@@ -24,8 +24,10 @@ void SoundManager::gestionnaireMusic()
 				functionDecider = -1;
 				break;
 			case stop_Music:
+				functionDecider = -1;
 				break;
 			case stop_SoundTrack:
+				functionDecider = -1;
 				break;
 			
 		}
@@ -87,7 +89,7 @@ void SoundManager::playMusic()
 	}
 	musicPlayer->setSource(QUrl(path));
 	musicPlayer->setAudioOutput(musicPlayerOutput);
-	musicPlayerOutput->setVolume(0.8);
+	musicPlayerOutput->setVolume(0.7);
 	musicPlayer->play();
 
 }
@@ -107,6 +109,9 @@ void SoundManager::playSoundTrack()
 			break;
 		case warDrumSoundEffect:// war drum soundEffect
 			path = "debug/Music/WarDrumSoundEffect.mp3";
+			break;
+		case selectionClickSoundEffect:
+			path = "debug/Music/selectionclicksoundeffectMagouille.mp3";
 			break;
 			/*default:
 				QString path =
