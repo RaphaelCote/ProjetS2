@@ -30,3 +30,14 @@
 *.exe
 *.out
 *.app
+.vs/RaftWarsS2Qt/v16/Browse.VC.db
+.vs/RaftWarsS2Qt/v16/Browse.VC.db-shm
+.vs/RaftWarsS2Qt/v16/Browse.VC.db-wal
+.vs/RaftWarsS2Qt/v16/Browse.VC.opendb
+.vs/RaftWarsS2Qt/v16/ipch/AutoPCH/3b3c1f23821d43a9/PROJECTILE.ipch
+.vs/RaftWarsS2Qt/v16/ipch/AutoPCH/a488eba678529ae/RAFTWARS.ipch
+RaftWarsS2Qt.vcxproj
+RaftWarsS2Qt.vcxproj.filters
+release/moc_predefs.h.cbt
+debug/moc_predefs.h.cbt
+.vs/RaftWarsS2Qt/v16/ipch/AutoPCH/a4db10afcfbaffb0/CONTROLLERCONTROLS.ipch

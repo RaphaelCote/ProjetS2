@@ -168,6 +168,7 @@ float Projectile::findPositiveAngleBulletPositionY(int positionY)//courbe verte 
     float num = sqrt( pow((puissance*getProjectileMaxSpeed() * sin(angledeg * PI/180)), 2) +2*g*(positionY- bulletStartPosition.y) );
     float denum = puissance*getProjectileMaxSpeed()*cos(angledeg*PI/180);
     float angleFinal = atan(num/denum)*180/PI;
+    cout<<"l'angle finale est de : "<<endl;
     return angleFinal;
 }
 int Projectile::findHalfTrajectoryBulletPosition()

@@ -157,6 +157,8 @@ void Tests::test_unitaire_characterAndprojectile()
    //    cout << "Le projectile n'a pas atteint directement l'adversaire. Il a atteri a la position: (" << p->getBulletEndPosition().x << ", " << p->getBulletEndPosition().y << ")" << endl;
    // }
    // cout << "le personnage vise a actuellement : " << enemy.getHealthPoint() << " point de vie" << endl;
+   //------------------------TEST PROJECTILE----------------------------//
+   /////////////////////////////////////////////////////////////////////
    Gameloader *gameloader = new Gameloader();
    //Niveau *niveau = gameloader->getLevelFromJson(levelGetter->levels[0]);
    Niveau *niveau = gameloader->getLevelFromJson("./levels/level1.json");
@@ -165,48 +167,55 @@ void Tests::test_unitaire_characterAndprojectile()
    Projectile* projectileJoueur = new Canonball(pc->getWeaponPosition());
    Projectile *enemyProjectile = ec->createEnemyProjectile();
    
-   niveau->ScanHitboxes(enemyProjectile,false);
-   enemyProjectile->bubbleSortInfoHitbox(false);
-   Vecteur<Character*> players;
+   // niveau->ScanHitboxes(enemyProjectile,false);
+   // enemyProjectile->bubbleSortInfoHitbox(false);
+   // Vecteur<Character*> players;
    
-   for(int i=0;i<niveau->playerBoats.getSize();i++)
-   {
-      for(int j = 0; j < niveau->playerBoats[i]->characters.getSize(); j++) 
-      {
-         Character* playerCharacter = niveau->playerBoats[i]->characters[j];
-         enemyProjectile->targetCharacters.add(playerCharacter);// en théorie, enemyProjectile->targetCharacters[j] et niveau->playerBoats[i]->characters[j] pointeront tous deux vers le même objet 
-         players.add(niveau->playerBoats[i]->characters[j]);
-         cout<<"Point de vie du target character "<<j<<": "<<enemyProjectile->targetCharacters[j]->getHealthPoint()<<endl;
-      }
-   }
-   
-   for(int i=0;i<niveau->enemyBoats.getSize();i++)
-   {
-      for(int j = 0; j < niveau->enemyBoats[i]->characters.getSize(); j++) 
-      {
-         projectileJoueur->targetCharacters.add(niveau->enemyBoats[i]->characters[j]);
-      }
-   }
-
-   enemyProjectile->checkVecteurCharacters(enemyProjectile->targetCharacters);
-   // for(int i=0;i<enemyProjectile->targetCharacters.getSize();i++)
+   // for(int i=0;i<niveau->playerBoats.getSize();i++)
    // {
-   //    //niveau->playerBoats[i]->characters[0]->getHealthPoint();
-   //    cout<<"player "<<i<<" healthpoint: "<<niveau->playerBoats[i]->characters[0]->getHealthPoint()<<endl;// il actualise la vie ici 
-   //    cout<<"player "<<i<<" healthpoint: "<<niveau->playerBoats[i]->characters[1]->getHealthPoint()<<endl;// il actualise la vie ici 
-   //    cout<<"player "<<i<<" healthpoint: "<<enemyProjectile->targetCharacters[i]->getHealthPoint()<<endl;// il n'actualise pas la vie ici
+   //    for(int j = 0; j < niveau->playerBoats[i]->characters.getSize(); j++) 
+   //    {
+   //       Character* playerCharacter = niveau->playerBoats[i]->characters[j];
+   //       enemyProjectile->targetCharacters.add(playerCharacter);// en théorie, enemyProjectile->targetCharacters[j] et niveau->playerBoats[i]->characters[j] pointeront tous deux vers le même objet 
+   //       players.add(niveau->playerBoats[i]->characters[j]);
+   //       cout<<"Point de vie du target character "<<j<<": "<<enemyProjectile->targetCharacters[j]->getHealthPoint()<<endl;
+   //    }
    // }
    
-   for(int i=0;i<niveau->playerBoats.getSize();i++)
-   {
-      for(int j=0;j<niveau->playerBoats[i]->characters.getSize();j++)
-      {
-         cout<<"player "<<j<<" healthpoint: "<<niveau->playerBoats[i]->characters[j]->getHealthPoint()<<endl;// il actualise la vie ici 
-         //cout<<"magouille "<<j<<" healthpoint: "<<enemyProjectile->targetCharacters[j]->getHealthPoint()<<endl;// il n'actualise pas la vie ici
+   // for(int i=0;i<niveau->enemyBoats.getSize();i++)
+   // {
+   //    for(int j = 0; j < niveau->enemyBoats[i]->characters.getSize(); j++) 
+   //    {
+   //       projectileJoueur->targetCharacters.add(niveau->enemyBoats[i]->characters[j]);
+   //    }
+   // }
+
+   // enemyProjectile->checkVecteurCharacters(enemyProjectile->targetCharacters);
+   // // for(int i=0;i<enemyProjectile->targetCharacters.getSize();i++)
+   // // {
+   // //    //niveau->playerBoats[i]->characters[0]->getHealthPoint();
+   // //    cout<<"player "<<i<<" healthpoint: "<<niveau->playerBoats[i]->characters[0]->getHealthPoint()<<endl;// il actualise la vie ici 
+   // //    cout<<"player "<<i<<" healthpoint: "<<niveau->playerBoats[i]->characters[1]->getHealthPoint()<<endl;// il actualise la vie ici 
+   // //    cout<<"player "<<i<<" healthpoint: "<<enemyProjectile->targetCharacters[i]->getHealthPoint()<<endl;// il n'actualise pas la vie ici
+   // // }
+   
+   // for(int i=0;i<niveau->playerBoats.getSize();i++)
+   // {
+   //    for(int j=0;j<niveau->playerBoats[i]->characters.getSize();j++)
+   //    {
+   //       cout<<"player "<<j<<" healthpoint: "<<niveau->playerBoats[i]->characters[j]->getHealthPoint()<<endl;// il actualise la vie ici 
+   //       //cout<<"magouille "<<j<<" healthpoint: "<<enemyProjectile->targetCharacters[j]->getHealthPoint()<<endl;// il n'actualise pas la vie ici
          
-      }
-   }
+   //    }
+   // }
    cout<<"merci bien"<<endl;
+   /////////////////////////////////////////////////////////////////////
+   //------------------------TEST BATARD----------------------------//
+   /////////////////////////////////////////////////////////////////////
+
+   projectileJoueur->findPositiveAngleBulletPositionY(150);
+   enemyProjectile->findPositiveAngleBulletPositionY(150);
+   /////////////////////////////////////////////////////////////////////
    //-------------Tests pour voir ce qui a dans vecteurInfohitbox----------------//
    // for(int i=0;i<enemyProjectile->vecteurInfohitbox.getSize();i++)
    // {
