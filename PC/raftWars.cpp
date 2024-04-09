@@ -73,22 +73,6 @@ std::chrono::duration<double, std::milli> currentclock;
 std::chrono::duration<double, std::milli> lastClock;
 std::chrono::duration<double, std::milli> rcvSerialTimer;
 
-void fonctionBatard()
-{
-    compteur++;
-    controls->ReceiveSerial();
-}
-void timerFunction()
-{
-    while (true)
-    {
-        // Effectuer l'action désirée ici
-        fonctionBatard();
-
-        // Attendre 10 ms
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
-    }
-}
 class MyThread : public QThread {
 public:
     void run() override 
