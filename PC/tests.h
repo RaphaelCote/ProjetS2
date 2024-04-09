@@ -9,7 +9,7 @@
 #include "Controls/controls.h"
 #include "Game/levelGetter.h"
 #include "Affichage/AffichageConsole.h"
-#include "Affichage/MainWindow.h"
+#include "Affichage/GameWidget.h"
 
 // INCLUDE POUR LES TESTS DE PERSONNAGES/PROJECTILES
 #include "Game/character.h"

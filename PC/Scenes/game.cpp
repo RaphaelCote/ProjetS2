@@ -26,6 +26,7 @@ std::chrono::duration<double, std::milli> weaponInfoTimer;
 Game::Game()
 {
     currentLevelIndex = 0;
+    activeLevel = 0;
     turn = 0;
     isPlayerTurn = true;
     isPause = false;
@@ -190,6 +191,9 @@ void Game::Update()
         activeLevel->MatRaft();
         activeLevel->MatCharacter();
         activeLevel->MatEnemy();
+        
+        activeLevel->RaftQt();
+        activeLevel->CharacterQt();
     }
 
     isNewLevel = false;

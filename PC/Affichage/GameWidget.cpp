@@ -1,35 +1,22 @@
-#include"MainWindow.h"
+#include"GameWidget.h"
 
-
-
-
-
-
-MainWindow::MainWindow()
+GameWidget::GameWidget()
 {
-    
-}
-
-
-void MainWindow::Initialiser()
-{
-    widg = new QWidget();
-    setCentralWidget(widg);
     minX = 0;
     minY = 0;
 }
 
-void MainWindow::addImage(Frank_PixMap* pixmap)
+void GameWidget::addImage(Frank_PixMap* pixmap)
 {
     vectorPixMap.append(pixmap);
 }
 
-void MainWindow::addImage(Frank_PixMap_Rotation* pixmap)
+void GameWidget::addImage(Frank_PixMap_Rotation* pixmap)
 {
     vectorPixMapRotation.append(pixmap);
 }
 
-void MainWindow::removeImage(QString name)
+void GameWidget::removeImage(QString name)
 {
     for (int i = 0; i < vectorPixMap.size(); i++)
     {
@@ -54,19 +41,19 @@ void MainWindow::removeImage(QString name)
     }
 }
 
-void MainWindow::removeAllImages()
+void GameWidget::removeAllImages()
 {
     vectorPixMap.clear();
     vectorPixMapRotation.clear();
 }
 
 
-void MainWindow::refresh()
+void GameWidget::refresh()
 {
     update();
 }
 
-QPixmap MainWindow::rotatePixmap(const QPixmap& pixmap, qreal degrees) {
+QPixmap GameWidget::rotatePixmap(const QPixmap& pixmap, qreal degrees) {
     QSize size = pixmap.size();
     QPixmap rotatedPixmap(size);
     rotatedPixmap.fill(Qt::transparent); // Fill with transparent color
@@ -90,7 +77,7 @@ QPixmap MainWindow::rotatePixmap(const QPixmap& pixmap, qreal degrees) {
 
 
 
-void MainWindow::paintEvent(QPaintEvent* event)
+void GameWidget::paintEvent(QPaintEvent* event)
 {
     Q_UNUSED(event);
     QPainter painter(this);

@@ -8,6 +8,7 @@
 #include "Game/enemyCharacter.h"
 #include "Game/gameloader.h"
 #include "Game/character.h"
+#include "Affichage/Global.h"
 
 #include <QTimer>
 
@@ -609,7 +610,7 @@ void Tests::testOuvertureJsonAffiche()
 
 void Tests::testAffichageQt()
 {
-    window->setWindowState(Qt::WindowMaximized);
+    gameWindow->GetGameWidget()->setWindowState(Qt::WindowMaximized);
 
     QScreen* screen = QGuiApplication::primaryScreen();
     QRect screenGeometry = screen->geometry();
@@ -637,7 +638,7 @@ void Tests::testAffichageQt()
     image4->name = "allo2";
     image4->couche = -1;
     image4->rotation = 0;
-    window->addImage(image4);
+    gameWindow->GetGameWidget()->addImage(image4);
 
     int* x2 = new int;
     int* y2 = new int;
@@ -660,22 +661,22 @@ void Tests::testAffichageQt()
     image3->couche = 1;
     image3->rotation = 0;
 
-    window->addImage(image3);
+    gameWindow->GetGameWidget()->addImage(image3);
 
-    window->show();
+    gameWindow->GetGameWidget()->show();
 }
 
 Projectile* rocket;
 void fonctionBatard(Projectile* proj)
 {
-    window->minX -= 3;
-    window->refresh();
+    gameWindow->GetGameWidget()->minX -= 3;
+    gameWindow->GetGameWidget()->refresh();
     proj->bulletCurrentPosition.x += 3;
     proj->angleRotationProjectile += 1;
 
-    if (window->minX < -2900)
+    if (gameWindow->GetGameWidget()->minX < -2900)
     {
-        window->minX = 2200;
+        gameWindow->GetGameWidget()->minX = 2200;
         proj->bulletCurrentPosition.x = -2000;
     }
         
@@ -686,7 +687,7 @@ void Tests::LoadJsonAffichageQt()
     Gameloader* gameloader = new Gameloader();
     Niveau* niveau = gameloader->getLevelFromJson("PC/levels/level1.json");
 
-    window->setWindowState(Qt::WindowMaximized);
+    gameWindow->GetGameWidget()->setWindowState(Qt::WindowMaximized);
 
     QScreen* screen = QGuiApplication::primaryScreen();
     QRect screenGeometry = screen->geometry();
@@ -714,7 +715,7 @@ void Tests::LoadJsonAffichageQt()
     image4->name = "allo2";
     image4->couche = -1;
     image4->rotation = 0;
-    window->addImage(image4);
+    gameWindow->GetGameWidget()->addImage(image4);
 
     niveau->RaftQt();
     niveau->CharacterQt();
@@ -727,7 +728,7 @@ void Tests::LoadJsonAffichageQt()
     niveau->RocketQt(rocket);
 
 
-    window->show();
+    gameWindow->GetGameWidget()->show();
 
 
     QTimer *timer = new QTimer;

@@ -4,7 +4,6 @@
 #include "menu.h"
 #include "game.h"
 
-
 class LevelSelectionMenu : public Menu
 {
 public:

@@ -21,8 +21,11 @@ GameWindow::~GameWindow()
 
 void GameWindow::ShowContent(int widgetIndex) {
     stackedWidget->setCurrentIndex(widgetIndex);
-    Sleep(1);
-    (qobject_cast<GenericMenu*>(stackedWidget->currentWidget()))->SetChecked(0);
+
+    if (widgetIndex != 1 && widgetIndex != 6) {
+        Sleep(1);
+        (qobject_cast<GenericMenu*>(stackedWidget->currentWidget()))->SetChecked(0);
+    }
 }
 
 void GameWindow::AddContent(QWidget* widget) {
@@ -35,6 +38,11 @@ bool GameWindow::IsCurrentWidget(QWidget* widget) {
 
 void GameWindow::SetChecked(int index) {
     (qobject_cast<GenericMenu*>(stackedWidget->currentWidget()))->SetChecked(index);
+    
+}
+
+GameWidget* GameWindow::GetGameWidget() {
+    return qobject_cast<GameWidget*>(stackedWidget->widget(1));
 }
 
 void GameWindow::timerEvent(QTimerEvent* event)

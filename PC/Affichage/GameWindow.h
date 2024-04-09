@@ -2,6 +2,7 @@
 #define GAMEWINDOW_H
 
 #include <QtWidgets>
+#include "GameWidget.h"
 
 class GameWindow : public QMainWindow
 {
@@ -19,6 +20,7 @@ public:
 	void AddContent(QWidget* widget);
 	bool IsCurrentWidget(QWidget* widget);
 	void SetChecked(int index);
+	GameWidget* GetGameWidget();
 
 private:
 	int timerId;

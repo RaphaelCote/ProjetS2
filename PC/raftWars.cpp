@@ -13,6 +13,7 @@ using namespace std::chrono;
 #include "raftWars.h"
 #include "Affichage/Global.h"
 #include "Affichage/AffichageConsole.h"
+#include "Affichage/GameWidget.h"
 #include "Affichage/GameWindow.h"
 #include "Affichage/MainMenuQt.h"
 #include "Affichage/LevelMenu.h"
@@ -25,7 +26,6 @@ using namespace std::chrono;
 #include "Scenes/endGameMenu.h"
 #include "Scenes/levelSelectionMenu.h"
 #include "Scenes/shopMenu.h"
-#include "Affichage/MainWindow.h"
 #include <QTimer>
 #include <QApplication>
 #include <thread>
@@ -171,7 +171,7 @@ int main(int argc, char *argv[])
 
     gameWindow = new GameWindow();
     MainMenuQt *mainMenu = new MainMenuQt();
-    GenericMenu *gameQt = new GenericMenu();
+    GameWidget *gameQt = new GameWidget();
     LevelMenu *levelMenu = new LevelMenu();
     GenericMenu *endgameMenu = new GenericMenu();
     GenericMenu *pauseMenu = new GenericMenu();
@@ -219,17 +219,8 @@ int main(int argc, char *argv[])
 
     gameWindow->setWindowState(Qt::WindowMaximized);
     gameWindow->show();
-    Sleep(500);
+    //Sleep(500);
     // Lecture de la musique
-
-    window = new MainWindow;
-    window->Initialiser();
-    MyThread thread;
-    thread.start();
-
-    Tests test2;
-
-    test2.LoadJsonAffichageQt();
 
     return app.exec();
 }

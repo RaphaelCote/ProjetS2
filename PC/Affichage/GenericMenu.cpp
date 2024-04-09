@@ -14,9 +14,10 @@ GenericMenu::GenericMenu()
 	QPixmap map3("C:/home/DEVUniversite/ProjetS2/Images/beach.jpg");
 	map3 = map3.scaled(screenWidth, screenHeight);
 
-	Frank_PixMap* image4 = new Frank_PixMap;
+	Raph_PixMap* image4 = new Raph_PixMap;
 	image4->pix = map3;
-	image4->coor = { 0,0 };
+	image4->x = 0;
+	image4->y = 0;
 	image4->box = { 50, screenHeight };
 	image4->name = "allo2";
 	image4->couche = 1;
@@ -58,13 +59,13 @@ void GenericMenu::paintEvent(QPaintEvent* event) {
 
 		if (vectorPixMap[i]->couche == -1)
 		{
-			x = vectorPixMap[i]->coor.x;
-			y = windowHeight - vectorPixMap[i]->coor.y - vectorPixMap[i]->box.height;
+			x = vectorPixMap[i]->x;
+			y = windowHeight - vectorPixMap[i]->y - vectorPixMap[i]->box.height;
 		}
 		else
 		{
-			x = vectorPixMap[i]->coor.x + minX;
-			y = windowHeight - vectorPixMap[i]->coor.y - vectorPixMap[i]->box.height + minY;
+			x = vectorPixMap[i]->x + minX;
+			y = windowHeight - vectorPixMap[i]->y - vectorPixMap[i]->box.height + minY;
 		}
 
 

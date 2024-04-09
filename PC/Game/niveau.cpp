@@ -4,6 +4,8 @@
 #include "enemyCharacter.h"
 #include "../Affichage/AffichageConsole.h"
 #include "../raftWars.h"
+#include "../Affichage/Pixmaps.h"
+#include "../Affichage/GLobal.h"
 
 Niveau::Niveau()
 {
@@ -130,7 +132,7 @@ void Niveau::RaftQt()
         pixmap->name = "Boat" + i;
         pixmap->rotation = 0;
 
-        window->addImage(pixmap);
+        gameWindow->GetGameWidget()->addImage(pixmap);
 
     }
 
@@ -147,7 +149,7 @@ void Niveau::RaftQt()
         pixmap->name = "EnemyBoat" + i;
         pixmap->rotation = 0;
 
-        window->addImage(pixmap);
+        gameWindow->GetGameWidget()->addImage(pixmap);
     }
 }
 
@@ -294,7 +296,7 @@ void Niveau::BalleQt(Projectile* pro)
     pixmap->name = "Projectile";
     pixmap->rotation = 0;
 
-    window->addImage(pixmap);
+    gameWindow->GetGameWidget()->addImage(pixmap);
 }
 
 void Niveau::MatGrenade(Projectile *Grenade)
@@ -445,7 +447,7 @@ void Niveau::CharacterQt()
             pixmap->name = "Character" + b + ',' + v;
             pixmap->rotation = 0;
 
-            window->addImage(pixmap);
+            gameWindow->GetGameWidget()->addImage(pixmap);
         }
     }
 
@@ -467,7 +469,7 @@ void Niveau::CharacterQt()
             pixmap->name = "EnemyCharacter" + b + ',' + v;
             pixmap->rotation = 0;
 
-            window->addImage(pixmap);
+            gameWindow->GetGameWidget()->addImage(pixmap);
         }
     }
 }
@@ -545,7 +547,7 @@ void Niveau::RocketQt(Projectile* pro)
     pixmap->name = "Projectile";
     pixmap->rotation = &pro->angleRotationProjectile;
 
-    window->addImage(pixmap);
+    gameWindow->GetGameWidget()->addImage(pixmap);
 }
 
 void Niveau::Delete()
