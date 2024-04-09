@@ -23,6 +23,10 @@ public:
 	GameWidget* GetGameWidget();
 
 private:
+
+	float keyboardPower = 0.5;
+	float keyboardAngle = 45;
+
 	int timerId;
 	QStackedWidget* stackedWidget;
 

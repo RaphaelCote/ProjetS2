@@ -11,7 +11,7 @@ GameWindow::GameWindow() : QMainWindow()
 
     setCentralWidget(stackedWidget);
 
-    timerId = startTimer(200);
+    timerId = startTimer(100);
 }
 
 GameWindow::~GameWindow()
@@ -85,6 +85,38 @@ void GameWindow::keyPressEvent(QKeyEvent* event) {
     }
     else if (event->key() == Qt::Key_B) {
         kcr.Back();
+    }
+    else if (event->key() == Qt::Key_R) {
+        keyboardAngle += 1;
+        if (keyboardAngle > 90) {
+            keyboardAngle = 90;
+        }
+
+        kcr.Angle(keyboardAngle);
+    }
+    else if (event->key() == Qt::Key_F) {
+        keyboardAngle -= 1;
+        if (keyboardAngle < 0) {
+            keyboardAngle = 0;
+        }
+
+        kcr.Angle(keyboardAngle);
+    }
+    else if (event->key() == Qt::Key_T) {
+        keyboardPower += 0.025;
+        if (keyboardPower > 1) {
+            keyboardPower = 1;
+        }
+
+        kcr.Joystick(keyboardPower, 0);
+    }
+    else if (event->key() == Qt::Key_G) {
+        keyboardPower -= 0.025;
+        if (keyboardPower < 0) {
+            keyboardPower = 0;
+        }
+
+        kcr.Joystick(keyboardPower, 0);
     }
 }
 
