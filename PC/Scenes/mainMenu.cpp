@@ -139,15 +139,17 @@ void MainMenu::Selection()
     if (choice == 0)
     {
         PlayGame();
+        gameWindow->ShowContent(1);
     }
     else if (choice == 1)
     {
         GotoLevelSelect();
-        gameWindow->ShowContent(1);
+        gameWindow->ShowContent(2);
     }
     else if (choice == 2)
     {
         GotoShop();
+        gameWindow->ShowContent(3);
     }
     else if (choice >= 3)
     {
@@ -157,7 +159,6 @@ void MainMenu::Selection()
         exit(0);
     }
 }
-
 
 void MainMenu::PlayGame()
 {

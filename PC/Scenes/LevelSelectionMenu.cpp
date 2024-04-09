@@ -168,10 +168,12 @@ void LevelSelectionMenu::SelectLevel(int level)
     game->SetLevelIndex(level);
     game->isNewLevel = true;
     activeScene = 1;
+    gameWindow->ShowContent(1);
 }
 
 void LevelSelectionMenu::Back()
 {
     choice = 0;
     activeScene = lastMenu;
+    gameWindow->ShowContent(lastMenu);
 }

@@ -26,6 +26,7 @@ private:
 
 	void timerEvent(QTimerEvent* event); 
 	void keyPressEvent(QKeyEvent* event) override;
+	bool event(QEvent* event) override;
 };
 
 #endif

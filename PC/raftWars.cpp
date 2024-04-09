@@ -1,10 +1,3 @@
-/*
- * Auteurs: Jean-Samuel Lauzon
- * Date: Fevrier 2022
- * Modif : Janvier 2023, Compatible VisualStudio, JpGouin
- * Modif : S2-H24, Équipe P-20
- */
-
 /*------------------------------ Librairies ---------------------------------*/
 #include <iostream>
 #include <string>
@@ -110,9 +103,6 @@ public:
         //tests->testAffichage();
         // tests->testOuvertureJsonAffiche();
 
-        inventory = new Inventory();
-        inventory->addGold(2000);
-
         // reset UI
         cons->ResetUI();
 
@@ -125,8 +115,6 @@ public:
         scenes->push_back(new EndGameMenu());
         scenes->push_back(new PauseMenu());
         scenes->push_back(new ShopMenu());
-        levelGetter = new LevelGetter();
-        levelQty = levelGetter->nbLevel;
 
         Sleep(500);
         /*std::chrono::system_clock::time_point start = std::chrono::high_resolution_clock::now();*/
@@ -147,6 +135,9 @@ public:
        
         // Main loop
         Sleep(2000);// minimum de 2 secondes sinon, sa crash
+
+        QEvent* event = new QEvent(QEvent::User);
+        QApplication::postEvent(gameWindow, event);
         //----------------------Sans QTimer----------------------//
         while (true)
         {
@@ -188,23 +179,70 @@ int main(int argc, char* argv[]) {
     QApplication app(argc, argv);
     qDebug() << "Main thread started";
 
+    inventory = new Inventory();
+    inventory->addGold(2000);
+    levelGetter = new LevelGetter();
+    levelQty = levelGetter->nbLevel;
+
     gameWindow = new GameWindow();
     MainMenuQt* mainMenu = new MainMenuQt();
+    GenericMenu* gameQt = new GenericMenu();
     LevelMenu* levelMenu = new LevelMenu();
+    GenericMenu* endgameMenu = new GenericMenu();
+    GenericMenu* pauseMenu = new GenericMenu();
+    GenericMenu* shopMenu = new GenericMenu();
+    GenericMenu* loadingScreen = new GenericMenu();
+
+    QScreen* screen = QGuiApplication::primaryScreen();
+    QRect screenGeometry = screen->geometry();
+    int screenWidth = screenGeometry.width();
+    int screenHeight = screenGeometry.height();
+    int minX = 0;
+    int minY = 0;
+
+    QVBoxLayout* vbox = new QVBoxLayout();
+
+    QPixmap logo("C:/home/DEVUniversite/ProjetS2/Images/logo.png");
+    QLabel* titleLabel = new QLabel(loadingScreen);
+    titleLabel->setPixmap(logo.scaled(650, 200, Qt::KeepAspectRatio));
+    vbox->addWidget(titleLabel);
+    vbox->addItem(new QSpacerItem(20, 20, QSizePolicy::Minimum, QSizePolicy::Fixed));
+
+    QPixmap map3("C:/home/DEVUniversite/ProjetS2/Images/beach.jpg");
+    map3 = map3.scaled(screenWidth, screenHeight);
+
+    Frank_PixMap* image4 = new Frank_PixMap;
+    image4->pix = map3;
+    image4->coor = { 0,0 };
+    image4->box = { 50, screenHeight };
+    image4->name = "allo2";
+    image4->couche = 1;
+    QVector<Frank_PixMap*> vectorPixMap;
+    vectorPixMap.append(image4);
+
+    vbox->setSpacing(45);
+    vbox->setAlignment(Qt::AlignCenter);
+
+    loadingScreen->setLayout(vbox);
+    loadingScreen->update();
 
     // Lecture du fichier audio
     MyThread thread;
     thread.start();
 
     eventManager = new EventManager();
-    //controls = new KeyboardControls(eventManager);
-    controls = new ControllerControls(eventManager, "COM4");
+    controls = new KeyboardControls(eventManager);
+    //controls = new ControllerControls(eventManager, "COM4");
 
-    gameWindow->AddContent(mainMenu);
+    gameWindow->AddContent(mainMenu); 
+    gameWindow->AddContent(gameQt);
     gameWindow->AddContent(levelMenu);
-    //gameWindow->AddContent(shopMenu);
+    gameWindow->AddContent(endgameMenu);
+    gameWindow->AddContent(pauseMenu);
+    gameWindow->AddContent(shopMenu);
+    gameWindow->AddContent(loadingScreen);
 
-    gameWindow->ShowContent(0);
+    gameWindow->ShowContent(6);
 
     gameWindow->setWindowState(Qt::WindowMaximized);
     gameWindow->show();
@@ -220,10 +258,6 @@ int main(int argc, char* argv[]) {
 
     //musicPlayer->setPlaylist(playlist);
     //musicPlayer->play();
-
-   
-
-
 
     //QTimer timer;
     //timer.setInterval(100); // Interval in milliseconds

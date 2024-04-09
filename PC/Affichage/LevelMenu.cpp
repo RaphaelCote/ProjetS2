@@ -4,7 +4,7 @@
 
 LevelMenu::LevelMenu() : GenericMenu()
 {
-	CreateButtons(levelQty);
+	CreateButtons(levelQty+1);
 
 	QScreen* screen = QGuiApplication::primaryScreen();
 	QRect screenGeometry = screen->geometry();
@@ -21,16 +21,16 @@ LevelMenu::LevelMenu() : GenericMenu()
 	vbox->addWidget(titleLabel);
 	vbox->addItem(new QSpacerItem(20, 20, QSizePolicy::Minimum, QSizePolicy::Fixed));
 
-	for (int i = 0; i < levelQty; i++) {
-		if (i == levelQty - 1) {
+	for (int i = 0; i <= levelQty; i++) {
+		if (i == levelQty) {
 			buttons[i]->setText("Retour");
-			continue;
 		}
+		else {
+			QString text = "Niveau ";
+			text += std::to_string(i + 1);
+			buttons[i]->setText(text);
 
-		QString text = "Niveau ";
-		text += std::to_string(i);
-		buttons[i]->setText(text);
-
+		}
 		vbox->addWidget(buttons[i]);
 	}
 

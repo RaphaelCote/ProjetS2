@@ -67,3 +67,13 @@ void GameWindow::keyPressEvent(QKeyEvent* event) {
         kcr.MainAction();
     }
 }
+
+bool GameWindow::event(QEvent* event)
+{
+    if (event->type() == 1000) {
+        QKeyEvent* ke = static_cast<QKeyEvent*>(event);
+        ShowContent(0);
+    }
+
+    return QWidget::event(event);
+}
