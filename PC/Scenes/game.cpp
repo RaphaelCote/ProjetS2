@@ -559,7 +559,7 @@ void Game::AnimationProjectile(Projectile* proj)
     int lastPositionY = currentPosition.y;
 
     cons->Mincolums = (currentPosition.x - (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2) / 10; // je fais * 10 pcq c l'affichage console
-    gameWindow->GetGameWidget()->minX = (startPosition.x);
+    gameWindow->GetGameWidget()->minX = ((gameWindow->GetGameWidget()->width() / 2) - currentPosition.x);
     gameWindow->GetGameWidget()->refresh();
     Sleep(1000);
 
@@ -578,24 +578,16 @@ void Game::AnimationProjectile(Projectile* proj)
 
             if (proj->getAngleDegre() > 0)
             {
-                currentPosition.x += 1;
+                currentPosition.x += 7;
             }
             else
             {
-                currentPosition.x -= 1;
+                currentPosition.x -= 7;
             }
             currentPosition.y = proj->findBulletPositionY(currentPosition.x);
             proj->bulletCurrentPosition = currentPosition;
             cons->Mincolums = (currentPosition.x - (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2) / 10; // je fais * 10 pcq c l'affichage console
-            
-            if (proj->getAngleDegre() > 0)
-            {
-                gameWindow->GetGameWidget()->minX = ((gameWindow->GetGameWidget()->width()/2) - currentPosition.x);
-            }
-            else
-            {
-                gameWindow->GetGameWidget()->minX = ((gameWindow->GetGameWidget()->width() / 2) -currentPosition.x);
-            }
+            gameWindow->GetGameWidget()->minX = ((gameWindow->GetGameWidget()->width() / 2) - currentPosition.x);
             
              /*cons->SupprimerObjet("text");
              cons->SupprimerObjet("text2");
@@ -635,10 +627,12 @@ void Game::AnimationProjectile(Projectile* proj)
     }
 
     cons->SupprimerObjet("projectile");
+    gameWindow->GetGameWidget()->removeImage("projectile");
     // delete projectile;
 
     cons->Mincolums = 0;
-    gameWindow->GetGameWidget()->minX = 0;
+    //gameWindow->GetGameWidget()->minX = 0;
+    gameWindow->GetGameWidget()->refresh();
 }
 
 

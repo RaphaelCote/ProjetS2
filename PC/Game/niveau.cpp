@@ -293,7 +293,7 @@ void Niveau::BalleQt(Projectile* pro)
     pixmap->x = &pro->bulletCurrentPosition.x;
     pixmap->y = &pro->bulletCurrentPosition.y;
     pixmap->couche = 3;
-    pixmap->name = "Projectile";
+    pixmap->name = "projectile";
     pixmap->rotation = &pro->angleRotationProjectile;
 
     gameWindow->GetGameWidget()->addImage(pixmap);
@@ -544,7 +544,7 @@ void Niveau::RocketQt(Projectile* pro)
     pixmap->x = &pro->bulletCurrentPosition.x;
     pixmap->y = &pro->bulletCurrentPosition.y;
     pixmap->couche = 3;
-    pixmap->name = "Projectile";
+    pixmap->name = "projectile";
     pixmap->rotation = &pro->angleRotationProjectile;
 
     gameWindow->GetGameWidget()->addImage(pixmap);
