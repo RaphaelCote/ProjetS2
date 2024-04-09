@@ -21,6 +21,7 @@ void OnLevelSelectionMenuBackCall(EventParameters)
     LevelSelectionMenu *menu = (LevelSelectionMenu *)scenes->at(activeScene);
     menu->Back();
     menu->OnDisable();
+    menu->doOnce = true;
 }
 
 void LevelSelectionMenu::OnEnable()
@@ -155,7 +156,6 @@ void LevelSelectionMenu::Selection()
     }
     else if (choice == levelGetter->nbLevel)
     {
-        OnDisable();
         Back();
     }
 }
