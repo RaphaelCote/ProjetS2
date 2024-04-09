@@ -6,8 +6,6 @@ LevelMenu::LevelMenu() : GenericMenu()
 {
 	CreateButtons(levelQty+1);
 
-	QVBoxLayout* vbox = new QVBoxLayout();
-
 	for (int i = 0; i <= levelQty; i++) {
 		if (i == levelQty) {
 			buttons[i]->setText("Retour");
@@ -16,14 +14,40 @@ LevelMenu::LevelMenu() : GenericMenu()
 			QString text = "Niveau ";
 			text += std::to_string(i + 1);
 			buttons[i]->setText(text);
-
 		}
-		vbox->addWidget(buttons[i]);
 	}
 
-	vbox->setSpacing(45);
-	vbox->setAlignment(Qt::AlignCenter);
+	if (levelQty < 3) {
 
-	setLayout(vbox);
+		QVBoxLayout* layout = new QVBoxLayout();
+
+		for (int i = 0; i <= levelQty; i++) {
+
+			layout->addWidget(buttons[i]);
+		}
+
+		layout->setSpacing(45);
+		layout->setAlignment(Qt::AlignCenter);
+
+		setLayout(layout);
+	}
+	else {
+		QGridLayout* layout = new QGridLayout();
+
+		for (int i = 0; i <= levelQty; i++) {
+
+			if (i < ceil((levelQty + 1) / 2)) {
+				layout->addWidget(buttons[i], i, 1);
+			}
+			else {
+				layout->addWidget(buttons[i], (i- ceil((levelQty + 1) / 2)), 2);
+			}
+		}
+		layout->setSpacing(45);
+		layout->setAlignment(Qt::AlignCenter);
+
+		setLayout(layout);
+	}
+
 	update();
 }

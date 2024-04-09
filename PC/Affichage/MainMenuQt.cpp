@@ -17,7 +17,7 @@ MainMenuQt::MainMenuQt() : GenericMenu()
 	buttons[0]->setText("Jouer");
 	buttons[1]->setText("Selection du niveau");
 	buttons[2]->setText("Magasin");
-	buttons[3]->setText("Sortir");
+	buttons[3]->setText("Quitter");
 
 	vbox->addWidget(buttons[0]);
 	vbox->addWidget(buttons[1]);

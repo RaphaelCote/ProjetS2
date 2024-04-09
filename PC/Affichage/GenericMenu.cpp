@@ -18,8 +18,8 @@ GenericMenu::GenericMenu()
 	image4->pix = map3;
 	image4->x = 0;
 	image4->y = 0;
-	image4->box = { 50, screenHeight };
-	image4->name = "allo2";
+	image4->box = { screenHeight, 50 };
+	image4->name = "background";
 	image4->couche = 1;
 	vectorPixMap.append(image4);
 }
