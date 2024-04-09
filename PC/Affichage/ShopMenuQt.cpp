@@ -4,7 +4,7 @@
 
 ShopMenuQt::ShopMenuQt() : GenericMenu()
 {
-	CreateButtons(6);
+	CreateButtons(6, false);
 
 	QHBoxLayout* Hlayout3 = new QHBoxLayout(gameWindow);
 

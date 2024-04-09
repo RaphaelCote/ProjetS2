@@ -1,20 +1,22 @@
 #include "MenuButton.h"
 #include <QtWidgets>
 
-MenuButton::MenuButton(const QString& text, QWidget* parent) : QPushButton(text, parent)
+MenuButton::MenuButton(const QString& text, bool sized, QWidget* parent) : QPushButton(text, parent)
 {
-	int widthPercentage = 100; // 50% of parent's width
-	QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
-	//sizePolicy.setHorizontalStretch(widthPercentage);
-	sizePolicy.setHorizontalPolicy(QSizePolicy::Expanding);
+	if (sized) {
+		int widthPercentage = 100; // 50% of parent's width
+		QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+		//sizePolicy.setHorizontalStretch(widthPercentage);
+		sizePolicy.setHorizontalPolicy(QSizePolicy::Expanding);
 
-	setMinimumWidth(600);
-	setMinimumHeight(80);
+		setMinimumWidth(600);
+		setMinimumHeight(80);
 
-	setMaximumWidth(600);
-	setMaximumHeight(130);
+		setMaximumWidth(600);
+		setMaximumHeight(130);
 
-	setSizePolicy(sizePolicy);
+		setSizePolicy(sizePolicy);
+	}
 
 	setStyleSheet("QPushButton {"
 		" border:4px outset; "

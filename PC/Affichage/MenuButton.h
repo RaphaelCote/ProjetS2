@@ -8,7 +8,7 @@ class MenuButton : public QPushButton
 	Q_OBJECT
 
 public:
-	MenuButton(const QString& text, QWidget* parent = nullptr);
+	MenuButton(const QString& text, bool sized, QWidget* parent = nullptr);
 
 };
 

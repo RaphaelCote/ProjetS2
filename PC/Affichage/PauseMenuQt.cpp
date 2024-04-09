@@ -4,7 +4,7 @@
 
 PauseMenuQt::PauseMenuQt() : GenericMenu()
 {
-	CreateButtons(2);
+	CreateButtons(2, true);
 
 	QVBoxLayout* vbox = new QVBoxLayout();
 

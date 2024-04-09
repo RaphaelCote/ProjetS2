@@ -15,7 +15,7 @@ public:
 	int minY;
 
 	GenericMenu();
-	void CreateButtons(int btnQty);
+	void CreateButtons(int btnQty, bool isSized);
 	void SetChecked(int index);
 
 protected:

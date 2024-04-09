@@ -20,6 +20,7 @@ void OnShopBackCall(EventParameters)
     ShopMenu *menu = (ShopMenu *)scenes->at(activeScene);
     menu->Back();
     menu->OnDisable();
+    menu->doOnce = true;
 }
 
 void ShopMenu::OnEnable()
@@ -214,4 +215,5 @@ void ShopMenu::Back()
 {
     choice = 0;
     activeScene = lastMenu;
+    gameWindow->ShowContent(lastMenu);
 }
