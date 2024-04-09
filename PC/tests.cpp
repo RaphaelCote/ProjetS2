@@ -605,7 +605,7 @@ void Tests::testOuvertureJsonAffiche()
 
 
 
-void Tests::testAffichageQt(MainWindow* window)
+void Tests::testAffichageQt()
 {
     window->setWindowState(Qt::WindowMaximized);
 
@@ -657,4 +657,57 @@ void Tests::testAffichageQt(MainWindow* window)
     window->addImage(image3);
 
     window->show();
+}
+
+
+
+void Tests::LoadJsonAffichageQt()
+{
+    Gameloader* gameloader = new Gameloader();
+    Niveau* niveau = gameloader->getLevelFromJson("PC/levels/level1.json");
+
+    window->setWindowState(Qt::WindowMaximized);
+
+    QScreen* screen = QGuiApplication::primaryScreen();
+    QRect screenGeometry = screen->geometry();
+    int screenWidth = screenGeometry.width();
+    int screenHeight = screenGeometry.height();
+
+    QString str = QString::fromUtf8(niveau->backimge.c_str());//fuck you that why
+    QPixmap map3(str);
+    map3 = map3.scaled(screenWidth, screenHeight);
+
+    int* x1 = new int;
+    int* y1 = new int;
+
+    *x1 = 0;
+    *y1 = 0;
+
+    Frank_PixMap* image4 = new Frank_PixMap;
+    image4->pix = map3;
+    image4->x = x1;
+    image4->y = y1;
+    //image4->coor = { 0,0 };
+    image4->box = { screenHeight,50 };
+    image4->name = "allo2";
+    image4->couche = -1;
+    image4->rotation = 0;
+    window->addImage(image4);
+
+
+    window->show();
+
+    // niveau->MatBalle(pro);
+    // erreur ici dans la fonction
+    // niveau.MatPlayer();/////////////////////////////////////////////////////////////////////////////
+    // Sleep(5000);
+    // niveau.MatEnemy();
+    //niveau->MatWater();
+    //niveau->MatRaft();
+
+    //niveau->MatNuage();
+    //// Sleep(5000);
+    //// niveau.MatRocket();
+
+    //niveau->MatCharacter();
 }

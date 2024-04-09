@@ -61,6 +61,7 @@ Inventory *inventory;
 int activeScene;
 LevelGetter *levelGetter;
 AffichageConsole *cons;
+MainWindow *window;
 
 
 std::chrono::duration<double, std::milli> currentclock;
@@ -69,22 +70,7 @@ std::chrono::duration<double, std::milli> rcvSerialTimer;
 
 
 
-void fonctionBatard()
-{
-    compteur++;
-    controls->ReceiveSerial();
-}
-void timerFunction()
-{
-    while (true)
-    {
-        // Effectuer l'action désirée ici
-        fonctionBatard();
 
-        // Attendre 10 ms
-        std::this_thread::sleep_for(std::chrono::milliseconds(10));
-    }
-}
 class MyThread : public QThread {
 public:
     void run() override 
@@ -180,14 +166,14 @@ int main(int argc, char* argv[]) {
     QApplication app(argc, argv);
     qDebug() << "Main thread started";
     
-    MainWindow window;
-    window.Initialiser();
+    window = new MainWindow;
+    window->Initialiser();
     MyThread thread;
     thread.start();
 
     Tests test2;
 
-    test2.testAffichageQt(&window);
+    test2.LoadJsonAffichageQt();
     
     
     return app.exec();

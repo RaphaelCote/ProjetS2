@@ -9,7 +9,7 @@ Niveau::Niveau()
 {
 }
 
-Niveau::Niveau(int width, int height, int image)
+Niveau::Niveau(int width, int height, std::string image)
 {
     backimge = image;
     this->height = height;

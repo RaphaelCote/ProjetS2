@@ -61,7 +61,8 @@ public:
    void testjson();
    void testAffichage();
    void testOuvertureJsonAffiche();
-   void testAffichageQt(MainWindow* window);
+   void testAffichageQt();
+   void LoadJsonAffichageQt();
 };
 
 #endif

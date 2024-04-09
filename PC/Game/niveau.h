@@ -9,18 +9,20 @@
 class Niveau
 {
 private:
-    int heightlevels;
-    int widthlevels;
-    int backimge;
+    
 
 public:
+    int heightlevels;
+    int widthlevels;
+    std::string backimge;
+
     int height = 1080;
     int width = 3000;
     std::vector<Boat *> playerBoats;
     std::vector<Boat *> enemyBoats;
 
     Niveau();
-    Niveau(int width, int height, int image);
+    Niveau(int width, int height, std::string image);
     ~Niveau();
 
     void ShowLevelInfo(std::ostream &s);

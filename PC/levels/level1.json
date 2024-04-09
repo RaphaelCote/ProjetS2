@@ -1,6 +1,6 @@
 {
     "level": {
-        "image": 1,
+        "image": "Images/Background/LevelBackground.png",
         "width": 3000,
         "height": 1080,
         "friendlyboatlist": [
