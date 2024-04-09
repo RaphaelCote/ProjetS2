@@ -127,7 +127,7 @@ void Niveau::RaftQt()
         pixmap->x = playerBoats[i]->getPointerPositionBoat_X();
         pixmap->y = playerBoats[i]->getPointerPositionBoat_Y();
         pixmap->couche = 1;
-        pixmap->name = "Boat1";
+        pixmap->name = "Boat" + i;
         pixmap->rotation = 0;
 
         window->addImage(pixmap);
@@ -144,7 +144,7 @@ void Niveau::RaftQt()
         pixmap->x = enemyBoats[i]->getPointerPositionBoat_X();
         pixmap->y = enemyBoats[i]->getPointerPositionBoat_Y();
         pixmap->couche = 1;
-        pixmap->name = "EnemyBoat1";
+        pixmap->name = "EnemyBoat" + i;
         pixmap->rotation = 0;
 
         window->addImage(pixmap);
@@ -408,6 +408,54 @@ void Niveau::MatCharacter()
         }
     }
 }
+
+
+void Niveau::CharacterQt()
+{
+    for (int b = 0; b < playerBoats.size(); b++)
+    {
+        for (int v = 0; v < playerBoats[b]->getNbCharacters(); v++)
+        {
+            Frank_PixMap* pixmap = new Frank_PixMap;
+            
+            
+
+            QString str = QString::fromUtf8(playerBoats[b]->characters[v]->imagecharacter.c_str());//fuck you that why
+            pixmap->pix = QPixmap(str);
+            pixmap->box = { pixmap->pix.height(), pixmap->pix.width() };
+            pixmap->x = playerBoats[b]->characters[v]->GetPointeurX();
+            pixmap->y = playerBoats[b]->characters[v]->GetPointeurY();
+            pixmap->couche = 1;
+            pixmap->name = "Character" + b + ',' + v;
+            pixmap->rotation = 0;
+
+            window->addImage(pixmap);
+        }
+    }
+
+
+    for (int b = 0; b < enemyBoats.size(); b++)
+    {
+        for (int v = 0; v < enemyBoats[b]->getNbCharacters(); v++)
+        {
+            Frank_PixMap* pixmap = new Frank_PixMap;
+
+
+
+            QString str = QString::fromUtf8(enemyBoats[b]->characters[v]->imagecharacter.c_str());//fuck you that why
+            pixmap->pix = QPixmap(str);
+            pixmap->box = { pixmap->pix.height(), pixmap->pix.width() };
+            pixmap->x = enemyBoats[b]->characters[v]->GetPointeurX();
+            pixmap->y = enemyBoats[b]->characters[v]->GetPointeurY();
+            pixmap->couche = 1;
+            pixmap->name = "EnemyCharacter" + b + ',' + v;
+            pixmap->rotation = 0;
+
+            window->addImage(pixmap);
+        }
+    }
+}
+
 
 void Niveau::MatRocket(Projectile *pro)
 {

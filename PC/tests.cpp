@@ -695,6 +695,7 @@ void Tests::LoadJsonAffichageQt()
     window->addImage(image4);
 
     niveau->RaftQt();
+    niveau->CharacterQt();
 
 
     window->show();

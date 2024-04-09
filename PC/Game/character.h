@@ -17,6 +17,8 @@ public:
     void setHealthPoint(int healthPoint);
     Coordonnee getPosition();
     Coordonnee *PointeurPosition();
+    int* GetPointeurX();
+    int* GetPointeurY();
     virtual Coordonnee getWeaponPosition() = 0;
     virtual void setWeaponPosition(Coordonnee WeaponPosition) = 0;
     int getHitboxWidth();
@@ -26,12 +28,13 @@ public:
     std::string getimage();
     void setPosition(Coordonnee coor);
 
+    std::string imagecharacter;
 protected:
     int healthPoint;
 
     Coordonnee WeaponPosition;
     Hitbox hitbox;
-    std::string imagecharacter;
+    
     Coordonnee position;
 };
 

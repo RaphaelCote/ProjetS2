@@ -38,6 +38,7 @@ public:
     void MatGrenade(Projectile *Grenade);
     void MatNuage();
     void MatCharacter();
+    void CharacterQt();
     void Delete();
 };
 

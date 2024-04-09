@@ -52,6 +52,17 @@ Coordonnee *Character::PointeurPosition()
     return Positionptr;
 }
 
+
+int* Character::GetPointeurX()
+{
+    return &position.x;
+}
+
+int* Character::GetPointeurY()
+{
+    return &position.y;
+}
+
 float Character::Aim(float angledeg)
 {
     // éventuellement, ce sera la méthode qui calculera l'angle a partir de l'accéléromètre, et qui le retournera en rad
