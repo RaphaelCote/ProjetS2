@@ -4,7 +4,23 @@
 
 GenericMenu::GenericMenu()
 {
-	
+	QScreen* screen = QGuiApplication::primaryScreen();
+	QRect screenGeometry = screen->geometry();
+	int screenWidth = screenGeometry.width();
+	int screenHeight = screenGeometry.height();
+	minX = 0;
+	minY = 0;
+
+	QPixmap map3("C:/home/DEVUniversite/ProjetS2/Images/beach.jpg");
+	map3 = map3.scaled(screenWidth, screenHeight);
+
+	Frank_PixMap* image4 = new Frank_PixMap;
+	image4->pix = map3;
+	image4->coor = { 0,0 };
+	image4->box = { 50, screenHeight };
+	image4->name = "allo2";
+	image4->couche = 1;
+	vectorPixMap.append(image4);
 }
 
 void GenericMenu::CreateButtons(int btnQty) {
@@ -26,4 +42,33 @@ void GenericMenu::SetChecked(int index) {
 			buttons[i]->setChecked(false);
 		}
 	}
+}
+
+void GenericMenu::paintEvent(QPaintEvent* event) {
+	Q_UNUSED(event);
+	QPainter painter(this);
+
+	int windowHeight = this->height();
+
+	//painter.setCompositionMode(QPainter::CompositionMode_SourceIn);
+	for (int i = 0; i < vectorPixMap.length(); i++)
+	{
+		int x = 0;
+		int y = 0;
+
+		if (vectorPixMap[i]->couche == -1)
+		{
+			x = vectorPixMap[i]->coor.x;
+			y = windowHeight - vectorPixMap[i]->coor.y - vectorPixMap[i]->box.height;
+		}
+		else
+		{
+			x = vectorPixMap[i]->coor.x + minX;
+			y = windowHeight - vectorPixMap[i]->coor.y - vectorPixMap[i]->box.height + minY;
+		}
+
+
+		painter.drawPixmap(x, y, vectorPixMap[i]->pix);
+	}
+
 }

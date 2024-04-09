@@ -6,13 +6,6 @@ LevelMenu::LevelMenu() : GenericMenu()
 {
 	CreateButtons(levelQty+1);
 
-	QScreen* screen = QGuiApplication::primaryScreen();
-	QRect screenGeometry = screen->geometry();
-	int screenWidth = screenGeometry.width();
-	int screenHeight = screenGeometry.height();
-	minX = 0;
-	minY = 0;
-
 	QVBoxLayout* vbox = new QVBoxLayout();
 
 	QPixmap logo("C:/home/DEVUniversite/ProjetS2/Images/logo.png");
@@ -33,17 +26,6 @@ LevelMenu::LevelMenu() : GenericMenu()
 		}
 		vbox->addWidget(buttons[i]);
 	}
-
-	QPixmap map3("C:/home/DEVUniversite/ProjetS2/Images/beach.jpg");
-	map3 = map3.scaled(screenWidth, screenHeight);
-
-	Frank_PixMap* image4 = new Frank_PixMap;
-	image4->pix = map3;
-	image4->coor = { 0,0 };
-	image4->box = { 50, screenHeight };
-	image4->name = "allo2";
-	image4->couche = 1;
-	vectorPixMap.append(image4);
 
 	vbox->setSpacing(45);
 	vbox->setAlignment(Qt::AlignCenter);
