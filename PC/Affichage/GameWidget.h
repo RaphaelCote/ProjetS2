@@ -13,6 +13,7 @@ public:
 
     void addImage(Frank_PixMap* pixmap);
     void addImage(Frank_PixMap_Rotation* pixmap);
+    void addImage(Raph_PixMap* pixmap);
     void removeImage(QString name);
     void removeAllImages();
     void refresh();
@@ -28,6 +29,7 @@ protected:
 private:
     QVector<Frank_PixMap*> vectorPixMap;
     QVector<Frank_PixMap_Rotation*> vectorPixMapRotation;
+    QVector<Raph_PixMap*> vectorPixMapRaph;
 };
 
 

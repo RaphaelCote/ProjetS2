@@ -16,6 +16,11 @@ void GameWidget::addImage(Frank_PixMap_Rotation* pixmap)
     vectorPixMapRotation.append(pixmap);
 }
 
+void GameWidget::addImage(Raph_PixMap* pixmap)
+{
+    vectorPixMapRaph.append(pixmap);
+}
+
 void GameWidget::removeImage(QString name)
 {
     for (int i = 0; i < vectorPixMap.size(); i++)
@@ -39,12 +44,24 @@ void GameWidget::removeImage(QString name)
             return;
         }
     }
+
+    for (int i = 0; i < vectorPixMapRaph.size(); i++)
+    {
+        if (vectorPixMapRaph[i]->name == name)
+        {
+            vectorPixMapRaph.removeAt(i);// retire l'élément a l'index i
+            // cout << "Removed: " << i << "  " << name;
+            // Sleep(1000);
+            return;
+        }
+    }
 }
 
 void GameWidget::removeAllImages()
 {
     vectorPixMap.clear();
     vectorPixMapRotation.clear();
+    vectorPixMapRaph.clear();
 }
 
 
@@ -83,6 +100,39 @@ void GameWidget::paintEvent(QPaintEvent* event)
     QPainter painter(this);
 
     int windowHeight = this->height();
+
+
+    for (int i = 0; i < vectorPixMapRaph.length(); i++)
+    {
+        int x = 0;
+        int y = 0;
+        float angle = vectorPixMapRaph[i]->rotation;
+        if (angle != 0)
+        {
+            QPixmap rotatedPixmap = rotatePixmap(vectorPixMapRaph[i]->pix, vectorPixMapRaph[i]->rotation);
+
+            x = vectorPixMapRaph[i]->x + minX;
+            y = windowHeight - vectorPixMapRaph[i]->y - vectorPixMapRaph[i]->box.height + minY;
+
+            painter.drawPixmap(x, y, rotatedPixmap);
+            continue;
+        }
+
+        if (vectorPixMapRaph[i]->couche == -1)
+        {
+            x = vectorPixMapRaph[i]->x;
+            y = windowHeight - vectorPixMapRaph[i]->y - vectorPixMapRaph[i]->box.height;
+        }
+        else
+        {
+            x = vectorPixMapRaph[i]->x + minX;
+            y = windowHeight - vectorPixMapRaph[i]->y - vectorPixMapRaph[i]->box.height + minY;
+        }
+
+
+        painter.drawPixmap(x, y, vectorPixMapRaph[i]->pix);
+    }
+
 
     //painter.setCompositionMode(QPainter::CompositionMode_SourceIn);
     for (int i = 0; i < vectorPixMap.length(); i++)
