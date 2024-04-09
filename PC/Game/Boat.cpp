@@ -1,7 +1,7 @@
 #include "Boat.h"
 #include "character.h"
 
-Boat::Boat(int n, Coordonnee position, int height, int width, int image)
+Boat::Boat(int n, Coordonnee position, int height, int width, std::string image)
 {
     nbCharacters = 0;
     capacite = n;

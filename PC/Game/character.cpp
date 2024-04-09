@@ -14,7 +14,7 @@ Character::Character(int posX, int posY)
     this->imagecharacter = 1;
 }
 
-Character::Character(Coordonnee positionset, Hitbox hitboxset, int image)
+Character::Character(Coordonnee positionset, Hitbox hitboxset, std::string image)
 {
     this->position = positionset;
     this->healthPoint = 100;
@@ -52,6 +52,17 @@ Coordonnee *Character::PointeurPosition()
     return Positionptr;
 }
 
+
+int* Character::GetPointeurX()
+{
+    return &position.x;
+}
+
+int* Character::GetPointeurY()
+{
+    return &position.y;
+}
+
 float Character::Aim(float angledeg)
 {
     // éventuellement, ce sera la méthode qui calculera l'angle a partir de l'accéléromètre, et qui le retournera en rad
@@ -69,7 +80,7 @@ Coordonnee Character::getPosition()
 {
     return position;
 }
-int Character::getimage()
+std::string Character::getimage()
 {
     return imagecharacter;
 }

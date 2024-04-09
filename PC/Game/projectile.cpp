@@ -3,7 +3,7 @@
 
 Projectile::Projectile(Character &character)
 {
-
+    angleRotationProjectile = 0;
     angledeg = 0;
     puissance = 0;
     V0 = 0;
@@ -14,6 +14,7 @@ Projectile::Projectile(Character &character)
 
 Projectile::Projectile(Coordonnee bulletStartPosition)
 {
+    angleRotationProjectile = 0;
     angledeg = 0;
     puissance = 0;
     V0 = 0;
@@ -26,6 +27,7 @@ Projectile::Projectile(Coordonnee bulletStartPosition)
 
 Projectile::Projectile(Coordonnee bulletStartPosition, Hitbox hitboxset)
 {
+    angleRotationProjectile = 0;
     angledeg = 0;
     puissance = 0;
     V0 = 0;

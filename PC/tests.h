@@ -9,6 +9,7 @@
 #include "Controls/controls.h"
 #include "Game/levelGetter.h"
 #include "Affichage/AffichageConsole.h"
+#include "Affichage/MainWindow.h"
 
 // INCLUDE POUR LES TESTS DE PERSONNAGES/PROJECTILES
 #include "Game/character.h"
@@ -22,6 +23,9 @@
 
 #include <iostream>
 #include <iomanip>
+
+#include <QApplication>
+#include <QScreen>
 
 
 class Tests : public EventListener
@@ -57,6 +61,8 @@ public:
    void testjson();
    void testAffichage();
    void testOuvertureJsonAffiche();
+   void testAffichageQt();
+   void LoadJsonAffichageQt();
 };
 
 #endif

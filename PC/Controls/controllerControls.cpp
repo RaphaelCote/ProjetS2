@@ -32,6 +32,9 @@ ControllerControls::ControllerControls(EventManager *em, std::string com) : Cont
     ready_to_read = false;
     Thread_Actif = true;
 
+    if (Connected)
+        ready_to_send = false;
+
     // // Create a lambda function to capture the instance of MyClass and call its member function
     // auto lambda = [&](int arg) {
     //     this->ThreadReceiveSerial();
@@ -294,13 +297,14 @@ etatBoutton ControllerControls::GetBouttonMenu0(int boutton)
 void ControllerControls::InitializeSerial()
 {
     arduino = new SerialPort(comPort.c_str(), BAUD);
-
+    Connected = true;
     // const char com = "\\\\.\\COM3";
     // SerialPort arduino = SerialPort("\\\\.\\COM3");
     if (!arduino->isConnected())
     {
+        Connected = false;
         std::cerr << "Impossible de se connecter au port " << std::string(comPort) << ". Fermeture du programme!" << std::endl;
-        exit(1);
+        //exit(1);
     }
 }
 

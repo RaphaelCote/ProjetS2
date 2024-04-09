@@ -9,7 +9,7 @@ Niveau::Niveau()
 {
 }
 
-Niveau::Niveau(int width, int height, int image)
+Niveau::Niveau(int width, int height, std::string image)
 {
     backimge = image;
     this->height = height;
@@ -47,12 +47,12 @@ void Niveau::ShowNiveauinfo()
     // cout << "largeur niveau " << width << std::endl;
 }
 
-void Niveau::addRaftPlayer(int width, int height, Coordonnee position, int image, int capacite)
+void Niveau::addRaftPlayer(int width, int height, Coordonnee position, std::string image, int capacite)
 {
     playerBoats.push_back(new Boat(capacite, position, height, width, image));
 }
 
-void Niveau::addRaftenemy(int width, int height, Coordonnee position, int image, int capacite)
+void Niveau::addRaftenemy(int width, int height, Coordonnee position, std::string image, int capacite)
 {
     enemyBoats.push_back(new Boat(capacite, position, height, width, image));
 }
@@ -112,6 +112,42 @@ void Niveau::MatRaft()
         //     delete[] couleur[j];
         // }
         // delete[] couleur;
+    }
+}
+
+void Niveau::RaftQt()
+{
+    for (int i = 0; i < playerBoats.size(); ++i)
+    {
+        Frank_PixMap* pixmap = new Frank_PixMap;
+
+        QString str = QString::fromUtf8(playerBoats[i]->imageboat.c_str());//fuck you that why
+        pixmap->pix = QPixmap(str);
+        pixmap->box = { pixmap->pix.height(), pixmap->pix.width() };
+        pixmap->x = playerBoats[i]->getPointerPositionBoat_X();
+        pixmap->y = playerBoats[i]->getPointerPositionBoat_Y();
+        pixmap->couche = 1;
+        pixmap->name = "Boat" + i;
+        pixmap->rotation = 0;
+
+        window->addImage(pixmap);
+
+    }
+
+    for (int i = 0; i < enemyBoats.size(); i++)
+    {
+        Frank_PixMap* pixmap = new Frank_PixMap;
+
+        QString str = QString::fromUtf8(enemyBoats[i]->imageboat.c_str());//fuck you that why
+        pixmap->pix = QPixmap(str);
+        pixmap->box = { pixmap->pix.height(), pixmap->pix.width() };
+        pixmap->x = enemyBoats[i]->getPointerPositionBoat_X();
+        pixmap->y = enemyBoats[i]->getPointerPositionBoat_Y();
+        pixmap->couche = 1;
+        pixmap->name = "EnemyBoat" + i;
+        pixmap->rotation = 0;
+
+        window->addImage(pixmap);
     }
 }
 
@@ -245,6 +281,22 @@ void Niveau::MatBalle(Projectile *Balle)
     cons->AjouterObjet(balle, Balle, 0, "projectile");
 }
 
+void Niveau::BalleQt(Projectile* pro)
+{
+    Frank_PixMap* pixmap = new Frank_PixMap;
+
+    QString str("Images/Projectile/Ball.png");
+    pixmap->pix = QPixmap(str);
+    pixmap->box = { pixmap->pix.height(), pixmap->pix.width() };
+    pixmap->x = &pro->bulletCurrentPosition.x;
+    pixmap->y = &pro->bulletCurrentPosition.y;
+    pixmap->couche = 3;
+    pixmap->name = "Projectile";
+    pixmap->rotation = 0;
+
+    window->addImage(pixmap);
+}
+
 void Niveau::MatGrenade(Projectile *Grenade)
 {
     // Pixels grenade;
@@ -373,6 +425,54 @@ void Niveau::MatCharacter()
     }
 }
 
+
+void Niveau::CharacterQt()
+{
+    for (int b = 0; b < playerBoats.size(); b++)
+    {
+        for (int v = 0; v < playerBoats[b]->getNbCharacters(); v++)
+        {
+            Frank_PixMap* pixmap = new Frank_PixMap;
+            
+            
+
+            QString str = QString::fromUtf8(playerBoats[b]->characters[v]->imagecharacter.c_str());//fuck you that why
+            pixmap->pix = QPixmap(str);
+            pixmap->box = { pixmap->pix.height(), pixmap->pix.width() };
+            pixmap->x = playerBoats[b]->characters[v]->GetPointeurX();
+            pixmap->y = playerBoats[b]->characters[v]->GetPointeurY();
+            pixmap->couche = 1;
+            pixmap->name = "Character" + b + ',' + v;
+            pixmap->rotation = 0;
+
+            window->addImage(pixmap);
+        }
+    }
+
+
+    for (int b = 0; b < enemyBoats.size(); b++)
+    {
+        for (int v = 0; v < enemyBoats[b]->getNbCharacters(); v++)
+        {
+            Frank_PixMap* pixmap = new Frank_PixMap;
+
+
+
+            QString str = QString::fromUtf8(enemyBoats[b]->characters[v]->imagecharacter.c_str());//fuck you that why
+            pixmap->pix = QPixmap(str);
+            pixmap->box = { pixmap->pix.height(), pixmap->pix.width() };
+            pixmap->x = enemyBoats[b]->characters[v]->GetPointeurX();
+            pixmap->y = enemyBoats[b]->characters[v]->GetPointeurY();
+            pixmap->couche = 1;
+            pixmap->name = "EnemyCharacter" + b + ',' + v;
+            pixmap->rotation = 0;
+
+            window->addImage(pixmap);
+        }
+    }
+}
+
+
 void Niveau::MatRocket(Projectile *pro)
 {
     int n_heigth = 3;
@@ -429,6 +529,23 @@ void Niveau::MatRocket(Projectile *pro)
     cons->AjouterObjet(rocket, pro, 0, "projectile");
 
     return;
+}
+
+
+void Niveau::RocketQt(Projectile* pro)
+{
+    Frank_PixMap_Rotation* pixmap = new Frank_PixMap_Rotation;
+
+    QString str("Images/Projectile/Missile.png");
+    pixmap->pix = QPixmap(str);
+    pixmap->box = { pixmap->pix.height(), pixmap->pix.width() };
+    pixmap->x = &pro->bulletCurrentPosition.x;
+    pixmap->y = &pro->bulletCurrentPosition.y;
+    pixmap->couche = 3;
+    pixmap->name = "Projectile";
+    pixmap->rotation = &pro->angleRotationProjectile;
+
+    window->addImage(pixmap);
 }
 
 void Niveau::Delete()

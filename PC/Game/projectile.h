@@ -35,6 +35,7 @@ public:
     Coordonnee bulletCurrentPosition;
     Coordonnee bulletStartPosition; // coordonnée de départ du projectile
     Coordonnee bulletEndPosition;   // coordonnée de fin du projectile
+    float angleRotationProjectile;
 
     int findBulletPositionX(int positionY);
     int findBulletPositionY(int positionX);

@@ -9,6 +9,8 @@
 #include "Game/gameloader.h"
 #include "Game/character.h"
 
+#include <QTimer>
+
 //==== DEBUT Controls ====
 void test_unitaire_Controls_OnMainActionCall(EventParameters ep)
 {
@@ -528,7 +530,7 @@ void Tests::testAffichage()
    Character *pers1 = new PlayerCharacter(10, 60);
    Character *pers2 = new PlayerCharacter(250, 60);
    PlayerCharacter c = PlayerCharacter(150, 60);
-   Character *adv1 = new EnemyCharacter(positionEnemy, enemy, 3);
+   Character *adv1 = new EnemyCharacter(positionEnemy, enemy, "Met un path");
    Coordonnee positionBoat;
    positionBoat.x = 30;
    positionBoat.y = 20;
@@ -536,8 +538,8 @@ void Tests::testAffichage()
    positionEnemyBoat.x = 160;
    positionEnemyBoat.y = 20;
 
-   Boat joueur(2, positionBoat, 40, 100, 3);
-   Boat adversaire(2, positionEnemyBoat, 40, 100, 3);
+   Boat joueur(2, positionBoat, 40, 100, "Images/Character/Enemy1.png");
+   Boat adversaire(2, positionEnemyBoat, 40, 100, "Images/Character/Enemy1.png");
 
    Projectile *pro = new Canonball({300, 200});
    Projectile *rocket = new Rocket({650, 300}, hitRocket);
@@ -601,4 +603,154 @@ void Tests::testOuvertureJsonAffiche()
 
    niveau->MatCharacter();
    Sleep(5000);
+}
+
+
+
+void Tests::testAffichageQt()
+{
+    window->setWindowState(Qt::WindowMaximized);
+
+    QScreen* screen = QGuiApplication::primaryScreen();
+    QRect screenGeometry = screen->geometry();
+    int screenWidth = screenGeometry.width();
+    int screenHeight = screenGeometry.height();
+
+
+    QPixmap map3("Images/Background/LevelBackground.png");
+    map3 = map3.scaled(screenWidth, screenHeight);
+
+    int* x1 = new int;
+    int* y1 = new int;
+    float* r1 = new float;
+
+    *x1 = 0;
+    *y1 = 0;
+    *r1 = 0;
+
+    Frank_PixMap* image4 = new Frank_PixMap;
+    image4->pix = map3;
+    image4->x = x1;
+    image4->y = y1;
+    //image4->coor = { 0,0 };
+    image4->box = { screenHeight,50 };
+    image4->name = "allo2";
+    image4->couche = -1;
+    image4->rotation = 0;
+    window->addImage(image4);
+
+    int* x2 = new int;
+    int* y2 = new int;
+    float* r2 = new float;
+
+    *x2 = 200;
+    *y2 = 175;
+    *r2 = 0;
+
+
+    QPixmap map2("Images/Character/Enemy1.png");
+    // Load the first image
+    Frank_PixMap* image3 = new Frank_PixMap;
+    image3->pix = map2;
+    image3->x = x2;
+    image3->y = y2;
+    //image3->coor = { 200, 175 };
+    image3->box = { 125,50 };
+    image3->name = "allo4";
+    image3->couche = 1;
+    image3->rotation = 0;
+
+    window->addImage(image3);
+
+    window->show();
+}
+
+Projectile* rocket;
+void fonctionBatard(Projectile* proj)
+{
+    window->minX -= 3;
+    window->refresh();
+    proj->bulletCurrentPosition.x += 3;
+    proj->angleRotationProjectile += 1;
+
+    if (window->minX < -2900)
+    {
+        window->minX = 2200;
+        proj->bulletCurrentPosition.x = -2000;
+    }
+        
+}
+
+void Tests::LoadJsonAffichageQt()
+{
+    Gameloader* gameloader = new Gameloader();
+    Niveau* niveau = gameloader->getLevelFromJson("PC/levels/level1.json");
+
+    window->setWindowState(Qt::WindowMaximized);
+
+    QScreen* screen = QGuiApplication::primaryScreen();
+    QRect screenGeometry = screen->geometry();
+    int screenWidth = screenGeometry.width();
+    int screenHeight = screenGeometry.height();
+
+    QString str = QString::fromUtf8(niveau->backimge.c_str());//fuck you that why
+    QPixmap map3(str);
+    map3 = map3.scaled(screenWidth, screenHeight);
+
+    int* x1 = new int;
+    int* y1 = new int;
+    float* r1 = new float;
+
+    *x1 = 0;
+    *y1 = 0;
+    *r1 = 0;
+
+    Frank_PixMap* image4 = new Frank_PixMap;
+    image4->pix = map3;
+    image4->x = x1;
+    image4->y = y1;
+    //image4->coor = { 0,0 };
+    image4->box = { screenHeight,50 };
+    image4->name = "allo2";
+    image4->couche = -1;
+    image4->rotation = 0;
+    window->addImage(image4);
+
+    niveau->RaftQt();
+    niveau->CharacterQt();
+
+    Hitbox hitRocket;
+    hitRocket.height = 3; // à multiplier par 10 si frank change l'affichage
+    hitRocket.width = 7;
+    rocket = new Rocket({ 200, 300 }, hitRocket);
+
+    niveau->RocketQt(rocket);
+
+
+    window->show();
+
+
+    QTimer *timer = new QTimer;
+    timer->setInterval(1); // Interval in milliseconds
+    QObject::connect(timer, &QTimer::timeout, [&]() {
+        
+        fonctionBatard(rocket);
+        });
+    timer->start();
+
+    
+
+    // niveau->MatBalle(pro);
+    // erreur ici dans la fonction
+    // niveau.MatPlayer();/////////////////////////////////////////////////////////////////////////////
+    // Sleep(5000);
+    // niveau.MatEnemy();
+    //niveau->MatWater();
+    
+
+    //niveau->MatNuage();
+    //// Sleep(5000);
+    //// niveau.MatRocket();
+
+    //niveau->MatCharacter();
 }

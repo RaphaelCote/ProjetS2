@@ -9,7 +9,7 @@
 class EnemyCharacter : public Character
 {
     public:
-        EnemyCharacter(Coordonnee position, Hitbox hitbox, int image);
+        EnemyCharacter(Coordonnee position, Hitbox hitbox, std::string image);
         ~EnemyCharacter();
         Coordonnee getPosition();
         Coordonnee getWeaponPosition() override;

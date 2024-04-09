@@ -25,6 +25,7 @@ using namespace std::chrono;
 #include "Scenes/endGameMenu.h"
 #include "Scenes/levelSelectionMenu.h"
 #include "Scenes/shopMenu.h"
+#include "Affichage/MainWindow.h"
 #include <QTimer>
 #include <QApplication>
 #include <thread>
@@ -39,7 +40,8 @@ using namespace std::chrono;
 #include <QMediaPlayer>
 #include <QAudioOutput>
 #include <QFileInfo>
-//#include <QMediaPlaylist>
+#include <QScreen>
+// #include <QMediaPlaylist>
 #include <thread>
 #include <chrono>
 
@@ -50,8 +52,8 @@ using namespace std::chrono;
 EventManager *eventManager;
 Tests *tests;
 Controls *controls;
-//Controls* controlsG;
-GameWindow* gameWindow;
+// Controls* controlsG;
+GameWindow *gameWindow;
 int levelQty;
 std::vector<Scene *> *scenes;
 /*
@@ -73,18 +75,19 @@ std::chrono::duration<double, std::milli> currentclock;
 std::chrono::duration<double, std::milli> lastClock;
 std::chrono::duration<double, std::milli> rcvSerialTimer;
 
-class MyThread : public QThread {
+class MyThread : public QThread
+{
 public:
-    void run() override 
+    void run() override
     {
         cons = new AffichageConsole();
-        
+
         // tests = new Tests();
         // tests->testjson();
         // tests->tests_unitaires_levelGetter();
 
         // tests->test_unitaires_affichage(); // Test affichage jeux
-        //tests->testAffichage();
+        // tests->testAffichage();
         // tests->testOuvertureJsonAffiche();
 
         // reset UI
@@ -92,7 +95,7 @@ public:
 
         activeScene = 0;
 
-        scenes = new std::vector<Scene*>();
+        scenes = new std::vector<Scene *>();
         scenes->push_back(new MainMenu());
         scenes->push_back(new Game());
         scenes->push_back(new LevelSelectionMenu());
@@ -105,22 +108,20 @@ public:
         std::chrono::high_resolution_clock::time_point start = std::chrono::high_resolution_clock::now();
         // totalElapsed = start - start;
 
-        
-        //timer.setInterval(10); // Interval in milliseconds
-        //QObject::connect(&timer, &QTimer::timeout, [=]()
-        //    {
-        //        ((ControllerControls*)controls)->ReceiveSerial();
-        //    });
-        //QObject::connect(&timer, &QTimer::timeout, [&]() {
-        //    compteur++; // Incrémentation de compteur à chaque timeout du timer
-        //    fonctionBatard();
-        //    });
-        
-       
-        // Main loop
-        Sleep(2000);// minimum de 2 secondes sinon, sa crash
+        // timer.setInterval(10); // Interval in milliseconds
+        // QObject::connect(&timer, &QTimer::timeout, [=]()
+        //     {
+        //         ((ControllerControls*)controls)->ReceiveSerial();
+        //     });
+        // QObject::connect(&timer, &QTimer::timeout, [&]() {
+        //     compteur++; // Incrémentation de compteur à chaque timeout du timer
+        //     fonctionBatard();
+        //     });
 
-        QEvent* event = new QEvent(QEvent::User);
+        // Main loop
+        Sleep(2000); // minimum de 2 secondes sinon, sa crash
+
+        QEvent *event = new QEvent(QEvent::User);
         QApplication::postEvent(gameWindow, event);
         //----------------------Sans QTimer----------------------//
         while (true)
@@ -128,15 +129,15 @@ public:
             lastClock = currentclock;
             const auto now = std::chrono::high_resolution_clock::now();
             currentclock = now - start;
-            scenes->at(activeScene)->Update();// en théorie ça marche
-            /*scenes->get(activeScene)->Update();*/   //==> ancienne magouille
+            scenes->at(activeScene)->Update();      // en théorie ça marche
+            /*scenes->get(activeScene)->Update();*/ //==> ancienne magouille
 
             Sleep(10);
 
             if ((currentclock.count() - rcvSerialTimer.count()) > 100)
             {
 
-                ((ControllerControls*)controls)->ReceiveSerial();
+                ((ControllerControls *)controls)->ReceiveSerial();
 
                 rcvSerialTimer = currentclock;
             }
@@ -155,11 +156,11 @@ public:
 
             controls->ListenForControls();
         }*/
-
     }
 };
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[])
+{
     QApplication app(argc, argv);
     qDebug() << "Main thread started";
 
@@ -169,25 +170,25 @@ int main(int argc, char* argv[]) {
     levelQty = levelGetter->nbLevel;
 
     gameWindow = new GameWindow();
-    MainMenuQt* mainMenu = new MainMenuQt();
-    GenericMenu* gameQt = new GenericMenu();
-    LevelMenu* levelMenu = new LevelMenu();
-    GenericMenu* endgameMenu = new GenericMenu();
-    GenericMenu* pauseMenu = new GenericMenu();
-    GenericMenu* shopMenu = new GenericMenu();
-    GenericMenu* loadingScreen = new GenericMenu();
+    MainMenuQt *mainMenu = new MainMenuQt();
+    GenericMenu *gameQt = new GenericMenu();
+    LevelMenu *levelMenu = new LevelMenu();
+    GenericMenu *endgameMenu = new GenericMenu();
+    GenericMenu *pauseMenu = new GenericMenu();
+    GenericMenu *shopMenu = new GenericMenu();
+    GenericMenu *loadingScreen = new GenericMenu();
 
-    QScreen* screen = QGuiApplication::primaryScreen();
+    QScreen *screen = QGuiApplication::primaryScreen();
     QRect screenGeometry = screen->geometry();
     int screenWidth = screenGeometry.width();
     int screenHeight = screenGeometry.height();
     int minX = 0;
     int minY = 0;
 
-    QVBoxLayout* vbox = new QVBoxLayout();
+    QVBoxLayout *vbox = new QVBoxLayout();
 
     QPixmap logo("C:/home/DEVUniversite/ProjetS2/Images/logo.png");
-    QLabel* titleLabel = new QLabel(loadingScreen);
+    QLabel *titleLabel = new QLabel(loadingScreen);
     titleLabel->setPixmap(logo.scaled(650, 200, Qt::KeepAspectRatio));
     vbox->addWidget(titleLabel);
     vbox->addItem(new QSpacerItem(20, 20, QSizePolicy::Minimum, QSizePolicy::Fixed));
@@ -204,9 +205,9 @@ int main(int argc, char* argv[]) {
 
     eventManager = new EventManager();
     controls = new KeyboardControls(eventManager);
-    //controls = new ControllerControls(eventManager, "COM4");
+    // controls = new ControllerControls(eventManager, "COM4");
 
-    gameWindow->AddContent(mainMenu); 
+    gameWindow->AddContent(mainMenu);
     gameWindow->AddContent(gameQt);
     gameWindow->AddContent(levelMenu);
     gameWindow->AddContent(endgameMenu);
@@ -221,23 +222,14 @@ int main(int argc, char* argv[]) {
     Sleep(500);
     // Lecture de la musique
 
+    window = new MainWindow;
+    window->Initialiser();
+    MyThread thread;
+    thread.start();
 
-    //QMediaPlayer* musicPlayer = new QMediaPlayer;
-    //QMediaPlaylist* playlist = new QMediaPlaylist;
+    Tests test2;
 
-    //playlist->addMedia(QUrl("C:\\chemin\\vers\\votre\\fichier\\audio.mp3")); // Remplacez le chemin par le chemin de votre fichier audio
-    //playlist->setPlaybackMode(QMediaPlaylist::Loop);
+    test2.LoadJsonAffichageQt();
 
-    //musicPlayer->setPlaylist(playlist);
-    //musicPlayer->play();
-
-    //QTimer timer;
-    //timer.setInterval(100); // Interval in milliseconds
-    //QObject::connect(&timer, &QTimer::timeout, &fonctionBatard);
-    //timer.start();
-   // std::thread timerThread(timerFunction);
-
-    // Attendre que le thread se termine
-    //timerThread.join();
     return app.exec();
 }
