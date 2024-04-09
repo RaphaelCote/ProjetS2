@@ -285,7 +285,7 @@ void Niveau::MatBalle(Projectile *Balle)
 
 void Niveau::BalleQt(Projectile* pro)
 {
-    Frank_PixMap* pixmap = new Frank_PixMap;
+    Frank_PixMap_Rotation* pixmap = new Frank_PixMap_Rotation;
 
     QString str("Images/Projectile/Ball.png");
     pixmap->pix = QPixmap(str);
@@ -294,7 +294,7 @@ void Niveau::BalleQt(Projectile* pro)
     pixmap->y = &pro->bulletCurrentPosition.y;
     pixmap->couche = 3;
     pixmap->name = "Projectile";
-    pixmap->rotation = 0;
+    pixmap->rotation = &pro->angleRotationProjectile;
 
     gameWindow->GetGameWidget()->addImage(pixmap);
 }
