@@ -29,6 +29,7 @@ void OnPauseMenuBackCall(EventParameters)
     PauseMenu *menu = (PauseMenu *)scenes->at(activeScene);
     menu->Continu();
     menu->OnDisable();
+    menu->doOnce = true;
 }
 
 void PauseMenu::OnEnable()

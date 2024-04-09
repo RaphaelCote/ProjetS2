@@ -28,6 +28,7 @@ void OnEndGameMenuBackCall(EventParameters)
     EndGameMenu *menu = (EndGameMenu *)scenes->at(activeScene);
     menu->ReturnToMenu();
     menu->OnDisable();
+    menu->doOnce = true;
 }
 
 void EndGameMenu::OnEnable()
