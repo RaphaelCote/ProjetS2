@@ -214,8 +214,6 @@ void Game::PlayTurn()
             Sleep(10);
             ShowGameInfo();
             doOnce = false;
-            
-
         }
 
         UpdateWeaponInfo();
@@ -269,6 +267,7 @@ void Game::PlayerShoot()
     else if (projectileType == 2)
     {
         activeLevel->MatGrenade(projectile);
+        activeLevel->BalleQt(projectile);
     }
 
     if(projectile->checkIfCharacterHit(*(activeLevel->enemyBoats[0]->characters[0])))
@@ -574,7 +573,6 @@ void Game::AnimationProjectile(Projectile* proj)
             faireunefois = false;
             compteur++;
             time += 0.01;
-
 
             if (proj->getAngleDegre() > 0)
             {

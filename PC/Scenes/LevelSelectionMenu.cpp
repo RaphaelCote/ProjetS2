@@ -56,7 +56,7 @@ void LevelSelectionMenu::changeSelection(EventParameters ep)
     }
     else if (ep.parameter2 < -0.5)
     {
-        if (choice < levelGetter->nbLevel + 1)
+        if (choice < levelGetter->nbLevel)
         {
             choice++;
         }

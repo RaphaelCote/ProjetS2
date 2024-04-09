@@ -174,7 +174,7 @@ int main(int argc, char *argv[])
 
     gameWindow = new GameWindow();
     MainMenuQt *mainMenu = new MainMenuQt();
-    GameWidget *gameQt = new GameWidget();
+    GameWidget *gameWidget = new GameWidget();
     LevelMenu *levelMenu = new LevelMenu();
     EndGameMenuQt *endgameMenu = new EndGameMenuQt();
     PauseMenuQt *pauseMenu = new PauseMenuQt();
@@ -211,7 +211,7 @@ int main(int argc, char *argv[])
     // controls = new ControllerControls(eventManager, "COM4");
 
     gameWindow->AddContent(mainMenu);
-    gameWindow->AddContent(gameQt);
+    gameWindow->AddContent(gameWidget);
     gameWindow->AddContent(levelMenu);
     gameWindow->AddContent(endgameMenu);
     gameWindow->AddContent(pauseMenu);
