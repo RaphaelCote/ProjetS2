@@ -32,14 +32,14 @@
                     {
                         "width": 100,
                         "height": 100,
-                        "coordoneeX": 0,
+                        "coordoneeX": -10,
                         "coordoneeY": 30,
                         "image": "Images/Character/Enemy1.png"
                     },
                     {
                         "width": 100,
                         "height": 100,
-                        "coordoneeX": 120,
+                        "coordoneeX": 130,
                         "coordoneeY": 30,
                         "image": "Images/Character/Enemy1.png"
                     }

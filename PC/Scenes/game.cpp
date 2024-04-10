@@ -226,7 +226,7 @@ void Game::PlayTurn()
     {
         ShowGameInfo();
 
-        EnemyCharacter *ec;
+        EnemyCharacter *ec = (EnemyCharacter*)activeLevel->enemyBoats[0]->characters[0];
 
         bool foundAliveEnemy = false;
         for (int i = 0; i < activeLevel->enemyBoats.size(); i++)
@@ -236,7 +236,7 @@ void Game::PlayTurn()
                 if (activeLevel->enemyBoats[i]->characters[j]->getHealthPoint() > 0)
                 {
                     ec = (EnemyCharacter *)activeLevel->enemyBoats[i]->characters[j];
-                    foundAliveEnemy = false;
+                    foundAliveEnemy = true;
                     break;
                 }
             }
@@ -247,18 +247,35 @@ void Game::PlayTurn()
             }
         }
 
-        Projectile *enemyProjectile = ec->createEnemyProjectile();
+        if (foundAliveEnemy) {
 
-        activeLevel->MatBalle(enemyProjectile);
-        activeLevel->BalleQt(enemyProjectile);
+            Projectile *enemyProjectile = ec->createEnemyProjectile();
 
-        enemyProjectile->checkIfCharacterHit(*(activeLevel->playerBoats[0]->characters[0]));
+            activeLevel->MatBalle(enemyProjectile);
+            activeLevel->BalleQt(enemyProjectile);
 
-        AnimationProjectile(enemyProjectile);
+            std::vector<Character*> players;
 
-        afficheTextCalisse = true;
-        isPlayerTurn = true;
-        doOnce = true;
+            for (int i = 0; i < activeLevel->playerBoats.size(); i++)
+            {
+                for (int j = 0; j < activeLevel->playerBoats[i]->characters.size(); j++)
+                {
+                    if (activeLevel->playerBoats[i]->characters[j]->getHealthPoint() > 0)
+                    {
+                        players.push_back(activeLevel->playerBoats[i]->characters[j]);
+                    }
+                }
+            }
+
+            //enemyProjectile->checkIfCharacterHit(*(activeLevel->playerBoats[0]->characters[0]));
+            enemyProjectile->checkIfCharactersHit(players);
+
+            AnimationProjectile(enemyProjectile);
+
+            afficheTextCalisse = true;
+            isPlayerTurn = true;
+            doOnce = true;
+        }
     }
 }
 
@@ -285,7 +302,21 @@ void Game::PlayerShoot()
         activeLevel->BalleQt(projectile);
     }
 
-    projectile->checkIfCharacterHit(*(activeLevel->enemyBoats[0]->characters[0]));
+    std::vector<Character*> enemies;
+
+    for (int i = 0; i < activeLevel->enemyBoats.size(); i++)
+    {
+        for (int j = 0; j < activeLevel->enemyBoats[i]->characters.size(); j++)
+        {
+            if (activeLevel->enemyBoats[i]->characters[j]->getHealthPoint() > 0)
+            {
+                enemies.push_back(activeLevel->enemyBoats[i]->characters[j]);
+            }
+        }
+    }
+
+    //projectile->checkIfCharacterHit(*(activeLevel->enemyBoats[0]->characters[0]));
+    projectile->checkIfCharactersHit(enemies);
 
     AnimationProjectile(projectile);
 
