@@ -1,40 +1,47 @@
 {
     "level": {
-        "image": 1,
+        "image": "Images/Background/LevelBackground.png",
         "width": 3000,
         "height": 1080,
         "friendlyboatlist": [
             {
-                "coordoneeX": 200,
+                "coordoneeX": 100,
                 "coordoneeY": 70,
                 "width": 100,
                 "height": 30,
-                "image": 1,
+                "image": "Images/Boat/Boat.png",
                 "characterlist": [
                     {
                         "width": 100,
                         "height": 100,
                         "coordoneeX": 0,
                         "coordoneeY": 30,
-                        "image": 1
+                        "image": "Images/Character/Character.png"
                     }
                 ]
             }
         ],
         "enemyboatlist": [
             {
-                "coordoneeX": 1800,
+                "coordoneeX": 2400,
                 "coordoneeY": 70,
                 "width": 100,
                 "height": 30,
-                "image": 1,
+                "image": "Images/Boat/Boat.png",
                 "characterlist": [
                     {
                         "width": 100,
                         "height": 100,
                         "coordoneeX": 0,
                         "coordoneeY": 30,
-                        "image": 1
+                        "image": "Images/Character/Enemy1.png"
+                    },
+                    {
+                        "width": 100,
+                        "height": 100,
+                        "coordoneeX": 120,
+                        "coordoneeY": 30,
+                        "image": "Images/Character/Enemy1.png"
                     }
                 ]
             }

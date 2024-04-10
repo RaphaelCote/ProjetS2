@@ -206,12 +206,16 @@ void Game::Update()
 
 void Game::PlayTurn()
 {
-    
+    if (CheckEndCondition())
+    {
+        EndGame();
+        return;
+    }
+
     if (isPlayerTurn)
     {
         if (doOnce)
         {
-            turn++;
             Sleep(10);
             ShowGameInfo();
             doOnce = false;
@@ -223,17 +227,32 @@ void Game::PlayTurn()
     {
         ShowGameInfo();
 
-        EnemyCharacter *ec = (EnemyCharacter *)activeLevel->enemyBoats[0]->characters[0];
+        EnemyCharacter* ec;
+
+        bool foundAliveEnemy = false;
+        for (int i = 0; i < activeLevel->enemyBoats.size(); i++)
+        {
+            for (int j = 0; j < activeLevel->enemyBoats[i]->characters.size(); j++)
+            {
+                if (activeLevel->enemyBoats[i]->characters[j]->getHealthPoint() > 0)
+                {
+                    ec = (EnemyCharacter*)activeLevel->enemyBoats[i]->characters[j];
+                    foundAliveEnemy = false;
+                    break;
+                }
+            }
+
+            if (foundAliveEnemy) {
+                break;
+            }
+        }
+
         Projectile *enemyProjectile = ec->createEnemyProjectile();
 
         activeLevel->MatBalle(enemyProjectile);
         activeLevel->BalleQt(enemyProjectile);
 
-        if(enemyProjectile->checkIfCharacterHit(*(activeLevel->playerBoats[0]->characters[0])))
-        {
-            compteur+=10000;
-            Sleep(3000);
-        }
+        enemyProjectile->checkIfCharacterHit(*(activeLevel->playerBoats[0]->characters[0]));
 
         AnimationProjectile(enemyProjectile);
         
@@ -242,10 +261,7 @@ void Game::PlayTurn()
         doOnce = true;
     }
 
-    if (CheckEndCondition())
-    {
-        EndGame();
-    }
+    
 }
 
 void Game::PlayerShoot()
@@ -271,11 +287,7 @@ void Game::PlayerShoot()
         activeLevel->BalleQt(projectile);
     }
 
-    if(projectile->checkIfCharacterHit(*(activeLevel->enemyBoats[0]->characters[0])))
-    {
-        compteur+=50000;
-        Sleep(3000);
-    }
+    projectile->checkIfCharacterHit(*(activeLevel->enemyBoats[0]->characters[0]));
     
     AnimationProjectile(projectile);
     
@@ -297,6 +309,7 @@ void Game::PlayerShoot()
         }
     }
 
+    turn++;
     isPlayerTurn = false;
 }
 
@@ -321,16 +334,18 @@ void Game::EndGame()
 void Game::PayPlayer()
 {
     bool isAllPlayerDead = true;
-
     for (int i = 0; i < activeLevel->playerBoats.size(); i++)
     {
         for (int j = 0; j < activeLevel->playerBoats[i]->characters.size(); j++)
         {
-
             if (activeLevel->playerBoats[i]->characters[j]->getHealthPoint() > 0)
             {
                 isAllPlayerDead = false;
             }
+        }
+
+        if (!isAllPlayerDead) {
+            break;
         }
     }
 
@@ -392,38 +407,47 @@ void Game::StopGame()
 
 bool Game::CheckEndCondition()
 {
+    bool isAllPlayerDead = true;
     for (int i = 0; i < activeLevel->playerBoats.size(); i++)
     {
         for (int j = 0; j < activeLevel->playerBoats[i]->characters.size(); j++)
         {
-            bool isAllPlayerDead = true;
             if (activeLevel->playerBoats[i]->characters[j]->getHealthPoint() > 0)
             {
                 isAllPlayerDead = false;
-            }
+            }  
+        }
 
-            if (isAllPlayerDead)
-            {
-                return true;
-            }
+        if (!isAllPlayerDead) {
+            break;
         }
     }
 
+    if (isAllPlayerDead)
+    {
+        return true;
+    }
+
+    bool isAllEnemyDead = true;
     for (int i = 0; i < activeLevel->enemyBoats.size(); i++)
     {
         for (int j = 0; j < activeLevel->enemyBoats[i]->characters.size(); j++)
         {
-            bool isAllEnemyDead = true;
             if (activeLevel->enemyBoats[i]->characters[j]->getHealthPoint() > 0)
             {
                 isAllEnemyDead = false;
-            }
-
-            if (isAllEnemyDead)
-            {
-                return true;
+                break;
             }
         }
+
+        if (!isAllEnemyDead) {
+            break;
+        }
+    }
+
+    if (isAllEnemyDead)
+    {
+        return true;
     }
     
     return false;
