@@ -15,7 +15,7 @@ struct Raph_PixMap
     Hitbox box;
     float rotation;
     int couche;
-    QString name;
+    std::string name;
 };
 
 struct Frank_PixMap
@@ -27,7 +27,7 @@ struct Frank_PixMap
     Hitbox box;
     float rotation;
     int couche;
-    QString name;
+    std::string name;
 };
 
 struct Frank_PixMap_Rotation
@@ -39,7 +39,7 @@ struct Frank_PixMap_Rotation
     Hitbox box;
     float* rotation;
     int couche;
-    QString name;
+    std::string name;
 };
 
 #endif

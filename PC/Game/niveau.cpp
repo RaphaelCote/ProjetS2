@@ -444,7 +444,7 @@ void Niveau::CharacterQt()
             pixmap->x = playerBoats[b]->characters[v]->GetPointeurX();
             pixmap->y = playerBoats[b]->characters[v]->GetPointeurY();
             pixmap->couche = 1;
-            pixmap->name = "Character" + b + ',' + v;
+            pixmap->name = "Character" + std::to_string(b) + ',' + std::to_string(v);
             pixmap->rotation = 0;
 
             gameWindow->GetGameWidget()->addImage(pixmap);
@@ -458,15 +458,13 @@ void Niveau::CharacterQt()
         {
             Frank_PixMap* pixmap = new Frank_PixMap;
 
-
-
             QString str = QString::fromUtf8(enemyBoats[b]->characters[v]->imagecharacter.c_str());//fuck you that why
             pixmap->pix = QPixmap(str);
             pixmap->box = { pixmap->pix.height(), pixmap->pix.width() };
             pixmap->x = enemyBoats[b]->characters[v]->GetPointeurX();
             pixmap->y = enemyBoats[b]->characters[v]->GetPointeurY();
             pixmap->couche = 1;
-            pixmap->name = "EnemyCharacter" + b + ',' + v;
+            pixmap->name = "EnemyCharacter" + std::to_string(b) + ',' + std::to_string(v);
             pixmap->rotation = 0;
 
             gameWindow->GetGameWidget()->addImage(pixmap);
@@ -475,8 +473,8 @@ void Niveau::CharacterQt()
 }
 
 void Niveau::RemoveItemQt(std::string name) {
-    QString qname = QString::fromStdString(name);
-    gameWindow->GetGameWidget()->removeImage(qname);
+    
+    gameWindow->GetGameWidget()->removeImage(name);
     gameWindow->GetGameWidget()->refresh();
 }
 

@@ -21,7 +21,7 @@ void GameWidget::addImage(Raph_PixMap* pixmap)
     vectorPixMapRaph.append(pixmap);
 }
 
-void GameWidget::removeImage(QString name)
+void GameWidget::removeImage(std::string name)
 {
     for (int i = 0; i < vectorPixMap.size(); i++)
     {
