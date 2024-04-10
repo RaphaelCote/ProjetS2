@@ -2,16 +2,47 @@
 #include "Global.h"
 #include <QtWidgets>
 
+
 ShopMenuQt::ShopMenuQt() : GenericMenu()
 {
 	CreateButtons(6, false);
 
 	// TODO : On doit ajouter du texte pour la quantité d'argent, de bouclier, de grenade et de rocket
 
-	QHBoxLayout* Hlayout3 = new QHBoxLayout(gameWindow);
 
-	QVBoxLayout* Vlayout = new QVBoxLayout(this);
+	QVBoxLayout* mainLayout = new QVBoxLayout(this);
+	mainLayout->setAlignment(Qt::AlignCenter);
+
+	int money = inventory->getGold();
+	QLabel* moneyLabel = new QLabel("Argent : " + QString::number(money), this);
+	moneyLabel->setStyleSheet("QLabel {"
+			" border:4px outset; "
+			" border-radius: 8px; "
+			" border-color: solid black; "
+		//	" color:rgb(0, 0, 0); "
+			" background-color: lightblue;  "
+		" opacity : 150; "
+		" font: 24pt 'Cooper Black'; "
+		"qproperty-alignment: 'AlignCenter';"
+		" min-width: 0px;"
+		" max - width: 10000px; }");
+	moneyLabel->setAlignment(Qt::AlignRight);
+
+	// Ajouter le QLabel dans un QHBoxLayout pour le positionner en haut à droite
+	QHBoxLayout* moneyLayout = new QHBoxLayout();
+	moneyLayout->addStretch(); // Ajouter un espace flexible pour pousser le QLabel à droite
+	moneyLayout->addWidget(moneyLabel);
+
+	// Ajouter le QHBoxLayout contenant le QLabel en haut à droite de gameWindow
+	mainLayout->addLayout(moneyLayout);
+
+	// Créer un widget pour contenir le reste du contenu
+	QWidget* contentWidget = new QWidget(gameWindow);
+	QVBoxLayout* Vlayout = new QVBoxLayout(contentWidget);
 	Vlayout->setAlignment(Qt::AlignCenter);
+	QHBoxLayout* Hlayout3 = new QHBoxLayout(gameWindow);
+	
+
 
 	QWidget* rocketWidget = new QWidget(gameWindow);
 	rocketWidget->setStyleSheet("background-color: lightblue; border: 2px solid black; padding: 10px; max-width:1050; max-height: 1500;");
@@ -32,7 +63,7 @@ ShopMenuQt::ShopMenuQt() : GenericMenu()
 
 	QPixmap Grenade("Images/Projectile/Grenade.png");
 	QLabel* GrenadeImage = new QLabel(gameWindow);
-	GrenadeImage->setPixmap(Grenade.scaled(280, 140, Qt::KeepAspectRatio));				// Scale logo
+	GrenadeImage->setPixmap(Grenade.scaled(280, 100, Qt::KeepAspectRatio));				// Scale logo
 	GrenadeImage->setAlignment(Qt::AlignCenter);
 	Hlayout1->addWidget(GrenadeImage);
 	Vlayout->addLayout(Hlayout1);
@@ -40,8 +71,8 @@ ShopMenuQt::ShopMenuQt() : GenericMenu()
 	Vlayout->addWidget(rocketWidget);
 
 
-	QLabel* RocketInfo = new QLabel("Roquette\nPrix : 10$", gameWindow);
-	QLabel* GrenadeInfo = new QLabel("Grenade\nPrix : 10$", gameWindow);
+	QLabel* RocketInfo = new QLabel("Roquette\nPrix : 10$\n Possede :"+ QString::number(inventory->getRockets()), gameWindow);
+	QLabel* GrenadeInfo = new QLabel("Grenade\nPrix : 10$\n Possede :" + QString::number(inventory->getGrenade()), gameWindow);
 	RocketInfo->setStyleSheet("QLabel {"
 		//	" border:4px outset; "
 		//	" border-radius: 8px; "
@@ -97,25 +128,25 @@ ShopMenuQt::ShopMenuQt() : GenericMenu()
 
 	QPixmap potion1("Images/SmallPot.png");
 	QLabel* smallPot = new QLabel(gameWindow);
-	smallPot->setPixmap(potion1.scaled(300, 145, Qt::KeepAspectRatio));
+	smallPot->setPixmap(potion1.scaled(280, 100, Qt::KeepAspectRatio));
 	smallPot->setAlignment(Qt::AlignCenter);
 	Hlayout4->addWidget(smallPot);
 
 	QPixmap potion2("Images/MedPot.png");
 	QLabel* medPot = new QLabel(gameWindow);
-	medPot->setPixmap(potion2.scaled(300, 145, Qt::KeepAspectRatio));
+	medPot->setPixmap(potion2.scaled(280, 100, Qt::KeepAspectRatio));
 	medPot->setAlignment(Qt::AlignCenter);
 	Hlayout4->addWidget(medPot);
 
 	QPixmap potion3("Images/BigPot.png");
 	QLabel* bigPot = new QLabel(gameWindow);
-	bigPot->setPixmap(potion3.scaled(300, 140, Qt::KeepAspectRatio));
+	bigPot->setPixmap(potion3.scaled(280, 100, Qt::KeepAspectRatio));
 	bigPot->setAlignment(Qt::AlignCenter);
 	Hlayout4->addWidget(bigPot);
 	Vlayout->addLayout(Hlayout4);
 	Vlayout->addWidget(PotionWidget);
 
-	QLabel* PotInfo1 = new QLabel("Petite potion\nAjoute 25PV, max 50PV\nPrix : 10$", gameWindow);
+	QLabel* PotInfo1 = new QLabel("Petite potion\nAjoute 25PV, max 50PV\nPrix : 10$ ", gameWindow);
 	QLabel* PotInfo2 = new QLabel("Moyenne potion\nAjoute 50PV, max 100PV\nPrix : 30$", gameWindow);
 	QLabel* PotInfo3 = new QLabel("Enorme potion\nAjoute 100PV, max 100PV\nPrix : 50$", gameWindow);
 	PotInfo1->setStyleSheet("QLabel {"
@@ -151,6 +182,7 @@ ShopMenuQt::ShopMenuQt() : GenericMenu()
 	Vlayout->addSpacing(20);
 	Vlayout->addWidget(buttons[5]);
 
-	setLayout(Vlayout);
+	mainLayout->addWidget(contentWidget);
+	setLayout(mainLayout);
 	update();
 }

@@ -13,7 +13,7 @@ extern EventManager *eventManager;
 extern Controls *controls;
 extern Tests *tests;
 extern std::vector<Scene *> *scenes;
-extern Inventory *inventory;
+
 extern int activeScene;
 extern LevelGetter *levelGetter;
 extern AffichageConsole *cons;

@@ -4,6 +4,8 @@
 #include <QtWidgets>
 
 #include "GenericMenu.h"
+#include "inventory.h"
+
 
 class ShopMenuQt : public GenericMenu
 {
