@@ -12,8 +12,8 @@
         "image": "Images/Boat/Raft2.png",
         "characterlist": [
           {
-            "width": 50,
-            "height": 50,
+            "width": 201,
+            "height": 161,
             "coordoneeX": 110,
             "coordoneeY": 85,
             "image": "Images/Character/Character1.png"
@@ -30,15 +30,15 @@
         "image": "Images/Boat/Raft.png",
         "characterlist": [
           {
-            "width": 100,
-            "height": 100,
+            "width": 235,
+            "height": 173,
             "coordoneeX": 0,
             "coordoneeY": 85,
             "image": "Images/Character/Enemy.png"
           },
           {
-            "width": 100,
-            "height": 100,
+            "width": 235,
+            "height": 173,
             "coordoneeX": 0,
             "coordoneeY": 85,
             "image": "Images/Character/Enemy.png"

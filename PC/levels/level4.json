@@ -46,8 +46,8 @@
         "image": "Images/Boat/Raft2.png",
         "characterlist": [
           {
-            "width": 100,
-            "height": 100,
+            "width": 235,
+            "height": 173,
             "coordoneeX": 300,
             "coordoneeY": 64,
             "image": "Images/Character/Enemy.png"
