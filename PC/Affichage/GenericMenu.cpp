@@ -4,7 +4,7 @@
 
 GenericMenu::GenericMenu()
 {
-	QScreen* screen = QGuiApplication::primaryScreen();
+	QScreen *screen = QGuiApplication::primaryScreen();
 	QRect screenGeometry = screen->geometry();
 	int screenWidth = screenGeometry.width();
 	int screenHeight = screenGeometry.height();
@@ -14,18 +14,20 @@ GenericMenu::GenericMenu()
 	QPixmap map3("Images/background/beach.jpg");
 	map3 = map3.scaled(screenWidth, screenHeight);
 
-	Raph_PixMap* image4 = new Raph_PixMap;
+	Raph_PixMap *image4 = new Raph_PixMap;
 	image4->pix = map3;
 	image4->x = 0;
 	image4->y = 0;
-	image4->box = { screenHeight, 50 };
+	image4->box = {screenHeight, 50};
 	image4->name = "background";
 	image4->couche = 1;
 	vectorPixMap.append(image4);
 }
 
-void GenericMenu::CreateButtons(int btnQty, bool isSized) {
-	for (int i = 0; i < btnQty; i++) {
+void GenericMenu::CreateButtons(int btnQty, bool isSized)
+{
+	for (int i = 0; i < btnQty; i++)
+	{
 		buttons.push_back(new MenuButton("Btn", isSized, this));
 		buttons[i]->setCheckable(true);
 		buttons[i]->installEventFilter(this);
@@ -34,24 +36,29 @@ void GenericMenu::CreateButtons(int btnQty, bool isSized) {
 	SetChecked(0);
 }
 
-void GenericMenu::SetChecked(int index) {
-	for (int i = 0; i < buttons.size(); i++) {
-		if (i == index) {
+void GenericMenu::SetChecked(int index)
+{
+	for (int i = 0; i < buttons.size(); i++)
+	{
+		if (i == index)
+		{
 			buttons[i]->setChecked(true);
 		}
-		else {
+		else
+		{
 			buttons[i]->setChecked(false);
 		}
 	}
 }
 
-void GenericMenu::paintEvent(QPaintEvent* event) {
+void GenericMenu::paintEvent(QPaintEvent *event)
+{
 	Q_UNUSED(event);
 	QPainter painter(this);
 
 	int windowHeight = this->height();
 
-	//painter.setCompositionMode(QPainter::CompositionMode_SourceIn);
+	// painter.setCompositionMode(QPainter::CompositionMode_SourceIn);
 	for (int i = 0; i < vectorPixMap.length(); i++)
 	{
 		int x = 0;
@@ -68,8 +75,6 @@ void GenericMenu::paintEvent(QPaintEvent* event) {
 			y = windowHeight - vectorPixMap[i]->y - vectorPixMap[i]->box.height + minY;
 		}
 
-
 		painter.drawPixmap(x, y, vectorPixMap[i]->pix);
 	}
-
 }

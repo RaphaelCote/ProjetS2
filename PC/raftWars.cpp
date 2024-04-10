@@ -125,6 +125,10 @@ public:
         // Main loop
         Sleep(2000); // minimum de 2 secondes sinon, sa crash
 
+        if (((ControllerControls *)controls)->Connected == true)
+        {
+            ((ControllerControls *)controls)->ready_to_send = true;
+        }
         ShowContentEvent *scEvent = new ShowContentEvent(0);
         QApplication::postEvent(gameWindow, scEvent);
         //----------------------Sans QTimer----------------------//
@@ -208,7 +212,7 @@ int main(int argc, char *argv[])
 
     eventManager = new EventManager();
     controls = new KeyboardControls(eventManager);
-    // controls = new ControllerControls(eventManager, "COM4");
+    // controls = new ControllerControls(eventManager, "COM3");
 
     gameWindow->AddContent(mainMenu);
     gameWindow->AddContent(gameWidget);
@@ -222,8 +226,8 @@ int main(int argc, char *argv[])
 
     gameWindow->setWindowState(Qt::WindowMaximized);
     gameWindow->show();
-    //Sleep(500);
-    // Lecture de la musique
+    // Sleep(500);
+    //  Lecture de la musique
 
     return app.exec();
 }

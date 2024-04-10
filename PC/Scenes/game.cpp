@@ -22,7 +22,6 @@ std::chrono::high_resolution_clock::time_point startWeaponTimer;
 std::chrono::duration<double, std::milli> WeaponTimerclock;
 std::chrono::duration<double, std::milli> weaponInfoTimer;
 
-
 /*Méthodes*/
 /*Constructeur (État Initial)*/
 Game::Game()
@@ -173,7 +172,7 @@ void Game::Update()
         isPlayerTurn = true;
         projectileType = 0;
         // Load level currentLevelIndex
-        std::string s= levelGetter->levels[currentLevelIndex];
+        std::string s = levelGetter->levels[currentLevelIndex];
         activeLevel = gameloader.getLevelFromJson(levelGetter->levels[currentLevelIndex]);
 
         projectile = new Canonball(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition());
@@ -194,7 +193,7 @@ void Game::Update()
         activeLevel->MatRaft();
         activeLevel->MatCharacter();
         activeLevel->MatEnemy();
-        
+
         activeLevel->RaftQt();
         activeLevel->CharacterQt();
         gameWindow->GetGameWidget()->refresh();
@@ -227,7 +226,7 @@ void Game::PlayTurn()
     {
         ShowGameInfo();
 
-        EnemyCharacter* ec;
+        EnemyCharacter *ec;
 
         bool foundAliveEnemy = false;
         for (int i = 0; i < activeLevel->enemyBoats.size(); i++)
@@ -236,13 +235,14 @@ void Game::PlayTurn()
             {
                 if (activeLevel->enemyBoats[i]->characters[j]->getHealthPoint() > 0)
                 {
-                    ec = (EnemyCharacter*)activeLevel->enemyBoats[i]->characters[j];
+                    ec = (EnemyCharacter *)activeLevel->enemyBoats[i]->characters[j];
                     foundAliveEnemy = false;
                     break;
                 }
             }
 
-            if (foundAliveEnemy) {
+            if (foundAliveEnemy)
+            {
                 break;
             }
         }
@@ -255,13 +255,11 @@ void Game::PlayTurn()
         enemyProjectile->checkIfCharacterHit(*(activeLevel->playerBoats[0]->characters[0]));
 
         AnimationProjectile(enemyProjectile);
-        
+
         afficheTextCalisse = true;
         isPlayerTurn = true;
         doOnce = true;
     }
-
-    
 }
 
 void Game::PlayerShoot()
@@ -288,9 +286,9 @@ void Game::PlayerShoot()
     }
 
     projectile->checkIfCharacterHit(*(activeLevel->enemyBoats[0]->characters[0]));
-    
+
     AnimationProjectile(projectile);
-    
+
     // Remove special projectiles if fired, and if no more special projectiles are available, change to previous type
     if (projectileType == 1)
     {
@@ -317,7 +315,7 @@ void Game::PauseGame()
 {
     OnDisable();
     activeScene = 4;
-    ShowContentEvent* scEvent = new ShowContentEvent(4);
+    ShowContentEvent *scEvent = new ShowContentEvent(4);
     QApplication::postEvent(gameWindow, scEvent);
 }
 
@@ -327,7 +325,7 @@ void Game::EndGame()
     OnDisable();
     StopGame();
     activeScene = 3;
-    ShowContentEvent* scEvent = new ShowContentEvent(3);
+    ShowContentEvent *scEvent = new ShowContentEvent(3);
     QApplication::postEvent(gameWindow, scEvent);
 }
 
@@ -344,7 +342,8 @@ void Game::PayPlayer()
             }
         }
 
-        if (!isAllPlayerDead) {
+        if (!isAllPlayerDead)
+        {
             break;
         }
     }
@@ -415,10 +414,11 @@ bool Game::CheckEndCondition()
             if (activeLevel->playerBoats[i]->characters[j]->getHealthPoint() > 0)
             {
                 isAllPlayerDead = false;
-            }  
+            }
         }
 
-        if (!isAllPlayerDead) {
+        if (!isAllPlayerDead)
+        {
             break;
         }
     }
@@ -440,7 +440,8 @@ bool Game::CheckEndCondition()
             }
         }
 
-        if (!isAllEnemyDead) {
+        if (!isAllEnemyDead)
+        {
             break;
         }
     }
@@ -449,7 +450,7 @@ bool Game::CheckEndCondition()
     {
         return true;
     }
-    
+
     return false;
 }
 
@@ -539,8 +540,6 @@ void Game::ShowGameInfo()
     int y5 = ((cons->MaxRows) * 10) - 90;
     int x = 20;
 
-    
-
     cons->AfficherTexte(std::cout, s0, x, y0, "s0");
     cons->AfficherTexte(std::cout, s1, x, y1, "s1");
     cons->AfficherTexte(std::cout, s2, x, y2, "s2");
@@ -561,7 +560,7 @@ void Game::UpdateWeaponInfo()
     int x = 20;
     cons->AfficherTexte(std::cout, s6, x, y6, "s6");
 }
-void Game::AnimationProjectile(Projectile* proj)
+void Game::AnimationProjectile(Projectile *proj)
 {
     bool faireunefois = true;
     bool animation = true;
@@ -585,8 +584,7 @@ void Game::AnimationProjectile(Projectile* proj)
     int lastPositionY = currentPosition.y;
 
     cons->Mincolums = (currentPosition.x - (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2) / 10; // je fais * 10 pcq c l'affichage console
-    gameWindow->GetGameWidget()->minX = (startPosition.x);
-    GameWidget* gameWidget = gameWindow->GetGameWidget();
+    gameWindow->GetGameWidget()->minX = ((gameWindow->GetGameWidget()->width() / 2) - currentPosition.x);
     gameWindow->GetGameWidget()->refresh();
     Sleep(500);
 
@@ -603,37 +601,39 @@ void Game::AnimationProjectile(Projectile* proj)
 
             if (proj->getAngleDegre() > 0)
             {
-                currentPosition.x += 1;
+                currentPosition.x += 7;
             }
             else
             {
-                currentPosition.x -= 1;
+                currentPosition.x -= 7;
             }
             currentPosition.y = proj->findBulletPositionY(currentPosition.x);
             proj->bulletCurrentPosition = currentPosition;
             cons->Mincolums = (currentPosition.x - (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2) / 10; // je fais * 10 pcq c l'affichage console
-            
-            if (proj->getAngleDegre() > 0)
+            gameWindow->GetGameWidget()->minX = ((gameWindow->GetGameWidget()->width() / 2) - currentPosition.x);
+
+            if (projectileType == 0) // Cannonball
             {
-                gameWindow->GetGameWidget()->minX = ((gameWindow->GetGameWidget()->width()/2) - currentPosition.x);
             }
-            else
+            else if (projectileType == 1) // Rocket
             {
-                gameWindow->GetGameWidget()->minX = ((gameWindow->GetGameWidget()->width() / 2) -currentPosition.x);
             }
-            
-             /*cons->SupprimerObjet("text");
-             cons->SupprimerObjet("text2");
-             cons->SupprimerObjet("text3");
-             cons->SupprimerObjet("text4");
-             cons->SupprimerObjet("text5");
+            else if (projectileType == 2) // Grenade
+            {
+            }
+
+            /*cons->SupprimerObjet("text");
+            cons->SupprimerObjet("text2");
+            cons->SupprimerObjet("text3");
+            cons->SupprimerObjet("text4");
+            cons->SupprimerObjet("text5");
 
 
-             cons->AfficherTexte(std::cout, "BulletPositionX: " + std::to_string(proj->bulletCurrentPosition.x), cons->Mincolums * 10 + (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2, 160, "text");
-             cons->AfficherTexte(std::cout, "BulletEndPositionX: " + std::to_string(proj->bulletEndPosition.x), cons->Mincolums * 10 + (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2, 150, "text2");
-             cons->AfficherTexte(std::cout, "BulletEndPositionY: " + std::to_string(proj->bulletEndPosition.y), cons->Mincolums * 10 + (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2, 140, "text5");
-             cons->AfficherTexte(std::cout, "BulletAngle: " + std::to_string(proj->angledeg), cons->Mincolums * 10 + (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2, 130, "text3");
-             cons->AfficherTexte(std::cout, "Time: " + std::to_string(time), cons->Mincolums * 10 + (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2, 120, "text4");*/
+            cons->AfficherTexte(std::cout, "BulletPositionX: " + std::to_string(proj->bulletCurrentPosition.x), cons->Mincolums * 10 + (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2, 160, "text");
+            cons->AfficherTexte(std::cout, "BulletEndPositionX: " + std::to_string(proj->bulletEndPosition.x), cons->Mincolums * 10 + (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2, 150, "text2");
+            cons->AfficherTexte(std::cout, "BulletEndPositionY: " + std::to_string(proj->bulletEndPosition.y), cons->Mincolums * 10 + (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2, 140, "text5");
+            cons->AfficherTexte(std::cout, "BulletAngle: " + std::to_string(proj->angledeg), cons->Mincolums * 10 + (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2, 130, "text3");
+            cons->AfficherTexte(std::cout, "Time: " + std::to_string(time), cons->Mincolums * 10 + (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2, 120, "text4");*/
             timerAnimation = currentclockAnimation;
 
             gameWindow->GetGameWidget()->refresh();
@@ -654,16 +654,14 @@ void Game::AnimationProjectile(Projectile* proj)
                     break;
                 }
             }
-
-
         }
     }
 
     cons->SupprimerObjet("projectile");
+    gameWindow->GetGameWidget()->removeImage("projectile");
     // delete projectile;
 
     cons->Mincolums = 0;
-    gameWindow->GetGameWidget()->minX = 0;
+    // gameWindow->GetGameWidget()->minX = 0;
+    gameWindow->GetGameWidget()->refresh();
 }
-
-
