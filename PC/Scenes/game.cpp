@@ -327,7 +327,7 @@ void Game::PlayerShoot()
     else if (projectileType == 2)
     {
         activeLevel->MatGrenade(projectile);
-        activeLevel->BalleQt(projectile);
+        activeLevel->GrenadeQt(projectile);
     }
 
     std::vector<Character*> enemies;

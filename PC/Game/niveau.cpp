@@ -314,6 +314,38 @@ void Niveau::MatGrenade(Projectile *Grenade)
     cons->AjouterObjet(grenade, Grenade, 0, "projectile");
 }
 
+void Niveau::GrenadeQt(Projectile* pro)
+{
+    Frank_PixMap_Rotation* pixmap = new Frank_PixMap_Rotation;
+
+    QString str("Images/Projectile/GrenadeGame.png");
+    pixmap->pix = QPixmap(str);
+    pixmap->box = { pixmap->pix.height(), pixmap->pix.width() };
+    pixmap->x = &pro->bulletCurrentPosition.x;
+    pixmap->y = &pro->bulletCurrentPosition.y;
+    pixmap->couche = 3;
+    pixmap->name = "projectile";
+    pixmap->rotation = &pro->angleRotationProjectile;
+
+    gameWindow->GetGameWidget()->addImage(pixmap);
+}
+
+void Niveau::AxeQt(Projectile* pro)
+{
+    Frank_PixMap_Rotation* pixmap = new Frank_PixMap_Rotation;
+
+    QString str("Images/Projectile/AxeGame.png");
+    pixmap->pix = QPixmap(str);
+    pixmap->box = { pixmap->pix.height(), pixmap->pix.width() };
+    pixmap->x = &pro->bulletCurrentPosition.x;
+    pixmap->y = &pro->bulletCurrentPosition.y;
+    pixmap->couche = 3;
+    pixmap->name = "projectile";
+    pixmap->rotation = &pro->angleRotationProjectile;
+
+    gameWindow->GetGameWidget()->addImage(pixmap);
+}
+
 void Niveau::MatNuage()
 {
     int n_heigth = 4;
