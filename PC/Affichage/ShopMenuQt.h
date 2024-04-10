@@ -17,8 +17,13 @@ public:
 
 protected:
 	QLabel* moneyLabel;
+	QLabel* shieldLabel;
 	QLabel* RocketInfo;
 	QLabel* GrenadeInfo;
+
+	QLabel* PotInfo1;
+	QLabel* PotInfo2;
+	QLabel* PotInfo3;
 };
 
 #endif

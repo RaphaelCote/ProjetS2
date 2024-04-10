@@ -29,6 +29,7 @@ MenuButton::MenuButton(const QString& text, bool sized, QWidget* parent) : QPush
 		" min-width: 0px;"
 		" max - width: 10000px; }"
 		"QPushButton:checked {"
-		" background-color: rgb(3, 215, 252); }"
+		" background-color: rgb(3, 215, 252);"
+		" border-color: rgb(17, 97, 173); }"
 	);
 }

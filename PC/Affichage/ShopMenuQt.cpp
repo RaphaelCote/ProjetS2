@@ -7,9 +7,6 @@ ShopMenuQt::ShopMenuQt() : GenericMenu()
 {
 	CreateButtons(6, false);
 
-	// TODO : On doit ajouter du texte pour la quantité d'argent, de bouclier, de grenade et de rocket
-
-
 	QVBoxLayout* mainLayout = new QVBoxLayout(this);
 	mainLayout->setAlignment(Qt::AlignCenter);
 
@@ -34,6 +31,28 @@ ShopMenuQt::ShopMenuQt() : GenericMenu()
 
 	// Ajouter le QHBoxLayout contenant le QLabel en haut à droite de gameWindow
 	mainLayout->addLayout(moneyLayout);
+
+	shieldLabel = new QLabel("Shield : " + QString::number(inventory->getShield()) + " PV", this);
+	shieldLabel->setStyleSheet("QLabel {"
+		" border:4px outset; "
+		" border-radius: 8px; "
+		" border-color: solid black; "
+		//	" color:rgb(0, 0, 0); "
+		" background-color: lightblue;  "
+		" opacity : 150; "
+		" font: 24pt 'Cooper Black'; "
+		"qproperty-alignment: 'AlignCenter';"
+		" min-width: 0px;"
+		" max - width: 10000px; }");
+	shieldLabel->setAlignment(Qt::AlignRight);
+
+	// Ajouter le QLabel dans un QHBoxLayout pour le positionner en haut à droite
+	QHBoxLayout* shieldLayout = new QHBoxLayout();
+	shieldLayout->addStretch(); // Ajouter un espace flexible pour pousser le QLabel à droite
+	shieldLayout->addWidget(shieldLabel);
+
+	// Ajouter le QHBoxLayout contenant le QLabel en haut à droite de gameWindow
+	mainLayout->addLayout(shieldLayout);
 
 	// Créer un widget pour contenir le reste du contenu
 	QWidget* contentWidget = new QWidget(gameWindow);
@@ -70,33 +89,45 @@ ShopMenuQt::ShopMenuQt() : GenericMenu()
 	Vlayout->addWidget(rocketWidget);
 
 
-	RocketInfo = new QLabel("Roquette\nPrix : 10$\n Possede :"+ QString::number(inventory->getRockets()), gameWindow);
-	GrenadeInfo = new QLabel("Grenade\nPrix : 10$\n Possede :" + QString::number(inventory->getGrenade()), gameWindow);
-	RocketInfo->setStyleSheet("QLabel {"
-		//	" border:4px outset; "
-		//	" border-radius: 8px; "
-		//	" border-color: rgb(255, 160, 48); "
-		//	" color:rgb(0, 0, 0); "
-		//	" background-color: rgb(255, 74, 49);  "
-		" opacity : 150; "
-		" font: 14pt 'Cooper Black'; "
-		"qproperty-alignment: 'AlignCenter';"
-		" min-width: 0px;"
-		" max - width: 10000px; }");
-	GrenadeInfo->setStyleSheet("QLabel {"
-		//	" border:4px outset; "
-		//	" border-radius: 8px; "
-		//	" border-color: rgb(255, 160, 48); "
-		//	" color:rgb(0, 0, 0); "
-		//	" background-color: rgb(255, 74, 49);  "
-		" opacity : 150; "
-		" font: 14pt 'Cooper Black'; "
-		"qproperty-alignment: 'AlignCenter';"
-		" min-width: 0px;"
-		" max - width: 10000px; }");
+	RocketInfo = new QLabel("Roquette\nPrix : " + QString::number(inventory->GetPrixRocket()) + "$\n Possede : "+ QString::number(inventory->getRockets()) + ", max 2", gameWindow);
+	GrenadeInfo = new QLabel("Grenade\nPrix : " + QString::number(inventory->GetPrixGrenade()) + "$\n Possede : " + QString::number(inventory->getGrenade()) + ", max 2", gameWindow);
+	if (inventory->getRockets() >= 2) {
+		RocketInfo->setStyleSheet("QLabel {"
+			"border: 2px solid red;"
+			" opacity : 150; "
+			" font: 14pt 'Cooper Black'; "
+			"qproperty-alignment: 'AlignCenter';"
+			" min-width: 0px;"
+			" max - width: 10000px; }");
+	}
+	else {
+		RocketInfo->setStyleSheet("QLabel {"
+			"border: 2px solid black;"
+			" opacity : 150; "
+			" font: 14pt 'Cooper Black'; "
+			"qproperty-alignment: 'AlignCenter';"
+			" min-width: 0px;"
+			" max - width: 10000px; }");
+	}
 
-
-
+	if (inventory->getGrenade() >= 2) {
+		GrenadeInfo->setStyleSheet("QLabel {"
+			"border: 2px solid red;"
+			" opacity : 150; "
+			" font: 14pt 'Cooper Black'; "
+			"qproperty-alignment: 'AlignCenter';"
+			" min-width: 0px;"
+			" max - width: 10000px; }");
+	}
+	else {
+		GrenadeInfo->setStyleSheet("QLabel {"
+			"border: 2px solid black;"
+			" opacity : 150; "
+			" font: 14pt 'Cooper Black'; "
+			"qproperty-alignment: 'AlignCenter';"
+			" min-width: 0px;"
+			" max - width: 10000px; }");
+	}
 
 	Hlayout2->addWidget(RocketInfo);
 	Hlayout2->addWidget(GrenadeInfo);
@@ -124,48 +155,105 @@ ShopMenuQt::ShopMenuQt() : GenericMenu()
 	QHBoxLayout* Hlayout4 = new QHBoxLayout(PotionWidget);
 	QHBoxLayout* Hlayout5 = new QHBoxLayout(PotionInfo);
 
-
 	QPixmap potion1("Images/SmallPot.png");
 	QLabel* smallPot = new QLabel(gameWindow);
 	smallPot->setPixmap(potion1.scaled(280, 100, Qt::KeepAspectRatio));
 	smallPot->setAlignment(Qt::AlignCenter);
-	Hlayout4->addWidget(smallPot);
 
 	QPixmap potion2("Images/MedPot.png");
 	QLabel* medPot = new QLabel(gameWindow);
 	medPot->setPixmap(potion2.scaled(280, 100, Qt::KeepAspectRatio));
 	medPot->setAlignment(Qt::AlignCenter);
-	Hlayout4->addWidget(medPot);
 
 	QPixmap potion3("Images/BigPot.png");
 	QLabel* bigPot = new QLabel(gameWindow);
 	bigPot->setPixmap(potion3.scaled(280, 100, Qt::KeepAspectRatio));
 	bigPot->setAlignment(Qt::AlignCenter);
+
+	Hlayout4->addWidget(smallPot);
+	Hlayout4->addWidget(medPot);
 	Hlayout4->addWidget(bigPot);
 	Vlayout->addLayout(Hlayout4);
 	Vlayout->addWidget(PotionWidget);
 
-	QLabel* PotInfo1 = new QLabel("Petite potion\nAjoute 25PV, max 50PV\nPrix : 10$ ", gameWindow);
-	QLabel* PotInfo2 = new QLabel("Moyenne potion\nAjoute 50PV, max 100PV\nPrix : 30$", gameWindow);
-	QLabel* PotInfo3 = new QLabel("Enorme potion\nAjoute 100PV, max 100PV\nPrix : 50$", gameWindow);
-	PotInfo1->setStyleSheet("QLabel {"
-		" opacity : 150; "
-		" font: 14pt 'Cooper Black'; "
-		"qproperty-alignment: 'AlignCenter';"
-		" min-width: 0px;"
-		" max-width: 1050px; }");
-	PotInfo2->setStyleSheet("QLabel {"
-		" opacity : 150; "
-		" font: 14pt 'Cooper Black'; "
-		"qproperty-alignment: 'AlignCenter';"
-		" min-width: 0px;"
-		" max-width: 1050px; }");
-	PotInfo3->setStyleSheet("QLabel {"
-		" opacity : 150; "
-		" font: 14pt 'Cooper Black'; "
-		"qproperty-alignment: 'AlignCenter';"
-		" min-width: 0px;"
-		" max-width: 1050px; }");
+	PotInfo1 = new QLabel("Petite potion\nAjoute 25PV, max 50\nPrix : " + QString::number(inventory->GetPrixShieldSmall()) + "$ ", gameWindow);
+	PotInfo2 = new QLabel("Moyenne potion\nAjoute 50PV, max 100\nPrix : " + QString::number(inventory->GetPrixShieldMedium()) + "$", gameWindow);
+	PotInfo3 = new QLabel("Enorme potion\nAjoute 100PV, max 100\nPrix : " + QString::number(inventory->GetPrixShieldBig()) + "$", gameWindow);
+
+	if (inventory->getShield() >= 50) {
+		PotInfo1->setStyleSheet("QLabel {"
+			"border: 2px solid red;"
+			" opacity : 150; "
+			" font: 14pt 'Cooper Black'; "
+			"qproperty-alignment: 'AlignCenter';"
+			" min-width: 0px;"
+			" max-width: 1050px; }"
+			"background-color: red;");
+
+		if (inventory->getShield() >= 100) {
+			PotInfo2->setStyleSheet("QLabel {"
+				"border: 2px solid red;"
+				" opacity : 150; "
+				" font: 14pt 'Cooper Black'; "
+				"qproperty-alignment: 'AlignCenter';"
+				" min-width: 0px;"
+				" max-width: 1050px; }"
+				"background-color: red;");
+			PotInfo3->setStyleSheet("QLabel {"
+				"border: 2px solid red;"
+				" opacity : 150; "
+				" font: 14pt 'Cooper Black'; "
+				"qproperty-alignment: 'AlignCenter';"
+				" min-width: 0px;"
+				" max-width: 1050px; }"
+				"background-color: red;");
+		}
+		else {
+			PotInfo2->setStyleSheet("QLabel {"
+				"border: 2px solid black;"
+				" opacity : 150; "
+				" font: 14pt 'Cooper Black'; "
+				"qproperty-alignment: 'AlignCenter';"
+				" min-width: 0px;"
+				" max-width: 1050px; }"
+				"background-color: lightblue;");
+			PotInfo3->setStyleSheet("QLabel {"
+				"border: 2px solid black;"
+				" opacity : 150; "
+				" font: 14pt 'Cooper Black'; "
+				"qproperty-alignment: 'AlignCenter';"
+				" min-width: 0px;"
+				" max-width: 1050px; }"
+				"background-color: lightblue;");
+		}
+	}
+	else {
+		PotInfo1->setStyleSheet("QLabel {"
+			"border: 2px solid black;"
+			" opacity : 150; "
+			" font: 14pt 'Cooper Black'; "
+			"qproperty-alignment: 'AlignCenter';"
+			" min-width: 0px;"
+			" max-width: 1050px; }"
+			"background-color: lightblue;");
+		PotInfo2->setStyleSheet("QLabel {"
+			"border: 2px solid black;"
+			" opacity : 150; "
+			" font: 14pt 'Cooper Black'; "
+			"qproperty-alignment: 'AlignCenter';"
+			" min-width: 0px;"
+			" max-width: 1050px; }"
+			"background-color: lightblue;");
+		PotInfo3->setStyleSheet("QLabel {"
+			"border: 2px solid black;"
+			" opacity : 150; "
+			" font: 14pt 'Cooper Black'; "
+			"qproperty-alignment: 'AlignCenter';"
+			" min-width: 0px;"
+			" max-width: 1050px; }"
+			"background-color: lightblue;");
+	}
+
 	Hlayout5->addWidget(PotInfo1);
 	Hlayout5->addWidget(PotInfo2);
 	Hlayout5->addWidget(PotInfo3);
@@ -188,8 +276,121 @@ ShopMenuQt::ShopMenuQt() : GenericMenu()
 
 void ShopMenuQt::UpdateValues() {
 	moneyLabel->setText("Argent : " + QString::number(inventory->getGold()));
-	RocketInfo->setText("Roquette\nPrix : 10$\n Possede :" + QString::number(inventory->getRockets()));
-	GrenadeInfo->setText("Grenade\nPrix : 10$\n Possede :" + QString::number(inventory->getGrenade()));
+	shieldLabel->setText("Shield : " + QString::number(inventory->getShield()) + " PV");
+	RocketInfo->setText("Roquette\nPrix : " + QString::number(inventory->GetPrixRocket()) + "$\n Possede : " + QString::number(inventory->getRockets()) + ", max 2");
+	GrenadeInfo->setText("Grenade\nPrix : " + QString::number(inventory->GetPrixGrenade()) + "$\n Possede : " + QString::number(inventory->getGrenade()) + ", max 2");
+
+	if (inventory->getRockets() >= 2) {
+		RocketInfo->setStyleSheet("QLabel {"
+			"border: 2px solid red;"
+			" opacity : 150; "
+			" font: 14pt 'Cooper Black'; "
+			"qproperty-alignment: 'AlignCenter';"
+			" min-width: 0px;"
+			" max - width: 10000px; }");
+	}
+	else {
+		RocketInfo->setStyleSheet("QLabel {"
+			"border: 2px solid black;"
+			" opacity : 150; "
+			" font: 14pt 'Cooper Black'; "
+			"qproperty-alignment: 'AlignCenter';"
+			" min-width: 0px;"
+			" max - width: 10000px; }");
+	}
+
+	if (inventory->getGrenade() >= 2) {
+		GrenadeInfo->setStyleSheet("QLabel {"
+			"border: 2px solid red;"
+			" opacity : 150; "
+			" font: 14pt 'Cooper Black'; "
+			"qproperty-alignment: 'AlignCenter';"
+			" min-width: 0px;"
+			" max - width: 10000px; }");
+	}
+	else {
+		GrenadeInfo->setStyleSheet("QLabel {"
+			"border: 2px solid black;"
+			" opacity : 150; "
+			" font: 14pt 'Cooper Black'; "
+			"qproperty-alignment: 'AlignCenter';"
+			" min-width: 0px;"
+			" max - width: 10000px; }");
+	}
+
+	if (inventory->getShield() >= 50) {
+		PotInfo1->setStyleSheet("QLabel {"
+			"border: 2px solid red;"
+			" opacity : 150; "
+			" font: 14pt 'Cooper Black'; "
+			"qproperty-alignment: 'AlignCenter';"
+			" min-width: 0px;"
+			" max-width: 1050px; }"
+			"background-color: red;");
+
+		if (inventory->getShield() >= 100) {
+			PotInfo2->setStyleSheet("QLabel {"
+				"border: 2px solid red;"
+				" opacity : 150; "
+				" font: 14pt 'Cooper Black'; "
+				"qproperty-alignment: 'AlignCenter';"
+				" min-width: 0px;"
+				" max-width: 1050px; }"
+				"background-color: red;");
+			PotInfo3->setStyleSheet("QLabel {"
+				"border: 2px solid red;"
+				" opacity : 150; "
+				" font: 14pt 'Cooper Black'; "
+				"qproperty-alignment: 'AlignCenter';"
+				" min-width: 0px;"
+				" max-width: 1050px; }"
+				"background-color: red;");
+		}
+		else {
+			PotInfo2->setStyleSheet("QLabel {"
+				"border: 2px solid black;"
+				" opacity : 150; "
+				" font: 14pt 'Cooper Black'; "
+				"qproperty-alignment: 'AlignCenter';"
+				" min-width: 0px;"
+				" max-width: 1050px; }"
+				"background-color: lightblue;");
+			PotInfo3->setStyleSheet("QLabel {"
+				"border: 2px solid black;"
+				" opacity : 150; "
+				" font: 14pt 'Cooper Black'; "
+				"qproperty-alignment: 'AlignCenter';"
+				" min-width: 0px;"
+				" max-width: 1050px; }"
+				"background-color: lightblue;");
+		}
+	}
+	else {
+		PotInfo1->setStyleSheet("QLabel {"
+			"border: 2px solid black;"
+			" opacity : 150; "
+			" font: 14pt 'Cooper Black'; "
+			"qproperty-alignment: 'AlignCenter';"
+			" min-width: 0px;"
+			" max-width: 1050px; }"
+			"background-color: lightblue;");
+		PotInfo2->setStyleSheet("QLabel {"
+			"border: 2px solid black;"
+			" opacity : 150; "
+			" font: 14pt 'Cooper Black'; "
+			"qproperty-alignment: 'AlignCenter';"
+			" min-width: 0px;"
+			" max-width: 1050px; }"
+			"background-color: lightblue;");
+		PotInfo3->setStyleSheet("QLabel {"
+			"border: 2px solid black;"
+			" opacity : 150; "
+			" font: 14pt 'Cooper Black'; "
+			"qproperty-alignment: 'AlignCenter';"
+			" min-width: 0px;"
+			" max-width: 1050px; }"
+			"background-color: lightblue;");
+	}
 
 	update();
 }
