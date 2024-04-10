@@ -7,6 +7,7 @@
 #include "../Affichage/ShowContentEvent.h"
 #include "LevelSelectionMenu.h"
 #include "shopMenu.h"
+#include "../Controls/SoundManager.h"
 
 void OnMainMenuMainActionCall(EventParameters ep)
 {
@@ -74,6 +75,8 @@ void MainMenu::Update()
 void MainMenu::ShowMenu()
 {
     // ClearMenu();
+    soundManager->soundTrack = selectionSoundEffect;
+    soundManager->functionDecider = play_SoundTrack;
     cons->SupprimerObjet("s0");
     cons->SupprimerObjet("s1");
     cons->SupprimerObjet("s2");
@@ -139,18 +142,26 @@ void MainMenu::Selection()
 
     if (choice == 0)
     {
+        soundManager->music = gameMusic;
+        soundManager->functionDecider = play_Music;
         PlayGame();
     }
     else if (choice == 1)
     {
+        soundManager->soundTrack = mouseClickEffect;
+        soundManager->functionDecider = play_SoundTrack;
         GotoLevelSelect();
     }
     else if (choice == 2)
     {
+        soundManager->soundTrack = mouseClickEffect;
+        soundManager->functionDecider = play_SoundTrack;
         GotoShop();
     }
     else if (choice >= 3)
     {
+        soundManager->soundTrack = mouseClickEffect;
+        soundManager->functionDecider = play_SoundTrack;
         //int x = 2;
         //int y = cons->MaxRows - 4;
         //cons->AfficherTexte(std::cout, "Au plaisir..", &x, &y, "AuPlaisir");
@@ -170,6 +181,8 @@ void MainMenu::PlayGame()
 
 void MainMenu::GotoLevelSelect()
 {
+    soundManager->soundTrack = selectionSoundEffect;
+    soundManager->functionDecider = play_SoundTrack;
     choice = 0;
     LevelSelectionMenu *lsm = (LevelSelectionMenu *)scenes->at(2);
     lsm->lastMenu = 0;

@@ -30,6 +30,7 @@ using namespace std::chrono;
 #include "Scenes/endGameMenu.h"
 #include "Scenes/levelSelectionMenu.h"
 #include "Scenes/shopMenu.h"
+#include "Controls/SoundManager.h"
 #include <QTimer>
 #include <QApplication>
 #include <thread>
@@ -56,6 +57,7 @@ using namespace std::chrono;
 EventManager *eventManager;
 Tests *tests;
 Controls *controls;
+SoundManager* soundManager;
 // Controls* controlsG;
 GameWindow *gameWindow;
 int levelQty;
@@ -185,7 +187,10 @@ int main(int argc, char *argv[])
     PauseMenuQt *pauseMenu = new PauseMenuQt();
     ShopMenuQt *shopMenu = new ShopMenuQt();
     GenericMenu *loadingScreen = new GenericMenu();
-
+    soundManager = new SoundManager();
+    //testpour le son
+    /*soundManager->music = introMusic;
+    soundManager->functionDecider = play_Music;*/
     QScreen *screen = QGuiApplication::primaryScreen();
     QRect screenGeometry = screen->geometry();
     int screenWidth = screenGeometry.width();

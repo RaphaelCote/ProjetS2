@@ -28,6 +28,7 @@ HEADERS     += \
 	PC/Controls/EventParameters.h \
 	PC/Controls/keyboardControls.h \
 	PC/Controls/keyboardControlsRedirect.h \
+	PC/Controls/SoundManager.h \
 	#---------Game---------#
 	PC/Game/character.h \
     	PC/Game/enemyCharacter.h \
@@ -78,6 +79,7 @@ SOURCES     += \
 	PC/Controls/controls.cpp \
 	PC/Controls/keyboardControls.cpp \
 	PC/Controls/keyboardControlsRedirect.cpp \
+	PC/Controls/SoundManager.cpp\
 	#---------Game---------#
 	PC/Game/grenade.cpp \
     	PC/Game/inventory.cpp \
@@ -104,9 +106,6 @@ SOURCES     += \
     	PC/Scenes/scene.cpp \
     	PC/Scenes/shopMenu.cpp \
     	PC/Scenes/EndGameMenu.cpp 
-RESSOURCES += \
-	ressources.qrc
-	
 INCLUDEPATH += \
 	PC \
 	PC/Affichage \
@@ -120,7 +119,6 @@ INCLUDEPATH += \
 	Arduino \
 	Arduino/include \
 	Arduino/src
-
 QT          += \
 	widgets \
 	multimedia

@@ -2,11 +2,13 @@
 #include "../Controls/keyboardControlsRedirect.h"
 #include "GenericMenu.h"
 #include "ShowContentEvent.h"
+
+#include "../Controls/SoundManager.h"
 #include <QtWidgets>
 
 GameWindow::GameWindow() : QMainWindow()
 {
-	setWindowTitle(tr("Guerre de radeaux"));
+    setWindowTitle(tr("Guerre de radeaux"));
 
     stackedWidget = new QStackedWidget;
 
@@ -20,49 +22,58 @@ GameWindow::~GameWindow()
     killTimer(timerId);
 }
 
-void GameWindow::ShowContent(int widgetIndex) {
+void GameWindow::ShowContent(int widgetIndex)
+{
     stackedWidget->setCurrentIndex(widgetIndex);
 
-    if (widgetIndex != 1 && widgetIndex != 6) {
+    if (widgetIndex != 1 && widgetIndex != 6)
+    {
         Sleep(1);
-        (qobject_cast<GenericMenu*>(stackedWidget->currentWidget()))->SetChecked(0);
+        (qobject_cast<GenericMenu *>(stackedWidget->currentWidget()))->SetChecked(0);
     }
 }
 
-void GameWindow::AddContent(QWidget* widget) {
+void GameWindow::AddContent(QWidget *widget)
+{
     stackedWidget->addWidget(widget);
 }
 
-bool GameWindow::IsCurrentWidget(QWidget* widget) {
+bool GameWindow::IsCurrentWidget(QWidget *widget)
+{
     return stackedWidget->currentIndex() == stackedWidget->indexOf(widget);
 }
 
-void GameWindow::SetChecked(int index) {
-    (qobject_cast<GenericMenu*>(stackedWidget->currentWidget()))->SetChecked(index);
-    
+void GameWindow::SetChecked(int index)
+{
+    (qobject_cast<GenericMenu *>(stackedWidget->currentWidget()))->SetChecked(index);
 }
 
-GameWidget* GameWindow::GetGameWidget() {
-    return qobject_cast<GameWidget*>(stackedWidget->widget(1));
+GameWidget *GameWindow::GetGameWidget()
+{
+    return qobject_cast<GameWidget *>(stackedWidget->widget(1));
 }
 
-GenericMenu* GameWindow::GetMenuWidget(int index) {
-    return qobject_cast<GenericMenu*>(stackedWidget->widget(index));
+GenericMenu *GameWindow::GetMenuWidget(int index)
+{
+    return qobject_cast<GenericMenu *>(stackedWidget->widget(index));
 }
 
-void GameWindow::timerEvent(QTimerEvent* event)
+void GameWindow::timerEvent(QTimerEvent *event)
 {
     canInput = true;
 }
 
-void GameWindow::keyPressEvent(QKeyEvent* event) {
-    //Si les controls sont pas keyboard
-    if (!isKeyboardControls) {
+void GameWindow::keyPressEvent(QKeyEvent *event)
+{
+    // Si les controls sont pas keyboard
+    if (!isKeyboardControls)
+    {
         return;
     }
 
-    //Si le temps entre les input est pas fini
-    if (!canInput) {
+    // Si le temps entre les input est pas fini
+    if (!canInput)
+    {
         return;
     }
 
@@ -70,54 +81,69 @@ void GameWindow::keyPressEvent(QKeyEvent* event) {
 
     KeyboardControlsRedirect kcr;
 
-    if (event->key() == Qt::Key_W) {
+    if (event->key() == Qt::Key_W)
+    {
         kcr.Joystick(0, 1);
     }
-    else if (event->key() == Qt::Key_S) {
+    else if (event->key() == Qt::Key_S)
+    {
         kcr.Joystick(0, -1);
     }
-    else if (event->key() == Qt::Key_L) {
+    else if (event->key() == Qt::Key_L)
+    {
         kcr.MainAction();
     }
-    else if (event->key() == Qt::Key_P) {
+    else if (event->key() == Qt::Key_P)
+    {
         kcr.Menu();
     }
-    else if (event->key() == Qt::Key_Q) {
+    else if (event->key() == Qt::Key_Q)
+    {
         kcr.PreviousSelection();
     }
-    else if (event->key() == Qt::Key_E) {
+    else if (event->key() == Qt::Key_E)
+    {
         kcr.NextSelection();
     }
-    else if (event->key() == Qt::Key_B) {
+    else if (event->key() == Qt::Key_B)
+    {
         kcr.Back();
     }
-    else if (event->key() == Qt::Key_R) {
+    else if (event->key() == Qt::Key_R)
+    {
         keyboardAngle += 1;
-        if (keyboardAngle > 90) {
+        if (keyboardAngle > 90)
+        {
             keyboardAngle = 90;
         }
 
         kcr.Angle(keyboardAngle);
     }
-    else if (event->key() == Qt::Key_F) {
+    else if (event->key() == Qt::Key_F)
+    {
         keyboardAngle -= 1;
-        if (keyboardAngle < 0) {
+        if (keyboardAngle < 0)
+        {
             keyboardAngle = 0;
         }
 
         kcr.Angle(keyboardAngle);
     }
-    else if (event->key() == Qt::Key_T) {
+    else if (event->key() == Qt::Key_T)
+    {
         keyboardPower += 0.025;
-        if (keyboardPower > 1) {
+        if (keyboardPower > 1)
+        {
             keyboardPower = 1;
         }
 
         kcr.Joystick(keyboardPower, 0);
     }
-    else if (event->key() == Qt::Key_G) {
+    else if (event->key() == Qt::Key_G)
+    {
         keyboardPower -= 0.025;
-        if (keyboardPower < 0) {
+        if (keyboardPower < 0)
+        {
             keyboardPower = 0;
         }
 
@@ -125,11 +151,12 @@ void GameWindow::keyPressEvent(QKeyEvent* event) {
     }
 }
 
-bool GameWindow::event(QEvent* event)
+bool GameWindow::event(QEvent *event)
 {
     // usage:
-    if (event->type() == ShowContentEvent::showContent) {
-        ShowContentEvent* sce = static_cast<ShowContentEvent*>(event);
+    if (event->type() == ShowContentEvent::showContent)
+    {
+        ShowContentEvent *sce = static_cast<ShowContentEvent *>(event);
         ShowContent(sce->index);
 
         return true;
