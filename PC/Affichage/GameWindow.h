@@ -3,6 +3,7 @@
 
 #include <QtWidgets>
 #include "GameWidget.h"
+#include "GenericMenu.h"
 
 class GameWindow : public QMainWindow
 {
@@ -21,6 +22,7 @@ public:
 	bool IsCurrentWidget(QWidget* widget);
 	void SetChecked(int index);
 	GameWidget* GetGameWidget();
+	GenericMenu* GetMenuWidget(int index);
 
 private:
 

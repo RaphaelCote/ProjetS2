@@ -9,7 +9,7 @@ EndGameMenuQt::EndGameMenuQt() : GenericMenu()
 	QVBoxLayout* vbox = new QVBoxLayout();
 
 	buttons[0]->setText("Prochain Niveau");
-	buttons[1]->setText("Sélection de niveau");
+	buttons[1]->setText("Selection de niveau");
 	buttons[2]->setText("Magasin");
 	buttons[3]->setText("Retour au menu");
 

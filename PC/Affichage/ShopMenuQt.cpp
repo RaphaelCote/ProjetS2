@@ -13,8 +13,7 @@ ShopMenuQt::ShopMenuQt() : GenericMenu()
 	QVBoxLayout* mainLayout = new QVBoxLayout(this);
 	mainLayout->setAlignment(Qt::AlignCenter);
 
-	int money = inventory->getGold();
-	QLabel* moneyLabel = new QLabel("Argent : " + QString::number(money), this);
+	moneyLabel = new QLabel("Argent : " + QString::number(inventory->getGold()), this);
 	moneyLabel->setStyleSheet("QLabel {"
 			" border:4px outset; "
 			" border-radius: 8px; "
@@ -71,8 +70,8 @@ ShopMenuQt::ShopMenuQt() : GenericMenu()
 	Vlayout->addWidget(rocketWidget);
 
 
-	QLabel* RocketInfo = new QLabel("Roquette\nPrix : 10$\n Possede :"+ QString::number(inventory->getRockets()), gameWindow);
-	QLabel* GrenadeInfo = new QLabel("Grenade\nPrix : 10$\n Possede :" + QString::number(inventory->getGrenade()), gameWindow);
+	RocketInfo = new QLabel("Roquette\nPrix : 10$\n Possede :"+ QString::number(inventory->getRockets()), gameWindow);
+	GrenadeInfo = new QLabel("Grenade\nPrix : 10$\n Possede :" + QString::number(inventory->getGrenade()), gameWindow);
 	RocketInfo->setStyleSheet("QLabel {"
 		//	" border:4px outset; "
 		//	" border-radius: 8px; "
@@ -184,5 +183,13 @@ ShopMenuQt::ShopMenuQt() : GenericMenu()
 
 	mainLayout->addWidget(contentWidget);
 	setLayout(mainLayout);
+	update();
+}
+
+void ShopMenuQt::UpdateValues() {
+	moneyLabel->setText("Argent : " + QString::number(inventory->getGold()));
+	RocketInfo->setText("Roquette\nPrix : 10$\n Possede :" + QString::number(inventory->getRockets()));
+	GrenadeInfo->setText("Grenade\nPrix : 10$\n Possede :" + QString::number(inventory->getGrenade()));
+
 	update();
 }

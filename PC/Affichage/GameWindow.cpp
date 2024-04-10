@@ -46,6 +46,10 @@ GameWidget* GameWindow::GetGameWidget() {
     return qobject_cast<GameWidget*>(stackedWidget->widget(1));
 }
 
+GenericMenu* GameWindow::GetMenuWidget(int index) {
+    return qobject_cast<GenericMenu*>(stackedWidget->widget(index));
+}
+
 void GameWindow::timerEvent(QTimerEvent* event)
 {
     canInput = true;

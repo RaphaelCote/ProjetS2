@@ -13,6 +13,12 @@ class ShopMenuQt : public GenericMenu
 
 public:
 	ShopMenuQt();
+	void UpdateValues();
+
+protected:
+	QLabel* moneyLabel;
+	QLabel* RocketInfo;
+	QLabel* GrenadeInfo;
 };
 
 #endif
