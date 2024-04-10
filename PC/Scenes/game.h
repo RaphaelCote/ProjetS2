@@ -34,10 +34,12 @@ public:
     friend void OnGameJoystickCall(EventParameters);
     friend void OnGameAngleCall(EventParameters);
     friend void OnGameMenuCall(EventParameters);
+    friend void OnGameBackCall(EventParameters);
 
     void ChangeProjectileType(int typeDef);
     void ChangeProjectileStrength(float strength);
     void ChangeProjectileAngle(float type);
+    void ToggleZoomedOut();
 
     void OnDisable();
     void OnEnable();

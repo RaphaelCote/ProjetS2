@@ -91,6 +91,12 @@ void OnGameMenuCall(EventParameters ep)
     game->PauseGame();
 }
 
+void OnGameBackCall(EventParameters ep)
+{
+    Game* game = (Game*)scenes->at(1);
+    game->ToggleZoomedOut();
+}
+
 void Game::ChangeProjectileType(int typeDif)
 {
     if (typeDif > 0)
@@ -148,6 +154,11 @@ void Game::ChangeProjectileAngle(float angle)
     projectile->setAngleDegre(angle);
 }
 
+void Game::ToggleZoomedOut() {
+    gameWindow->GetGameWidget()->isZoomedOut = !(gameWindow->GetGameWidget()->isZoomedOut);
+    gameWindow->GetGameWidget()->refresh();
+}
+
 void Game::OnEnable()
 {
     eventManager->on("MainAction", OnGameMainActionCall);
@@ -156,6 +167,7 @@ void Game::OnEnable()
     eventManager->on("Joystick", OnGameJoystickCall);
     eventManager->on("Angle", OnGameAngleCall);
     eventManager->on("Menu", OnGameMenuCall);
+    eventManager->on("Back", OnGameBackCall);
 }
 
 void Game::OnDisable()
@@ -166,6 +178,7 @@ void Game::OnDisable()
     eventManager->off("Joystick", OnGameJoystickCall);
     eventManager->off("Angle", OnGameAngleCall);
     eventManager->off("Menu", OnGameMenuCall);
+    eventManager->off("Back", OnGameBackCall);
 }
 
 void Game::Update()

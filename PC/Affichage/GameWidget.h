@@ -23,6 +23,8 @@ public:
     int minX;
     int minY;
 
+    int isZoomedOut = false;
+
 protected:
     void paintEvent(QPaintEvent* event);
 

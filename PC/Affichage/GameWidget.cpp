@@ -96,8 +96,14 @@ void GameWidget::paintEvent(QPaintEvent* event)
     Q_UNUSED(event);
     QPainter painter(this);
 
-    int windowHeight = this->height();
+    if (isZoomedOut) {
+        painter.scale(0.5, 0.5);
+    }
+    else {
+        painter.scale(1, 1);
+    }
 
+    int windowHeight = this->height();
 
     for (int i = 0; i < vectorPixMapRaph.length(); i++)
     {
