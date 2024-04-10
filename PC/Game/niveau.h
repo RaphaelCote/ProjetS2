@@ -5,6 +5,7 @@
 #include "projectile.h"
 #include "Boat.h"
 #include <vector>
+#include <string>
 
 class Niveau
 {
@@ -42,6 +43,7 @@ public:
     void MatCharacter();
     void CharacterQt();
     void BackgroundQt();
+    void RemoveItemQt(std::string name);
     void Delete();
 };
 

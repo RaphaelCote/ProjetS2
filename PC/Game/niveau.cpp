@@ -474,6 +474,11 @@ void Niveau::CharacterQt()
     }
 }
 
+void Niveau::RemoveItemQt(std::string name) {
+    QString qname =QString::fromStdString(name);
+    gameWindow->GetGameWidget()->removeImage(qname);
+}
+
 
 void Niveau::MatRocket(Projectile *pro)
 {

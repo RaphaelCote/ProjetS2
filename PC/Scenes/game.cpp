@@ -446,6 +446,9 @@ bool Game::CheckEndCondition()
             {
                 isAllPlayerDead = false;
             }
+            else {
+                activeLevel->RemoveItemQt("Character" + i + ',' + j);
+            }
         }
 
         if (!isAllPlayerDead)
@@ -468,6 +471,9 @@ bool Game::CheckEndCondition()
             {
                 isAllEnemyDead = false;
                 break;
+            }
+            else {
+                activeLevel->RemoveItemQt("EnemyCharacter" + i + ',' + j);
             }
         }
 
