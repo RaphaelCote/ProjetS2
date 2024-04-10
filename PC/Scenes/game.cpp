@@ -184,6 +184,8 @@ void Game::Update()
 
         projectile = new Canonball(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition());
 
+        gameWindow->GetGameWidget()->minX = 0;
+
         // Ajouter le shield au joueur
         for (int i = 0; i < activeLevel->playerBoats.size(); i++)
         {
@@ -487,7 +489,8 @@ bool Game::CheckEndCondition()
                 isAllPlayerDead = false;
             }
             else {
-                activeLevel->RemoveItemQt("Character" + i + ',' + j);
+                std::string name = "Character" + std::to_string(i) + ',' + std::to_string(j);
+                activeLevel->RemoveItemQt(name);
             }
         }
 
@@ -513,7 +516,8 @@ bool Game::CheckEndCondition()
                 break;
             }
             else {
-                activeLevel->RemoveItemQt("EnemyCharacter" + i + ',' + j);
+                std::string name = "EnemyCharacter" + std::to_string(i) + ',' + std::to_string(j);
+                activeLevel->RemoveItemQt(name);
             }
         }
 
