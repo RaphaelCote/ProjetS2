@@ -131,7 +131,7 @@ int Projectile::findBulletPositionX(int positionY)
     return positionX;
 }
 
-void Projectile::checkIfCharacterHit(Character &character)
+bool Projectile::checkIfCharacterHit(Character& character)
 {
 
     Coordonnee characterPosition = character.getPosition();
@@ -152,6 +152,7 @@ void Projectile::checkIfCharacterHit(Character &character)
             bulletEndPosition.x = findBulletPositionX(characterPosition.y);
             bulletEndPosition.y = characterPosition.y;
             damageReceived(character);
+            return false;
         }
         else if (findBulletPositionY(characterPosition.x) <= (characterPosition.y + character.getHitboxHeight()))
         {
@@ -160,6 +161,7 @@ void Projectile::checkIfCharacterHit(Character &character)
             bulletEndPosition.x = characterPosition.x;
             bulletEndPosition.y = findBulletPositionY(characterPosition.x);
             damageReceived(character);
+            return true;
         }
         else if (findBulletPositionY(characterPosition.x + character.getHitboxWidth()) > (characterPosition.y + character.getHitboxHeight()))
         { // on sait qu'il ne touchera pas l'ennemie directement (passer par dessus l'ennemie)
@@ -170,6 +172,7 @@ void Projectile::checkIfCharacterHit(Character &character)
             bulletEndPosition.x = findBulletPositionX(characterPosition.y);
             bulletEndPosition.y = characterPosition.y;
             damageReceived(character);
+            return false;
         }
         else if (findBulletPositionY(characterPosition.x + character.getHitboxWidth()) == (characterPosition.y + character.getHitboxHeight()))
         {
@@ -178,6 +181,7 @@ void Projectile::checkIfCharacterHit(Character &character)
             bulletEndPosition.x = characterPosition.x + character.getHitboxWidth();
             bulletEndPosition.y = findBulletPositionY(characterPosition.x + character.getHitboxWidth());
             damageReceived(character);
+            return true;
         }
         else if (findBulletPositionY(characterPosition.x + character.getHitboxWidth()) <= (characterPosition.y + character.getHitboxHeight()))
         {
@@ -186,6 +190,7 @@ void Projectile::checkIfCharacterHit(Character &character)
             bulletEndPosition.x = findBulletPositionX(characterPosition.y + character.getHitboxHeight());
             bulletEndPosition.y = characterPosition.y + character.getHitboxHeight();
             damageReceived(character);
+            return true;
         }
         else
         {
@@ -195,6 +200,7 @@ void Projectile::checkIfCharacterHit(Character &character)
             bulletEndPosition.x = findBulletPositionX(characterPosition.y);
             bulletEndPosition.y = characterPosition.y;
             damageReceived(character);
+            return false;
         }
     }
     if (angledeg < 0)
@@ -207,6 +213,7 @@ void Projectile::checkIfCharacterHit(Character &character)
             bulletEndPosition.x = findBulletPositionX(characterPosition.y);
             bulletEndPosition.y = characterPosition.y;
             damageReceived(character);
+            return false;
         }
         else if (findBulletPositionY(characterPosition.x + character.getHitboxWidth()) <= (characterPosition.y + character.getHitboxHeight()))
         {
@@ -215,6 +222,8 @@ void Projectile::checkIfCharacterHit(Character &character)
             bulletEndPosition.x = characterPosition.x + character.getHitboxWidth();
             bulletEndPosition.y = findBulletPositionY(characterPosition.x + character.getHitboxWidth());
             damageReceived(character);
+
+            return true;
         }
         else if (findBulletPositionY(characterPosition.x) > (characterPosition.y + character.getHitboxHeight()))
         { // on sait qu'il ne touchera pas l'ennemie directement (passer par dessus l'ennemie)
@@ -223,6 +232,7 @@ void Projectile::checkIfCharacterHit(Character &character)
             bulletEndPosition.x = findBulletPositionX(characterPosition.y);
             bulletEndPosition.y = characterPosition.y;
             damageReceived(character);
+            return false;
         }
         else if (findBulletPositionY(characterPosition.x) == (characterPosition.y + character.getHitboxHeight()))
         {
@@ -231,6 +241,7 @@ void Projectile::checkIfCharacterHit(Character &character)
             bulletEndPosition.x = characterPosition.x;
             bulletEndPosition.y = findBulletPositionY(characterPosition.x);
             damageReceived(character);
+            return true;
         }
         else if (findBulletPositionY(characterPosition.x) <= (characterPosition.y + character.getHitboxHeight()))
         {
@@ -239,6 +250,7 @@ void Projectile::checkIfCharacterHit(Character &character)
             bulletEndPosition.x = findBulletPositionX(characterPosition.y + character.getHitboxHeight());
             bulletEndPosition.y = characterPosition.y + character.getHitboxHeight();
             damageReceived(character);
+            return true;
         }
         else
         {
@@ -248,6 +260,7 @@ void Projectile::checkIfCharacterHit(Character &character)
             bulletEndPosition.x = findBulletPositionX(characterPosition.y);
             bulletEndPosition.y = characterPosition.y;
             damageReceived(character);
+            return false;
         }
     }
 }
@@ -255,7 +268,9 @@ void Projectile::checkIfCharacterHit(Character &character)
 void Projectile::checkIfCharactersHit(std::vector<Character*> characters) {
     for (int i = 0; i < characters.size(); i++)
     {
-        checkIfCharacterHit(*(characters[i]));
+        if (checkIfCharacterHit(*(characters[i]))) {
+            return;
+        }
     }
 }
 

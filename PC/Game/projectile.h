@@ -28,7 +28,7 @@ public:
     void setbulletStartPosition(Coordonnee bulletStartPosition);
     Coordonnee getBulletEndPosition();
     virtual int getProjectileMaxSpeed() = 0;
-    void checkIfCharacterHit(Character &character);
+    bool checkIfCharacterHit(Character &character);
     void checkIfCharactersHit(std::vector<Character*> characters);
     virtual int damageReceived(Character &character) = 0;
     Hitbox hitbox;
