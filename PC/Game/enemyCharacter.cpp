@@ -7,15 +7,15 @@
 #include <cstdlib>
 EnemyCharacter::~EnemyCharacter() {}
 
-EnemyCharacter::EnemyCharacter(Coordonnee position, Hitbox hitboxsset, std::string image) : Character(position, hitboxsset, image)
+EnemyCharacter::EnemyCharacter(Coordonnee position, Hitbox hitboxsset, int image) : Character(position, hitboxsset, image)
 {
     WeaponPosition.x = position.x;
     WeaponPosition.y = position.y + hitbox.height / 2;
 }
 
-Projectile *EnemyCharacter::createEnemyProjectile()
+Projectile* EnemyCharacter::createEnemyProjectile()
 {
-    Projectile *p;
+    Projectile* p;
 
     p = new Canonball(this->getWeaponPosition());
 
@@ -29,6 +29,17 @@ Projectile *EnemyCharacter::createEnemyProjectile()
     p->setPuissance(0.5 * random_puissance);
 
     return p;
+}
+float EnemyCharacter::findV0withAngle(float angledeg, Character* character)
+{
+    float deltay = ((character->getPosition().y + 0.5 * character->getHitboxHeight()) - (position.y + 0.5 * hitbox.height));
+    float deltax = ((character->getPosition().x + character->getHitboxWidth()) - (position.x));
+    //peut-être qu'il faut changer 
+    float num = g * deltax * deltax;
+    float denum = (2 * deltay * std::pow(std::cos(angledeg * PI / 180), 2)) - (2 * deltax * std::tan(angledeg * PI / 180) * std::pow(std::cos(angledeg * PI / 180), 2));
+    float res = std::sqrt(num / denum);
+    std::cout << "le résultat est celui-ci: " << std::endl;
+    return res;
 }
 
 Coordonnee EnemyCharacter::getPosition()
