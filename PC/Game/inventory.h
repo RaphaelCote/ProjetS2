@@ -43,4 +43,6 @@ private:
     int gold;
 };
 
+extern Inventory* inventory;
+
 #endif
