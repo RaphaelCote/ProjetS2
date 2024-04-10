@@ -472,6 +472,7 @@ void Game::StopGame()
     cons->SupprimerObjet("s6");
 
     activeLevel->Delete();
+    gameWindow->GetGameWidget()->removeAllImages();
 }
 
 bool Game::CheckEndCondition()
