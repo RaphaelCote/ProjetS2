@@ -686,16 +686,26 @@ void Game::AnimationProjectile(Projectile *proj)
             currentPosition.y = proj->findBulletPositionY(currentPosition.x);
             proj->bulletCurrentPosition = currentPosition;
             cons->Mincolums = (currentPosition.x - (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2) / 10; // je fais * 10 pcq c l'affichage console
-            gameWindow->GetGameWidget()->minX = ((gameWindow->GetGameWidget()->width() / 2) - currentPosition.x);
+            
+            int variable = (currentPosition.x + (gameWindow->GetGameWidget()->width() / 2));
+            if(variable < 3300 && variable > 900)
+                gameWindow->GetGameWidget()->minX = ((gameWindow->GetGameWidget()->width() / 2) - currentPosition.x);
+            else
+            {
+                variable = 0;
+            }
+
 
             if (projectileType == 0) // Cannonball
             {
+                proj->angleRotationProjectile += 1;
             }
             else if (projectileType == 1) // Rocket
             {
             }
             else if (projectileType == 2) // Grenade
             {
+                proj->angleRotationProjectile += 2;
             }
 
             /*cons->SupprimerObjet("text");
