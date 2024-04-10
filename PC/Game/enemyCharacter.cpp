@@ -7,15 +7,15 @@
 #include <cstdlib>
 EnemyCharacter::~EnemyCharacter() {}
 
-EnemyCharacter::EnemyCharacter(Coordonnee position, Hitbox hitboxsset, int image) : Character(position, hitboxsset, image)
+EnemyCharacter::EnemyCharacter(Coordonnee position, Hitbox hitboxsset, std::string image) : Character(position, hitboxsset, image)
 {
     WeaponPosition.x = position.x;
     WeaponPosition.y = position.y + hitbox.height / 2;
 }
 
-Projectile* EnemyCharacter::createEnemyProjectile()
+Projectile *EnemyCharacter::createEnemyProjectile()
 {
-    Projectile* p;
+    Projectile *p;
 
     p = new Canonball(this->getWeaponPosition());
 
