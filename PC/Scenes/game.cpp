@@ -10,6 +10,7 @@
 #include "../Game/enemyCharacter.h"
 #include "../Game/projectile.h"
 #include "../Affichage/Global.h"
+#include <QPoint>
 
 bool afficheTextCalisse = true;
 int x = 20;
@@ -210,12 +211,12 @@ void Game::PlayTurn()
     {
         if (doOnce)
         {
-            turn++;
+           turn++;
             Sleep(10);
             ShowGameInfo();
             doOnce = false;
         }
-
+        mouseLine->lineStart = QPoint(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().x, activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().y);
         UpdateWeaponInfo();
     }
     else
@@ -524,6 +525,9 @@ void Game::ShowGameInfo()
 
 void Game::UpdateWeaponInfo()
 {
+    if(mouseLine != nullptr)
+        mouseLine->updateLine();
+
     cons->SupprimerObjet("s6");
 
     Sleep(10);

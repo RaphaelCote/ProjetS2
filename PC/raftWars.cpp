@@ -75,6 +75,7 @@ Inventory *inventory;
 int activeScene;
 LevelGetter *levelGetter;
 AffichageConsole *cons;
+MouseLine* mouseLine;
 
 std::chrono::duration<double, std::milli> currentclock;
 std::chrono::duration<double, std::milli> lastClock;
@@ -182,6 +183,7 @@ int main(int argc, char *argv[])
     PauseMenuQt *pauseMenu = new PauseMenuQt();
     ShopMenuQt *shopMenu = new ShopMenuQt();
     GenericMenu *loadingScreen = new GenericMenu();
+    mouseLine = new MouseLine();
     soundManager = new SoundManager();
     //testpour le son
     /*soundManager->music = introMusic;
