@@ -73,6 +73,8 @@ void MainMenu::Update()
 void MainMenu::ShowMenu()
 {
     // ClearMenu();
+    //soundManager->soundTrack = selectionClickSoundEffect;
+    //soundManager->functionDecider = play_SoundTrack;
     cons->SupprimerObjet("s0");
     cons->SupprimerObjet("s1");
     cons->SupprimerObjet("s2");

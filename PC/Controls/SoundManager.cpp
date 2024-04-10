@@ -111,7 +111,7 @@ void SoundManager::playSoundTrack()
 			path = "debug/Music/WarDrumSoundEffect.mp3";
 			break;
 		case selectionClickSoundEffect:
-			path = "debug/Music/selectionclicksoundeffectMagouille.mp3";
+			path = "debug/Music/selectionclicksoundeffect30.mp3";
 			break;
 			/*default:
 				QString path =
