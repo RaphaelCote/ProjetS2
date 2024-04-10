@@ -18,6 +18,7 @@ HEADERS     += \
 	PC/Affichage/LevelMenu.h \
 	PC/Affichage/GameWidget.h \
 	PC/Affichage/ShowContentEvent.h \
+	PC/Affichage/UpdateValuesEvent.h \
 	PC/Affichage/Pixmaps.h \
 	PC/Affichage/Global.h \	
 	#------Controls------#
@@ -74,6 +75,7 @@ SOURCES     += \
 	PC/Affichage/LevelMenu.cpp \
 	PC/Affichage/GameWidget.cpp \
 	PC/Affichage/ShowContentEvent.cpp \
+	PC/Affichage/UpdateValuesEvent.cpp \
 	#------Controls------#
 	PC/Controls/controllerControls.cpp \
 	PC/Controls/controls.cpp \

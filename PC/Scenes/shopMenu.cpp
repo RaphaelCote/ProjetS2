@@ -3,7 +3,7 @@
 #include "../Game/inventory.h"
 #include "../Affichage/Global.h"
 #include "../Affichage/ShowContentEvent.h"
-#include "../Affichage/ShopMenuQt.h"
+#include "../Affichage/UpdateValuesEvent.h"
 
 void OnShopMainActionCall(EventParameters ep)
 {
@@ -189,31 +189,36 @@ void ShopMenu::Selection()
     {
         inventory->addRockets();
         ShowMenu();
-        qobject_cast<ShopMenuQt*>(gameWindow->GetMenuWidget(5))->UpdateValues();
+        UpdateValuesEvent* uvEvent = new UpdateValuesEvent(5);
+        QApplication::postEvent(gameWindow, uvEvent);
     }
     else if (choice == 1)
     {
         inventory->addGrenade();
         ShowMenu();
-        qobject_cast<ShopMenuQt*>(gameWindow->GetMenuWidget(5))->UpdateValues();
+        UpdateValuesEvent* uvEvent = new UpdateValuesEvent(5);
+        QApplication::postEvent(gameWindow, uvEvent);
     }
     else if (choice == 2)
     {
         inventory->addShield(1);
         ShowMenu();
-        qobject_cast<ShopMenuQt*>(gameWindow->GetMenuWidget(5))->UpdateValues();
+        UpdateValuesEvent* uvEvent = new UpdateValuesEvent(5);
+        QApplication::postEvent(gameWindow, uvEvent);
     }
     else if (choice == 3)
     {
         inventory->addShield(2);
         ShowMenu();
-        qobject_cast<ShopMenuQt*>(gameWindow->GetMenuWidget(5))->UpdateValues();
+        UpdateValuesEvent* uvEvent = new UpdateValuesEvent(5);
+        QApplication::postEvent(gameWindow, uvEvent);
     }
     else if (choice == 4)
     {
         inventory->addShield(3);
         ShowMenu();
-        qobject_cast<ShopMenuQt*>(gameWindow->GetMenuWidget(5))->UpdateValues();
+        UpdateValuesEvent* uvEvent = new UpdateValuesEvent(5);
+        QApplication::postEvent(gameWindow, uvEvent);
     }
     else if (choice == 5)
     {

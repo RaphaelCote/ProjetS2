@@ -187,7 +187,7 @@ void EndGameMenu::GotoShop()
     ShopMenu *shop = (ShopMenu *)scenes->at(5);
     shop->lastMenu = 3;
     activeScene = 5;
-    ShowContentEvent* scEvent = new ShowContentEvent(1);
+    ShowContentEvent* scEvent = new ShowContentEvent(5);
     QApplication::postEvent(gameWindow, scEvent);
 }
 

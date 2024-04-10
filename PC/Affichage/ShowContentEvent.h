@@ -10,7 +10,7 @@ class ShowContentEvent : public QEvent
 public:
 	int index;
 
-	ShowContentEvent(int index);
+	ShowContentEvent(int index );
 
 	static const QEvent::Type showContent = QEvent::User;
 };

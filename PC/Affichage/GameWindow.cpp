@@ -2,6 +2,8 @@
 #include "../Controls/keyboardControlsRedirect.h"
 #include "GenericMenu.h"
 #include "ShowContentEvent.h"
+#include "UpdateValuesEvent.h"
+#include "ShopMenuQt.h"
 
 #include "../Controls/SoundManager.h"
 #include <QtWidgets>
@@ -153,11 +155,20 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
 
 bool GameWindow::event(QEvent *event)
 {
-    // usage:
     if (event->type() == ShowContentEvent::showContent)
     {
         ShowContentEvent *sce = static_cast<ShowContentEvent *>(event);
-        ShowContent(sce->index);
+            ShowContent(sce->index);
+
+        return true;
+    }
+    else if (event->type() == UpdateValuesEvent::updateValues) {
+        UpdateValuesEvent* uve = static_cast<UpdateValuesEvent*>(event);
+
+        if (uve->index == 5) {
+            (qobject_cast<ShopMenuQt*>(stackedWidget->widget(5)))->UpdateValues();
+            
+        }
 
         return true;
     }
