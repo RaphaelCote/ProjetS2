@@ -651,6 +651,7 @@ void Game::AnimationProjectile(Projectile *proj)
 
             if (projectileType == 0) // Cannonball
             {
+                proj->angleRotationProjectile += 1;
             }
             else if (projectileType == 1) // Rocket
             {
