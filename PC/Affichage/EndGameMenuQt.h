@@ -11,6 +11,11 @@ class EndGameMenuQt : public GenericMenu
 
 public:
 	EndGameMenuQt();
+	void UpdateValues(bool isWon, int moneyGot);
+
+protected:
+	QLabel* title;
+	QLabel* moneyReceived;
 };
 
 #endif

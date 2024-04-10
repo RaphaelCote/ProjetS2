@@ -72,16 +72,16 @@ void SoundManager::playMusic()
 	switch (music)
 	{
 		case introMusic:// music d'intro
-			path = "debug/Music/RaftWarsIntroMusic.mp3";
+			path = "Music/RaftWarsIntroMusic.mp3";
 			break;
 		case gameMusic:// music de jeu (niveau 1 à 5)
-			path = "debug/Music/LevelMusic.mp3";
+			path = "Music/LevelMusic.mp3";
 			break;
 		case victoryMusic:// Victory music
-			path = "debug/Music/VictoryMusic.mp3";
+			path = "Music/VictoryMusic.mp3";
 			break;
 		case rightRound:// RIGHT ROUND TBNKKK
-			path = "debug/Music/Right_Round.mp3";
+			path = "Music/Right_Round.mp3";
 			break;
 		/*default:
 			QString path =
@@ -99,22 +99,22 @@ void SoundManager::playSoundTrack()
 	switch (soundTrack)
 	{
 		case canonSoundEffect:// canonball soundEffect
-			path = "debug/Music/CanonSoundEffect.mp3";
+			path = "Music/CanonSoundEffect.mp3";
 			break;
 		case explosionSoundEffect:// explosion (when rocket hit character) soundEffect
-			path = "debug/Music/explosionSoundEffect.mp3";
+			path = "Music/explosionSoundEffect.mp3";
 			break;
 		case timerBombSoundEffect:// grenade 3sec timer + explosion
-			path = "debug/Music/timerbomb3sec.mp3";
+			path = "Music/timerbomb3sec.mp3";
 			break;
 		case warDrumSoundEffect:// war drum soundEffect
-			path = "debug/Music/WarDrumSoundEffect.mp3";
+			path = "Music/WarDrumSoundEffect.mp3";
 			break;
 		case selectionSoundEffect:
-			path = "debug/Music/selectionclicksoundeffect30.mp3";
+			path = "Music/selectionclicksoundeffect30.mp3";
 			break;
 		case mouseClickEffect:
-			path = "debug/Music/mouseSoundClic30.mp3";
+			path = "Music/mouseSoundClic30.mp3";
 			break;
 			/*default:
 				QString path =
@@ -122,7 +122,7 @@ void SoundManager::playSoundTrack()
 	}
 	soundTrackPlayer->setSource(QUrl(path));
 	soundTrackPlayer->setAudioOutput(soundTrackPlayerOutput);
-	soundTrackPlayerOutput->setVolume(0.8);
+	soundTrackPlayerOutput->setVolume(1.5);
 	soundTrackPlayer->play();
 	// faire que ça loop
 }

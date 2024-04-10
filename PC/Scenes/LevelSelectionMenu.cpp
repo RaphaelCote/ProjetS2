@@ -161,6 +161,7 @@ void LevelSelectionMenu::Selection()
     {
         soundManager->music = gameMusic;
         soundManager->functionDecider = play_Music;
+        
         SelectLevel(choice);
     }
     else if (choice == levelGetter->nbLevel)
