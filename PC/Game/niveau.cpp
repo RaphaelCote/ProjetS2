@@ -544,7 +544,7 @@ void Niveau::RocketQt(Projectile* pro)
 {
     Frank_PixMap_Rotation* pixmap = new Frank_PixMap_Rotation;
 
-    QString str("Images/Projectile/Missile.png");
+    QString str("Images/Projectile/MissileGame.png");
     pixmap->pix = QPixmap(str);
     pixmap->box = { pixmap->pix.height(), pixmap->pix.width() };
     pixmap->x = &pro->bulletCurrentPosition.x;

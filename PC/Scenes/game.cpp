@@ -623,6 +623,8 @@ void Game::AnimationProjectile(Projectile *proj)
     float time = 0.0f;
     bool coterAnimationGauche;
 
+    int halfWay = proj->findHalfTrajectoryBulletPosition();
+
     // Pour debug
     // endPosition.x = 1000;
     ////////////////////////////////////////////////////////////////////////////////
@@ -672,18 +674,32 @@ void Game::AnimationProjectile(Projectile *proj)
                 variable = 0;
             }
 
-
-            if (projectileType == 0) // Cannonball
+            if (!isPlayerTurn)
+            {
+                proj->angleRotationProjectile += 3;
+            }
+            else if (projectileType == 0) // Cannonball
             {
                 proj->angleRotationProjectile += 1;
             }
             else if (projectileType == 1) // Rocket
             {
+                if (currentPosition.x <= halfWay)
+                {
+                    proj->angleRotationProjectile = -1*proj->findPositiveAngleBulletPositionY(currentPosition.y);
+                }
+                else
+                {
+                    proj->angleRotationProjectile = -1*proj->findNegativeAngleBulletPositionY(currentPosition.y);
+                }
             }
             else if (projectileType == 2) // Grenade
             {
                 proj->angleRotationProjectile += 2;
             }
+
+            
+            
 
             /*cons->SupprimerObjet("text");
             cons->SupprimerObjet("text2");
