@@ -122,14 +122,14 @@ public:
         soundManager->playMusic(rightRound, 0.8);*/
         
         
-        // tests = new Tests();
+        tests = new Tests();
         // tests->testjson();
         // tests->tests_unitaires_levelGetter();
 
         // tests->test_unitaires_affichage(); // Test affichage jeux
         //tests->testAffichage();
         // tests->testOuvertureJsonAffiche();
-
+        tests->test_unitaire_characterAndprojectile();
         inventory = new Inventory();
         inventory->addGold(2000);
 

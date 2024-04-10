@@ -38,6 +38,7 @@ float EnemyCharacter::findV0withAngle(float angledeg, Character* character)
     float num = g * deltax * deltax;
     float denum = (2 * deltay * std::pow(std::cos(angledeg * PI / 180), 2)) - (2 * deltax * std::tan(angledeg * PI / 180) * std::pow(std::cos(angledeg * PI / 180), 2));
     float res = std::sqrt(num / denum);
+    std::cout << "le résultat est celui-ci: " << std::endl;
     return res;
 }
    

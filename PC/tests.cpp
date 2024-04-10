@@ -153,9 +153,15 @@ void Tests::test_unitaire_characterAndprojectile()
    //    std::cout << "Le projectile n'a pas atteint directement l'adversaire. Il a atteri a la position: (" << p->getBulletEndPosition().x << ", " << p->getBulletEndPosition().y << ")" << std::endl;
    // }
    // std::cout << "le personnage vise a actuellement : " << enemy.getHealthPoint() << " point de vie" << std::endl;
-   Gameloader gameloader;
+   Gameloader* gameloader = new Gameloader();
+   //Niveau *niveau = gameloader->getLevelFromJson(levelGetter->levels[0]);
+   Niveau* niveau = gameloader->getLevelFromJson("PC\\levels\\level1.json");
+   EnemyCharacter* ec = (EnemyCharacter*)niveau->enemyBoats[0]->characters[0];
+   PlayerCharacter* pc = (PlayerCharacter*)niveau->playerBoats[0]->characters[0];
+   Projectile* projectileJoueur = new Canonball(pc->getWeaponPosition());
+   Projectile* enemyProjectile = ec->createEnemyProjectile();
 
-   Niveau *niveau = gameloader.getLevelFromJson(levelGetter->levels[0]);
+   ec->findV0withAngle(-45, pc);
 }
 
 void Tests::test_unitaire_Boat()
