@@ -11,6 +11,7 @@
 #include "../Game/projectile.h"
 #include "../Affichage/Global.h"
 #include "../Affichage/ShowContentEvent.h"
+#include "../Affichage/EndGameMenuQt.h"
 
 bool afficheTextCalisse = true;
 int x = 20;
@@ -203,6 +204,9 @@ void Game::Update()
         activeLevel->RaftQt();
         activeLevel->CharacterQt();
         gameWindow->GetGameWidget()->refresh();
+
+        soundManager->soundTrack = warDrumSoundEffect;
+        soundManager->functionDecider = play_SoundTrack;
     }
 
     isNewLevel = false;
@@ -366,9 +370,26 @@ void Game::PauseGame()
 
 void Game::EndGame()
 {
-    PayPlayer();
+    bool isAllPlayerDead = true;
+    for (int i = 0; i < activeLevel->playerBoats.size(); i++)
+    {
+        for (int j = 0; j < activeLevel->playerBoats[i]->characters.size(); j++)
+        {
+            if (activeLevel->playerBoats[i]->characters[j]->getHealthPoint() > 0)
+            {
+                isAllPlayerDead = false;
+            }
+        }
+
+        if (!isAllPlayerDead)
+        {
+            break;
+        }
+    }
+
     OnDisable();
     StopGame();
+    qobject_cast<EndGameMenuQt*>(gameWindow->GetMenuWidget(3))->UpdateValues(!isAllPlayerDead,PayPlayer());
     activeScene = 3;
     soundManager->music = victoryMusic;
     soundManager->functionDecider = play_Music;
@@ -376,7 +397,7 @@ void Game::EndGame()
     QApplication::postEvent(gameWindow, scEvent);
 }
 
-void Game::PayPlayer()
+int Game::PayPlayer()
 {
     bool isAllPlayerDead = true;
     for (int i = 0; i < activeLevel->playerBoats.size(); i++)
@@ -403,6 +424,7 @@ void Game::PayPlayer()
         // cout << "-------------------------------------------------------------------" << endl;
         // cout << "Vous avec recu 200$" << endl;
         // cout << "-------------------------------------------------------------------" << endl;
+        return 200;
     }
     else
     {
@@ -411,6 +433,7 @@ void Game::PayPlayer()
         // cout << "-------------------------------------------------------------------" << endl;
         // cout << "Vous avec recu 1200$" << endl;
         // cout << "-------------------------------------------------------------------" << endl;
+        return 1200;
     }
 }
 

@@ -47,7 +47,7 @@ public:
     void PlayerShoot();
     void PauseGame();
     void EndGame();
-    void PayPlayer();
+    int PayPlayer();
     void StoreShield();
     void StopGame();
     bool CheckEndCondition();

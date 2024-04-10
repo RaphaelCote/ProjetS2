@@ -166,8 +166,6 @@ void EndGameMenu::Selection()
     }
     else if (choice == 3)
     {
-        soundManager->music = introMusic;
-        soundManager->functionDecider = play_Music;
         ReturnToMenu();
     }
 }
