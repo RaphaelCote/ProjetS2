@@ -8,21 +8,27 @@
 void OnLevelSelectionMenuMainActionCall(EventParameters ep)
 {
     Menu *menu = (Menu *)scenes->at(activeScene);
+    soundManager->soundTrack = mouseClickEffect;
+    soundManager->functionDecider = play_SoundTrack;
     menu->Selection();
 }
 
 void OnLevelSelectionMenuJoystickCall(EventParameters ep)
 {
     Menu *menu = (Menu *)scenes->at(activeScene);
+    soundManager->soundTrack = selectionSoundEffect;
+    soundManager->functionDecider = play_SoundTrack;
     menu->changeSelection(ep);
 }
 
 void OnLevelSelectionMenuBackCall(EventParameters)
 {
     LevelSelectionMenu *menu = (LevelSelectionMenu *)scenes->at(activeScene);
-    menu->Back();
+    soundManager->soundTrack = mouseClickEffect;
+    soundManager->functionDecider = play_SoundTrack;
     menu->OnDisable();
     menu->doOnce = true;
+    menu->Back();
 }
 
 void LevelSelectionMenu::OnEnable()
@@ -153,6 +159,8 @@ void LevelSelectionMenu::Selection()
 
     if (choice < levelGetter->nbLevel)
     {
+        soundManager->music = gameMusic;
+        soundManager->functionDecider = play_Music;
         SelectLevel(choice);
     }
     else if (choice == levelGetter->nbLevel)

@@ -15,21 +15,27 @@ EndGameMenu::EndGameMenu()
 void OnEndGameMenuMainActionCall(EventParameters ep)
 {
     Menu *menu = (Menu *)scenes->at(activeScene);
+    soundManager->soundTrack = mouseClickEffect;
+    soundManager->functionDecider = play_SoundTrack;
     menu->Selection();
 }
 
 void OnEndGameMenuJoystickCall(EventParameters ep)
 {
     Menu *menu = (Menu *)scenes->at(activeScene);
+    soundManager->soundTrack = selectionSoundEffect;
+    soundManager->functionDecider = play_SoundTrack;
     menu->changeSelection(ep);
 }
 
 void OnEndGameMenuBackCall(EventParameters)
 {
     EndGameMenu *menu = (EndGameMenu *)scenes->at(activeScene);
-    menu->ReturnToMenu();
+    soundManager->soundTrack = mouseClickEffect;
+    soundManager->functionDecider = play_SoundTrack;
     menu->OnDisable();
     menu->doOnce = true;
+    menu->ReturnToMenu();
 }
 
 void EndGameMenu::OnEnable()
@@ -146,6 +152,8 @@ void EndGameMenu::Selection()
 
     if (choice == 0)
     {
+        soundManager->music = gameMusic;
+        soundManager->functionDecider = play_Music;
         NextLevel();
     }
     else if (choice == 1)
@@ -158,6 +166,8 @@ void EndGameMenu::Selection()
     }
     else if (choice == 3)
     {
+        soundManager->music = introMusic;
+        soundManager->functionDecider = play_Music;
         ReturnToMenu();
     }
 }

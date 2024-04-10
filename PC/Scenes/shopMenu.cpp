@@ -8,21 +8,27 @@
 void OnShopMainActionCall(EventParameters ep)
 {
     Menu *menu = (Menu *)scenes->at(activeScene);
+    soundManager->soundTrack = mouseClickEffect;
+    soundManager->functionDecider = play_SoundTrack;
     menu->Selection();
 }
 
 void OnShopJoystickCall(EventParameters ep)
 {
     Menu *menu = (Menu *)scenes->at(activeScene);
+    soundManager->soundTrack = selectionSoundEffect;
+    soundManager->functionDecider = play_SoundTrack;
     menu->changeSelection(ep);
 }
 
 void OnShopBackCall(EventParameters)
 {
     ShopMenu *menu = (ShopMenu *)scenes->at(activeScene);
-    menu->Back();
+    soundManager->soundTrack = mouseClickEffect;
+    soundManager->functionDecider = play_SoundTrack;
     menu->OnDisable();
     menu->doOnce = true;
+    menu->Back();
 }
 
 void ShopMenu::OnEnable()

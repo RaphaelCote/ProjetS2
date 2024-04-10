@@ -54,12 +54,16 @@ void OnGameMainActionCall(EventParameters ep)
 
 void OnGameNextSelectionCall(EventParameters ep)
 {
+    soundManager->soundTrack = selectionSoundEffect;
+    soundManager->functionDecider = play_SoundTrack;
     Game *game = (Game *)scenes->at(1);
     game->ChangeProjectileType(1);
 }
 
 void OnGamePreviousSelectionCall(EventParameters ep)
 {
+    soundManager->soundTrack = selectionSoundEffect;
+    soundManager->functionDecider = play_SoundTrack;
     Game *game = (Game *)scenes->at(1);
     game->ChangeProjectileType(-1);
 }
@@ -80,6 +84,8 @@ void OnGameAngleCall(EventParameters ep)
 
 void OnGameMenuCall(EventParameters ep)
 {
+    soundManager->soundTrack = mouseClickEffect;
+    soundManager->functionDecider = play_SoundTrack;
     Game *game = (Game *)scenes->at(1);
     game->PauseGame();
 }
@@ -270,6 +276,9 @@ void Game::PlayTurn()
             //enemyProjectile->checkIfCharacterHit(*(activeLevel->playerBoats[0]->characters[0]));
             enemyProjectile->checkIfCharactersHit(players);
 
+            soundManager->soundTrack = canonSoundEffect;
+            soundManager->functionDecider = play_SoundTrack;
+
             AnimationProjectile(enemyProjectile);
 
             afficheTextCalisse = true;
@@ -318,6 +327,9 @@ void Game::PlayerShoot()
     //projectile->checkIfCharacterHit(*(activeLevel->enemyBoats[0]->characters[0]));
     projectile->checkIfCharactersHit(enemies);
 
+    soundManager->soundTrack = canonSoundEffect;
+    soundManager->functionDecider = play_SoundTrack;
+
     AnimationProjectile(projectile);
 
     // Remove special projectiles if fired, and if no more special projectiles are available, change to previous type
@@ -346,6 +358,8 @@ void Game::PauseGame()
 {
     OnDisable();
     activeScene = 4;
+    soundManager->music = introMusic;
+    soundManager->functionDecider = play_Music;
     ShowContentEvent *scEvent = new ShowContentEvent(4);
     QApplication::postEvent(gameWindow, scEvent);
 }
@@ -356,6 +370,8 @@ void Game::EndGame()
     OnDisable();
     StopGame();
     activeScene = 3;
+    soundManager->music = victoryMusic;
+    soundManager->functionDecider = play_Music;
     ShowContentEvent *scEvent = new ShowContentEvent(3);
     QApplication::postEvent(gameWindow, scEvent);
 }

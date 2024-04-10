@@ -133,6 +133,7 @@ public:
         }
         ShowContentEvent *scEvent = new ShowContentEvent(0);
         QApplication::postEvent(gameWindow, scEvent);
+        
         //----------------------Sans QTimer----------------------//
         while (true)
         {
@@ -188,9 +189,10 @@ int main(int argc, char *argv[])
     ShopMenuQt *shopMenu = new ShopMenuQt();
     GenericMenu *loadingScreen = new GenericMenu();
     soundManager = new SoundManager();
-    //testpour le son
-    /*soundManager->music = introMusic;
-    soundManager->functionDecider = play_Music;*/
+
+    soundManager->music = introMusic;
+    soundManager->functionDecider = play_Music;
+    
     QScreen *screen = QGuiApplication::primaryScreen();
     QRect screenGeometry = screen->geometry();
     int screenWidth = screenGeometry.width();

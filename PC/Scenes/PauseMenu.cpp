@@ -15,21 +15,27 @@ PauseMenu::PauseMenu()
 void OnPauseMenuMainActionCall(EventParameters)
 {
     Menu *menu = (Menu *)scenes->at(activeScene);
+    soundManager->soundTrack = mouseClickEffect;
+    soundManager->functionDecider = play_SoundTrack;
     menu->Selection();
 }
 
 void OnPauseMenuJoystickCall(EventParameters ep)
 {
     Menu *menu = (Menu *)scenes->at(activeScene);
+    soundManager->soundTrack = selectionSoundEffect;
+    soundManager->functionDecider = play_SoundTrack;
     menu->changeSelection(ep);
 }
 
 void OnPauseMenuBackCall(EventParameters)
 {
     PauseMenu *menu = (PauseMenu *)scenes->at(activeScene);
-    menu->Continu();
+    soundManager->soundTrack = mouseClickEffect;
+    soundManager->functionDecider = play_SoundTrack;
     menu->OnDisable();
     menu->doOnce = true;
+    menu->Continu();
 }
 
 void PauseMenu::OnEnable()
@@ -133,10 +139,13 @@ void PauseMenu::Selection()
     if (choice == 0)
     {
         Continu();
-        
+        soundManager->music = gameMusic;
+        soundManager->functionDecider = play_Music;
     }
     else if (choice == 1)
     {
+        soundManager->music = introMusic;
+        soundManager->functionDecider = play_Music;
         ReturnToMenu();
     }
 }
