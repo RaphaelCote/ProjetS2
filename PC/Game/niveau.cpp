@@ -129,7 +129,7 @@ void Niveau::RaftQt()
         pixmap->x = playerBoats[i]->getPointerPositionBoat_X();
         pixmap->y = playerBoats[i]->getPointerPositionBoat_Y();
         pixmap->couche = 1;
-        pixmap->name = "Boat" + i;
+        pixmap->name = "Boat" + std::to_string(i);
         pixmap->rotation = 0;
 
         gameWindow->GetGameWidget()->addImage(pixmap);
@@ -146,7 +146,7 @@ void Niveau::RaftQt()
         pixmap->x = enemyBoats[i]->getPointerPositionBoat_X();
         pixmap->y = enemyBoats[i]->getPointerPositionBoat_Y();
         pixmap->couche = 1;
-        pixmap->name = "EnemyBoat" + i;
+        pixmap->name = "EnemyBoat" + std::to_string(i);
         pixmap->rotation = 0;
 
         gameWindow->GetGameWidget()->addImage(pixmap);
