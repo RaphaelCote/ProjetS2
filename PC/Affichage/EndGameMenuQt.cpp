@@ -4,7 +4,7 @@
 
 EndGameMenuQt::EndGameMenuQt() : GenericMenu()
 {
-	CreateButtons(4);
+	CreateButtons(4, true);
 
 	QVBoxLayout* vbox = new QVBoxLayout();
 

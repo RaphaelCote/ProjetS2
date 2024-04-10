@@ -10,6 +10,7 @@
 #include "../Game/enemyCharacter.h"
 #include "../Game/projectile.h"
 #include "../Affichage/Global.h"
+#include "../Affichage/ShowContentEvent.h"
 
 bool afficheTextCalisse = true;
 int x = 20;
@@ -214,8 +215,6 @@ void Game::PlayTurn()
             Sleep(10);
             ShowGameInfo();
             doOnce = false;
-            
-
         }
 
         UpdateWeaponInfo();
@@ -269,6 +268,7 @@ void Game::PlayerShoot()
     else if (projectileType == 2)
     {
         activeLevel->MatGrenade(projectile);
+        activeLevel->BalleQt(projectile);
     }
 
     if(projectile->checkIfCharacterHit(*(activeLevel->enemyBoats[0]->characters[0])))
@@ -304,7 +304,8 @@ void Game::PauseGame()
 {
     OnDisable();
     activeScene = 4;
-    gameWindow->ShowContent(4);
+    ShowContentEvent* scEvent = new ShowContentEvent(4);
+    QApplication::postEvent(gameWindow, scEvent);
 }
 
 void Game::EndGame()
@@ -313,7 +314,8 @@ void Game::EndGame()
     OnDisable();
     StopGame();
     activeScene = 3;
-    gameWindow->ShowContent(3);
+    ShowContentEvent* scEvent = new ShowContentEvent(3);
+    QApplication::postEvent(gameWindow, scEvent);
 }
 
 void Game::PayPlayer()
@@ -561,11 +563,10 @@ void Game::AnimationProjectile(Projectile* proj)
     cons->Mincolums = (currentPosition.x - (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2) / 10; // je fais * 10 pcq c l'affichage console
     gameWindow->GetGameWidget()->minX = ((gameWindow->GetGameWidget()->width() / 2) - currentPosition.x);
     gameWindow->GetGameWidget()->refresh();
-    Sleep(1000);
+    Sleep(500);
 
     while (animation)
     {
-
         const auto now = std::chrono::high_resolution_clock::now();
         currentclockAnimation = now - startAnimation;
 
@@ -574,7 +575,6 @@ void Game::AnimationProjectile(Projectile* proj)
             faireunefois = false;
             compteur++;
             time += 0.01;
-
 
             if (proj->getAngleDegre() > 0)
             {

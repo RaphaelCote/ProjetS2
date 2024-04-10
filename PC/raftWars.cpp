@@ -18,7 +18,9 @@ using namespace std::chrono;
 #include "Affichage/MainMenuQt.h"
 #include "Affichage/PauseMenuQt.h"
 #include "Affichage/EndGameMenuQt.h"
+#include "Affichage/ShopMenuQt.h"
 #include "Affichage/LevelMenu.h"
+#include "Affichage/ShowContentEvent.h"
 #include "Controls/keyboardControls.h"
 #include "Controls/ControllerControls.h"
 #include "tests.h"
@@ -123,12 +125,13 @@ public:
         // Main loop
         Sleep(2000); // minimum de 2 secondes sinon, sa crash
 
-        QEvent *event = new QEvent(QEvent::User);
-        QApplication::postEvent(gameWindow, event);
+        
         if (((ControllerControls*)controls)->Connected == true)
         {
             ((ControllerControls*)controls)->ready_to_send = true;
         }
+        ShowContentEvent *scEvent = new ShowContentEvent(0);
+        QApplication::postEvent(gameWindow, scEvent);
         //----------------------Sans QTimer----------------------//
         while (true)
         {
@@ -177,11 +180,11 @@ int main(int argc, char *argv[])
 
     gameWindow = new GameWindow();
     MainMenuQt *mainMenu = new MainMenuQt();
-    GameWidget *gameQt = new GameWidget();
+    GameWidget *gameWidget = new GameWidget();
     LevelMenu *levelMenu = new LevelMenu();
     EndGameMenuQt *endgameMenu = new EndGameMenuQt();
     PauseMenuQt *pauseMenu = new PauseMenuQt();
-    GenericMenu *shopMenu = new GenericMenu();
+    ShopMenuQt *shopMenu = new ShopMenuQt();
     GenericMenu *loadingScreen = new GenericMenu();
 
     QScreen *screen = QGuiApplication::primaryScreen();
@@ -205,7 +208,6 @@ int main(int argc, char *argv[])
     loadingScreen->setLayout(vbox);
     loadingScreen->update();
 
-    // Lecture du fichier audio
     MyThread thread;
     thread.start();
 
@@ -214,7 +216,7 @@ int main(int argc, char *argv[])
     //controls = new ControllerControls(eventManager, "COM3");
 
     gameWindow->AddContent(mainMenu);
-    gameWindow->AddContent(gameQt);
+    gameWindow->AddContent(gameWidget);
     gameWindow->AddContent(levelMenu);
     gameWindow->AddContent(endgameMenu);
     gameWindow->AddContent(pauseMenu);

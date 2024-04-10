@@ -24,9 +24,9 @@ GenericMenu::GenericMenu()
 	vectorPixMap.append(image4);
 }
 
-void GenericMenu::CreateButtons(int btnQty) {
+void GenericMenu::CreateButtons(int btnQty, bool isSized) {
 	for (int i = 0; i < btnQty; i++) {
-		buttons.push_back(new MenuButton("Btn", this));
+		buttons.push_back(new MenuButton("Btn", isSized, this));
 		buttons[i]->setCheckable(true);
 		buttons[i]->installEventFilter(this);
 	}

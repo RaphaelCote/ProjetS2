@@ -4,7 +4,7 @@
 
 LevelMenu::LevelMenu() : GenericMenu()
 {
-	CreateButtons(levelQty+1);
+	CreateButtons(levelQty+1, true);
 
 	for (int i = 0; i <= levelQty; i++) {
 		if (i == levelQty) {

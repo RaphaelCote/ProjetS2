@@ -2,6 +2,7 @@
 #include "../raftWars.h"
 #include "../Game/inventory.h"
 #include "../Affichage/Global.h"
+#include "../Affichage/ShowContentEvent.h"
 
 void OnShopMainActionCall(EventParameters ep)
 {
@@ -20,6 +21,7 @@ void OnShopBackCall(EventParameters)
     ShopMenu *menu = (ShopMenu *)scenes->at(activeScene);
     menu->Back();
     menu->OnDisable();
+    menu->doOnce = true;
 }
 
 void ShopMenu::OnEnable()
@@ -214,4 +216,6 @@ void ShopMenu::Back()
 {
     choice = 0;
     activeScene = lastMenu;
+    ShowContentEvent* scEvent = new ShowContentEvent(lastMenu);
+    QApplication::postEvent(gameWindow, scEvent);
 }

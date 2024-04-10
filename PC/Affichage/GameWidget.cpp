@@ -91,9 +91,6 @@ QPixmap GameWidget::rotatePixmap(const QPixmap& pixmap, qreal degrees) {
     return rotatedPixmap;
 }
 
-
-
-
 void GameWidget::paintEvent(QPaintEvent* event)
 {
     Q_UNUSED(event);
