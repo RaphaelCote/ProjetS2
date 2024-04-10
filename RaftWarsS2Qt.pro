@@ -19,6 +19,7 @@ HEADERS     += \
 	PC/Affichage/GameWidget.h \
 	PC/Affichage/Pixmaps.h \
 	PC/Affichage/Global.h \	
+	PC/Affichage/MouseLine.h \
 	#------Controls------#
 	PC/Controls/controllerControls.h \
 	PC/Controls/controls.h \
@@ -72,6 +73,7 @@ SOURCES     += \
 	PC/Affichage/ShopMenuQt.cpp \
 	PC/Affichage/LevelMenu.cpp \
 	PC/Affichage/GameWidget.cpp \
+	PC/Affichage/MouseLine.cpp \
 	#------Controls------#
 	PC/Controls/controllerControls.cpp \
 	PC/Controls/controls.cpp \

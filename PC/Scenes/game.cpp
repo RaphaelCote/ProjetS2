@@ -216,8 +216,8 @@ void Game::PlayTurn()
             ShowGameInfo();
             doOnce = false;
         }
-        mouseLine->lineStart = QPoint(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().x, activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().y);
-        UpdateWeaponInfo();
+        /*mouseLine->lineStart = QPoint(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().x, activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().y);
+        UpdateWeaponInfo();*/
     }
     else
     {
@@ -525,8 +525,8 @@ void Game::ShowGameInfo()
 
 void Game::UpdateWeaponInfo()
 {
-    if(mouseLine != nullptr)
-        mouseLine->updateLine();
+    //if(mouseLine != nullptr)
+        //mouseLine->updateLine();
 
     cons->SupprimerObjet("s6");
 
@@ -580,11 +580,11 @@ void Game::AnimationProjectile(Projectile* proj)
 
             if (proj->getAngleDegre() > 0)
             {
-                currentPosition.x += 1;
+                currentPosition.x += 7;
             }
             else
             {
-                currentPosition.x -= 1;
+                currentPosition.x -= 7;
             }
             currentPosition.y = proj->findBulletPositionY(currentPosition.x);
             proj->bulletCurrentPosition = currentPosition;

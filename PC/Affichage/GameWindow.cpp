@@ -1,6 +1,7 @@
 #include "GameWindow.h"
 #include "../Controls/keyboardControlsRedirect.h"
 #include "GenericMenu.h"
+#include "Scenes/game.h"
 
 #include "../Controls/SoundManager.h"
 #include <QtWidgets>
@@ -8,17 +9,26 @@
 GameWindow::GameWindow() : QMainWindow()
 {
 	setWindowTitle(tr("Guerre de radeaux"));
-
+    
     stackedWidget = new QStackedWidget;
 
     setCentralWidget(stackedWidget);
 
     timerId = startTimer(100);
+    ///////////////////////////////////////////////////////////////////////
+    
+    //mouseLine = new MouseLine();
+    ////connect(this, &GameWindow::tKeyPressed, mouseLine, &MouseLine::updateLineStart);
+    connect(this, &GameWindow::tKeyPressed, this, &GameWindow::increaseLineToRight);
+    //QPoint(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().x, activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().y);
+    lineStart = QPoint(0, 200);
+    lineEnd = QPoint(0,200);
 }
 
 GameWindow::~GameWindow()
 {
     killTimer(timerId);
+    delete mouseLine;
 }
 
 void GameWindow::ShowContent(int widgetIndex) {
@@ -111,6 +121,11 @@ void GameWindow::keyPressEvent(QKeyEvent* event) {
         }
 
         kcr.Joystick(keyboardPower, 0);
+        int delta = 10; // Vous pouvez ajuster cela selon vos besoins
+
+        // Émettre un signal pour augmenter la longueur de la ligne
+        //emit increaseLineLength(delta);
+        emit tKeyPressed();
     }
     else if (event->key() == Qt::Key_G) {
         keyboardPower -= 0.025;
