@@ -4,6 +4,7 @@
 #include "mainMenu.h"
 #include "../raftWars.h"
 #include "../Affichage/Global.h"
+#include "../Affichage/ShowContentEvent.h"
 #include "LevelSelectionMenu.h"
 #include "shopMenu.h"
 
@@ -163,7 +164,8 @@ void MainMenu::PlayGame()
     Game *game = (Game *)scenes->at(1);
     game->isNewLevel = true;
     activeScene = 1;
-    gameWindow->ShowContent(1);
+    ShowContentEvent* scEvent = new ShowContentEvent(1);
+    QApplication::postEvent(gameWindow, scEvent);
 }
 
 void MainMenu::GotoLevelSelect()
@@ -172,7 +174,8 @@ void MainMenu::GotoLevelSelect()
     LevelSelectionMenu *lsm = (LevelSelectionMenu *)scenes->at(2);
     lsm->lastMenu = 0;
     activeScene = 2;
-    gameWindow->ShowContent(2);
+    ShowContentEvent* scEvent = new ShowContentEvent(2);
+    QApplication::postEvent(gameWindow, scEvent);
 }
 
 void MainMenu::GotoShop()
@@ -181,7 +184,8 @@ void MainMenu::GotoShop()
     ShopMenu *shop = (ShopMenu *)scenes->at(5);
     shop->lastMenu = 0;
     activeScene = 5;
-    gameWindow->ShowContent(5);
+    ShowContentEvent* scEvent = new ShowContentEvent(5);
+    QApplication::postEvent(gameWindow, scEvent);
 }
 
 void MainMenu::ExitGame()

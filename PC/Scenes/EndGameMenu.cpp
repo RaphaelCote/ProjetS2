@@ -6,6 +6,7 @@
 #include "../Controls/keyboardControls.h"
 #include "shopMenu.h"
 #include "../Affichage/Global.h"
+#include "../Affichage/ShowContentEvent.h"
 
 EndGameMenu::EndGameMenu()
 {
@@ -168,7 +169,8 @@ void EndGameMenu::NextLevel()
     game->SetLevelIndex(game->GetLevelIndex() + 1);
     game->isNewLevel = true;
     activeScene = 1;
-    gameWindow->ShowContent(1);
+    ShowContentEvent* scEvent = new ShowContentEvent(1);
+    QApplication::postEvent(gameWindow, scEvent);
 }
 
 void EndGameMenu::GotoShop()
@@ -177,7 +179,8 @@ void EndGameMenu::GotoShop()
     ShopMenu *shop = (ShopMenu *)scenes->at(5);
     shop->lastMenu = 3;
     activeScene = 5;
-    gameWindow->ShowContent(5);
+    ShowContentEvent* scEvent = new ShowContentEvent(1);
+    QApplication::postEvent(gameWindow, scEvent);
 }
 
 void EndGameMenu::GotoLevelSelect()
@@ -186,12 +189,14 @@ void EndGameMenu::GotoLevelSelect()
     LevelSelectionMenu *lsm = (LevelSelectionMenu *)scenes->at(2);
     lsm->lastMenu = 3;
     activeScene = 2;
-    gameWindow->ShowContent(2);
+    ShowContentEvent* scEvent = new ShowContentEvent(2);
+    QApplication::postEvent(gameWindow, scEvent);
 }
 
 void EndGameMenu::ReturnToMenu()
 {
     choice = 0;
     activeScene = 0;
-    gameWindow->ShowContent(0);
+    ShowContentEvent* scEvent = new ShowContentEvent(0);
+    QApplication::postEvent(gameWindow, scEvent);
 }

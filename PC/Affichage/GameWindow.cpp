@@ -1,6 +1,7 @@
 #include "GameWindow.h"
 #include "../Controls/keyboardControlsRedirect.h"
 #include "GenericMenu.h"
+#include "ShowContentEvent.h"
 #include <QtWidgets>
 
 GameWindow::GameWindow() : QMainWindow()
@@ -122,9 +123,12 @@ void GameWindow::keyPressEvent(QKeyEvent* event) {
 
 bool GameWindow::event(QEvent* event)
 {
-    if (event->type() == 1000) {
-        QKeyEvent* ke = static_cast<QKeyEvent*>(event);
-        ShowContent(0);
+    // usage:
+    if (event->type() == ShowContentEvent::showContent) {
+        ShowContentEvent* sce = static_cast<ShowContentEvent*>(event);
+        ShowContent(sce->index);
+
+        return true;
     }
 
     return QWidget::event(event);

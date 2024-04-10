@@ -20,6 +20,7 @@ using namespace std::chrono;
 #include "Affichage/EndGameMenuQt.h"
 #include "Affichage/ShopMenuQt.h"
 #include "Affichage/LevelMenu.h"
+#include "Affichage/ShowContentEvent.h"
 #include "Controls/keyboardControls.h"
 #include "Controls/ControllerControls.h"
 #include "tests.h"
@@ -83,10 +84,6 @@ class MyThread : public QThread
 public:
     void run() override
     {
-        eventManager = new EventManager();
-        controls = new KeyboardControls(eventManager);
-        // controls = new ControllerControls(eventManager, "COM4");
-
         cons = new AffichageConsole();
 
         // tests = new Tests();
@@ -128,8 +125,8 @@ public:
         // Main loop
         Sleep(2000); // minimum de 2 secondes sinon, sa crash
 
-        QEvent *event = new QEvent(QEvent::User);
-        QApplication::postEvent(gameWindow, event);
+        ShowContentEvent *scEvent = new ShowContentEvent(0);
+        QApplication::postEvent(gameWindow, scEvent);
         //----------------------Sans QTimer----------------------//
         while (true)
         {
@@ -206,9 +203,12 @@ int main(int argc, char *argv[])
     loadingScreen->setLayout(vbox);
     loadingScreen->update();
 
-    // Lecture du fichier audio
     MyThread thread;
     thread.start();
+
+    eventManager = new EventManager();
+    controls = new KeyboardControls(eventManager);
+    // controls = new ControllerControls(eventManager, "COM4");
 
     gameWindow->AddContent(mainMenu);
     gameWindow->AddContent(gameWidget);

@@ -6,7 +6,7 @@
 #include "../Controls/keyboardControls.h"
 #include "game.h"
 #include "../Affichage/Global.h"
-#include "../Affichage/Global.h"
+#include "../Affichage/ShowContentEvent.h"
 
 PauseMenu::PauseMenu()
 {
@@ -133,12 +133,11 @@ void PauseMenu::Selection()
     if (choice == 0)
     {
         Continu();
-        gameWindow->ShowContent(1);
+        
     }
     else if (choice == 1)
     {
         ReturnToMenu();
-        gameWindow->ShowContent(0);
     }
 }
 
@@ -146,6 +145,8 @@ void PauseMenu::Continu()
 {
     choice = 0;
     activeScene = 1;
+    ShowContentEvent* scEvent = new ShowContentEvent(1);
+    QApplication::postEvent(gameWindow, scEvent);
 }
 
 void PauseMenu::ReturnToMenu()
@@ -154,4 +155,6 @@ void PauseMenu::ReturnToMenu()
     Game *game = (Game *)scenes->at(1);
     game->StopGame();
     activeScene = 0;
+    ShowContentEvent* scEvent = new ShowContentEvent(0);
+    QApplication::postEvent(gameWindow, scEvent);
 }

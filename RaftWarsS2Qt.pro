@@ -17,6 +17,7 @@ HEADERS     += \
 	PC/Affichage/ShopMenuQt.h \
 	PC/Affichage/LevelMenu.h \
 	PC/Affichage/GameWidget.h \
+	PC/Affichage/ShowContentEvent.h \
 	PC/Affichage/Pixmaps.h \
 	PC/Affichage/Global.h \	
 	#------Controls------#
@@ -71,6 +72,7 @@ SOURCES     += \
 	PC/Affichage/ShopMenuQt.cpp \
 	PC/Affichage/LevelMenu.cpp \
 	PC/Affichage/GameWidget.cpp \
+	PC/Affichage/ShowContentEvent.cpp \
 	#------Controls------#
 	PC/Controls/controllerControls.cpp \
 	PC/Controls/controls.cpp \

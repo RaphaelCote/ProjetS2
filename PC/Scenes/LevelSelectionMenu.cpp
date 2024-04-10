@@ -3,6 +3,7 @@
 #include "../Controls/keyboardControls.h"
 #include "../Game/levelGetter.h"
 #include "../Affichage/Global.h"
+#include "../Affichage/ShowContentEvent.h"
 
 void OnLevelSelectionMenuMainActionCall(EventParameters ep)
 {
@@ -168,12 +169,14 @@ void LevelSelectionMenu::SelectLevel(int level)
     game->SetLevelIndex(level);
     game->isNewLevel = true;
     activeScene = 1;
-    gameWindow->ShowContent(1);
+    ShowContentEvent* scEvent = new ShowContentEvent(1);
+    QApplication::postEvent(gameWindow, scEvent);
 }
 
 void LevelSelectionMenu::Back()
 {
     choice = 0;
     activeScene = lastMenu;
-    gameWindow->ShowContent(lastMenu);
+    ShowContentEvent* scEvent = new ShowContentEvent(lastMenu);
+    QApplication::postEvent(gameWindow, scEvent);
 }
