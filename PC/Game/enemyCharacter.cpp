@@ -30,7 +30,17 @@ Projectile *EnemyCharacter::createEnemyProjectile()
 
     return p;
 }
-
+float EnemyCharacter::findV0withAngle(float angledeg, Character* character)
+{
+    float deltay = ((character->getPosition().y + 0.5 * character->getHitboxHeight()) - (position.y + 0.5 * hitbox.height));
+    float deltax = ((character->getPosition().x + character->getHitboxWidth()) - (position.x));
+    //peut-être qu'il faut changer 
+    float num = g * deltax * deltax;
+    float denum = (2 * deltay * std::pow(std::cos(angledeg * PI / 180), 2)) - (2 * deltax * std::tan(angledeg * PI / 180) * std::pow(std::cos(angledeg * PI / 180), 2));
+    float res = std::sqrt(num / denum);
+    return res;
+}
+   
 Coordonnee EnemyCharacter::getPosition()
 {
     return position;

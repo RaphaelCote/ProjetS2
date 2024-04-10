@@ -128,7 +128,30 @@ int Projectile::findBulletPositionX(int positionY)
 
     return positionX;
 }
-
+float Projectile::findNegativeAngleBulletPositionY(int positionY)//courbe bleu dans le desmos
+{
+    float num = -std::sqrt(std::pow((puissance * getProjectileMaxSpeed() * std::sin(angledeg * PI / 180)), 2) + 2 * g * (positionY - bulletStartPosition.y));
+    float denum = puissance * getProjectileMaxSpeed() * std::cos(angledeg * PI / 180);
+    float angleFinal = std::atan(num / denum) * 180 / PI;
+    return angleFinal;
+    //float denum =;
+}
+float Projectile::findPositiveAngleBulletPositionY(int positionY)//courbe verte dans le desmos 
+{
+    float num = std::sqrt(std::pow((puissance * getProjectileMaxSpeed() * std::sin(angledeg * PI / 180)), 2) + 2 * g * (positionY - bulletStartPosition.y));
+    float denum = puissance * getProjectileMaxSpeed() * std::cos(angledeg * PI / 180);
+    float angleFinal = std::atan(num / denum) * 180 / PI;
+    std::cout << "l'angle finale est de : " << std::endl;
+    return angleFinal;
+}
+int Projectile::findHalfTrajectoryBulletPosition()
+{
+    //formule du temps de vole
+    float tempsVol = std::abs((2 * V0 * std::sin(rad)) / g);
+    int positionY = findBulletPositionYTime(tempsVol / 2);
+    int positionX = findBulletPositionX(positionY);
+    return positionX;
+}
 bool Projectile::checkIfCharacterHit(Character &character)
 {
 

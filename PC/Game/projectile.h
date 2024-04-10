@@ -39,6 +39,10 @@ public:
     int findBulletPositionX(int positionY);
     int findBulletPositionY(int positionX);
     int findBulletPositionYTime(float time);
+    float findNegativeAngleBulletPositionY(int positionY);
+    float findPositiveAngleBulletPositionY(int positionY);
+    int findHalfTrajectoryBulletPosition();
+    
     float angledeg;
     float rad;
     float V0;
