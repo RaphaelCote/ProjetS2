@@ -8,7 +8,7 @@ MainMenuQt::MainMenuQt() : GenericMenu()
 
 	QVBoxLayout* vbox = new QVBoxLayout();
 
-	QPixmap logo("C:/home/DEVUniversite/ProjetS2/Images/logo.png");
+	QPixmap logo("Images/logo.png");
 	QLabel* titleLabel = new QLabel(this);
 	titleLabel->setPixmap(logo.scaled(650, 200, Qt::KeepAspectRatio));
 	vbox->addWidget(titleLabel);

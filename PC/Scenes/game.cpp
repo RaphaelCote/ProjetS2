@@ -589,15 +589,15 @@ void Game::AnimationProjectile(Projectile* proj)
             cons->Mincolums = (currentPosition.x - (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2) / 10; // je fais * 10 pcq c l'affichage console
             gameWindow->GetGameWidget()->minX = ((gameWindow->GetGameWidget()->width() / 2) - currentPosition.x);
 
-            if (projectileType == 0)
+            if (projectileType == 0)//Cannonball
             {
 
             }
-            else if (projectileType == 1)
+            else if (projectileType == 1)// Rocket
             {
 
             }
-            else if (projectileType == 2)
+            else if (projectileType == 2)//Grenade
             {
 
             }
