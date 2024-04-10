@@ -45,6 +45,7 @@ public:
     void CharacterQt();
     void BackgroundQt();
     void RemoveItemQt(std::string name);
+    void AxeQt(Projectile* pro);
     void Delete();
 };
 
