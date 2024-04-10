@@ -18,5 +18,5 @@ extern Inventory *inventory;
 extern int activeScene;
 extern LevelGetter *levelGetter;
 extern AffichageConsole *cons;
-//extern SoundManager* soundManager;
+extern SoundManager* soundManager;
 #endif

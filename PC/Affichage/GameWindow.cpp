@@ -1,6 +1,8 @@
 #include "GameWindow.h"
 #include "../Controls/keyboardControlsRedirect.h"
 #include "GenericMenu.h"
+
+#include "../Controls/SoundManager.h"
 #include <QtWidgets>
 
 GameWindow::GameWindow() : QMainWindow()

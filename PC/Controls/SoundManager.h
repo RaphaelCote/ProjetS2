@@ -27,7 +27,8 @@ const int canonSoundEffect = 9;
 const int explosionSoundEffect = 10;
 const int timerBombSoundEffect = 11;
 const int warDrumSoundEffect = 12;
-const int selectionClickSoundEffect = 13;
+const int selectionSoundEffect = 13;
+const int mouseClickEffect = 14;
 
 
 class SoundManager :public QObject
