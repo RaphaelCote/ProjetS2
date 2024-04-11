@@ -286,9 +286,6 @@ void Game::PlayTurn()
 
             Projectile *enemyProjectile = ec->createEnemyProjectile();
 
-            activeLevel->MatBalle(enemyProjectile);
-            activeLevel->BalleQt(enemyProjectile);
-
             std::vector<Character*> players;
 
             for (int i = 0; i < activeLevel->playerBoats.size(); i++)
@@ -304,6 +301,15 @@ void Game::PlayTurn()
 
             //enemyProjectile->checkIfCharacterHit(*(activeLevel->playerBoats[0]->characters[0]));
             enemyProjectile->checkIfCharactersHit(players);
+
+            activeLevel->MatBalle(enemyProjectile);
+
+            if (currentLevelIndex == 3) {
+                activeLevel->AxeQt(enemyProjectile);
+            }
+            else {
+                activeLevel->BalleQt(enemyProjectile);
+            }
 
             soundManager->soundTrack = canonSoundEffect;
             soundManager->functionDecider = play_SoundTrack;
@@ -793,7 +799,12 @@ void Game::AnimationProjectile(Projectile *proj)
 
             if (!isPlayerTurn)
             {
-                proj->angleRotationProjectile += 3;
+                if (currentLevelIndex == 3) {
+                    proj->angleRotationProjectile -= 5;
+                }
+                else {
+                    proj->angleRotationProjectile += 3;
+                }
             }
             else if (projectileType == 0) // Cannonball
             {

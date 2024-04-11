@@ -35,18 +35,18 @@ public:
     void MatEnemy();
     void MatWater();
     void MatBalle(Projectile *pro);
-    void BalleQt(Projectile* pro);
     void MatRocket(Projectile *pro);
-    void RocketQt(Projectile* pro);
     void MatGrenade(Projectile *Grenade);
+    void BalleQt(Projectile* pro);
+    void RocketQt(Projectile* pro);
     void GrenadeQt(Projectile* pro);
     void ExplosionQt(Projectile* pro);
+    void AxeQt(Projectile* pro);
     void MatNuage();
     void MatCharacter();
     void CharacterQt();
     void BackgroundQt();
     void RemoveItemQt(std::string name);
-    void AxeQt(Projectile* pro);
     void Delete();
 };
 
