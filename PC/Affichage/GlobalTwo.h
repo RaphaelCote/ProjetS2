@@ -4,7 +4,8 @@
 #include "Pixmaps.h"
 #include <vector>
 
-std::vector<Raph_PixMap*> healtBarsBackground;
-std::vector<Raph_PixMap*> healtBarsForeground;
+std::vector<Raph_PixMap*> healthBarsBackground;
+std::vector<Raph_PixMap*> healthBarsForeground;
+std::vector<Raph_PixMap*> shieldBarsForeground;
 
 #endif

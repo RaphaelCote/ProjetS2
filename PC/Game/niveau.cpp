@@ -18,8 +18,9 @@ Niveau::Niveau(int width, int height, std::string image)
     this->height = height;
     this->width = width;
 
-    healtBarsBackground.clear();
-    healtBarsForeground.clear();
+    healthBarsBackground.clear();
+    healthBarsForeground.clear();
+    shieldBarsForeground.clear();
 }
 
 Niveau::~Niveau()
@@ -507,10 +508,10 @@ void Niveau::CharacterQt()
             healtBackground->x = playerBoats[b]->characters[v]->getPosition().x + (playerBoats[b]->characters[v]->getHitboxWidth() / 2) - 77;
             healtBackground->y =playerBoats[b]->characters[v]->getPosition().y + playerBoats[b]->characters[v]->getHitboxHeight() + 50;
             healtBackground->couche = 2;
-            healtBackground->name = "CharacterHealthBackground" + std::to_string(healtBarsBackground.size());
+            healtBackground->name = "CharacterHealthBackground" + std::to_string(healthBarsBackground.size());
             healtBackground->rotation = 0;
 
-            healtBarsBackground.push_back(healtBackground);
+            healthBarsBackground.push_back(healtBackground);
 
             gameWindow->GetGameWidget()->addImage(healtBackground);
 
@@ -521,12 +522,26 @@ void Niveau::CharacterQt()
             healtForeground->x = playerBoats[b]->characters[v]->getPosition().x + (playerBoats[b]->characters[v]->getHitboxWidth() / 2) - 75;
             healtForeground->y = playerBoats[b]->characters[v]->getPosition().y + playerBoats[b]->characters[v]->getHitboxHeight() + 52;
             healtForeground->couche = 3;
-            healtForeground->name = "CharacterHealthForeground" + std::to_string(healtBarsForeground.size());
+            healtForeground->name = "CharacterHealthForeground" + std::to_string(healthBarsForeground.size());
             healtForeground->rotation = 0;
 
-            healtBarsForeground.push_back(healtForeground);
+            healthBarsForeground.push_back(healtForeground);
 
             gameWindow->GetGameWidget()->addImage(healtForeground);
+
+            Raph_PixMap* shieldForeground = new Raph_PixMap;
+
+            shieldForeground->pix = QPixmap("Images/shieldForeground.png").scaled(0, 20, Qt::IgnoreAspectRatio);;
+            shieldForeground->box = { shieldForeground->pix.height(), shieldForeground->pix.width() };
+            shieldForeground->x = playerBoats[b]->characters[v]->getPosition().x + (playerBoats[b]->characters[v]->getHitboxWidth() / 2) - 75;
+            shieldForeground->y = playerBoats[b]->characters[v]->getPosition().y + playerBoats[b]->characters[v]->getHitboxHeight() + 52;
+            shieldForeground->couche = 4;
+            shieldForeground->name = "CharacterShieldForeground" + std::to_string(shieldBarsForeground.size());
+            shieldForeground->rotation = 0;
+
+            shieldBarsForeground.push_back(shieldForeground);
+
+            gameWindow->GetGameWidget()->addImage(shieldForeground);
         }
     }
 
@@ -555,10 +570,10 @@ void Niveau::CharacterQt()
             healtBackground->x = enemyBoats[b]->characters[v]->getPosition().x + (enemyBoats[b]->characters[v]->getHitboxHeight() / 2) - 77;
             healtBackground->y = enemyBoats[b]->characters[v]->getPosition().y + (enemyBoats[b]->characters[v]->getHitboxHeight() * 2);
             healtBackground->couche = 2;
-            healtBackground->name = "CharacterHealthBackground" + std::to_string(healtBarsBackground.size());
+            healtBackground->name = "CharacterHealthBackground" + std::to_string(healthBarsBackground.size());
             healtBackground->rotation = 0;
 
-            healtBarsBackground.push_back(healtBackground);
+            healthBarsBackground.push_back(healtBackground);
 
             gameWindow->GetGameWidget()->addImage(healtBackground);
 
@@ -569,12 +584,26 @@ void Niveau::CharacterQt()
             healtForeground->x = enemyBoats[b]->characters[v]->getPosition().x + 2 + (enemyBoats[b]->characters[v]->getHitboxHeight() / 2) - 77;
             healtForeground->y = enemyBoats[b]->characters[v]->getPosition().y + (enemyBoats[b]->characters[v]->getHitboxHeight() * 2) + 2;
             healtForeground->couche = 3;
-            healtForeground->name = "CharacterHealthForeground" + std::to_string(healtBarsForeground.size());
+            healtForeground->name = "CharacterHealthForeground" + std::to_string(healthBarsForeground.size());
             healtForeground->rotation = 0;
 
-            healtBarsForeground.push_back(healtForeground);
+            healthBarsForeground.push_back(healtForeground);
 
             gameWindow->GetGameWidget()->addImage(healtForeground);
+
+            Raph_PixMap* shieldForeground = new Raph_PixMap;
+
+            shieldForeground->pix = QPixmap("Images/shieldForeground.png").scaled(0, 20, Qt::IgnoreAspectRatio);;
+            shieldForeground->box = { shieldForeground->pix.height(), shieldForeground->pix.width() };
+            shieldForeground->x = enemyBoats[b]->characters[v]->getPosition().x + (enemyBoats[b]->characters[v]->getHitboxWidth() / 2) - 75;
+            shieldForeground->y = enemyBoats[b]->characters[v]->getPosition().y + enemyBoats[b]->characters[v]->getHitboxHeight() + 52;
+            shieldForeground->couche = 4;
+            shieldForeground->name = "CharacterShieldForeground" + std::to_string(shieldBarsForeground.size());
+            shieldForeground->rotation = 0;
+
+            shieldBarsForeground.push_back(shieldForeground);
+
+            gameWindow->GetGameWidget()->addImage(shieldForeground);
         }
     }
 }
@@ -606,16 +635,28 @@ void Niveau::UpdateHealthQt() {
     for (int i = 0; i < characters.size(); i++) {
         if (characters[i]->getHealthPoint() > 0) {
             float currentHealth = characters[i]->getHealthPoint();
-            float healthPercentage = currentHealth / 100;
+            if (currentHealth <= 100) {
+                float healthPercentage = currentHealth / 100;
 
-            //if (currentHealth < 25) {
-                healtBarsForeground[i]->pix = QPixmap("Images/healthForeground.png").scaled(healthPercentage*150, 20, Qt::IgnoreAspectRatio);
-                healtBarsForeground[i]->box = { healtBarsForeground[i]->pix.height(), healtBarsForeground[i]->pix.width() };
-            //}
+                healthBarsForeground[i]->pix = QPixmap("Images/healthForeground.png").scaled(healthPercentage*150, 20, Qt::IgnoreAspectRatio);
+                healthBarsForeground[i]->box = { healthBarsForeground[i]->pix.height(), healthBarsForeground[i]->pix.width() };
+
+                shieldBarsForeground[i]->pix = QPixmap("Images/shieldForeground.png").scaled(0, 20, Qt::IgnoreAspectRatio);
+                shieldBarsForeground[i]->box = { shieldBarsForeground[i]->pix.height(), shieldBarsForeground[i]->pix.width() };
+            }
+            else {
+                float shieldPercentage = (currentHealth - 100) / 100;
+                healthBarsForeground[i]->pix = QPixmap("Images/healthForeground.png");
+                healthBarsForeground[i]->box = { healthBarsForeground[i]->pix.height(), healthBarsForeground[i]->pix.width() };
+
+                shieldBarsForeground[i]->pix = QPixmap("Images/shieldForeground.png").scaled(shieldPercentage * 150, 20, Qt::IgnoreAspectRatio);
+                shieldBarsForeground[i]->box = { shieldBarsForeground[i]->pix.height(), shieldBarsForeground[i]->pix.width() };
+            }
         }
         else {
-            RemoveItemQt(healtBarsBackground[i]->name);
-            RemoveItemQt(healtBarsForeground[i]->name);
+            RemoveItemQt(healthBarsForeground[i]->name);
+            RemoveItemQt(healthBarsForeground[i]->name);
+            RemoveItemQt(shieldBarsForeground[i]->name);
         }
     }
 }

@@ -79,6 +79,9 @@ void ShopMenu::Update()
         OnEnable();
         ShowMenu();
         doOnce = false;
+
+        UpdateValuesEvent* uvEvent = new UpdateValuesEvent(5);
+        QApplication::postEvent(gameWindow, uvEvent);
     }
 }
 
