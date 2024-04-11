@@ -4,7 +4,7 @@
 #include <QtWidgets>
 #include "GameWidget.h"
 #include "GenericMenu.h"
-
+#include "Game/utility.h"
 class GameWindow : public QMainWindow
 {
 	Q_OBJECT
@@ -26,6 +26,7 @@ public:
 	////////////////////////////////////////////////////
 	QPoint lineStart;
 	QPoint lineEnd;
+	
 public slots:
 	void increaseLineToRight() {
 		// Mettre à jour les coordonnées de fin de ligne
@@ -45,15 +46,15 @@ public slots:
 	void increaseLinetoUp()
 	{
 		lineEnd.setY(lineEnd.y() - 10);
-		if ((lineEnd.y() - lineStart.y()) < -70)
-			lineEnd.setY(lineStart.y() - 70);
+		if ((lineEnd.y() - lineStart.y()) < -20)
+			lineEnd.setY(lineStart.y() - 20);
 		update();
 	}
 	void decreaseLineToDown()
 	{
 		lineEnd.setY(lineEnd.y() + 10);
-		if ((lineEnd.y() - lineStart.y()) > 20)
-			lineEnd.setY(lineStart.y() + 20);
+		if ((lineEnd.y() - lineStart.y()) > 70)
+			lineEnd.setY(lineStart.y() + 70);
 
 		update();
 	}

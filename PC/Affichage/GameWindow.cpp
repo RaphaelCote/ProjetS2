@@ -17,6 +17,12 @@ GameWindow::GameWindow() : QMainWindow()
     setCentralWidget(stackedWidget);
 
     timerId = startTimer(100);
+    connect(this, &GameWindow::tKeyPressed, this, &GameWindow::increaseLineToRight);
+    connect(this, &GameWindow::gKeyPressed, this, &GameWindow::decreaseLineToLeft);
+    connect(this, &GameWindow::rKeyPressed, this, &GameWindow::increaseLinetoUp);
+    connect(this, &GameWindow::fKeyPressed, this, &GameWindow::decreaseLineToDown);
+    lineStart = QPoint(200, 800);
+    lineEnd = QPoint(200, 800);
     
 }
 
