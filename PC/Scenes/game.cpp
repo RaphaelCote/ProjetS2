@@ -303,7 +303,7 @@ void Game::PlayTurn()
                 }
             }
 
-            Projectile *enemyProjectile = ec->createEnemyProjectile(gameWindow->isKeyboardControls, ((ControllerControls*)controls)->Muon, player);
+            Projectile *enemyProjectile = ec->createEnemyProjectile(!gameWindow->isKeyboardControls, ((ControllerControls*)controls)->Muon, player);
 
             std::vector<Character*> players;
 
@@ -456,8 +456,14 @@ void Game::EndGame()
     StopGame();
     qobject_cast<EndGameMenuQt*>(gameWindow->GetMenuWidget(3))->UpdateValues(!isAllPlayerDead,PayPlayer());
     activeScene = 3;
-    soundManager->music = victoryMusic;
-    soundManager->functionDecider = play_Music;
+    if (currentLevelIndex == 4) {
+        soundManager->music = rightRound;
+        soundManager->functionDecider = play_Music;
+    }
+    else {
+        soundManager->music = victoryMusic;
+        soundManager->functionDecider = play_Music;
+    }
     ShowContentEvent *scEvent = new ShowContentEvent(3);
     QApplication::postEvent(gameWindow, scEvent);
 }
