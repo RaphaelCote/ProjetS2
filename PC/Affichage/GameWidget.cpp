@@ -1,4 +1,5 @@
 #include"GameWidget.h"
+#include <cmath>
 
 GameWidget::GameWidget()
 {
@@ -197,21 +198,53 @@ void GameWidget::paintEvent(QPaintEvent* event)
             y = windowHeight - *(vectorPixMapRotation[i]->y) - vectorPixMapRotation[i]->box.height + minY;
         }
 
-
         painter.drawPixmap(x, y, vectorPixMapRotation[i]->pix);
     }
-    QPoint start = *lineStart;
-    QPoint end = *lineEnd;
-
+    /*QPoint start = *lineStart;
+    QPoint end = *lineEnd;*/
+    Coordonnee start = *LineStart;
+    Coordonnee end = *LineEnd;
     
-    if (*lineEnd != *lineStart)
-    {
-        start.setY(windowHeight - start.y());
-        end.setY(windowHeight - end.y());
+    start.y = windowHeight - LineStart->y;
 
-        // Définir la couleur de la ligne (noir dans cet exemple)
-        painter.setPen(QPen(Qt::red, 4, Qt::DotLine)); // Épaisseur de ligne de 4 pixels
-        // Dessiner la ligne en utilisant les coordonnées actuelles
-        painter.drawLine(start, end);
+    /*end.y = start.y-angle*10;*/
+    float anglerad = angle * 3.14 / 180;
+    end.x = start.x+ (puissance * 150);
+    end.y = start.y - ( (puissance*150)* std::tan(anglerad) );
+   /* if (end.y > start.y)
+    {
+        end.y = start.y;
     }
+    if ((start.y - end.y) > 150)
+    {
+        end.y = start.y - 150;
+    }*/
+    /*start.setY(windowHeight - start.y());
+    end.setY(windowHeight - end.y());*/
+    /*end.y = angle;
+    end.x = puissance * 100;*/
+    // Définir la couleur de la ligne (noir dans cet exemple)
+    //painter.setPen(QPen(Qt::red, 4, Qt::DotLine)); // Épaisseur de ligne de 2 pixels
+    // Dessiner la ligne en utilisant les coordonnées actuelles
+    //painter.drawLine(start.x, start.y, end.x, end.y);
+
+    //on a un dot mais c'est pas grave
+    if (LineEnd->x != LineStart->x)
+    {
+        painter.setPen(QPen(Qt::red, 4, Qt::DotLine));
+        painter.drawLine(start.x, start.y, end.x, end.y);
+    }
+   
+   
+    //if (start.x!=end.x)
+    //{
+    //    /*start.setY(windowHeight - start.y());
+    //    end.setY(windowHeight - end.y());*/
+    //     //Définir la couleur de la ligne (noir dans cet exemple)
+    //    painter.setPen(QPen(Qt::red, 4, Qt::DotLine)); // Épaisseur de ligne de 4 pixels
+    //     //Dessiner la ligne en utilisant les coordonnées actuelles
+    //    /*painter.drawLine(start, end);*/
+    //    painter.drawLine(start.x, start.y, end.x, end.y);
+
+    //}
 }

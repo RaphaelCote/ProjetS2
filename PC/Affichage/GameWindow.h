@@ -5,6 +5,7 @@
 #include "GameWidget.h"
 #include "GenericMenu.h"
 #include "Game/utility.h"
+
 class GameWindow : public QMainWindow
 {
 	Q_OBJECT
@@ -13,7 +14,6 @@ public:
 	bool canInput = true;
 
 	bool isKeyboardControls = false;
-
 	GameWindow();
 	~GameWindow();
 
@@ -24,37 +24,57 @@ public:
 	GameWidget* GetGameWidget();
 	GenericMenu* GetMenuWidget(int index);
 	////////////////////////////////////////////////////
-	QPoint lineStart;
-	QPoint lineEnd;
+	/*QPoint lineStart;
+	QPoint lineEnd;*/
+	Coordonnee LineStart;
+	Coordonnee LineEnd;
 	
 public slots:
 	void increaseLineToRight() {
 		// Mettre à jour les coordonnées de fin de ligne
-		lineEnd.setX(lineEnd.x() + 10); // Augmentez la coordonnée x de la ligne de 100 pixels
-		// Mettre à jour l'affichage
-		if ((lineEnd.x() - lineStart.x()) > 100)
-			lineEnd.setX(lineStart.x() + 100);
+		//lineEnd.setX(lineEnd.x() + 10); // Augmentez la coordonnée x de la ligne de 100 pixels
+		//// Mettre à jour l'affichage
+		//if ((lineEnd.x() - lineStart.x()) > 100)
+		//	lineEnd.setX(lineStart.x() + 100);
+
+		/*LineEnd.x = LineEnd.x + 10;
+		if (LineEnd.x - LineStart.x > 100)
+			LineEnd.x = LineStart.x + 100;*/
+
 		update();
 	}
 	void decreaseLineToLeft()
 	{
-		lineEnd.setX(lineEnd.x() - 10);
+		/*lineEnd.setX(lineEnd.x() - 10);
 		if ((lineEnd.x() - lineStart.x()) < 0)
-			lineEnd.setX(lineStart.x());
+			lineEnd.setX(lineStart.x());*/
+
+		/*LineEnd.x = LineEnd.x - 10;
+		if (LineEnd.x - LineStart.x < 0)
+			LineEnd.x = LineStart.x;*/
 		update();
 	}
 	void increaseLinetoUp()
 	{
-		lineEnd.setY(lineEnd.y() - 10);
+		/*lineEnd.setY(lineEnd.y() - 10);
 		if ((lineEnd.y() - lineStart.y()) < -20)
-			lineEnd.setY(lineStart.y() - 20);
+			lineEnd.setY(lineStart.y() - 20);*/
+
+		/*LineEnd.y = LineEnd.y - 10;
+		if (LineEnd.y - LineStart.y < -70)
+			LineEnd.y = LineStart.y - 70;*/
+
 		update();
 	}
 	void decreaseLineToDown()
 	{
-		lineEnd.setY(lineEnd.y() + 10);
+		/*lineEnd.setY(lineEnd.y() + 10);
 		if ((lineEnd.y() - lineStart.y()) > 70)
-			lineEnd.setY(lineStart.y() + 70);
+			lineEnd.setY(lineStart.y() + 70);*/
+
+		/*LineEnd.y = LineEnd.y + 10;
+		if (LineEnd.y - LineStart.y > 100)
+			LineEnd.y = LineStart.y + 100;*/
 
 		update();
 	}

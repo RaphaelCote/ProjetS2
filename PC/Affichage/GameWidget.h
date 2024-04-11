@@ -11,8 +11,13 @@ class GameWidget : public QWidget {
 public:
     GameWidget();
     ////////////////////////////////////
-    QPoint* lineStart;
-    QPoint* lineEnd;
+   /* QPoint* lineStart;
+    QPoint* lineEnd;*/
+    Coordonnee* LineStart;
+    Coordonnee* LineEnd;
+    float angle;
+    float puissance;
+    bool effaceLigne;
     ///////////////////////////////////
     void addImage(Frank_PixMap* pixmap);
     void addImage(Frank_PixMap_Rotation* pixmap);
@@ -27,6 +32,7 @@ public:
     int minY;
 
     int isZoomedOut = false;
+    
 
 protected:
     void paintEvent(QPaintEvent* event);

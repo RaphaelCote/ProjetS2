@@ -189,8 +189,8 @@ int main(int argc, char *argv[])
     PauseMenuQt *pauseMenu = new PauseMenuQt();
     ShopMenuQt *shopMenu = new ShopMenuQt();
     GenericMenu *loadingScreen = new GenericMenu();
-    gameWidget->lineEnd = &gameWindow->lineEnd;
-    gameWidget->lineStart = &gameWindow->lineStart;
+    gameWidget->LineEnd = &gameWindow->LineEnd;
+    gameWidget->LineStart = &gameWindow->LineStart;
     soundManager = new SoundManager();
 
     soundManager->music = introMusic;
@@ -221,8 +221,8 @@ int main(int argc, char *argv[])
     thread.start();
 
     eventManager = new EventManager();
-    controls = new KeyboardControls(eventManager);
-    //controls = new ControllerControls(eventManager, "COM3");
+    //controls = new KeyboardControls(eventManager);
+    controls = new ControllerControls(eventManager, "COM4");
 
     gameWindow->AddContent(mainMenu);
     gameWindow->AddContent(gameWidget);

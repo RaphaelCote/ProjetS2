@@ -21,9 +21,10 @@ GameWindow::GameWindow() : QMainWindow()
     connect(this, &GameWindow::gKeyPressed, this, &GameWindow::decreaseLineToLeft);
     connect(this, &GameWindow::rKeyPressed, this, &GameWindow::increaseLinetoUp);
     connect(this, &GameWindow::fKeyPressed, this, &GameWindow::decreaseLineToDown);
-    lineStart = QPoint(200, 800);
-    lineEnd = QPoint(200, 800);
-    
+    /*lineStart = QPoint(200, 800);
+    lineEnd = QPoint(200, 800);*/
+    LineStart = { 200,800 };
+    LineEnd = { 200,800 };
 }
 
 GameWindow::~GameWindow()

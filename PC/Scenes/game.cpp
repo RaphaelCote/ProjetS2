@@ -33,7 +33,7 @@ Game::Game()
     isPlayerTurn = true;
     isPause = false;
     isNewLevel = true;
-    doOnce = false;
+    doOnce = true;
     projectileType = 0;
 }
 
@@ -146,11 +146,13 @@ void Game::ChangeProjectileType(int typeDif)
 
 void Game::ChangeProjectileStrength(float strength)
 {
+    gameWindow->GetGameWidget()->puissance = strength;
     projectile->setPuissance(strength);
 }
 
 void Game::ChangeProjectileAngle(float angle)
 {
+    gameWindow->GetGameWidget()->angle = angle;
     projectile->setAngleDegre(angle);
 }
 
@@ -240,18 +242,25 @@ void Game::PlayTurn()
     {
         if (doOnce)
         {
-            gameWindow->lineEnd = QPoint(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().x, activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().y);
+            //gameWindow->lineEnd = QPoint(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().x, activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().y);
             Sleep(10);
             ShowGameInfo();
             doOnce = false;
+            //gameWindow->GetGameWidget()->LineEnd->x = gameWindow->GetGameWidget()->LineStart->x;
+            gameWindow->GetGameWidget()->LineEnd->x = 2000;
         }
-        gameWindow->lineStart = QPoint(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().x, activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().y);
+        //gameWindow->lineStart = QPoint(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().x, activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().y);
+        //gameWindow->LineStart.x = activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().x;
+        gameWindow->LineStart.x = activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().x;
+        gameWindow->LineStart.y = activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().y;
+       
         gameWindow->GetGameWidget()->refresh();
         UpdateWeaponInfo();
     }
     else
     {
-        gameWindow->lineEnd = gameWindow->lineStart;
+        gameWindow->LineEnd.x = gameWindow->LineStart.x;//pt que ça scrap
+        gameWindow->GetGameWidget()->refresh();
 
         ShowGameInfo();
 
@@ -313,6 +322,7 @@ void Game::PlayTurn()
 
 void Game::PlayerShoot()
 {
+    //gameWindow->LineEnd.x = gameWindow->LineStart.x;
     if (!isPlayerTurn)
     {
         return;
@@ -660,7 +670,7 @@ void Game::UpdateWeaponInfo()
 }
 void Game::AnimationProjectile(Projectile *proj)
 {
-    gameWindow->lineEnd = gameWindow->lineStart;
+    gameWindow->LineEnd.x = gameWindow->LineStart.x;
     bool faireunefois = true;
     bool animation = true;
     Coordonnee startPosition = proj->bulletStartPosition;
