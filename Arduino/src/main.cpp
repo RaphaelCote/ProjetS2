@@ -18,6 +18,7 @@
 
 #define BAUD 115200        // Frequence de transmission serielle
 #define MENUHEIGHT 5
+#define DATA_ARRAY_SIZE 10
 
 /*---------------------------- Variables globales ---------------------------*/
 
@@ -28,7 +29,9 @@ int potValue = 0;
 int pinLED = 7;
 int pinPOT = A7;
 int PIN_MUONS = A5;
-float Muon = 0;
+int Muon = 0;
+int arrayIndex = 0;
+int MuonTab[DATA_ARRAY_SIZE];
 
 
 
@@ -98,6 +101,7 @@ void serialEvent();
 void SetupJson();
 void readPC();
 void gestionmot (int etat);
+void printData();
 /*---------------------------- Fonctions "Main" -----------------------------*/
 
 void setup() {
@@ -118,7 +122,9 @@ void loop()
   float fal2 = map(valY, 0, 1023, -100, 100);
   fal2 = fal2>=0 ? fal2 : fal2*-1;
   Bar.AllumeBargraphePuissance(fal2);
-  Muon = analogRead(PIN_MUONS);
+  printData();
+
+
 
   if(comPC.shouldRead_){
     readPC();
@@ -545,6 +551,15 @@ void SetupJson()
   comPC.AddMessage("B3", b3.Update());
   comPC.AddMessage("B4", b4.Update());
   comPC.AddMessage("B5", b5.Update());
+
+  Muon = 0;
+  for (int i = 0; i < DATA_ARRAY_SIZE; i++)
+  {
+    Muon += MuonTab[i];
+  }
+  Muon = Muon / DATA_ARRAY_SIZE;
+  
+
   comPC.AddMessage("Muon", Muon);
   Acc.GetX(&val1);
   fal1 = map(val1, 425, 285, -900, 900);
@@ -571,6 +586,21 @@ void gestionmot(int etat){
   }
   else{
     Mot.ActualiseMoteur(255);
+  }
+}
+
+
+
+void printData(){
+  //Écriture de la valeur numérisée
+  MuonTab[arrayIndex] = analogRead(PIN_MUONS);
+  
+  //Incrémentation de l'index du tampon circulaire
+  if (arrayIndex < DATA_ARRAY_SIZE-1){
+    arrayIndex++;
+    }
+  else {
+    arrayIndex = 0;
   }
 }
 
