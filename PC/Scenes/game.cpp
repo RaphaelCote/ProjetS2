@@ -276,11 +276,32 @@ void Game::PlayTurn()
             }
         }
 
+        Character* player;
+
         if (foundAliveEnemy) {
 
             AnimationVersPersonnage(ec);
 
-            Projectile *enemyProjectile = ec->createEnemyProjectile(gameWindow->isKeyboardControls, ((ControllerControls*)controls)->Muon);
+            bool foundAlivePlayer = false;
+            for (int i = 0; i < activeLevel->playerBoats.size(); i++)
+            {
+                for (int j = 0; j < activeLevel->playerBoats[i]->characters.size(); j++)
+                {
+                    if (activeLevel->playerBoats[i]->characters[j]->getHealthPoint() > 0)
+                    {
+                        player = activeLevel->playerBoats[i]->characters[j];
+                        foundAliveEnemy = true;
+                        break;
+                    }
+                }
+
+                if (foundAlivePlayer)
+                {
+                    break;
+                }
+            }
+
+            Projectile *enemyProjectile = ec->createEnemyProjectile(gameWindow->isKeyboardControls, ((ControllerControls*)controls)->Muon, player);
 
             std::vector<Character*> players;
 
@@ -298,7 +319,7 @@ void Game::PlayTurn()
             //enemyProjectile->checkIfCharacterHit(*(activeLevel->playerBoats[0]->characters[0]));
             if (enemyProjectile->checkIfCharactersHit(players)) {
                 if (!gameWindow->isKeyboardControls) {
-                    gameWindow->GetGameWidget()->StartMoteur(((ControllerControls*)controls));
+                    gameWindow->GetGameWidget()->StartMoteur();
                 }
             }
 
