@@ -328,6 +328,7 @@ void Game::PlayerShoot()
     {
         activeLevel->MatGrenade(projectile);
         activeLevel->GrenadeQt(projectile);
+        activeLevel->ExplosionQt(projectile);
     }
 
     std::vector<Character*> enemies;
@@ -350,6 +351,11 @@ void Game::PlayerShoot()
     soundManager->functionDecider = play_SoundTrack;
 
     AnimationProjectile(projectile);
+    
+    if (projectileType == 2)//animation explosion
+    {
+        AnimationExplosion(projectile);
+    }
 
     // Remove special projectiles if fired, and if no more special projectiles are available, change to previous type
     if (projectileType == 1)
@@ -654,6 +660,7 @@ void Game::UpdateWeaponInfo()
     int x = 20;
     cons->AfficherTexte(std::cout, s6, x, y6, "s6");
 }
+
 void Game::AnimationProjectile(Projectile *proj)
 {
     bool faireunefois = true;
@@ -760,7 +767,7 @@ void Game::AnimationProjectile(Projectile *proj)
 
             if (coterAnimationGauche)
             {
-                if (currentPosition.x >= endPosition.x || currentPosition.x > (cons->MaxColumns * 10))
+                if (currentPosition.x >= endPosition.x)
                 {
                     animation = false;
                     break;
@@ -783,5 +790,72 @@ void Game::AnimationProjectile(Projectile *proj)
 
     cons->Mincolums = 0;
     // gameWindow->GetGameWidget()->minX = 0;
+    gameWindow->GetGameWidget()->refresh();
+}
+
+
+
+
+void Game::AnimationExplosion(Projectile* proj)
+{
+    bool faireunefois = true;
+    bool animation = true;
+    Coordonnee currentPosition = proj->bulletStartPosition;
+
+    // Pour debug
+    // endPosition.x = 1000;
+    ////////////////////////////////////////////////////////////////////////////////
+
+    startAnimation = std::chrono::high_resolution_clock::now();
+
+    Frank_PixMap_Rotation* pixmap = new Frank_PixMap_Rotation;
+
+    QString str("Images/Projectile/Explosion.png");
+    QPixmap originalPixmap = QPixmap(str);
+
+    int width = originalPixmap.width();
+    int height = originalPixmap.height();
+    float ratio = 0.01;
+
+    while (animation)
+    {
+        const auto now = std::chrono::high_resolution_clock::now();
+        currentclockAnimation = now - startAnimation;
+
+        if ((currentclockAnimation.count() - timerAnimation.count()) > 10 || faireunefois)
+        {
+            faireunefois = false;
+
+            ratio += 0.01;
+            
+            gameWindow->GetGameWidget()->removeImage("explosion");
+
+            pixmap->pix = originalPixmap;
+            pixmap->pix.scaled(width*ratio, height*ratio);
+            pixmap->box = { pixmap->pix.height(), pixmap->pix.width() };
+            pixmap->x = &proj->bulletCurrentPosition.x;
+            pixmap->y = &proj->bulletCurrentPosition.y;
+            pixmap->couche = 3;
+            pixmap->name = "explosion";
+            pixmap->rotation = &proj->angleRotationProjectile;
+
+            gameWindow->GetGameWidget()->addImage(pixmap);
+            gameWindow->GetGameWidget()->refresh();
+            
+
+            timerAnimation = currentclockAnimation;
+
+
+            if (ratio >= 1)
+            {
+                animation = false;
+                break;
+            }
+            
+        }
+    }
+
+    
+    gameWindow->GetGameWidget()->removeImage("explosion");
     gameWindow->GetGameWidget()->refresh();
 }

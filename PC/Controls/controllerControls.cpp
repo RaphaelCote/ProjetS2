@@ -170,6 +170,9 @@ void ControllerControls::UpdateAllValues()
 
     AngleManette = angle / GROSSEUR_TAB_ANGLE;
 
+    //Muon
+    this->GetValue("Muon", &(Muon));
+
     // buttons
     this->etatB1 = this->GetBouttonMenu0(1);
     this->etatB2 = this->GetBouttonMenu0(2);

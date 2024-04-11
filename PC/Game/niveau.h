@@ -40,6 +40,7 @@ public:
     void RocketQt(Projectile* pro);
     void MatGrenade(Projectile *Grenade);
     void GrenadeQt(Projectile* pro);
+    void ExplosionQt(Projectile* pro);
     void MatNuage();
     void MatCharacter();
     void CharacterQt();

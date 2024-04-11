@@ -57,6 +57,7 @@ public:
     void ShowGameInfo();
     void UpdateWeaponInfo();
     void AnimationProjectile(Projectile *projectile);
+    void AnimationExplosion(Projectile* projectile);
 };
 
 #endif

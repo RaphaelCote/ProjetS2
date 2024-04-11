@@ -330,6 +330,22 @@ void Niveau::GrenadeQt(Projectile* pro)
     gameWindow->GetGameWidget()->addImage(pixmap);
 }
 
+void Niveau::ExplosionQt(Projectile* pro)
+{
+    Frank_PixMap_Rotation* pixmap = new Frank_PixMap_Rotation;
+
+    QString str("Images/Projectile/Explosion.png");
+    pixmap->pix = QPixmap(str);
+    pixmap->box = { pixmap->pix.height(), pixmap->pix.width() };
+    pixmap->x = &pro->bulletCurrentPosition.x;
+    pixmap->y = &pro->bulletCurrentPosition.y;
+    pixmap->couche = 3;
+    pixmap->name = "explosion";
+    pixmap->rotation = &pro->angleRotationProjectile;
+
+    gameWindow->GetGameWidget()->addImage(pixmap);
+}
+
 void Niveau::AxeQt(Projectile* pro)
 {
     Frank_PixMap_Rotation* pixmap = new Frank_PixMap_Rotation;
@@ -635,7 +651,7 @@ void Niveau::BackgroundQt()
 
     Raph_PixMap* image4 = new Raph_PixMap;
     image4->pix = map3;
-    image4->x = -700;
+    image4->x = -500;
     image4->y = -100;
     //image4->coor = { 0,0 };
     image4->box = { map3.height(),50 };
