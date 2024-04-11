@@ -10,7 +10,10 @@ class GameWidget : public QWidget {
     Q_OBJECT
 public:
     GameWidget();
-
+    Coordonnee* LineStart;
+    Coordonnee* LineEnd;
+    float angle;
+    float puissance;
     void addImage(Frank_PixMap* pixmap);
     void addImage(Frank_PixMap_Rotation* pixmap);
     void addImage(Raph_PixMap* pixmap);
