@@ -367,7 +367,7 @@ void Game::PlayerShoot()
     soundManager->functionDecider = play_SoundTrack;
 
     if (!gameWindow->isKeyboardControls) {
-        gameWindow->GetGameWidget()->StartMoteur(((ControllerControls*)controls));
+        gameWindow->GetGameWidget()->StartMoteur();
     }
 
     AnimationProjectile(projectile);

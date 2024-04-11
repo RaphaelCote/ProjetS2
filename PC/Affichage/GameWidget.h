@@ -5,7 +5,6 @@
 #include <QtWidgets>
 
 #include "../Affichage/Pixmaps.h"
-#include "../Controls/controllerControls.h"
 
 class GameWidget : public QWidget {
     Q_OBJECT
@@ -20,7 +19,7 @@ public:
     void refresh();
     QPixmap rotatePixmap(const QPixmap& pixmap, qreal degrees);
     void SetCheckedProjectile(int index);
-    void StartMoteur(ControllerControls* controls);
+    void StartMoteur();
     void StopMoteur();
 
     int minX;
@@ -40,8 +39,6 @@ private:
     QVector<Raph_PixMap*> vectorPixMapRaph;
 
     std::vector<QPushButton*> projectileSelection;
-
-    ControllerControls* controllerControls;
 };
 
 

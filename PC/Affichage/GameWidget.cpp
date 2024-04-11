@@ -1,6 +1,7 @@
 #include <QtWidgets>
 
 #include "GameWidget.h"
+#include "Global.h"
 
 GameWidget::GameWidget()
 {
@@ -237,15 +238,14 @@ void GameWidget::SetCheckedProjectile(int index)
     }
 }
 
-void GameWidget::StartMoteur(ControllerControls* controls) {
-    controls->isMoteurOn = 1;
-    this->controllerControls = controls;
+void GameWidget::StartMoteur() {
+    isMoteurOn = 1;
 
     QTimer::singleShot(500, this, &GameWidget::StopMoteur);
 }
 
 void GameWidget::StopMoteur() {
-    controllerControls->isMoteurOn = 0;
+    isMoteurOn = 0;
 }
 
 void GameWidget::paintEvent(QPaintEvent* event)

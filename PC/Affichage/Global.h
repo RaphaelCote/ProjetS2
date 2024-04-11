@@ -5,5 +5,6 @@
 
 extern GameWindow* gameWindow;
 extern int levelQty;
+extern int isMoteurOn;
 
 #endif

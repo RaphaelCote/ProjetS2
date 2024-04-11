@@ -1,4 +1,5 @@
 #include "controllerControls.h"
+#include "../Affichage/Global.h"
 #include <windows.h>
 
 float TRESHOLD = 0.25;
@@ -31,8 +32,6 @@ ControllerControls::ControllerControls(EventManager *em, std::string com) : Cont
     ready_to_send = true;
     ready_to_read = false;
     Thread_Actif = true;
-
-    isMoteurOn = new int(0);
 
     if (Connected)
         ready_to_send = false;
