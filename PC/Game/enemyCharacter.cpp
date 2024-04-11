@@ -13,7 +13,7 @@ EnemyCharacter::EnemyCharacter(Coordonnee position, Hitbox hitboxsset, std::stri
     WeaponPosition.y = position.y + hitbox.height / 2;
 }
 
-Projectile *EnemyCharacter::createEnemyProjectile(bool isControllerControls, int randomSeed)
+Projectile *EnemyCharacter::createEnemyProjectile(bool isControllerControls, int randomSeed, Character* character)
 {
     Projectile *p;
 
@@ -37,7 +37,7 @@ Projectile *EnemyCharacter::createEnemyProjectile(bool isControllerControls, int
     // cout << "random angleDeg : " << random_angledeg << endl;
     // cout << "random puissance : " << random_puissance << endl;
     p->setAngleDegre(-45.0 * random_angledeg);
-    p->setPuissance(0.5 * random_puissance);
+    p->setPuissance(findV0withAngle(-45.0 * random_angledeg, character) * random_puissance);
 
     return p;
 }

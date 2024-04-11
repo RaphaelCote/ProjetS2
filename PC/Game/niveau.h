@@ -4,6 +4,7 @@
 #include "character.h"
 #include "projectile.h"
 #include "Boat.h"
+#include "../Affichage/Pixmaps.h"
 #include <vector>
 #include <string>
 
@@ -21,6 +22,9 @@ public:
     int width = 3000;
     std::vector<Boat *> playerBoats;
     std::vector<Boat *> enemyBoats;
+
+    std::vector<Frank_PixMap*> healtBarsBackground;
+    std::vector<Frank_PixMap*> healtBarsForeground;
 
     Niveau();
     Niveau(int width, int height, std::string image);
@@ -46,6 +50,7 @@ public:
     void MatCharacter();
     void CharacterQt();
     void BackgroundQt();
+    void UpdateHealthQt();
     void RemoveItemQt(std::string name);
     void Delete();
 };

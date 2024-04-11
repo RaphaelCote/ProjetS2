@@ -212,13 +212,13 @@ void Game::Update()
             }
         }
 
-        activeLevel->BackgroundQt();
         activeLevel->MatWater();
         activeLevel->MatNuage();
         activeLevel->MatRaft();
         activeLevel->MatCharacter();
         activeLevel->MatEnemy();
 
+        activeLevel->BackgroundQt();
         activeLevel->RaftQt();
         activeLevel->CharacterQt();
         gameWindow->GetGameWidget()->refresh();

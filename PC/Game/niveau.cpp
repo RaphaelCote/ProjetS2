@@ -485,8 +485,6 @@ void Niveau::CharacterQt()
         {
             Frank_PixMap* pixmap = new Frank_PixMap;
             
-            
-
             QString str = QString::fromUtf8(playerBoats[b]->characters[v]->imagecharacter.c_str());//fuck you that why
             pixmap->pix = QPixmap(str);
             pixmap->box = { pixmap->pix.height(), pixmap->pix.width() };
@@ -497,6 +495,18 @@ void Niveau::CharacterQt()
             pixmap->rotation = 0;
 
             gameWindow->GetGameWidget()->addImage(pixmap);
+
+            /*Frank_PixMap* healtBackground = new Frank_PixMap;
+
+            healtBackground->pix = QPixmap("Images/healtBackground.png");
+            healtBackground->box = { healtBackground->pix.height(), healtBackground->pix.width() };
+            healtBackground->x = &(playerBoats[b]->characters[v]->getPosition().x + playerBoats[b]->characters[v]->getHitboxHeight()));
+            healtBackground->y = playerBoats[b]->characters[v]->GetPointeurY();
+            healtBackground->couche = 1;
+            healtBackground->name = "Character" + std::to_string(b) + ',' + std::to_string(v);
+            healtBackground->rotation = 0;
+
+            healtBarsBackground.push_back(healtBackground);*/
         }
     }
 
@@ -517,6 +527,31 @@ void Niveau::CharacterQt()
             pixmap->rotation = 0;
 
             gameWindow->GetGameWidget()->addImage(pixmap);
+        }
+    }
+}
+
+void Niveau::UpdateHealthQt() {
+    std::vector<Character*> characters;
+
+    for (int i = 0; i < playerBoats.size(); i++)
+    {
+        for (int j = 0; j < playerBoats[i]->characters.size(); j++)
+        {
+            if (playerBoats[i]->characters[j]->getHealthPoint() > 0)
+            {
+                characters.push_back(playerBoats[i]->characters[j]);
+            }
+        }
+    }
+    for (int i = 0; i < enemyBoats.size(); i++)
+    {
+        for (int j = 0; j < enemyBoats[i]->characters.size(); j++)
+        {
+            if (enemyBoats[i]->characters[j]->getHealthPoint() > 0)
+            {
+                characters.push_back(enemyBoats[i]->characters[j]);
+            }
         }
     }
 }
