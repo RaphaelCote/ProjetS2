@@ -81,7 +81,7 @@ ShopMenuQt::ShopMenuQt() : GenericMenu()
 
 	QPixmap Grenade("Images/Projectile/Grenade.png");
 	QLabel* GrenadeImage = new QLabel(gameWindow);
-	GrenadeImage->setPixmap(Grenade.scaled(280, 100, Qt::KeepAspectRatio));				// Scale logo
+	GrenadeImage->setPixmap(Grenade.scaled(280, 70, Qt::KeepAspectRatio));				// Scale logo
 	GrenadeImage->setAlignment(Qt::AlignCenter);
 	Hlayout1->addWidget(GrenadeImage);
 	Vlayout->addLayout(Hlayout1);
@@ -157,17 +157,17 @@ ShopMenuQt::ShopMenuQt() : GenericMenu()
 
 	QPixmap potion1("Images/SmallPot.png");
 	QLabel* smallPot = new QLabel(gameWindow);
-	smallPot->setPixmap(potion1.scaled(280, 100, Qt::KeepAspectRatio));
+	smallPot->setPixmap(potion1.scaled(280, 80, Qt::KeepAspectRatio));
 	smallPot->setAlignment(Qt::AlignCenter);
 
 	QPixmap potion2("Images/MedPot.png");
 	QLabel* medPot = new QLabel(gameWindow);
-	medPot->setPixmap(potion2.scaled(280, 100, Qt::KeepAspectRatio));
+	medPot->setPixmap(potion2.scaled(280, 80, Qt::KeepAspectRatio));
 	medPot->setAlignment(Qt::AlignCenter);
 
 	QPixmap potion3("Images/BigPot.png");
 	QLabel* bigPot = new QLabel(gameWindow);
-	bigPot->setPixmap(potion3.scaled(280, 100, Qt::KeepAspectRatio));
+	bigPot->setPixmap(potion3.scaled(280, 70, Qt::KeepAspectRatio));
 	bigPot->setAlignment(Qt::AlignCenter);
 
 	Hlayout4->addWidget(smallPot);
