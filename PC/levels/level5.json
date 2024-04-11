@@ -1,6 +1,6 @@
 {
   "level": {
-    "image": "Images/Background/Background5v2.png",
+    "image": "Images/Background/BackgroundPaint.png",
     "width": 5630,
     "height": 959,
     "friendlyboatlist": [
@@ -31,29 +31,22 @@
     ],
     "enemyboatlist": [
       {
-        "coordoneeX": 4100,
-        "coordoneeY": 70,
-        "width": 300,
-        "height": 30,
-        "image": "Images/Boat/Raft2.png",
+        "coordoneeX": 2500,
+        "coordoneeY": 85,
+        "width": 100,
+        "height": 70,
+        "image": "Images/Boat/SmallRaft.png",
         "characterlist": [
           {
-            "width": 235,
-            "height": 173,
-            "coordoneeX": 350,
-            "coordoneeY": 63,
-            "image": "Images/Character/Enemy.png"
-          },
-          {
-            "width": 235,
-            "height": 173,
-            "coordoneeX": 80,
-            "coordoneeY": 63,
-            "image": "Images/Character/Enemy.png"
+            "width": 200,
+            "height": 191,
+            "coordoneeX": 30,
+            "coordoneeY": 60,
+            "image": "Images/Character/GreenEnemy.png"
           }
-
         ]
       },
+
       {
         "coordoneeX": 3400,
         "coordoneeY": 95,
@@ -78,21 +71,29 @@
         ]
       },
       {
-        "coordoneeX": 2500,
-        "coordoneeY": 85,
-        "width": 100,
-        "height": 70,
-        "image": "Images/Boat/SmallRaft.png",
+        "coordoneeX": 4100,
+        "coordoneeY": 70,
+        "width": 300,
+        "height": 30,
+        "image": "Images/Boat/Raft2.png",
         "characterlist": [
           {
-            "width": 100,
-            "height": 100,
-            "coordoneeX": 30,
-            "coordoneeY": 60,
-            "image": "Images/Character/GreenEnemy.png"
+            "width": 235,
+            "height": 173,
+            "coordoneeX": 80,
+            "coordoneeY": 63,
+            "image": "Images/Character/Enemy.png"
+          },
+          {
+            "width": 235,
+            "height": 173,
+            "coordoneeX": 350,
+            "coordoneeY": 63,
+            "image": "Images/Character/Enemy.png"
           }
         ]
       }
+
     ]
   }
 }

@@ -40,17 +40,18 @@
           {
             "width": 235,
             "height": 173,
-            "coordoneeX": 350,
+            "coordoneeX": 80,
             "coordoneeY": 63,
             "image": "Images/Character/Enemy.png"
           },
           {
             "width": 235,
             "height": 173,
-            "coordoneeX": 80,
+            "coordoneeX": 350,
             "coordoneeY": 63,
             "image": "Images/Character/Enemy.png"
           }
+          
 
         ]
       }
