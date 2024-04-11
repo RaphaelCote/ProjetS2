@@ -247,6 +247,14 @@ void Game::PlayTurn()
 
     if (isPlayerTurn)
     {
+        if (doOnce)
+        {
+            Sleep(10);
+            ShowGameInfo();
+            doOnce = false;
+            AnimationVersPersonnage(activeLevel->playerBoats[0]->characters[0]);
+        }
+
         UpdateWeaponInfo();
     }
     else
@@ -663,6 +671,63 @@ void Game::UpdateWeaponInfo()
     cons->AfficherTexte(std::cout, s6, x, y6, "s6");
 }
 
+void Game::AnimationVersPersonnage(Character * character)
+{
+    //activeLevel->playerBoats[0]->characters[0]
+    bool faireunefois = true;
+    bool animation = true;
+    float time = 0.0f;
+    bool coterAnimationGauche;
+    int positionDepart = gameWindow->GetGameWidget()->minX;
+    int positionVoulu = ((gameWindow->GetGameWidget()->width() / 2) - character->getWeaponPosition().x);
+
+
+    startAnimation = std::chrono::high_resolution_clock::now();
+
+    Sleep(500);
+
+    while (animation)
+    {
+        const auto now = std::chrono::high_resolution_clock::now();
+        currentclockAnimation = now - startAnimation;
+
+        if ((currentclockAnimation.count() - timerAnimation.count()) > 10 || faireunefois)
+        {
+            faireunefois = false;
+            compteur++;
+            time += 0.01;
+
+            if (positionVoulu >= positionDepart)
+            {
+                gameWindow->GetGameWidget()->minX += 1;
+            }
+            else
+            {
+                gameWindow->GetGameWidget()->minX -= 1;
+            }
+            
+            timerAnimation = currentclockAnimation;
+
+            gameWindow->GetGameWidget()->refresh();
+
+            if (positionVoulu < gameWindow->GetGameWidget()->minX && positionVoulu >= positionDepart)
+            {
+                animation = false;
+                break;
+            }
+            else if(positionVoulu > gameWindow->GetGameWidget()->minX && positionVoulu < positionDepart)
+            {
+                animation = false;
+                break;
+            }
+        }
+    }
+
+    
+    gameWindow->GetGameWidget()->refresh();
+}
+
+
 void Game::AnimationProjectile(Projectile *proj)
 {
     bool faireunefois = true;
@@ -672,6 +737,7 @@ void Game::AnimationProjectile(Projectile *proj)
     Coordonnee endPosition = proj->bulletEndPosition;
     float time = 0.0f;
     bool coterAnimationGauche;
+    int compteurVaChier = 0;
 
     int halfWay = proj->findHalfTrajectoryBulletPosition();
 
@@ -703,6 +769,7 @@ void Game::AnimationProjectile(Projectile *proj)
             faireunefois = false;
             compteur++;
             time += 0.01;
+            compteurVaChier++;
 
             if (proj->getAngleDegre() > 0)
             {
@@ -767,7 +834,12 @@ void Game::AnimationProjectile(Projectile *proj)
 
             gameWindow->GetGameWidget()->refresh();
 
-            if (coterAnimationGauche)
+            if (compteurVaChier >= 700)
+            {
+                animation = false;
+                break;
+            }
+            else if (coterAnimationGauche)
             {
                 if (currentPosition.x >= endPosition.x)
                 {
