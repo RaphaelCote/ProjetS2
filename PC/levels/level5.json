@@ -1,11 +1,11 @@
 {
   "level": {
-    "image": "Images/Background/Background5.png",
-    "width": 3000,
-    "height": 1080,
+    "image": "Images/Background/Background5v2.png",
+    "width": 5630,
+    "height": 959,
     "friendlyboatlist": [
       {
-        "coordoneeX": 200,
+        "coordoneeX": 350,
         "coordoneeY": 75,
         "width": 100,
         "height": 30,
@@ -31,7 +31,7 @@
     ],
     "enemyboatlist": [
       {
-        "coordoneeX": 2000,
+        "coordoneeX": 4100,
         "coordoneeY": 70,
         "width": 300,
         "height": 30,
@@ -40,36 +40,57 @@
           {
             "width": 235,
             "height": 173,
-            "coordoneeX": 200,
-            "coordoneeY": 70,
+            "coordoneeX": 350,
+            "coordoneeY": 63,
             "image": "Images/Character/Enemy.png"
           },
           {
             "width": 235,
             "height": 173,
-            "coordoneeX": 120,
-            "coordoneeY": 70,
+            "coordoneeX": 80,
+            "coordoneeY": 63,
             "image": "Images/Character/Enemy.png"
           }
 
         ]
       },
       {
-        "coordoneeX": 2400,
-        "coordoneeY": 70,
-        "width": 100,
-        "height": 30,
-        "image": "Images/Boat/Raft2.png",
+        "coordoneeX": 3400,
+        "coordoneeY": 95,
+        "width": 551,
+        "height": 116,
+        "image": "Images/Boat/RaftMetal.png",
         "characterlist": [
+          {
+            "width": 200,
+            "height": 191,
+            "coordoneeX": -40,
+            "coordoneeY": 165,
+            "image": "Images/Character/GreenEnemy.png"
+          },
           {
             "width": 235,
             "height": 173,
-            "coordoneeX": 0,
-            "coordoneeY": 70,
+            "coordoneeX": 320,
+            "coordoneeY": 235,
             "image": "Images/Character/Enemy.png"
           }
-
-
+        ]
+      },
+      {
+        "coordoneeX": 2500,
+        "coordoneeY": 85,
+        "width": 100,
+        "height": 70,
+        "image": "Images/Boat/SmallRaft.png",
+        "characterlist": [
+          {
+            "width": 100,
+            "height": 100,
+            "coordoneeX": 30,
+            "coordoneeY": 60,
+            "image": "Images/Character/GreenEnemy.png"
+          }
         ]
       }
     ]

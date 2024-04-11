@@ -23,34 +23,34 @@
     ],
     "enemyboatlist": [
       {
-        "coordoneeX": 2000,
+        "coordoneeX": 2500,
         "coordoneeY": 85,
         "width": 100,
         "height": 70,
-        "image": "Images/Boat/Raft2.png",
+        "image": "Images/Boat/SmallRaft.png",
         "characterlist": [
           {
             "width": 100,
             "height": 100,
-            "coordoneeX": 500,
-            "coordoneeY": 30,
+            "coordoneeX": 30,
+            "coordoneeY": 70,
             "image": "Images/Character/Vicking.png"
           }
         ]
       },
       {
-        "coordoneeX": 1000,
+        "coordoneeX": 3000,
         "coordoneeY": 85,
         "width": 100,
         "height": 70,
-        "image": "Images/Boat/Raft2.png",
+        "image": "Images/Boat/SmallRaft.png",
         "characterlist": [
           {
             "width": 235,
             "height": 173,
-            "coordoneeX": 300,
-            "coordoneeY": 64,
-            "image": "Images/Character/Enemy.png"
+            "coordoneeX": 30,
+            "coordoneeY": 70,
+            "image": "Images/Character/Vicking.png"
           }
         ]
       }
