@@ -12,8 +12,8 @@
         "image": "Images/Boat/Raft2.png",
         "characterlist": [
           {
-            "width": 100,
-            "height": 100,
+            "width": 235,
+            "height": 173,
             "coordoneeX": 110,
             "coordoneeY": 80,
             "image": "Images/Character/Character3.png"
@@ -30,8 +30,8 @@
         "image": "Images/Boat/SmallRaft.png",
         "characterlist": [
           {
-            "width": 100,
-            "height": 100,
+            "width": 224,
+            "height": 236,
             "coordoneeX": 30,
             "coordoneeY": 70,
             "image": "Images/Character/Vicking.png"
@@ -46,8 +46,8 @@
         "image": "Images/Boat/SmallRaft.png",
         "characterlist": [
           {
-            "width": 235,
-            "height": 173,
+            "width": 224,
+            "height": 236,
             "coordoneeX": 30,
             "coordoneeY": 70,
             "image": "Images/Character/Vicking.png"
