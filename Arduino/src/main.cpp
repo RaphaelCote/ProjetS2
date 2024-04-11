@@ -27,7 +27,7 @@ int ledState = 0;
 int potValue = 0;
 int pinLED = 7;
 int pinPOT = A7;
-
+int PIN_MUONS = A5;
 
 
 
@@ -101,6 +101,7 @@ void readPC();
 void setup() {
   Serial.begin(BAUD);               // Initialisation de la communication serielle
   //pinMode(pinLED, OUTPUT);
+  pinMode(PIN_MUONS, INPUT);
   //digitalWrite(pinLED, ledState);
   LCD.Initialisation();
   LCD.Cursor(true, 0, 0);
@@ -115,7 +116,6 @@ void loop()
   float fal2 = map(valY, 0, 1023, -100, 100);
   fal2 = fal2>=0 ? fal2 : fal2*-1;
   Bar.AllumeBargraphePuissance(fal2);
-
 
 
   if(comPC.shouldRead_){
@@ -543,7 +543,7 @@ void SetupJson()
   comPC.AddMessage("B3", b3.Update());
   comPC.AddMessage("B4", b4.Update());
   comPC.AddMessage("B5", b5.Update());
-
+  comPC.AddMessage("Muon", analogRead(PIN_MUONS));
   Acc.GetX(&val1);
   fal1 = map(val1, 425, 285, -900, 900);
   comPC.AddMessage("Angle", fal1/10.0f);//map 0 a 359
