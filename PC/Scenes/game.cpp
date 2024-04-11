@@ -340,7 +340,7 @@ void Game::PlayerShoot()
     {
         activeLevel->MatGrenade(projectile);
         activeLevel->GrenadeQt(projectile);
-        activeLevel->ExplosionQt(projectile);
+        //activeLevel->ExplosionQt(projectile);
     }
 
     std::vector<Character*> enemies;
@@ -914,11 +914,13 @@ void Game::AnimationExplosion(Projectile* proj)
 
     Frank_PixMap_Rotation* pixmap = new Frank_PixMap_Rotation;
 
-    QString str("Images/Projectile/Explosion.png");
-    QPixmap originalPixmap = QPixmap(str);
+    /*QString str("Images/Projectile/Explosion.png");
+    QPixmap originalPixmap = QPixmap(str);*/
 
-    int width = originalPixmap.width();
-    int height = originalPixmap.height();
+    activeLevel->ExplosionQt(projectile);
+
+    int width = 200;
+    int height =200;
     float ratio = 0.01;
 
     while (animation)
@@ -931,24 +933,9 @@ void Game::AnimationExplosion(Projectile* proj)
             faireunefois = false;
 
             ratio += 0.01;
-            
-            gameWindow->GetGameWidget()->removeImage("explosion");
-
-            pixmap->pix = originalPixmap;
-            pixmap->pix.scaled(width*ratio, height*ratio);
-            pixmap->box = { pixmap->pix.height(), pixmap->pix.width() };
-            pixmap->x = &proj->bulletCurrentPosition.x;
-            pixmap->y = &proj->bulletCurrentPosition.y;
-            pixmap->couche = 3;
-            pixmap->name = "explosion";
-            pixmap->rotation = &proj->angleRotationProjectile;
-
-            gameWindow->GetGameWidget()->addImage(pixmap);
-            gameWindow->GetGameWidget()->refresh();
-            
 
             timerAnimation = currentclockAnimation;
-
+            gameWindow->GetGameWidget()->refresh();
 
             if (ratio >= 1)
             {

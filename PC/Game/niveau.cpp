@@ -336,9 +336,10 @@ void Niveau::ExplosionQt(Projectile* pro)
 
     QString str("Images/Projectile/Explosion.png");
     pixmap->pix = QPixmap(str);
+    //pixmap->pix.scaled(0.1, 0.1);
     pixmap->box = { pixmap->pix.height(), pixmap->pix.width() };
-    pixmap->x = &pro->bulletCurrentPosition.x;
-    pixmap->y = &pro->bulletCurrentPosition.y;
+    pixmap->x = &pro->bulletCurrentPosition.x;//- (pixmap->pix.width()/2);
+    pixmap->y = &pro->bulletCurrentPosition.y;// -(pixmap->pix.height() / 2);
     pixmap->couche = 3;
     pixmap->name = "explosion";
     pixmap->rotation = &pro->angleRotationProjectile;
