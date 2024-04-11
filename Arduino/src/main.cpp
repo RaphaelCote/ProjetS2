@@ -567,7 +567,7 @@ void readPC()
 }
 void gestionmot(int etat){
   if(etat==1){
-  Mot.ActualiseMoteur(0);
+  Mot.ActualiseMoteur(50);
   }
   else{
     Mot.ActualiseMoteur(255);
