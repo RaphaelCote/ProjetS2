@@ -131,6 +131,7 @@ void GameWidget::paintEvent(QPaintEvent* event)
 
 
         painter.drawPixmap(x, y, vectorPixMapRaph[i]->pix);
+
     }
 
 
@@ -197,5 +198,10 @@ void GameWidget::paintEvent(QPaintEvent* event)
 
         painter.drawPixmap(x, y, vectorPixMapRotation[i]->pix);
     }
+
+    // Définir la couleur de la ligne (noir dans cet exemple)
+    painter.setPen(QPen(Qt::black, 2, Qt::DotLine)); // Épaisseur de ligne de 2 pixels
+    // Dessiner la ligne en utilisant les coordonnées actuelles
+    painter.drawLine(*lineStart, *lineEnd);
 
 }

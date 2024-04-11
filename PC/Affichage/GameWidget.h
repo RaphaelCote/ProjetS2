@@ -10,7 +10,8 @@ class GameWidget : public QWidget {
     Q_OBJECT
 public:
     GameWidget();
-
+    QPoint* lineStart;
+    QPoint* lineEnd;
     void addImage(Frank_PixMap* pixmap);
     void addImage(Frank_PixMap_Rotation* pixmap);
     void addImage(Raph_PixMap* pixmap);
@@ -30,6 +31,7 @@ private:
     QVector<Frank_PixMap*> vectorPixMap;
     QVector<Frank_PixMap_Rotation*> vectorPixMapRotation;
     QVector<Raph_PixMap*> vectorPixMapRaph;
+    
 };
 
 

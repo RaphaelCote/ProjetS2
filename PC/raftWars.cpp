@@ -186,7 +186,8 @@ int main(int argc, char *argv[])
     PauseMenuQt *pauseMenu = new PauseMenuQt();
     ShopMenuQt *shopMenu = new ShopMenuQt();
     GenericMenu *loadingScreen = new GenericMenu();
-    
+    gameWidget->lineEnd = &gameWindow->lineEnd;
+    gameWidget->lineStart = &gameWindow->lineStart;
     soundManager = new SoundManager();
     //testpour le son
     /*soundManager->music = introMusic;
