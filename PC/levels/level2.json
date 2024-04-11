@@ -5,7 +5,7 @@
         "height": 792,
         "friendlyboatlist": [
             {
-                "coordoneeX": -200,
+                "coordoneeX": -50,
                 "coordoneeY": 50,
                 "width": 570,
                 "height": 90,        
@@ -23,7 +23,7 @@
         ],
         "enemyboatlist": [
             {
-                "coordoneeX": 2000,
+                "coordoneeX": 2200,
                 "coordoneeY": 5,
                 "width": 551,
                 "height": 116,
