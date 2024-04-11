@@ -10,15 +10,41 @@ GameWidget::GameWidget()
     QVBoxLayout* mainLayout = new QVBoxLayout(this);
     mainLayout->setAlignment(Qt::AlignTop);
 
-    projectileSelection.push_back(new QPushButton("Balle", this));
-    projectileSelection.push_back(new QPushButton("Rocket", this));
-    projectileSelection.push_back(new QPushButton("Grenade", this));
+    projectileSelection.push_back(new QPushButton(" ", this));
+    projectileSelection.push_back(new QPushButton(" ", this));
+    projectileSelection.push_back(new QPushButton(" ", this));
 
     projectileSelection[0]->setCheckable(true);
     projectileSelection[1]->setCheckable(true);
     projectileSelection[2]->setCheckable(true);
 
     projectileSelection[0]->setChecked(true);
+
+    int widthPercentage = 10;
+    QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+    //sizePolicy.setHorizontalStretch(widthPercentage);
+    sizePolicy.setHorizontalPolicy(QSizePolicy::Expanding);
+
+    int height = 100;
+    int width = 100;
+
+    projectileSelection[0]->setMinimumWidth(width);
+    projectileSelection[0]->setMaximumWidth(width);
+    projectileSelection[0]->setMinimumHeight(height);
+    projectileSelection[0]->setMaximumHeight(height);
+    projectileSelection[0]->setSizePolicy(sizePolicy);
+
+    projectileSelection[1]->setMinimumWidth(width);
+    projectileSelection[1]->setMaximumWidth(width);
+    projectileSelection[1]->setMinimumHeight(height);
+    projectileSelection[1]->setMaximumHeight(height);
+    projectileSelection[1]->setSizePolicy(sizePolicy);
+
+    projectileSelection[2]->setMinimumWidth(width);
+    projectileSelection[2]->setMaximumWidth(width);
+    projectileSelection[2]->setMinimumHeight(height);
+    projectileSelection[2]->setMaximumHeight(height);
+    projectileSelection[2]->setSizePolicy(sizePolicy);
 
     projectileSelection[0]->setStyleSheet("QPushButton {"
         " border:4px outset; "
@@ -39,10 +65,11 @@ GameWidget::GameWidget()
     projectileSelection[1]->setStyleSheet("QPushButton {"
         " border:4px outset; "
         " border-radius: 8px; "
-        " border-color: rgb(255, 160, 48); "
+        //" border-color: rgb(255, 160, 48); "
+        " border-color: darkgrey; "
         " color:rgb(0, 0, 0); "
         //" background-color: rgb(255, 74, 49);  "
-        " background-color: lightgrey;  "
+        " background-color: grey;  "
         " opacity : 150; "
         " font: 24pt 'Cooper Black'; "
         "qproperty-alignment: 'AlignCenter';"
@@ -56,10 +83,11 @@ GameWidget::GameWidget()
     projectileSelection[2]->setStyleSheet("QPushButton {"
         " border:4px outset; "
         " border-radius: 8px; "
-        " border-color: rgb(255, 160, 48); "
+        //" border-color: rgb(255, 160, 48); "
+        " border-color: darkgrey; "
         " color:rgb(0, 0, 0); "
         //" background-color: rgb(255, 74, 49);  "
-        " background-color: lightgrey;  "
+        " background-color: grey;  "
         " opacity : 150; "
         " font: 24pt 'Cooper Black'; "
         "qproperty-alignment: 'AlignCenter';"
@@ -69,6 +97,35 @@ GameWidget::GameWidget()
         " background-color: rgb(3, 215, 252);"
         " border-color: rgb(17, 97, 173); }"
     );
+
+    QVBoxLayout* ballLayout = new QVBoxLayout(this);
+
+    QPixmap ball("Images/Projectile/Ball.png");
+    QLabel* BallImage = new QLabel(this);
+    BallImage->setPixmap(ball.scaled(35, 35, Qt::KeepAspectRatio));
+    BallImage->setAlignment(Qt::AlignCenter);
+    ballLayout->addWidget(BallImage);
+
+    projectileSelection[0]->setLayout(ballLayout);
+
+    QVBoxLayout* rocketLayout = new QVBoxLayout(this);
+
+    QPixmap rocket("Images/Projectile/Missile.png");
+    QLabel* RocketImage = new QLabel(this);
+    RocketImage->setPixmap(rocket.scaled(110, 73, Qt::KeepAspectRatio));
+    RocketImage->setAlignment(Qt::AlignCenter);
+    rocketLayout->addWidget(RocketImage);
+
+    projectileSelection[1]->setLayout(rocketLayout);
+
+    QVBoxLayout* grenadeLayout = new QVBoxLayout(this);
+    QPixmap Grenade("Images/Projectile/Grenade.png");
+    QLabel* GrenadeImage = new QLabel(this);
+    GrenadeImage->setPixmap(Grenade.scaled(140, 50, Qt::KeepAspectRatio));
+    GrenadeImage->setAlignment(Qt::AlignCenter);
+    grenadeLayout->addWidget(GrenadeImage);
+
+    projectileSelection[2]->setLayout(grenadeLayout);
 
     // Ajouter les QPushButton dans un QHBoxLayout pour le positionner en haut à gauche
     QHBoxLayout* projectilLayout = new QHBoxLayout();
@@ -295,9 +352,10 @@ void GameWidget::paintEvent(QPaintEvent* event)
             " border:4px outset; "
             " border-radius: 8px; "
             " border-color: rgb(255, 160, 48); "
+            //" border-color: darkgrey; "
             " color:rgb(0, 0, 0); "
             " background-color: rgb(255, 74, 49);  "
-            //" background-color: lightgrey;  "
+            //" background-color: grey;  "
             " opacity : 150; "
             " font: 24pt 'Cooper Black'; "
             "qproperty-alignment: 'AlignCenter';"
@@ -312,10 +370,11 @@ void GameWidget::paintEvent(QPaintEvent* event)
         projectileSelection[1]->setStyleSheet("QPushButton {"
             " border:4px outset; "
             " border-radius: 8px; "
-            " border-color: rgb(255, 160, 48); "
+            //" border-color: rgb(255, 160, 48); "
+            " border-color: darkgrey; "
             " color:rgb(0, 0, 0); "
             //" background-color: rgb(255, 74, 49);  "
-            " background-color: lightgrey;  "
+            " background-color: grey;  "
             " opacity : 150; "
             " font: 24pt 'Cooper Black'; "
             "qproperty-alignment: 'AlignCenter';"
@@ -332,9 +391,10 @@ void GameWidget::paintEvent(QPaintEvent* event)
             " border:4px outset; "
             " border-radius: 8px; "
             " border-color: rgb(255, 160, 48); "
+            //" border-color: darkgrey; "
             " color:rgb(0, 0, 0); "
             " background-color: rgb(255, 74, 49);  "
-            //" background-color: lightgrey;  "
+            //" background-color: grey;  "
             " opacity : 150; "
             " font: 24pt 'Cooper Black'; "
             "qproperty-alignment: 'AlignCenter';"
@@ -349,10 +409,11 @@ void GameWidget::paintEvent(QPaintEvent* event)
         projectileSelection[2]->setStyleSheet("QPushButton {"
             " border:4px outset; "
             " border-radius: 8px; "
-            " border-color: rgb(255, 160, 48); "
+            //" border-color: rgb(255, 160, 48); "
+            " border-color: darkgrey; "
             " color:rgb(0, 0, 0); "
             //" background-color: rgb(255, 74, 49);  "
-            " background-color: lightgrey;  "
+            " background-color: grey;  "
             " opacity : 150; "
             " font: 24pt 'Cooper Black'; "
             "qproperty-alignment: 'AlignCenter';"
