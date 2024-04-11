@@ -14,18 +14,17 @@
           {
             "width": 100,
             "height": 100,
-            "coordoneeX": 5,
-            "coordoneeY": 70,
-            "image": "Images/Character/Character2.png"
+            "coordoneeX": 350,
+            "coordoneeY": 80,
+            "image": "Images/Character/Character3.png"
           },
           {
             "width": 100,
             "height": 100,
-            "coordoneeX": 350,
-            "coordoneeY": 80,
-            "image": "Images/Character/Character3.png"
+            "coordoneeX": 5,
+            "coordoneeY": 70,
+            "image": "Images/Character/Character2.png"
           }
-
         ]
       }
     ],

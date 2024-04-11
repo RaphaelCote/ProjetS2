@@ -248,7 +248,7 @@ void Game::PlayTurn()
         doOnce = false;
         AnimationVersPersonnage(activeLevel->playerBoats[0]->characters[0]);
         gameWindow->GetGameWidget()->LineEnd->x = 2000;
-        }
+   
     }
 
     if (isPlayerTurn)
@@ -256,7 +256,7 @@ void Game::PlayTurn()
         
         //gameWindow->lineStart = QPoint(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().x, activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().y);
         //gameWindow->LineStart.x = activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().x;
-        gameWindow->LineStart.x = activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().x;
+        gameWindow->LineStart.x = activeLevel->playerBoats[0]->characters[0]->getPosition().x;
         gameWindow->LineStart.y = activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().y;
        
         gameWindow->GetGameWidget()->refresh();
