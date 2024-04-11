@@ -748,7 +748,7 @@ void Niveau::BackgroundQt()
     QPixmap map3(str);
     //map3=map3.scaledToWidth(2000);
     //map3 = map3.scaled(gameWindow->width(), gameWindow->height());    
-
+    gameWindow->GetGameWidget()->backgroundWidth = map3.width();
     Raph_PixMap* image4 = new Raph_PixMap;
     image4->pix = map3;
     image4->x = -100;

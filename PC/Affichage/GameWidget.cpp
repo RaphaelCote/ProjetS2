@@ -7,6 +7,7 @@ GameWidget::GameWidget()
 {
     minX = 0;
     minY = 0;
+    backgroundWidth = 0;
 
     QVBoxLayout* mainLayout = new QVBoxLayout(this);
     mainLayout->setAlignment(Qt::AlignTop);

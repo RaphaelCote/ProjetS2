@@ -841,7 +841,7 @@ void Game::AnimationProjectile(Projectile *proj)
             cons->Mincolums = (currentPosition.x - (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2) / 10; // je fais * 10 pcq c l'affichage console
             
             int variable = (currentPosition.x + (gameWindow->GetGameWidget()->width() / 2));
-            if(variable < 3300 && variable > 900)
+            if(variable < gameWindow->GetGameWidget()->backgroundWidth && variable > -100)
                 gameWindow->GetGameWidget()->minX = ((gameWindow->GetGameWidget()->width() / 2) - currentPosition.x);
             else
             {
