@@ -652,8 +652,8 @@ void Niveau::BackgroundQt()
 
     Raph_PixMap* image4 = new Raph_PixMap;
     image4->pix = map3;
-    image4->x = -500;
-    image4->y = -100;
+    image4->x = -100;
+    image4->y = 0;
     //image4->coor = { 0,0 };
     image4->box = { map3.height(),50 };
     image4->name = "Background";
