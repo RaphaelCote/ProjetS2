@@ -1,4 +1,5 @@
 #include "controllerControls.h"
+#include "../Affichage/Global.h"
 #include <windows.h>
 
 float TRESHOLD = 0.25;
@@ -170,6 +171,9 @@ void ControllerControls::UpdateAllValues()
 
     AngleManette = angle / GROSSEUR_TAB_ANGLE;
 
+    //Muon
+    this->GetValue("Muon", &(Muon));
+
     // buttons
     this->etatB1 = this->GetBouttonMenu0(1);
     this->etatB2 = this->GetBouttonMenu0(2);
@@ -183,7 +187,7 @@ void ControllerControls::ListenForControls()
     if (ready_to_send == true)
     {
         // std::cout << "Sending" << endl;
-        this->AddMessage("Moteur", 0);
+        this->AddMessage("Moteur", isMoteurOn);
         if (!this->SendMessageJson())
             return;
 
@@ -227,6 +231,10 @@ void ControllerControls::ListenForControls()
     else if (etatB5 == etatBoutton::BouttonAppuyer && etatB5 != oldEtatB5)
     {
         Menu();
+    }
+    else if (etatB3 == etatBoutton::BouttonAppuyer && etatB3 != oldEtatB3)
+    {
+        Back();
     }
 
     oldEtatB1 = etatB1;

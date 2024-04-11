@@ -1,10 +1,141 @@
-#include"GameWidget.h"
-#include <cmath>
+#include <QtWidgets>
+
+#include "GameWidget.h"
+#include "Global.h"
 
 GameWidget::GameWidget()
 {
     minX = 0;
     minY = 0;
+
+    QVBoxLayout* mainLayout = new QVBoxLayout(this);
+    mainLayout->setAlignment(Qt::AlignTop);
+
+    projectileSelection.push_back(new QPushButton(" ", this));
+    projectileSelection.push_back(new QPushButton(" ", this));
+    projectileSelection.push_back(new QPushButton(" ", this));
+
+    projectileSelection[0]->setCheckable(true);
+    projectileSelection[1]->setCheckable(true);
+    projectileSelection[2]->setCheckable(true);
+
+    projectileSelection[0]->setChecked(true);
+
+    int widthPercentage = 10;
+    QSizePolicy sizePolicy(QSizePolicy::Preferred, QSizePolicy::Preferred);
+    //sizePolicy.setHorizontalStretch(widthPercentage);
+    sizePolicy.setHorizontalPolicy(QSizePolicy::Expanding);
+
+    int height = 100;
+    int width = 100;
+
+    projectileSelection[0]->setMinimumWidth(width);
+    projectileSelection[0]->setMaximumWidth(width);
+    projectileSelection[0]->setMinimumHeight(height);
+    projectileSelection[0]->setMaximumHeight(height);
+    projectileSelection[0]->setSizePolicy(sizePolicy);
+
+    projectileSelection[1]->setMinimumWidth(width);
+    projectileSelection[1]->setMaximumWidth(width);
+    projectileSelection[1]->setMinimumHeight(height);
+    projectileSelection[1]->setMaximumHeight(height);
+    projectileSelection[1]->setSizePolicy(sizePolicy);
+
+    projectileSelection[2]->setMinimumWidth(width);
+    projectileSelection[2]->setMaximumWidth(width);
+    projectileSelection[2]->setMinimumHeight(height);
+    projectileSelection[2]->setMaximumHeight(height);
+    projectileSelection[2]->setSizePolicy(sizePolicy);
+
+    projectileSelection[0]->setStyleSheet("QPushButton {"
+        " border:4px outset; "
+        " border-radius: 8px; "
+        " border-color: rgb(255, 160, 48); "
+        " color:rgb(0, 0, 0); "
+        " background-color: rgb(255, 74, 49);  "
+        " opacity : 150; "
+        " font: 24pt 'Cooper Black'; "
+        "qproperty-alignment: 'AlignCenter';"
+        " min-width: 0px;"
+        " max - width: 10000px; }"
+        "QPushButton:checked {"
+        " background-color: rgb(3, 215, 252);"
+        " border-color: rgb(17, 97, 173); }"
+    );
+
+    projectileSelection[1]->setStyleSheet("QPushButton {"
+        " border:4px outset; "
+        " border-radius: 8px; "
+        //" border-color: rgb(255, 160, 48); "
+        " border-color: darkgrey; "
+        " color:rgb(0, 0, 0); "
+        //" background-color: rgb(255, 74, 49);  "
+        " background-color: grey;  "
+        " opacity : 150; "
+        " font: 24pt 'Cooper Black'; "
+        "qproperty-alignment: 'AlignCenter';"
+        " min-width: 0px;"
+        " max - width: 10000px; }"
+        "QPushButton:checked {"
+        " background-color: rgb(3, 215, 252);"
+        " border-color: rgb(17, 97, 173); }"
+    );
+
+    projectileSelection[2]->setStyleSheet("QPushButton {"
+        " border:4px outset; "
+        " border-radius: 8px; "
+        //" border-color: rgb(255, 160, 48); "
+        " border-color: darkgrey; "
+        " color:rgb(0, 0, 0); "
+        //" background-color: rgb(255, 74, 49);  "
+        " background-color: grey;  "
+        " opacity : 150; "
+        " font: 24pt 'Cooper Black'; "
+        "qproperty-alignment: 'AlignCenter';"
+        " min-width: 0px;"
+        " max - width: 10000px; }"
+        "QPushButton:checked {"
+        " background-color: rgb(3, 215, 252);"
+        " border-color: rgb(17, 97, 173); }"
+    );
+
+    QVBoxLayout* ballLayout = new QVBoxLayout(this);
+
+    QPixmap ball("Images/Projectile/Ball.png");
+    QLabel* BallImage = new QLabel(this);
+    BallImage->setPixmap(ball.scaled(35, 35, Qt::KeepAspectRatio));
+    BallImage->setAlignment(Qt::AlignCenter);
+    ballLayout->addWidget(BallImage);
+
+    projectileSelection[0]->setLayout(ballLayout);
+
+    QVBoxLayout* rocketLayout = new QVBoxLayout(this);
+
+    QPixmap rocket("Images/Projectile/Missile.png");
+    QLabel* RocketImage = new QLabel(this);
+    RocketImage->setPixmap(rocket.scaled(110, 73, Qt::KeepAspectRatio));
+    RocketImage->setAlignment(Qt::AlignCenter);
+    rocketLayout->addWidget(RocketImage);
+
+    projectileSelection[1]->setLayout(rocketLayout);
+
+    QVBoxLayout* grenadeLayout = new QVBoxLayout(this);
+    QPixmap Grenade("Images/Projectile/Grenade.png");
+    QLabel* GrenadeImage = new QLabel(this);
+    GrenadeImage->setPixmap(Grenade.scaled(140, 50, Qt::KeepAspectRatio));
+    GrenadeImage->setAlignment(Qt::AlignCenter);
+    grenadeLayout->addWidget(GrenadeImage);
+
+    projectileSelection[2]->setLayout(grenadeLayout);
+
+    // Ajouter les QPushButton dans un QHBoxLayout pour le positionner en haut ï¿½ gauche
+    QHBoxLayout* projectilLayout = new QHBoxLayout();
+    projectilLayout->addWidget(projectileSelection[0]);
+    projectilLayout->addWidget(projectileSelection[1]);
+    projectilLayout->addWidget(projectileSelection[2]);
+    projectilLayout->addStretch();
+
+    mainLayout->addLayout(projectilLayout);
 }
 
 void GameWidget::addImage(Frank_PixMap* pixmap)
@@ -28,7 +159,7 @@ void GameWidget::removeImage(std::string name)
     {
         if (vectorPixMap[i]->name == name)
         {
-            vectorPixMap.removeAt(i);// retire l'élément a l'index i
+            vectorPixMap.removeAt(i);// retire l'ï¿½lï¿½ment a l'index i
             // cout << "Removed: " << i << "  " << name;
             // Sleep(1000);
             return;
@@ -39,7 +170,7 @@ void GameWidget::removeImage(std::string name)
     {
         if (vectorPixMapRotation[i]->name == name)
         {
-            vectorPixMapRotation.removeAt(i);// retire l'élément a l'index i
+            vectorPixMapRotation.removeAt(i);// retire l'ï¿½lï¿½ment a l'index i
             // cout << "Removed: " << i << "  " << name;
             // Sleep(1000);
             return;
@@ -50,7 +181,7 @@ void GameWidget::removeImage(std::string name)
     {
         if (vectorPixMapRaph[i]->name == name)
         {
-            vectorPixMapRaph.removeAt(i);// retire l'élément a l'index i
+            vectorPixMapRaph.removeAt(i);// retire l'ï¿½lï¿½ment a l'index i
             // cout << "Removed: " << i << "  " << name;
             // Sleep(1000);
             return;
@@ -90,6 +221,31 @@ QPixmap GameWidget::rotatePixmap(const QPixmap& pixmap, qreal degrees) {
     painter.drawPixmap(-size.width() / 2, -size.height() / 2, pixmap);
 
     return rotatedPixmap;
+}
+
+void GameWidget::SetCheckedProjectile(int index)
+{
+    for (int i = 0; i < projectileSelection.size(); i++)
+    {
+        if (i == index)
+        {
+            projectileSelection[i]->setChecked(true);
+        }
+        else
+        {
+            projectileSelection[i]->setChecked(false);
+        }
+    }
+}
+
+void GameWidget::StartMoteur() {
+    isMoteurOn = 1;
+
+    QTimer::singleShot(500, this, &GameWidget::StopMoteur);
+}
+
+void GameWidget::StopMoteur() {
+    isMoteurOn = 0;
 }
 
 void GameWidget::paintEvent(QPaintEvent* event)
@@ -223,9 +379,9 @@ void GameWidget::paintEvent(QPaintEvent* event)
     end.setY(windowHeight - end.y());*/
     /*end.y = angle;
     end.x = puissance * 100;*/
-    // Définir la couleur de la ligne (noir dans cet exemple)
-    //painter.setPen(QPen(Qt::red, 4, Qt::DotLine)); // Épaisseur de ligne de 2 pixels
-    // Dessiner la ligne en utilisant les coordonnées actuelles
+    // Dï¿½finir la couleur de la ligne (noir dans cet exemple)
+    //painter.setPen(QPen(Qt::red, 4, Qt::DotLine)); // ï¿½paisseur de ligne de 2 pixels
+    // Dessiner la ligne en utilisant les coordonnï¿½es actuelles
     //painter.drawLine(start.x, start.y, end.x, end.y);
 
     //on a un dot mais c'est pas grave
@@ -240,11 +396,88 @@ void GameWidget::paintEvent(QPaintEvent* event)
     //{
     //    /*start.setY(windowHeight - start.y());
     //    end.setY(windowHeight - end.y());*/
-    //     //Définir la couleur de la ligne (noir dans cet exemple)
-    //    painter.setPen(QPen(Qt::red, 4, Qt::DotLine)); // Épaisseur de ligne de 4 pixels
-    //     //Dessiner la ligne en utilisant les coordonnées actuelles
+    //     //Dï¿½finir la couleur de la ligne (noir dans cet exemple)
+    //    painter.setPen(QPen(Qt::red, 4, Qt::DotLine)); // ï¿½paisseur de ligne de 4 pixels
+    //     //Dessiner la ligne en utilisant les coordonnï¿½es actuelles
     //    /*painter.drawLine(start, end);*/
     //    painter.drawLine(start.x, start.y, end.x, end.y);
 
     //}
+    if (rocketNum > 0) {
+        projectileSelection[1]->setStyleSheet("QPushButton {"
+            " border:4px outset; "
+            " border-radius: 8px; "
+            " border-color: rgb(255, 160, 48); "
+            //" border-color: darkgrey; "
+            " color:rgb(0, 0, 0); "
+            " background-color: rgb(255, 74, 49);  "
+            //" background-color: grey;  "
+            " opacity : 150; "
+            " font: 24pt 'Cooper Black'; "
+            "qproperty-alignment: 'AlignCenter';"
+            " min-width: 0px;"
+            " max - width: 10000px; }"
+            "QPushButton:checked {"
+            " background-color: rgb(3, 215, 252);"
+            " border-color: rgb(17, 97, 173); }"
+        );
+    }
+    else {
+        projectileSelection[1]->setStyleSheet("QPushButton {"
+            " border:4px outset; "
+            " border-radius: 8px; "
+            //" border-color: rgb(255, 160, 48); "
+            " border-color: darkgrey; "
+            " color:rgb(0, 0, 0); "
+            //" background-color: rgb(255, 74, 49);  "
+            " background-color: grey;  "
+            " opacity : 150; "
+            " font: 24pt 'Cooper Black'; "
+            "qproperty-alignment: 'AlignCenter';"
+            " min-width: 0px;"
+            " max - width: 10000px; }"
+            "QPushButton:checked {"
+            " background-color: rgb(3, 215, 252);"
+            " border-color: rgb(17, 97, 173); }"
+        );
+    }
+
+    if (grenadeNum > 0) {
+        projectileSelection[2]->setStyleSheet("QPushButton {"
+            " border:4px outset; "
+            " border-radius: 8px; "
+            " border-color: rgb(255, 160, 48); "
+            //" border-color: darkgrey; "
+            " color:rgb(0, 0, 0); "
+            " background-color: rgb(255, 74, 49);  "
+            //" background-color: grey;  "
+            " opacity : 150; "
+            " font: 24pt 'Cooper Black'; "
+            "qproperty-alignment: 'AlignCenter';"
+            " min-width: 0px;"
+            " max - width: 10000px; }"
+            "QPushButton:checked {"
+            " background-color: rgb(3, 215, 252);"
+            " border-color: rgb(17, 97, 173); }"
+        );
+    }
+    else {
+        projectileSelection[2]->setStyleSheet("QPushButton {"
+            " border:4px outset; "
+            " border-radius: 8px; "
+            //" border-color: rgb(255, 160, 48); "
+            " border-color: darkgrey; "
+            " color:rgb(0, 0, 0); "
+            //" background-color: rgb(255, 74, 49);  "
+            " background-color: grey;  "
+            " opacity : 150; "
+            " font: 24pt 'Cooper Black'; "
+            "qproperty-alignment: 'AlignCenter';"
+            " min-width: 0px;"
+            " max - width: 10000px; }"
+            "QPushButton:checked {"
+            " background-color: rgb(3, 215, 252);"
+            " border-color: rgb(17, 97, 173); }"
+        );
+    }
 }

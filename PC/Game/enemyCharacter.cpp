@@ -13,20 +13,31 @@ EnemyCharacter::EnemyCharacter(Coordonnee position, Hitbox hitboxsset, std::stri
     WeaponPosition.y = position.y + hitbox.height / 2;
 }
 
-Projectile *EnemyCharacter::createEnemyProjectile()
+Projectile *EnemyCharacter::createEnemyProjectile(bool isControllerControls, int randomSeed, Character* character)
 {
     Projectile *p;
 
     p = new Canonball(this->getWeaponPosition());
 
-    std::srand(std::time(0));
+    if (isControllerControls) {
+        std::srand(randomSeed);
+    }
+    else {
+        std::srand(std::time(0));
+    }
     float random_angledeg = (float)(90.0 + (std::rand() % (15))) / 100;
-    std::srand(std::time(0) + 071234263);
+
+    if (isControllerControls) {
+        std::srand(randomSeed + 7063723);
+    }
+    else {
+        std::srand(std::time(0) + 071234263);
+    }
     float random_puissance = (float)(90.0 + (std::rand() % (15))) / 100;
     // cout << "random angleDeg : " << random_angledeg << endl;
     // cout << "random puissance : " << random_puissance << endl;
     p->setAngleDegre(-45.0 * random_angledeg);
-    p->setPuissance(0.5 * random_puissance);
+    p->setPuissance(findV0withAngle(-45.0 * random_angledeg, character) * random_puissance);
 
     return p;
 }

@@ -15,7 +15,7 @@ class EnemyCharacter : public Character
         Coordonnee getPosition();
         Coordonnee getWeaponPosition() override;
         void setWeaponPosition(Coordonnee weaponPosition) override;
-        Projectile* createEnemyProjectile();
+        Projectile* createEnemyProjectile(bool isControllerControls, int randomSeed, Character* character);
         float findV0withAngle(float angledeg, Character* character);
 private:
     private:

@@ -61,6 +61,7 @@ SoundManager* soundManager;
 // Controls* controlsG;
 GameWindow *gameWindow;
 int levelQty;
+int isMoteurOn;
 std::vector<Scene *> *scenes;
 /*
 Scenes index:
@@ -180,6 +181,7 @@ int main(int argc, char *argv[])
     inventory->addGold(2000);
     levelGetter = new LevelGetter();
     levelQty = levelGetter->nbLevel;
+    isMoteurOn = 0;
 
     gameWindow = new GameWindow();
     MainMenuQt *mainMenu = new MainMenuQt();
@@ -205,7 +207,7 @@ int main(int argc, char *argv[])
 
     QVBoxLayout *vbox = new QVBoxLayout();
 
-    QPixmap logo("C:/home/DEVUniversite/ProjetS2/Images/logo.png");
+    QPixmap logo("Images/logo.png");
     QLabel *titleLabel = new QLabel(loadingScreen);
     titleLabel->setPixmap(logo.scaled(650, 200, Qt::KeepAspectRatio));
     vbox->addWidget(titleLabel);

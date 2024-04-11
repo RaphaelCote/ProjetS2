@@ -81,6 +81,8 @@ public:
     float AngleManette;
     float Tab_AnglesManette[GROSSEUR_TAB_ANGLE];
 
+    float Muon;
+
     ControllerControls(EventManager *em, std::string com);
     void ThreadReceiveSerial();
     void ReceiveSerial();

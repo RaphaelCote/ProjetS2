@@ -265,11 +265,11 @@ bool Projectile::checkIfCharacterHit(Character& character)
     }
 }
 
-void Projectile::checkIfCharactersHit(std::vector<Character*> characters) {
+bool Projectile::checkIfCharactersHit(std::vector<Character*> characters) {
     for (int i = 0; i < characters.size(); i++)
     {
         if (checkIfCharacterHit(*(characters[i]))) {
-            return;
+            return true;
         }
     }
 }

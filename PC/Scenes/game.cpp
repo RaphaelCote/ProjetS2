@@ -12,6 +12,7 @@
 #include "../Affichage/Global.h"
 #include "../Affichage/ShowContentEvent.h"
 #include "../Affichage/EndGameMenuQt.h"
+#include "../Controls/controllerControls.h"
 
 bool afficheTextCalisse = true;
 int x = 20;
@@ -122,6 +123,8 @@ void Game::ChangeProjectileType(int typeDif)
         }
     }
 
+    gameWindow->GetGameWidget()->SetCheckedProjectile(projectileType);
+
     float angle = projectile->getAngleDegre();
     float puissance = projectile->getPuissance();
 
@@ -211,13 +214,13 @@ void Game::Update()
             }
         }
 
-        activeLevel->BackgroundQt();
         activeLevel->MatWater();
         activeLevel->MatNuage();
         activeLevel->MatRaft();
         activeLevel->MatCharacter();
         activeLevel->MatEnemy();
 
+        activeLevel->BackgroundQt();
         activeLevel->RaftQt();
         activeLevel->CharacterQt();
         gameWindow->GetGameWidget()->refresh();
@@ -238,17 +241,19 @@ void Game::PlayTurn()
         return;
     }
 
+    if (doOnce)
+    {
+        Sleep(10);
+        ShowGameInfo();
+        doOnce = false;
+        AnimationVersPersonnage(activeLevel->playerBoats[0]->characters[0]);
+        gameWindow->GetGameWidget()->LineEnd->x = 2000;
+        }
+    }
+
     if (isPlayerTurn)
     {
-        if (doOnce)
-        {
-            //gameWindow->lineEnd = QPoint(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().x, activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().y);
-            Sleep(10);
-            ShowGameInfo();
-            doOnce = false;
-            //gameWindow->GetGameWidget()->LineEnd->x = gameWindow->GetGameWidget()->LineStart->x;
-            gameWindow->GetGameWidget()->LineEnd->x = 2000;
-        }
+        
         //gameWindow->lineStart = QPoint(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().x, activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().y);
         //gameWindow->LineStart.x = activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().x;
         gameWindow->LineStart.x = activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().x;
@@ -285,12 +290,32 @@ void Game::PlayTurn()
             }
         }
 
+        Character* player;
+
         if (foundAliveEnemy) {
 
-            Projectile *enemyProjectile = ec->createEnemyProjectile();
+            AnimationVersPersonnage(ec);
 
-            activeLevel->MatBalle(enemyProjectile);
-            activeLevel->BalleQt(enemyProjectile);
+            bool foundAlivePlayer = false;
+            for (int i = 0; i < activeLevel->playerBoats.size(); i++)
+            {
+                for (int j = 0; j < activeLevel->playerBoats[i]->characters.size(); j++)
+                {
+                    if (activeLevel->playerBoats[i]->characters[j]->getHealthPoint() > 0)
+                    {
+                        player = activeLevel->playerBoats[i]->characters[j];
+                        foundAliveEnemy = true;
+                        break;
+                    }
+                }
+
+                if (foundAlivePlayer)
+                {
+                    break;
+                }
+            }
+
+            Projectile *enemyProjectile = ec->createEnemyProjectile(gameWindow->isKeyboardControls, ((ControllerControls*)controls)->Muon, player);
 
             std::vector<Character*> players;
 
@@ -306,7 +331,20 @@ void Game::PlayTurn()
             }
 
             //enemyProjectile->checkIfCharacterHit(*(activeLevel->playerBoats[0]->characters[0]));
-            enemyProjectile->checkIfCharactersHit(players);
+            if (enemyProjectile->checkIfCharactersHit(players)) {
+                if (!gameWindow->isKeyboardControls) {
+                    gameWindow->GetGameWidget()->StartMoteur();
+                }
+            }
+
+            activeLevel->MatBalle(enemyProjectile);
+
+            if (currentLevelIndex == 3) {
+                activeLevel->AxeQt(enemyProjectile);
+            }
+            else {
+                activeLevel->BalleQt(enemyProjectile);
+            }
 
             soundManager->soundTrack = canonSoundEffect;
             soundManager->functionDecider = play_SoundTrack;
@@ -342,6 +380,7 @@ void Game::PlayerShoot()
     {
         activeLevel->MatGrenade(projectile);
         activeLevel->GrenadeQt(projectile);
+        //activeLevel->ExplosionQt(projectile);
     }
 
     std::vector<Character*> enemies;
@@ -363,7 +402,16 @@ void Game::PlayerShoot()
     soundManager->soundTrack = canonSoundEffect;
     soundManager->functionDecider = play_SoundTrack;
 
+    if (!gameWindow->isKeyboardControls) {
+        gameWindow->GetGameWidget()->StartMoteur();
+    }
+
     AnimationProjectile(projectile);
+    
+    if (projectileType == 2)//animation explosion
+    {
+        AnimationExplosion(projectile);
+    }
 
     // Remove special projectiles if fired, and if no more special projectiles are available, change to previous type
     if (projectileType == 1)
@@ -668,6 +716,87 @@ void Game::UpdateWeaponInfo()
     int x = 20;
     cons->AfficherTexte(std::cout, s6, x, y6, "s6");
 }
+
+void Game::AnimationVersPersonnage(Character * character)
+{
+    //activeLevel->playerBoats[0]->characters[0]
+    bool faireunefois = true;
+    bool animation = true;
+    float time = 0.0f;
+    bool coterAnimationGauche;
+    int positionDepart = gameWindow->GetGameWidget()->minX;
+    int positionVoulu = ((gameWindow->GetGameWidget()->width() / 2) - character->getWeaponPosition().x);
+
+
+    startAnimation = std::chrono::high_resolution_clock::now();
+
+    Sleep(500);
+
+    while (animation)
+    {
+        const auto now = std::chrono::high_resolution_clock::now();
+        currentclockAnimation = now - startAnimation;
+
+        if ((currentclockAnimation.count() - timerAnimation.count()) > 10 || faireunefois)
+        {
+            faireunefois = false;
+            compteur++;
+            time += 0.01;
+
+            if (positionVoulu >= positionDepart)
+            {
+                if (positionVoulu - gameWindow->GetGameWidget()->minX > 150)
+                {
+                    gameWindow->GetGameWidget()->minX += 5;
+                }
+                else if (positionVoulu - gameWindow->GetGameWidget()->minX > 50)
+                {
+                    gameWindow->GetGameWidget()->minX += 3;
+                }
+                else
+                {
+                    gameWindow->GetGameWidget()->minX += 1;
+                }
+                
+            }
+            else
+            {
+                if (gameWindow->GetGameWidget()->minX - positionVoulu > 150)
+                {
+                    gameWindow->GetGameWidget()->minX -= 5;
+                }
+                else if (gameWindow->GetGameWidget()->minX - positionVoulu > 50)
+                {
+                    gameWindow->GetGameWidget()->minX -= 3;
+                }
+                else
+                {
+                    gameWindow->GetGameWidget()->minX -= 1;
+                }
+            }
+            
+            timerAnimation = currentclockAnimation;
+
+            gameWindow->GetGameWidget()->refresh();
+
+            if (positionVoulu < gameWindow->GetGameWidget()->minX && positionVoulu >= positionDepart)
+            {
+                animation = false;
+                break;
+            }
+            else if(positionVoulu > gameWindow->GetGameWidget()->minX && positionVoulu < positionDepart)
+            {
+                animation = false;
+                break;
+            }
+        }
+    }
+
+    
+    gameWindow->GetGameWidget()->refresh();
+}
+
+
 void Game::AnimationProjectile(Projectile *proj)
 {
     gameWindow->LineEnd.x = gameWindow->LineStart.x;
@@ -678,6 +807,7 @@ void Game::AnimationProjectile(Projectile *proj)
     Coordonnee endPosition = proj->bulletEndPosition;
     float time = 0.0f;
     bool coterAnimationGauche;
+    int compteurVaChier = 0;
 
     int halfWay = proj->findHalfTrajectoryBulletPosition();
 
@@ -709,6 +839,7 @@ void Game::AnimationProjectile(Projectile *proj)
             faireunefois = false;
             compteur++;
             time += 0.01;
+            compteurVaChier++;
 
             if (proj->getAngleDegre() > 0)
             {
@@ -732,7 +863,12 @@ void Game::AnimationProjectile(Projectile *proj)
 
             if (!isPlayerTurn)
             {
-                proj->angleRotationProjectile += 3;
+                if (currentLevelIndex == 3) {
+                    proj->angleRotationProjectile -= 5;
+                }
+                else {
+                    proj->angleRotationProjectile += 3;
+                }
             }
             else if (projectileType == 0) // Cannonball
             {
@@ -773,9 +909,14 @@ void Game::AnimationProjectile(Projectile *proj)
 
             gameWindow->GetGameWidget()->refresh();
 
-            if (coterAnimationGauche)
+            if (compteurVaChier >= 700)
             {
-                if (currentPosition.x >= endPosition.x || currentPosition.x > (cons->MaxColumns * 10))
+                animation = false;
+                break;
+            }
+            else if (coterAnimationGauche)
+            {
+                if (currentPosition.x >= endPosition.x)
                 {
                     animation = false;
                     break;
@@ -798,5 +939,59 @@ void Game::AnimationProjectile(Projectile *proj)
 
     cons->Mincolums = 0;
     // gameWindow->GetGameWidget()->minX = 0;
+    gameWindow->GetGameWidget()->refresh();
+}
+
+
+
+
+void Game::AnimationExplosion(Projectile* proj)
+{
+    bool faireunefois = true;
+    bool animation = true;
+    Coordonnee currentPosition = proj->bulletStartPosition;
+
+    // Pour debug
+    // endPosition.x = 1000;
+    ////////////////////////////////////////////////////////////////////////////////
+
+    startAnimation = std::chrono::high_resolution_clock::now();
+
+    Frank_PixMap_Rotation* pixmap = new Frank_PixMap_Rotation;
+
+    /*QString str("Images/Projectile/Explosion.png");
+    QPixmap originalPixmap = QPixmap(str);*/
+
+    activeLevel->ExplosionQt(projectile);
+
+    int width = 200;
+    int height =200;
+    float ratio = 0.01;
+
+    while (animation)
+    {
+        const auto now = std::chrono::high_resolution_clock::now();
+        currentclockAnimation = now - startAnimation;
+
+        if ((currentclockAnimation.count() - timerAnimation.count()) > 10 || faireunefois)
+        {
+            faireunefois = false;
+
+            ratio += 0.01;
+
+            timerAnimation = currentclockAnimation;
+            gameWindow->GetGameWidget()->refresh();
+
+            if (ratio >= 1)
+            {
+                animation = false;
+                break;
+            }
+            
+        }
+    }
+
+    
+    gameWindow->GetGameWidget()->removeImage("explosion");
     gameWindow->GetGameWidget()->refresh();
 }

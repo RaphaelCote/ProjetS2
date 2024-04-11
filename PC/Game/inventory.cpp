@@ -1,4 +1,5 @@
 #include "inventory.h"
+#include "../Affichage/Global.h"
 
 Inventory::Inventory()
 {
@@ -57,6 +58,7 @@ void Inventory::addRockets()
         if (getRockets() < 2)
         {
             nbRockets++;
+            gameWindow->GetGameWidget()->rocketNum += 1;
             removeGold(PRIXROCKET);
         }
         else
@@ -80,6 +82,7 @@ void Inventory::removeRockets()
     if (nbRockets > 0)
     {
         nbRockets--;
+        gameWindow->GetGameWidget()->rocketNum -= 1;
     }
 }
 
@@ -190,6 +193,7 @@ void Inventory::addGrenade()
         if (getGrenade() < 2)
         {
             nbGrenades++;
+            gameWindow->GetGameWidget()->grenadeNum += 1;
             removeGold(PRIXGRENADE);
         }
         else
@@ -213,5 +217,6 @@ void Inventory::removeGrenade()
     if (nbGrenades > 0)
     {
         nbGrenades--;
+        gameWindow->GetGameWidget()->grenadeNum -= 1;
     }
 }

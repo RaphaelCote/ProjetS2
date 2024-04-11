@@ -399,46 +399,46 @@ void AffichageConsole::AfficherTexte(std::ostream &os, std::string s, int x, int
 void AffichageConsole::UpdateUI_Console()
 {
     // Sleep(1000);
-    while (Thread_Actif)
-    {
-        if (ModificationAFaire)
-        {
-            SetTerminalCursorPosition(0, 0);
-            UpdateVecteurUI();
-            // main affichage(affichage static)
-            for (int j = 0; j < NumberRows; j++)
-            {
-                for (int i = 0; i < NumberColumns; i++)
-                {
-                    if (!(screen[j][i].FrontColour == colors::transparant || screen[j][i].BackColour == colors::transparant))
-                    {
-                        if ((screen_new[j][i].FrontColour != screen[j][i].FrontColour || screen_new[j][i].BackColour != screen[j][i].BackColour || screen_new[j][i].texture != screen[j][i].texture))
-                        {
-                            screen_new[j][i].BackColour = screen[j][i].BackColour;
-                            screen_new[j][i].FrontColour = screen[j][i].FrontColour;
-                            screen_new[j][i].texture = screen[j][i].texture;
-                            SetTerminalCursorPosition(i, j);
-                            ConsecutiveChar(std::cout, screen_new[j][i].texture, screen_new[j][i].FrontColour, screen_new[j][i].BackColour, 1, false);
-                        }
-                    }
-                    else
-                    {
-                        screen_new[j][i].BackColour = screen[j][i].BackColour;
-                        screen_new[j][i].FrontColour = screen[j][i].FrontColour;
-                        screen_new[j][i].texture = screen[j][i].texture;
-                    }
-                }
-            }
-            // ModificationAFaire = false;
-            SetTerminalCursorPosition(0, 0);
-            lagfree++;
-            PrintInColour(std::cout, "LagFree: " + std::to_string(lagfree), colors::white, colors::black);
-            SetTerminalCursorPosition(300, 0);
-            PrintInColour(std::cout, "Compteur: " + std::to_string(compteur), colors::white, colors::black);
-        }
-        Sleep(1);
-        // std::this_thread::sleep_for(std::chrono::microseconds(1));
-    }
+    //while (Thread_Actif)
+    //{
+    //    if (ModificationAFaire)
+    //    {
+    //        SetTerminalCursorPosition(0, 0);
+    //        UpdateVecteurUI();
+    //        // main affichage(affichage static)
+    //        for (int j = 0; j < NumberRows; j++)
+    //        {
+    //            for (int i = 0; i < NumberColumns; i++)
+    //            {
+    //                if (!(screen[j][i].FrontColour == colors::transparant || screen[j][i].BackColour == colors::transparant))
+    //                {
+    //                    if ((screen_new[j][i].FrontColour != screen[j][i].FrontColour || screen_new[j][i].BackColour != screen[j][i].BackColour || screen_new[j][i].texture != screen[j][i].texture))
+    //                    {
+    //                        screen_new[j][i].BackColour = screen[j][i].BackColour;
+    //                        screen_new[j][i].FrontColour = screen[j][i].FrontColour;
+    //                        screen_new[j][i].texture = screen[j][i].texture;
+    //                        SetTerminalCursorPosition(i, j);
+    //                        ConsecutiveChar(std::cout, screen_new[j][i].texture, screen_new[j][i].FrontColour, screen_new[j][i].BackColour, 1, false);
+    //                    }
+    //                }
+    //                else
+    //                {
+    //                    screen_new[j][i].BackColour = screen[j][i].BackColour;
+    //                    screen_new[j][i].FrontColour = screen[j][i].FrontColour;
+    //                    screen_new[j][i].texture = screen[j][i].texture;
+    //                }
+    //            }
+    //        }
+    //        // ModificationAFaire = false;
+    //        SetTerminalCursorPosition(0, 0);
+    //        lagfree++;
+    //        PrintInColour(std::cout, "LagFree: " + std::to_string(lagfree), colors::white, colors::black);
+    //        SetTerminalCursorPosition(300, 0);
+    //        PrintInColour(std::cout, "Compteur: " + std::to_string(compteur), colors::white, colors::black);
+    //    }
+    //    Sleep(1);
+    //    // std::this_thread::sleep_for(std::chrono::microseconds(1));
+    //}
 }
 
 void AffichageConsole::ResetUI()
@@ -456,50 +456,50 @@ void AffichageConsole::ResetUI()
 
 void AffichageConsole::UpdateVecteurUI()
 {
-    ResetUI();
-    MaxRows = MinRows + NumberRows;
-    MaxColumns = Mincolums + NumberColumns;
-    for (int comptObjet = 0; comptObjet < v_objet.size(); comptObjet++)
-    {
-        ObjetAffichage *aff = v_objet[comptObjet];
+    //ResetUI();
+    //MaxRows = MinRows + NumberRows;
+    //MaxColumns = Mincolums + NumberColumns;
+    //for (int comptObjet = 0; comptObjet < v_objet.size(); comptObjet++)
+    //{
+    //    ObjetAffichage *aff = v_objet[comptObjet];
 
-        for (int j = 0; j < aff->height; j++)
-        {
-            for (int i = 0; i < aff->width; i++)
-            {
-                if (aff->pointeur) // si les coordonner sont des pointeurs
-                {
-                    if (!(j - (*aff->y) / 10 - (aff->height) + NumberRows >= MaxRows || (*aff->x) / 10 + i >= MaxColumns))
-                    {
-                        if (j - (*aff->y) / 10 - (aff->height) + NumberRows >= MinRows && (*aff->x) / 10 + i >= Mincolums)
-                        {
-                            if (!(aff->pix[j][i].FrontColour == colors::transparant || aff->pix[j][i].BackColour == colors::transparant))
-                            {
-                                screen[j - (aff->height) - MinRows + NumberRows - (*aff->y) / 10][(*aff->x) / 10 + i - Mincolums].BackColour = aff->pix[j][i].BackColour;
-                                screen[j - (aff->height) - MinRows + NumberRows - (*aff->y) / 10][(*aff->x) / 10 + i - Mincolums].FrontColour = aff->pix[j][i].FrontColour;
-                                screen[j - (aff->height) - MinRows + NumberRows - (*aff->y) / 10][(*aff->x) / 10 + i - Mincolums].texture = aff->pix[j][i].texture;
-                            }
-                        }
-                    }
-                }
-                else
-                {
-                    if (!(j - (aff->y_coor) / 10 - (aff->height) + NumberRows >= MaxRows || (aff->x_coor) / 10 + i >= MaxColumns))
-                    {
-                        if (j - (aff->y_coor) / 10 - (aff->height) + NumberRows >= MinRows && (aff->x_coor) / 10 + i >= Mincolums)
-                        {
-                            if (!(aff->pix[j][i].FrontColour == colors::transparant || aff->pix[j][i].BackColour == colors::transparant))
-                            {
-                                screen[j - (aff->height) - MinRows + NumberRows - (aff->y_coor) / 10][(aff->x_coor) / 10 + i - Mincolums].BackColour = aff->pix[j][i].BackColour;
-                                screen[j - (aff->height) - MinRows + NumberRows - (aff->y_coor) / 10][(aff->x_coor) / 10 + i - Mincolums].FrontColour = aff->pix[j][i].FrontColour;
-                                screen[j - (aff->height) - MinRows + NumberRows - (aff->y_coor) / 10][(aff->x_coor) / 10 + i - Mincolums].texture = aff->pix[j][i].texture;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
+    //    for (int j = 0; j < aff->height; j++)
+    //    {
+    //        for (int i = 0; i < aff->width; i++)
+    //        {
+    //            if (aff->pointeur) // si les coordonner sont des pointeurs
+    //            {
+    //                if (!(j - (*aff->y) / 10 - (aff->height) + NumberRows >= MaxRows || (*aff->x) / 10 + i >= MaxColumns))
+    //                {
+    //                    if (j - (*aff->y) / 10 - (aff->height) + NumberRows >= MinRows && (*aff->x) / 10 + i >= Mincolums)
+    //                    {
+    //                        if (!(aff->pix[j][i].FrontColour == colors::transparant || aff->pix[j][i].BackColour == colors::transparant))
+    //                        {
+    //                            screen[j - (aff->height) - MinRows + NumberRows - (*aff->y) / 10][(*aff->x) / 10 + i - Mincolums].BackColour = aff->pix[j][i].BackColour;
+    //                            screen[j - (aff->height) - MinRows + NumberRows - (*aff->y) / 10][(*aff->x) / 10 + i - Mincolums].FrontColour = aff->pix[j][i].FrontColour;
+    //                            screen[j - (aff->height) - MinRows + NumberRows - (*aff->y) / 10][(*aff->x) / 10 + i - Mincolums].texture = aff->pix[j][i].texture;
+    //                        }
+    //                    }
+    //                }
+    //            }
+    //            else
+    //            {
+    //                if (!(j - (aff->y_coor) / 10 - (aff->height) + NumberRows >= MaxRows || (aff->x_coor) / 10 + i >= MaxColumns))
+    //                {
+    //                    if (j - (aff->y_coor) / 10 - (aff->height) + NumberRows >= MinRows && (aff->x_coor) / 10 + i >= Mincolums)
+    //                    {
+    //                        if (!(aff->pix[j][i].FrontColour == colors::transparant || aff->pix[j][i].BackColour == colors::transparant))
+    //                        {
+    //                            screen[j - (aff->height) - MinRows + NumberRows - (aff->y_coor) / 10][(aff->x_coor) / 10 + i - Mincolums].BackColour = aff->pix[j][i].BackColour;
+    //                            screen[j - (aff->height) - MinRows + NumberRows - (aff->y_coor) / 10][(aff->x_coor) / 10 + i - Mincolums].FrontColour = aff->pix[j][i].FrontColour;
+    //                            screen[j - (aff->height) - MinRows + NumberRows - (aff->y_coor) / 10][(aff->x_coor) / 10 + i - Mincolums].texture = aff->pix[j][i].texture;
+    //                        }
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
 }
 
 void AffichageConsole::SetTerminalCursorPosition(int column, int row)

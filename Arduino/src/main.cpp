@@ -18,6 +18,7 @@
 
 #define BAUD 115200        // Frequence de transmission serielle
 #define MENUHEIGHT 5
+#define DATA_ARRAY_SIZE 10
 
 /*---------------------------- Variables globales ---------------------------*/
 
@@ -27,7 +28,10 @@ int ledState = 0;
 int potValue = 0;
 int pinLED = 7;
 int pinPOT = A7;
-
+int PIN_MUONS = A5;
+int Muon = 0;
+int arrayIndex = 0;
+int MuonTab[DATA_ARRAY_SIZE];
 
 
 
@@ -96,11 +100,14 @@ void readMsg();
 void serialEvent();
 void SetupJson();
 void readPC();
+void gestionmot (int etat);
+void printData();
 /*---------------------------- Fonctions "Main" -----------------------------*/
 
 void setup() {
   Serial.begin(BAUD);               // Initialisation de la communication serielle
   //pinMode(pinLED, OUTPUT);
+  pinMode(PIN_MUONS, INPUT);
   //digitalWrite(pinLED, ledState);
   LCD.Initialisation();
   LCD.Cursor(true, 0, 0);
@@ -115,6 +122,7 @@ void loop()
   float fal2 = map(valY, 0, 1023, -100, 100);
   fal2 = fal2>=0 ? fal2 : fal2*-1;
   Bar.AllumeBargraphePuissance(fal2);
+  printData();
 
 
 
@@ -544,6 +552,15 @@ void SetupJson()
   comPC.AddMessage("B4", b4.Update());
   comPC.AddMessage("B5", b5.Update());
 
+  Muon = 0;
+  for (int i = 0; i < DATA_ARRAY_SIZE; i++)
+  {
+    Muon += MuonTab[i];
+  }
+  Muon = Muon / DATA_ARRAY_SIZE;
+  
+
+  comPC.AddMessage("Muon", Muon);
   Acc.GetX(&val1);
   fal1 = map(val1, 425, 285, -900, 900);
   comPC.AddMessage("Angle", fal1/10.0f);//map 0 a 359
@@ -553,13 +570,37 @@ void SetupJson()
 
 void readPC()
 {
-  int ledvalue;
+  int motvalue;
   comPC.readMsg();
   
-  if (comPC.GetValue("led", &ledvalue)) {
+  if (comPC.GetValue("Moteur", &motvalue)) {
     // mettre la led a la valeur doc["led"]
     //Bar.AllumeBits(ledvalue);
+  
+    gestionmot(motvalue);
+  }
+}
+void gestionmot(int etat){
+  if(etat==1){
+  Mot.ActualiseMoteur(50);
+  }
+  else{
+    Mot.ActualiseMoteur(255);
   }
 }
 
+
+
+void printData(){
+  //Écriture de la valeur numérisée
+  MuonTab[arrayIndex] = analogRead(PIN_MUONS);
+  
+  //Incrémentation de l'index du tampon circulaire
+  if (arrayIndex < DATA_ARRAY_SIZE-1){
+    arrayIndex++;
+    }
+  else {
+    arrayIndex = 0;
+  }
+}
 
