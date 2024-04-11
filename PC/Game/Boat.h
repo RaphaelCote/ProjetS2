@@ -2,6 +2,7 @@
 #define BOAT_H
 
 #include <ostream>
+#include <vector>
 #include "character.h"
 #include "utility.h"
 

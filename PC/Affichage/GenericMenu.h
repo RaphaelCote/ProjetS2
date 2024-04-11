@@ -2,6 +2,7 @@
 #define GENERICMENU_H
 
 #include <QtWidgets>
+#include <vector>
 
 #include "MenuButton.h"
 #include "../Affichage/Pixmaps.h"
@@ -19,7 +20,7 @@ public:
 	void SetChecked(int index);
 
 protected:
-	QVector<Raph_PixMap*> vectorPixMap;
+	std::vector<Raph_PixMap*> vectorPixMap;
 	std::vector<MenuButton*> buttons;
 
 	void paintEvent(QPaintEvent* event) override;

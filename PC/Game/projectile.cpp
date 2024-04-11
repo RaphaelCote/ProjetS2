@@ -1,4 +1,5 @@
 // projectile.cpp
+#include <vector>
 #include "projectile.h"
 
 Projectile::Projectile(Character &character)

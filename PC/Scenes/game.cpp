@@ -286,12 +286,13 @@ void Game::PlayTurn()
             }
         }
 
-        Character* player;
 
         if (foundAliveEnemy) {
 
             AnimationVersPersonnage(ec);
 
+            Character* player = activeLevel->playerBoats[0]->characters[0];
+            
             bool foundAlivePlayer = false;
             for (int i = 0; i < activeLevel->playerBoats.size(); i++)
             {
@@ -590,7 +591,6 @@ bool Game::CheckEndCondition()
             if (activeLevel->enemyBoats[i]->characters[j]->getHealthPoint() > 0)
             {
                 isAllEnemyDead = false;
-                break;
             }
             else {
                 std::string name = "EnemyCharacter" + std::to_string(i) + ',' + std::to_string(j);
@@ -843,13 +843,15 @@ void Game::AnimationProjectile(Projectile *proj)
             time += 0.01;
             compteurVaChier++;
 
+            float vitesse = proj->V0 / 1400;
+
             if (proj->getAngleDegre() > 0)
             {
-                currentPosition.x += 7;
+                currentPosition.x += floor(7 * vitesse);
             }
             else
             {
-                currentPosition.x -= 7;
+                currentPosition.x -= floor(7 * vitesse);
             }
             currentPosition.y = proj->findBulletPositionY(currentPosition.x);
             proj->bulletCurrentPosition = currentPosition;

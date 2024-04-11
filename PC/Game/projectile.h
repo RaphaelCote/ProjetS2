@@ -5,6 +5,7 @@
 #include <iostream>
 #include <cmath>
 #include <typeinfo>
+#include <vector>
 
 #include "utility.h"
 #include "character.h"

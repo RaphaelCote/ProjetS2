@@ -21,7 +21,7 @@ GenericMenu::GenericMenu()
 	image4->box = {screenHeight, 50};
 	image4->name = "background";
 	image4->couche = 1;
-	vectorPixMap.append(image4);
+	vectorPixMap.push_back(image4);
 }
 
 void GenericMenu::CreateButtons(int btnQty, bool isSized)
@@ -59,7 +59,7 @@ void GenericMenu::paintEvent(QPaintEvent *event)
 	int windowHeight = this->height();
 
 	// painter.setCompositionMode(QPainter::CompositionMode_SourceIn);
-	for (int i = 0; i < vectorPixMap.length(); i++)
+	for (int i = 0; i < vectorPixMap.size(); i++)
 	{
 		int x = 0;
 		int y = 0;

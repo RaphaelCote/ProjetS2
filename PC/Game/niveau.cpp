@@ -1,3 +1,5 @@
+#include <vector>
+
 #include "niveau.h"
 #include "Boat.h"
 #include "playerCharacter.h"
@@ -654,9 +656,17 @@ void Niveau::UpdateHealthQt() {
             }
         }
         else {
-            RemoveItemQt(healthBarsForeground[i]->name);
-            RemoveItemQt(healthBarsForeground[i]->name);
-            RemoveItemQt(shieldBarsForeground[i]->name);
+            std::string healthBarBackgroundName = healthBarsBackground[i]->name;
+            std::string healthBarForegroundName = healthBarsForeground[i]->name;
+            std::string shieldBarForegroundName = shieldBarsForeground[i]->name;
+
+            healthBarsBackground[i] = new Raph_PixMap;
+            healthBarsForeground[i] = new Raph_PixMap;
+            shieldBarsForeground[i] = new Raph_PixMap;
+
+            RemoveItemQt(healthBarBackgroundName);
+            RemoveItemQt(healthBarForegroundName);
+            RemoveItemQt(shieldBarForegroundName);
         }
     }
 }
