@@ -149,11 +149,13 @@ void Game::ChangeProjectileType(int typeDif)
 
 void Game::ChangeProjectileStrength(float strength)
 {
+    gameWindow->GetGameWidget()->puissance = strength;
     projectile->setPuissance(strength);
 }
 
 void Game::ChangeProjectileAngle(float angle)
 {
+    gameWindow->GetGameWidget()->angle = angle;
     projectile->setAngleDegre(angle);
 }
 
@@ -247,14 +249,20 @@ void Game::PlayTurn()
         ShowGameInfo();
         doOnce = false;
         AnimationVersPersonnage(activeLevel->playerBoats[0]->characters[0]);
+        gameWindow->GetGameWidget()->LineEnd->x= 2000;
     }
 
     if (isPlayerTurn)
     {
+        gameWindow->LineStart.x= activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().x;
+        gameWindow->LineStart.y = activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().y;
+        gameWindow->GetGameWidget()->refresh();
         UpdateWeaponInfo();
     }
     else
     {
+        gameWindow->LineEnd.x = gameWindow->LineStart.x;//pt que ça scrap
+        gameWindow->GetGameWidget()->refresh();
         ShowGameInfo();
 
         EnemyCharacter *ec = (EnemyCharacter*)activeLevel->enemyBoats[0]->characters[0];
@@ -787,6 +795,7 @@ void Game::AnimationVersPersonnage(Character * character)
 
 void Game::AnimationProjectile(Projectile *proj)
 {
+    gameWindow->LineEnd.x = gameWindow->LineStart.x;
     bool faireunefois = true;
     bool animation = true;
     Coordonnee startPosition = proj->bulletStartPosition;
