@@ -32,6 +32,8 @@ ControllerControls::ControllerControls(EventManager *em, std::string com) : Cont
     ready_to_read = false;
     Thread_Actif = true;
 
+    isMoteurOn = new int(0);
+
     if (Connected)
         ready_to_send = false;
 

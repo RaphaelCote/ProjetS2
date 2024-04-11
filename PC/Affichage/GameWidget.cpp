@@ -237,6 +237,17 @@ void GameWidget::SetCheckedProjectile(int index)
     }
 }
 
+void GameWidget::StartMoteur(ControllerControls* controls) {
+    controls->isMoteurOn = 1;
+    this->controllerControls = controls;
+
+    QTimer::singleShot(500, this, &GameWidget::StopMoteur);
+}
+
+void GameWidget::StopMoteur() {
+    controllerControls->isMoteurOn = 0;
+}
+
 void GameWidget::paintEvent(QPaintEvent* event)
 {
     Q_UNUSED(event);

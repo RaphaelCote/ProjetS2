@@ -362,6 +362,10 @@ void Game::PlayerShoot()
     soundManager->soundTrack = canonSoundEffect;
     soundManager->functionDecider = play_SoundTrack;
 
+    if (!gameWindow->isKeyboardControls) {
+        gameWindow->GetGameWidget()->StartMoteur(((ControllerControls*)controls));
+    }
+
     AnimationProjectile(projectile);
     
     if (projectileType == 2)//animation explosion
