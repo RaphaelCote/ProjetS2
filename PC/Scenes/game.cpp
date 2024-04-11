@@ -216,8 +216,8 @@ void Game::PlayTurn()
             ShowGameInfo();
             doOnce = false;
         }
-        /*mouseLine->lineStart = QPoint(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().x, activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().y);
-        UpdateWeaponInfo();*/
+        gameWindow->lineStart = QPoint(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().x, activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().y);
+        UpdateWeaponInfo();
     }
     else
     {
