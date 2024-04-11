@@ -231,6 +231,10 @@ void ControllerControls::ListenForControls()
     {
         Menu();
     }
+    else if (etatB3 == etatBoutton::BouttonAppuyer && etatB3 != oldEtatB3)
+    {
+        Back();
+    }
 
     oldEtatB1 = etatB1;
     oldEtatB2 = etatB2;

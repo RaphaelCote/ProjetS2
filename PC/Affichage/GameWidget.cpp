@@ -1,9 +1,83 @@
-#include"GameWidget.h"
+#include <QtWidgets>
+
+#include "GameWidget.h"
 
 GameWidget::GameWidget()
 {
     minX = 0;
     minY = 0;
+
+    QVBoxLayout* mainLayout = new QVBoxLayout(this);
+    mainLayout->setAlignment(Qt::AlignTop);
+
+    projectileSelection.push_back(new QPushButton("Balle", this));
+    projectileSelection.push_back(new QPushButton("Rocket", this));
+    projectileSelection.push_back(new QPushButton("Grenade", this));
+
+    projectileSelection[0]->setCheckable(true);
+    projectileSelection[1]->setCheckable(true);
+    projectileSelection[2]->setCheckable(true);
+
+    projectileSelection[0]->setChecked(true);
+
+    projectileSelection[0]->setStyleSheet("QPushButton {"
+        " border:4px outset; "
+        " border-radius: 8px; "
+        " border-color: rgb(255, 160, 48); "
+        " color:rgb(0, 0, 0); "
+        " background-color: rgb(255, 74, 49);  "
+        " opacity : 150; "
+        " font: 24pt 'Cooper Black'; "
+        "qproperty-alignment: 'AlignCenter';"
+        " min-width: 0px;"
+        " max - width: 10000px; }"
+        "QPushButton:checked {"
+        " background-color: rgb(3, 215, 252);"
+        " border-color: rgb(17, 97, 173); }"
+    );
+
+    projectileSelection[1]->setStyleSheet("QPushButton {"
+        " border:4px outset; "
+        " border-radius: 8px; "
+        " border-color: rgb(255, 160, 48); "
+        " color:rgb(0, 0, 0); "
+        //" background-color: rgb(255, 74, 49);  "
+        " background-color: lightgrey;  "
+        " opacity : 150; "
+        " font: 24pt 'Cooper Black'; "
+        "qproperty-alignment: 'AlignCenter';"
+        " min-width: 0px;"
+        " max - width: 10000px; }"
+        "QPushButton:checked {"
+        " background-color: rgb(3, 215, 252);"
+        " border-color: rgb(17, 97, 173); }"
+    );
+
+    projectileSelection[2]->setStyleSheet("QPushButton {"
+        " border:4px outset; "
+        " border-radius: 8px; "
+        " border-color: rgb(255, 160, 48); "
+        " color:rgb(0, 0, 0); "
+        //" background-color: rgb(255, 74, 49);  "
+        " background-color: lightgrey;  "
+        " opacity : 150; "
+        " font: 24pt 'Cooper Black'; "
+        "qproperty-alignment: 'AlignCenter';"
+        " min-width: 0px;"
+        " max - width: 10000px; }"
+        "QPushButton:checked {"
+        " background-color: rgb(3, 215, 252);"
+        " border-color: rgb(17, 97, 173); }"
+    );
+
+    // Ajouter les QPushButton dans un QHBoxLayout pour le positionner en haut à gauche
+    QHBoxLayout* projectilLayout = new QHBoxLayout();
+    projectilLayout->addWidget(projectileSelection[0]);
+    projectilLayout->addWidget(projectileSelection[1]);
+    projectilLayout->addWidget(projectileSelection[2]);
+    projectilLayout->addStretch();
+
+    mainLayout->addLayout(projectilLayout);
 }
 
 void GameWidget::addImage(Frank_PixMap* pixmap)
@@ -89,6 +163,21 @@ QPixmap GameWidget::rotatePixmap(const QPixmap& pixmap, qreal degrees) {
     painter.drawPixmap(-size.width() / 2, -size.height() / 2, pixmap);
 
     return rotatedPixmap;
+}
+
+void GameWidget::SetCheckedProjectile(int index)
+{
+    for (int i = 0; i < projectileSelection.size(); i++)
+    {
+        if (i == index)
+        {
+            projectileSelection[i]->setChecked(true);
+        }
+        else
+        {
+            projectileSelection[i]->setChecked(false);
+        }
+    }
 }
 
 void GameWidget::paintEvent(QPaintEvent* event)
@@ -201,4 +290,77 @@ void GameWidget::paintEvent(QPaintEvent* event)
         painter.drawPixmap(x, y, vectorPixMapRotation[i]->pix);
     }
 
+    if (rocketNum > 0) {
+        projectileSelection[1]->setStyleSheet("QPushButton {"
+            " border:4px outset; "
+            " border-radius: 8px; "
+            " border-color: rgb(255, 160, 48); "
+            " color:rgb(0, 0, 0); "
+            " background-color: rgb(255, 74, 49);  "
+            //" background-color: lightgrey;  "
+            " opacity : 150; "
+            " font: 24pt 'Cooper Black'; "
+            "qproperty-alignment: 'AlignCenter';"
+            " min-width: 0px;"
+            " max - width: 10000px; }"
+            "QPushButton:checked {"
+            " background-color: rgb(3, 215, 252);"
+            " border-color: rgb(17, 97, 173); }"
+        );
+    }
+    else {
+        projectileSelection[1]->setStyleSheet("QPushButton {"
+            " border:4px outset; "
+            " border-radius: 8px; "
+            " border-color: rgb(255, 160, 48); "
+            " color:rgb(0, 0, 0); "
+            //" background-color: rgb(255, 74, 49);  "
+            " background-color: lightgrey;  "
+            " opacity : 150; "
+            " font: 24pt 'Cooper Black'; "
+            "qproperty-alignment: 'AlignCenter';"
+            " min-width: 0px;"
+            " max - width: 10000px; }"
+            "QPushButton:checked {"
+            " background-color: rgb(3, 215, 252);"
+            " border-color: rgb(17, 97, 173); }"
+        );
+    }
+
+    if (grenadeNum > 0) {
+        projectileSelection[2]->setStyleSheet("QPushButton {"
+            " border:4px outset; "
+            " border-radius: 8px; "
+            " border-color: rgb(255, 160, 48); "
+            " color:rgb(0, 0, 0); "
+            " background-color: rgb(255, 74, 49);  "
+            //" background-color: lightgrey;  "
+            " opacity : 150; "
+            " font: 24pt 'Cooper Black'; "
+            "qproperty-alignment: 'AlignCenter';"
+            " min-width: 0px;"
+            " max - width: 10000px; }"
+            "QPushButton:checked {"
+            " background-color: rgb(3, 215, 252);"
+            " border-color: rgb(17, 97, 173); }"
+        );
+    }
+    else {
+        projectileSelection[2]->setStyleSheet("QPushButton {"
+            " border:4px outset; "
+            " border-radius: 8px; "
+            " border-color: rgb(255, 160, 48); "
+            " color:rgb(0, 0, 0); "
+            //" background-color: rgb(255, 74, 49);  "
+            " background-color: lightgrey;  "
+            " opacity : 150; "
+            " font: 24pt 'Cooper Black'; "
+            "qproperty-alignment: 'AlignCenter';"
+            " min-width: 0px;"
+            " max - width: 10000px; }"
+            "QPushButton:checked {"
+            " background-color: rgb(3, 215, 252);"
+            " border-color: rgb(17, 97, 173); }"
+        );
+    }
 }

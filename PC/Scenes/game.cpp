@@ -122,6 +122,8 @@ void Game::ChangeProjectileType(int typeDif)
         }
     }
 
+    gameWindow->GetGameWidget()->SetCheckedProjectile(projectileType);
+
     float angle = projectile->getAngleDegre();
     float puissance = projectile->getPuissance();
 
@@ -236,15 +238,15 @@ void Game::PlayTurn()
         return;
     }
 
+    if (doOnce)
+    {
+        Sleep(10);
+        ShowGameInfo();
+        doOnce = false;
+    }
+
     if (isPlayerTurn)
     {
-        if (doOnce)
-        {
-            Sleep(10);
-            ShowGameInfo();
-            doOnce = false;
-        }
-
         UpdateWeaponInfo();
     }
     else

@@ -2,7 +2,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
-#include <QWidget>
+#include <QtWidgets>
 
 #include "../Affichage/Pixmaps.h"
 
@@ -18,10 +18,13 @@ public:
     void removeAllImages();
     void refresh();
     QPixmap rotatePixmap(const QPixmap& pixmap, qreal degrees);
-
+    void SetCheckedProjectile(int index);
 
     int minX;
     int minY;
+
+    int rocketNum = 0;
+    int grenadeNum = 0;
 
     int isZoomedOut = false;
 
@@ -32,6 +35,8 @@ private:
     QVector<Frank_PixMap*> vectorPixMap;
     QVector<Frank_PixMap_Rotation*> vectorPixMapRotation;
     QVector<Raph_PixMap*> vectorPixMapRaph;
+
+    std::vector<QPushButton*> projectileSelection;
 };
 
 

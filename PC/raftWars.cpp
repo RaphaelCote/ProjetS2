@@ -202,7 +202,7 @@ int main(int argc, char *argv[])
 
     QVBoxLayout *vbox = new QVBoxLayout();
 
-    QPixmap logo("C:/home/DEVUniversite/ProjetS2/Images/logo.png");
+    QPixmap logo("Images/logo.png");
     QLabel *titleLabel = new QLabel(loadingScreen);
     titleLabel->setPixmap(logo.scaled(650, 200, Qt::KeepAspectRatio));
     vbox->addWidget(titleLabel);
@@ -218,8 +218,8 @@ int main(int argc, char *argv[])
     thread.start();
 
     eventManager = new EventManager();
-    //controls = new KeyboardControls(eventManager);
-    controls = new ControllerControls(eventManager, "COM3");
+    controls = new KeyboardControls(eventManager);
+    //controls = new ControllerControls(eventManager, "COM3");
 
     gameWindow->AddContent(mainMenu);
     gameWindow->AddContent(gameWidget);
