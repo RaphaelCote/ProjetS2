@@ -1,34 +1,41 @@
 #include "GameWindow.h"
 #include "../Controls/keyboardControlsRedirect.h"
 #include "GenericMenu.h"
+#include "Game/niveau.h"
+#include "Game/gameloader.h"
 #include "Scenes/game.h"
-
 #include "../Controls/SoundManager.h"
 #include <QtWidgets>
 
 GameWindow::GameWindow() : QMainWindow()
 {
-	setWindowTitle(tr("Guerre de radeaux"));
-    
+    setWindowTitle(tr("Guerre de radeaux"));
+
     stackedWidget = new QStackedWidget;
 
     setCentralWidget(stackedWidget);
 
     timerId = startTimer(100);
+    Game* game = new Game();
     ///////////////////////////////////////////////////////////////////////
-    
+
     //mouseLine = new MouseLine();
     ////connect(this, &GameWindow::tKeyPressed, mouseLine, &MouseLine::updateLineStart);
-    connect(this, &GameWindow::tKeyPressed, this, &GameWindow::increaseLineToRight);
-    //QPoint(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().x, activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().y);
-    lineStart = QPoint(0, 200);
-    lineEnd = QPoint(0,200);
-}
 
+    connect(this, &GameWindow::tKeyPressed, this, &GameWindow::increaseLineToRight);
+    connect(this, &GameWindow::gKeyPressed, this, &GameWindow::decreaseLineToLeft);
+    connect(this, &GameWindow::rKeyPressed, this, &GameWindow::increaseLinetoUp);
+    connect(this, &GameWindow::fKeyPressed, this, &GameWindow::decreaseLineToDown);
+    //QPoint(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().x, activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().y);
+    //lineStart = QPoint(game->activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().x, game->activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().y);
+    //lineEnd = QPoint(game->activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().x, game->activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().y);
+    lineStart = QPoint(200,750);
+    lineEnd = QPoint(200,750);
+
+}
 GameWindow::~GameWindow()
 {
     killTimer(timerId);
-    delete mouseLine;
 }
 
 void GameWindow::ShowContent(int widgetIndex) {
@@ -105,6 +112,7 @@ void GameWindow::keyPressEvent(QKeyEvent* event) {
         }
 
         kcr.Angle(keyboardAngle);
+        emit rKeyPressed();
     }
     else if (event->key() == Qt::Key_F) {
         keyboardAngle -= 1;
@@ -113,6 +121,7 @@ void GameWindow::keyPressEvent(QKeyEvent* event) {
         }
 
         kcr.Angle(keyboardAngle);
+        emit fKeyPressed();
     }
     else if (event->key() == Qt::Key_T) {
         keyboardPower += 0.025;
@@ -121,7 +130,6 @@ void GameWindow::keyPressEvent(QKeyEvent* event) {
         }
 
         kcr.Joystick(keyboardPower, 0);
-        int delta = 10; // Vous pouvez ajuster cela selon vos besoins
 
         // Émettre un signal pour augmenter la longueur de la ligne
         //emit increaseLineLength(delta);
@@ -134,6 +142,8 @@ void GameWindow::keyPressEvent(QKeyEvent* event) {
         }
 
         kcr.Joystick(keyboardPower, 0);
+
+        emit gKeyPressed();
     }
 }
 

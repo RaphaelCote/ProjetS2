@@ -605,5 +605,5 @@ void Niveau::BackgroundQt()
     image4->name = "Background";
     image4->couche = -1;
     image4->rotation = 0;
-    gameWindow->GetGameWidget()->addImage(image4);
+    //gameWindow->GetGameWidget()->addImage(image4);
 }

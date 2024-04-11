@@ -159,6 +159,12 @@ void Tests::test_unitaire_characterAndprojectile()
    Gameloader gameloader;
 
    Niveau *niveau = gameloader.getLevelFromJson(levelGetter->levels[0]);
+   /*Niveau* niveau = gameloader->getLevelFromJson("./levels/level1.json");
+   EnemyCharacter* ec = (EnemyCharacter*)niveau->enemyBoats[0]->characters[0];
+   PlayerCharacter* pc = (PlayerCharacter*)niveau->playerBoats[0]->characters[0];
+   Projectile* projectileJoueur = new Canonball(pc->getWeaponPosition());
+   Projectile* enemyProjectile = ec->createEnemyProjectile();*/
+
 }
 
 void Tests::test_unitaire_Boat()

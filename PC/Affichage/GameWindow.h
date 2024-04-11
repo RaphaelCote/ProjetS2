@@ -25,8 +25,6 @@ public:
 
 	
 	////////////////////////////////////////////////////
-	 
-	MouseLine* mouseLine;
 	QPoint lineStart;
 	QPoint lineEnd;
 	void paintEvent(QPaintEvent* event) override {
@@ -43,8 +41,32 @@ public:
 public slots:
 	void increaseLineToRight() {
 		// Mettre à jour les coordonnées de fin de ligne
-		lineEnd.setX(lineEnd.x() + 100); // Augmentez la coordonnée x de la ligne de 100 pixels
+		lineEnd.setX(lineEnd.x() + 10); // Augmentez la coordonnée x de la ligne de 100 pixels
 		// Mettre à jour l'affichage
+		if ( (lineEnd.x() - lineStart.x())> 100)
+			lineEnd.setX(lineStart.x()+100);
+		update();
+	}
+	void decreaseLineToLeft()
+	{
+		lineEnd.setX(lineEnd.x() - 10);
+		if ((lineEnd.x() - lineStart.x() )<0)
+			lineEnd.setX(lineStart.x());
+		update();
+	}
+	void increaseLinetoUp()
+	{
+		lineEnd.setY(lineEnd.y() - 10);
+		if ((lineEnd.y() - lineStart.y()) < -70)
+			lineEnd.setY(lineStart.y() -70);
+		update();
+	}
+	void decreaseLineToDown()
+	{
+		lineEnd.setY(lineEnd.y() + 10);
+		if ((lineEnd.y() - lineStart.y() )> 100)
+			lineEnd.setY(lineStart.y()+100);
+
 		update();
 	}
 	////////////////////////////////////////////////////
