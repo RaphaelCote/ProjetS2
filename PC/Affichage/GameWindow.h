@@ -27,17 +27,6 @@ public:
 	////////////////////////////////////////////////////
 	QPoint lineStart;
 	QPoint lineEnd;
-	void paintEvent(QPaintEvent* event) override {
-		// Appel à la méthode paintEvent de la classe de base
-		QMainWindow::paintEvent(event);
-
-		// Création d'un objet QPainter pour le dessin
-		QPainter painter(this);
-		// Définir la couleur de la ligne (noir dans cet exemple)
-		painter.setPen(QPen(Qt::black, 2, Qt::DotLine)); // Épaisseur de ligne de 2 pixels
-		// Dessiner la ligne en utilisant les coordonnées actuelles
-		painter.drawLine(lineStart, lineEnd);
-	}
 public slots:
 	void increaseLineToRight() {
 		// Mettre à jour les coordonnées de fin de ligne
