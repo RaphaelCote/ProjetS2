@@ -648,7 +648,9 @@ void Niveau::BackgroundQt()
     QString str = QString::fromUtf8(this->backimge.c_str());//fuck you that why
     QPixmap map3(str);
     //map3=map3.scaledToWidth(2000);
-    //map3 = map3.scaled(gameWindow->width(), gameWindow->height());    
+    //map3 = map3.scaled(gameWindow->width(), gameWindow->height());   
+
+    gameWindow->GetGameWidget()->widthBackground = map3.width();
 
     Raph_PixMap* image4 = new Raph_PixMap;
     image4->pix = map3;

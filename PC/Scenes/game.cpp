@@ -735,12 +735,14 @@ void Game::AnimationVersPersonnage(Character * character)
 
             gameWindow->GetGameWidget()->refresh();
 
-            if (positionVoulu < gameWindow->GetGameWidget()->minX && positionVoulu >= positionDepart)
+            int variable = (gameWindow->GetGameWidget()->minX + gameWindow->GetGameWidget()->width()/2);
+
+            if ((positionVoulu < gameWindow->GetGameWidget()->minX && positionVoulu >= positionDepart) || !(variable < 5000 && variable > 100))
             {
                 animation = false;
                 break;
             }
-            else if(positionVoulu > gameWindow->GetGameWidget()->minX && positionVoulu < positionDepart)
+            else if((positionVoulu > gameWindow->GetGameWidget()->minX && positionVoulu < positionDepart) || !(variable < 5000 && variable > 100))
             {
                 animation = false;
                 break;
@@ -808,8 +810,9 @@ void Game::AnimationProjectile(Projectile *proj)
             proj->bulletCurrentPosition = currentPosition;
             cons->Mincolums = (currentPosition.x - (cons->MaxColumns * 10 - cons->Mincolums * 10) / 2) / 10; // je fais * 10 pcq c l'affichage console
             
+            //on a +100 pour widthBackground
             int variable = (currentPosition.x + (gameWindow->GetGameWidget()->width() / 2));
-            if(variable < 5000 && variable > 0)
+            if(variable < 5000 && variable > 100)
                 gameWindow->GetGameWidget()->minX = ((gameWindow->GetGameWidget()->width() / 2) - currentPosition.x);
             else
             {

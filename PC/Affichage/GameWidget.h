@@ -23,6 +23,8 @@ public:
     int minX;
     int minY;
 
+    int widthBackground;
+
     int rocketNum = 0;
     int grenadeNum = 0;
 
