@@ -359,6 +359,34 @@ void GameWidget::paintEvent(QPaintEvent* event)
         painter.drawPixmap(x, y, vectorPixMapRotation[i]->pix);
     }
 
+    ////////////VIC//////////////////
+    Coordonnee start = *LineStart;
+    Coordonnee end = *LineEnd;
+
+    start.x = this->width()/2;
+
+    start.y = windowHeight - LineStart->y;
+
+    /*end.y = start.y-angle*10;*/
+    float anglerad = angle * 3.14 / 180;
+    end.x = start.x + (puissance * 150);
+    end.y = start.y - ((puissance * 150) * std::tan(anglerad));
+
+    /* if (end.y > start.y)
+    {
+        end.y = start.y;
+    }
+    if ((start.y - end.y) > 150)
+    {
+        end.y = start.y - 150;
+    }*/
+
+    if (LineEnd->x != LineStart->x)
+    {
+        painter.setPen(QPen(Qt::red, 4, Qt::DotLine));
+        painter.drawLine(start.x, start.y, end.x, end.y);
+    }
+    ////////////VIC//////////////////
     if (rocketNum > 0) {
         projectileSelection[1]->setStyleSheet("QPushButton {"
             " border:4px outset; "

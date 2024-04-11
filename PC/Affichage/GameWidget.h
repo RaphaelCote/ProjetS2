@@ -5,7 +5,6 @@
 #include <QtWidgets>
 
 #include "../Affichage/Pixmaps.h"
-
 class GameWidget : public QWidget {
     Q_OBJECT
 public:
@@ -21,7 +20,10 @@ public:
     void SetCheckedProjectile(int index);
     void StartMoteur();
     void StopMoteur();
-
+    Coordonnee* LineStart;
+    Coordonnee* LineEnd;
+    float angle;
+    float puissance;
     int minX;
     int minY;
 

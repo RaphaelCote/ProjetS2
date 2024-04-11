@@ -23,7 +23,8 @@ public:
 	void SetChecked(int index);
 	GameWidget* GetGameWidget();
 	GenericMenu* GetMenuWidget(int index);
-
+	Coordonnee LineStart;
+	Coordonnee LineEnd;
 private:
 
 	float keyboardPower = 0.5;
