@@ -12,6 +12,7 @@
 #include "../Affichage/Global.h"
 #include "../Affichage/ShowContentEvent.h"
 #include "../Affichage/EndGameMenuQt.h"
+#include "../Controls/controllerControls.h"
 
 bool afficheTextCalisse = true;
 int x = 20;
@@ -279,7 +280,7 @@ void Game::PlayTurn()
 
             AnimationVersPersonnage(ec);
 
-            Projectile *enemyProjectile = ec->createEnemyProjectile();
+            Projectile *enemyProjectile = ec->createEnemyProjectile(gameWindow->isKeyboardControls, ((ControllerControls*)controls)->Muon);
 
             std::vector<Character*> players;
 

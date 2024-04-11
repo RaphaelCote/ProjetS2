@@ -186,7 +186,7 @@ void ControllerControls::ListenForControls()
     if (ready_to_send == true)
     {
         // std::cout << "Sending" << endl;
-        this->AddMessage("Moteur", 0);
+        this->AddMessage("Moteur", isMoteurOn);
         if (!this->SendMessageJson())
             return;
 

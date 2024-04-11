@@ -58,6 +58,7 @@ public:
     bool ready_to_send;
     bool ready_to_read;
     bool Connected;
+    int isMoteurOn = 0;
 
     etatBoutton etatB1;
     etatBoutton oldEtatB1;
