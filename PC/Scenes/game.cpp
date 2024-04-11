@@ -303,7 +303,7 @@ void Game::PlayTurn()
                 }
             }
 
-            Projectile *enemyProjectile = ec->createEnemyProjectile(gameWindow->isKeyboardControls, ((ControllerControls*)controls)->Muon, player);
+            Projectile *enemyProjectile = ec->createEnemyProjectile(!gameWindow->isKeyboardControls, ((ControllerControls*)controls)->Muon, player);
 
             std::vector<Character*> players;
 
