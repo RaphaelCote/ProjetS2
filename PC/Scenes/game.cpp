@@ -456,8 +456,14 @@ void Game::EndGame()
     StopGame();
     qobject_cast<EndGameMenuQt*>(gameWindow->GetMenuWidget(3))->UpdateValues(!isAllPlayerDead,PayPlayer());
     activeScene = 3;
-    soundManager->music = victoryMusic;
-    soundManager->functionDecider = play_Music;
+    if (currentLevelIndex == 4) {
+        soundManager->music = rightRound;
+        soundManager->functionDecider = play_Music;
+    }
+    else {
+        soundManager->music = victoryMusic;
+        soundManager->functionDecider = play_Music;
+    }
     ShowContentEvent *scEvent = new ShowContentEvent(3);
     QApplication::postEvent(gameWindow, scEvent);
 }
