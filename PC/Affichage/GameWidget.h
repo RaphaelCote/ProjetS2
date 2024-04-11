@@ -3,7 +3,7 @@
 #define MAINWINDOW_H
 
 #include <QtWidgets>
-
+#include <vector>
 #include "../Affichage/Pixmaps.h"
 
 class GameWidget : public QWidget {
@@ -32,9 +32,9 @@ protected:
     void paintEvent(QPaintEvent* event);
 
 private:
-    QVector<Frank_PixMap*> vectorPixMap;
-    QVector<Frank_PixMap_Rotation*> vectorPixMapRotation;
-    QVector<Raph_PixMap*> vectorPixMapRaph;
+    std::vector<Frank_PixMap*> vectorPixMap;
+    std::vector<Frank_PixMap_Rotation*> vectorPixMapRotation;
+    std::vector<Raph_PixMap*> vectorPixMapRaph;
 
     std::vector<QPushButton*> projectileSelection;
 };

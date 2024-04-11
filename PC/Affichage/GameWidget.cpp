@@ -139,17 +139,17 @@ GameWidget::GameWidget()
 
 void GameWidget::addImage(Frank_PixMap* pixmap)
 {
-    vectorPixMap.append(pixmap);
+    vectorPixMap.push_back(pixmap);
 }
 
 void GameWidget::addImage(Frank_PixMap_Rotation* pixmap)
 {
-    vectorPixMapRotation.append(pixmap);
+    vectorPixMapRotation.push_back(pixmap);
 }
 
 void GameWidget::addImage(Raph_PixMap* pixmap)
 {
-    vectorPixMapRaph.append(pixmap);
+    vectorPixMapRaph.push_back(pixmap);
 }
 
 void GameWidget::removeImage(std::string name)
@@ -158,7 +158,7 @@ void GameWidget::removeImage(std::string name)
     {
         if (vectorPixMap[i]->name == name)
         {
-            vectorPixMap.removeAt(i);// retire l'élément a l'index i
+            vectorPixMap.erase(vectorPixMap.begin()+i);// retire l'élément a l'index i
             // cout << "Removed: " << i << "  " << name;
             // Sleep(1000);
             return;
@@ -169,7 +169,7 @@ void GameWidget::removeImage(std::string name)
     {
         if (vectorPixMapRotation[i]->name == name)
         {
-            vectorPixMapRotation.removeAt(i);// retire l'élément a l'index i
+            vectorPixMapRotation.erase(vectorPixMapRotation.begin() + i);// retire l'élément a l'index i
             // cout << "Removed: " << i << "  " << name;
             // Sleep(1000);
             return;
@@ -180,7 +180,7 @@ void GameWidget::removeImage(std::string name)
     {
         if (vectorPixMapRaph[i]->name == name)
         {
-            vectorPixMapRaph.removeAt(i);// retire l'élément a l'index i
+            vectorPixMapRaph.erase(vectorPixMapRaph.begin() + i);// retire l'élément a l'index i
             // cout << "Removed: " << i << "  " << name;
             // Sleep(1000);
             return;
@@ -251,7 +251,7 @@ void GameWidget::paintEvent(QPaintEvent* event)
 
     int windowHeight = this->height();
 
-    for (int i = 0; i < vectorPixMapRaph.length(); i++)
+    for (int i = 0; i < vectorPixMapRaph.size(); i++)
     {
         int x = 0;
         int y = 0;
@@ -284,7 +284,7 @@ void GameWidget::paintEvent(QPaintEvent* event)
 
 
     //painter.setCompositionMode(QPainter::CompositionMode_SourceIn);
-    for (int i = 0; i < vectorPixMap.length(); i++)
+    for (int i = 0; i < vectorPixMap.size(); i++)
     {
         int x = 0;
         int y = 0;
@@ -316,7 +316,7 @@ void GameWidget::paintEvent(QPaintEvent* event)
     }
 
 
-    for (int i = 0; i < vectorPixMapRotation.length(); i++)
+    for (int i = 0; i < vectorPixMapRotation.size(); i++)
     {
         int x = 0;
         int y = 0;
