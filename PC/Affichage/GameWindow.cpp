@@ -17,6 +17,7 @@ GameWindow::GameWindow() : QMainWindow()
     setCentralWidget(stackedWidget);
 
     timerId = startTimer(100);
+    
 }
 
 GameWindow::~GameWindow()
@@ -120,6 +121,7 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
         }
 
         kcr.Angle(keyboardAngle);
+        emit rKeyPressed();
     }
     else if (event->key() == Qt::Key_F)
     {
@@ -130,6 +132,7 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
         }
 
         kcr.Angle(keyboardAngle);
+        emit fKeyPressed();
     }
     else if (event->key() == Qt::Key_T)
     {
@@ -140,6 +143,7 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
         }
 
         kcr.Joystick(keyboardPower, 0);
+        emit tKeyPressed();
     }
     else if (event->key() == Qt::Key_G)
     {
@@ -150,6 +154,7 @@ void GameWindow::keyPressEvent(QKeyEvent *event)
         }
 
         kcr.Joystick(keyboardPower, 0);
+        emit gKeyPressed();
     }
 }
 

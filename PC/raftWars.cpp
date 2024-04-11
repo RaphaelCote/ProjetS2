@@ -174,7 +174,8 @@ int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
     qDebug() << "Main thread started";
-
+    QPoint start(200, 200);
+    QPoint end(1000, 1000);// changer cette coordonné pour (200,200)
     inventory = new Inventory();
     inventory->addGold(2000);
     levelGetter = new LevelGetter();
@@ -188,6 +189,8 @@ int main(int argc, char *argv[])
     PauseMenuQt *pauseMenu = new PauseMenuQt();
     ShopMenuQt *shopMenu = new ShopMenuQt();
     GenericMenu *loadingScreen = new GenericMenu();
+    gameWidget->lineEnd = &gameWindow->lineEnd;
+    gameWidget->lineStart = &gameWindow->lineStart;
     soundManager = new SoundManager();
 
     soundManager->music = introMusic;
