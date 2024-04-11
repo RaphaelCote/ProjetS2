@@ -96,6 +96,7 @@ void readMsg();
 void serialEvent();
 void SetupJson();
 void readPC();
+void gestionmot (int etat);
 /*---------------------------- Fonctions "Main" -----------------------------*/
 
 void setup() {
@@ -553,13 +554,22 @@ void SetupJson()
 
 void readPC()
 {
-  int ledvalue;
+  int motvalue;
   comPC.readMsg();
   
-  if (comPC.GetValue("led", &ledvalue)) {
+  if (comPC.GetValue("Moteur", &motvalue)) {
     // mettre la led a la valeur doc["led"]
     //Bar.AllumeBits(ledvalue);
+  
+    gestionmot(motvalue);
   }
 }
-
+void gestionmot(int etat){
+  if(etat==1){
+  Mot.ActualiseMoteur(0);
+  }
+  else{
+    Mot.ActualiseMoteur(255);
+  }
+}
 
