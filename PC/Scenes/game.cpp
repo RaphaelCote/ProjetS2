@@ -227,6 +227,8 @@ void Game::Update()
         soundManager->functionDecider = play_SoundTrack;
     }
 
+    activeLevel->UpdateHealthQt();
+
     isNewLevel = false;
     PlayTurn();
 }
@@ -423,6 +425,7 @@ void Game::PlayerShoot()
 void Game::PauseGame()
 {
     OnDisable();
+    doOnce = true;
     activeScene = 4;
     soundManager->music = introMusic;
     soundManager->functionDecider = play_Music;

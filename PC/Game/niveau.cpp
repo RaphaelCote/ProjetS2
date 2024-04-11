@@ -5,7 +5,8 @@
 #include "../Affichage/AffichageConsole.h"
 #include "../raftWars.h"
 #include "../Affichage/Pixmaps.h"
-#include "../Affichage/GLobal.h"
+#include "../Affichage/Global.h"
+#include "../Affichage/GlobalTwo.h"
 
 Niveau::Niveau()
 {
@@ -16,6 +17,9 @@ Niveau::Niveau(int width, int height, std::string image)
     backimge = image;
     this->height = height;
     this->width = width;
+
+    healtBarsBackground.clear();
+    healtBarsForeground.clear();
 }
 
 Niveau::~Niveau()
@@ -496,17 +500,33 @@ void Niveau::CharacterQt()
 
             gameWindow->GetGameWidget()->addImage(pixmap);
 
-            /*Frank_PixMap* healtBackground = new Frank_PixMap;
+            Raph_PixMap* healtBackground = new Raph_PixMap;
 
-            healtBackground->pix = QPixmap("Images/healtBackground.png");
+            healtBackground->pix = QPixmap("Images/healthBackground.png");
             healtBackground->box = { healtBackground->pix.height(), healtBackground->pix.width() };
-            healtBackground->x = &(playerBoats[b]->characters[v]->getPosition().x + playerBoats[b]->characters[v]->getHitboxHeight()));
-            healtBackground->y = playerBoats[b]->characters[v]->GetPointeurY();
-            healtBackground->couche = 1;
-            healtBackground->name = "Character" + std::to_string(b) + ',' + std::to_string(v);
+            healtBackground->x = playerBoats[b]->characters[v]->getPosition().x + (playerBoats[b]->characters[v]->getHitboxWidth() / 2) - 77;
+            healtBackground->y =playerBoats[b]->characters[v]->getPosition().y + playerBoats[b]->characters[v]->getHitboxHeight() + 50;
+            healtBackground->couche = 2;
+            healtBackground->name = "CharacterHealthBackground" + std::to_string(healtBarsBackground.size());
             healtBackground->rotation = 0;
 
-            healtBarsBackground.push_back(healtBackground);*/
+            healtBarsBackground.push_back(healtBackground);
+
+            gameWindow->GetGameWidget()->addImage(healtBackground);
+
+            Raph_PixMap* healtForeground = new Raph_PixMap;
+
+            healtForeground->pix = QPixmap("Images/healthForeground.png");
+            healtForeground->box = { healtForeground->pix.height(), healtForeground->pix.width() };
+            healtForeground->x = playerBoats[b]->characters[v]->getPosition().x + (playerBoats[b]->characters[v]->getHitboxWidth() / 2) - 75;
+            healtForeground->y = playerBoats[b]->characters[v]->getPosition().y + playerBoats[b]->characters[v]->getHitboxHeight() + 52;
+            healtForeground->couche = 3;
+            healtForeground->name = "CharacterHealthForeground" + std::to_string(healtBarsForeground.size());
+            healtForeground->rotation = 0;
+
+            healtBarsForeground.push_back(healtForeground);
+
+            gameWindow->GetGameWidget()->addImage(healtForeground);
         }
     }
 
@@ -527,6 +547,34 @@ void Niveau::CharacterQt()
             pixmap->rotation = 0;
 
             gameWindow->GetGameWidget()->addImage(pixmap);
+
+            Raph_PixMap* healtBackground = new Raph_PixMap;
+
+            healtBackground->pix = QPixmap("Images/healthBackground.png");
+            healtBackground->box = { healtBackground->pix.height(), healtBackground->pix.width() };
+            healtBackground->x = enemyBoats[b]->characters[v]->getPosition().x + (enemyBoats[b]->characters[v]->getHitboxHeight() / 2) - 77;
+            healtBackground->y = enemyBoats[b]->characters[v]->getPosition().y + (enemyBoats[b]->characters[v]->getHitboxHeight() * 2);
+            healtBackground->couche = 2;
+            healtBackground->name = "CharacterHealthBackground" + std::to_string(healtBarsBackground.size());
+            healtBackground->rotation = 0;
+
+            healtBarsBackground.push_back(healtBackground);
+
+            gameWindow->GetGameWidget()->addImage(healtBackground);
+
+            Raph_PixMap* healtForeground = new Raph_PixMap;
+
+            healtForeground->pix = QPixmap("Images/healthForeground.png");
+            healtForeground->box = { healtForeground->pix.height(), healtForeground->pix.width() };
+            healtForeground->x = enemyBoats[b]->characters[v]->getPosition().x + 2 + (enemyBoats[b]->characters[v]->getHitboxHeight() / 2) - 77;
+            healtForeground->y = enemyBoats[b]->characters[v]->getPosition().y + (enemyBoats[b]->characters[v]->getHitboxHeight() * 2) + 2;
+            healtForeground->couche = 3;
+            healtForeground->name = "CharacterHealthForeground" + std::to_string(healtBarsForeground.size());
+            healtForeground->rotation = 0;
+
+            healtBarsForeground.push_back(healtForeground);
+
+            gameWindow->GetGameWidget()->addImage(healtForeground);
         }
     }
 }
@@ -552,6 +600,22 @@ void Niveau::UpdateHealthQt() {
             {
                 characters.push_back(enemyBoats[i]->characters[j]);
             }
+        }
+    }
+
+    for (int i = 0; i < characters.size(); i++) {
+        if (characters[i]->getHealthPoint() > 0) {
+            float currentHealth = characters[i]->getHealthPoint();
+            float healthPercentage = currentHealth / 100;
+
+            //if (currentHealth < 25) {
+                healtBarsForeground[i]->pix = QPixmap("Images/healthForeground.png").scaled(healthPercentage*150, 20, Qt::IgnoreAspectRatio);
+                healtBarsForeground[i]->box = { healtBarsForeground[i]->pix.height(), healtBarsForeground[i]->pix.width() };
+            //}
+        }
+        else {
+            RemoveItemQt(healtBarsBackground[i]->name);
+            RemoveItemQt(healtBarsForeground[i]->name);
         }
     }
 }

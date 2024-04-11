@@ -20,7 +20,8 @@ HEADERS     += \
 	PC/Affichage/ShowContentEvent.h \
 	PC/Affichage/UpdateValuesEvent.h \
 	PC/Affichage/Pixmaps.h \
-	PC/Affichage/Global.h \	
+	PC/Affichage/Global.h \
+	PC/Affichage/GlobalTwo.h \	
 	#------Controls------#
 	PC/Controls/controllerControls.h \
 	PC/Controls/controls.h \

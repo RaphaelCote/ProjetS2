@@ -1,9 +1,9 @@
 #ifndef PIXMAPS_H
 #define PIXMAPS_H
-#include <QWidget>
-#include <QGraphicsScene>
-#include <QGraphicsView>
-#include <QGraphicsPixmapItem>
+#include <QtWidgets>
+//#include <QGraphicsScene>
+//#include <QGraphicsView>
+//#include <QGraphicsPixmapItem>
 #include "../Game/utility.h"
 
 struct Raph_PixMap

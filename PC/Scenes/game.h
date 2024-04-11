@@ -15,9 +15,9 @@ private:
     int currentLevelIndex;
     bool isPlayerTurn;
     int projectileType;
+    bool doOnce;
     Projectile *projectile;
     Gameloader gameloader;
-    bool doOnce;
 
     /*PERSONNAGE 1 ET PERSONNAGE 2*/
     /*ne pas oublier d'inclure vecteur et le const (si nécessaire)*/
