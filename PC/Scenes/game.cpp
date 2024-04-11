@@ -33,7 +33,7 @@ Game::Game()
     isPlayerTurn = true;
     isPause = false;
     isNewLevel = true;
-    doOnce = false;
+    doOnce = true;
     projectileType = 0;
 }
 
@@ -243,18 +243,11 @@ void Game::PlayTurn()
         Sleep(10);
         ShowGameInfo();
         doOnce = false;
+        AnimationVersPersonnage(activeLevel->playerBoats[0]->characters[0]);
     }
 
     if (isPlayerTurn)
     {
-        if (doOnce)
-        {
-            Sleep(10);
-            ShowGameInfo();
-            doOnce = false;
-            AnimationVersPersonnage(activeLevel->playerBoats[0]->characters[0]);
-        }
-
         UpdateWeaponInfo();
     }
     else
@@ -283,6 +276,8 @@ void Game::PlayTurn()
         }
 
         if (foundAliveEnemy) {
+
+            AnimationVersPersonnage(ec);
 
             Projectile *enemyProjectile = ec->createEnemyProjectile();
 
@@ -699,11 +694,34 @@ void Game::AnimationVersPersonnage(Character * character)
 
             if (positionVoulu >= positionDepart)
             {
-                gameWindow->GetGameWidget()->minX += 1;
+                if (positionVoulu - gameWindow->GetGameWidget()->minX > 150)
+                {
+                    gameWindow->GetGameWidget()->minX += 5;
+                }
+                else if (positionVoulu - gameWindow->GetGameWidget()->minX > 50)
+                {
+                    gameWindow->GetGameWidget()->minX += 3;
+                }
+                else
+                {
+                    gameWindow->GetGameWidget()->minX += 1;
+                }
+                
             }
             else
             {
-                gameWindow->GetGameWidget()->minX -= 1;
+                if (gameWindow->GetGameWidget()->minX - positionVoulu > 150)
+                {
+                    gameWindow->GetGameWidget()->minX -= 5;
+                }
+                else if (gameWindow->GetGameWidget()->minX - positionVoulu > 50)
+                {
+                    gameWindow->GetGameWidget()->minX -= 3;
+                }
+                else
+                {
+                    gameWindow->GetGameWidget()->minX -= 1;
+                }
             }
             
             timerAnimation = currentclockAnimation;
