@@ -25,8 +25,10 @@ GameWindow::GameWindow() : QMainWindow()
     connect(this, &GameWindow::gKeyPressed, this, &GameWindow::decreaseLineToLeft);
     connect(this, &GameWindow::rKeyPressed, this, &GameWindow::increaseLinetoUp);
     connect(this, &GameWindow::fKeyPressed, this, &GameWindow::decreaseLineToDown);
-    lineStart = QPoint(200, 800);
-    lineEnd = QPoint(200, 800);
+   /* lineStart = QPoint(200, 800);
+    lineEnd = QPoint(200, 800);*/
+    LineStart = { 200,800 };
+    LineEnd = { 200,800 };
     //QPoint(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().x, activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().y);
     //lineStart = QPoint(game->activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().x, game->activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().y);
     //lineEnd = QPoint(game->activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().x, game->activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().y);

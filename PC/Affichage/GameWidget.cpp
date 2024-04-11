@@ -200,15 +200,19 @@ void GameWidget::paintEvent(QPaintEvent* event)
     }
 
 
-    QPoint start = *lineStart;
-    QPoint end = *lineEnd;
+   /* QPoint start = *lineStart;
+    QPoint end = *lineEnd;*/
+    Coordonnee start = *LineStart;
+    Coordonnee end = *LineEnd;
+    start.y = windowHeight - start.y;
+    end.y = windowHeight - end.y;
 
-    start.setY(windowHeight - start.y());
-    end.setY(windowHeight - end.y());
+    /*start.setY(windowHeight - start.y());
+    end.setY(windowHeight - end.y());*/
 
     // Définir la couleur de la ligne (noir dans cet exemple)
-    painter.setPen(QPen(Qt::black, 2, Qt::DotLine)); // Épaisseur de ligne de 2 pixels
+    painter.setPen(QPen(Qt::red, 4, Qt::DotLine)); // Épaisseur de ligne de 2 pixels
     // Dessiner la ligne en utilisant les coordonnées actuelles
-    painter.drawLine(start, end);
+    painter.drawLine(start.x, start.y,end.x,end.y);
 
 }
