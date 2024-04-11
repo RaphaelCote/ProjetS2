@@ -29,7 +29,7 @@ public:
     Coordonnee getBulletEndPosition();
     virtual int getProjectileMaxSpeed() = 0;
     bool checkIfCharacterHit(Character &character);
-    void checkIfCharactersHit(std::vector<Character*> characters);
+    bool checkIfCharactersHit(std::vector<Character*> characters);
     virtual int damageReceived(Character &character) = 0;
     Hitbox hitbox;
 

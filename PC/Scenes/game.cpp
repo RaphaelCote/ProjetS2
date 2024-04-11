@@ -296,7 +296,11 @@ void Game::PlayTurn()
             }
 
             //enemyProjectile->checkIfCharacterHit(*(activeLevel->playerBoats[0]->characters[0]));
-            enemyProjectile->checkIfCharactersHit(players);
+            if (enemyProjectile->checkIfCharactersHit(players)) {
+                if (!gameWindow->isKeyboardControls) {
+                    gameWindow->GetGameWidget()->StartMoteur(((ControllerControls*)controls));
+                }
+            }
 
             activeLevel->MatBalle(enemyProjectile);
 
