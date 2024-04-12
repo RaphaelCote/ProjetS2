@@ -617,20 +617,14 @@ void Niveau::UpdateHealthQt() {
     {
         for (int j = 0; j < playerBoats[i]->characters.size(); j++)
         {
-            if (playerBoats[i]->characters[j]->getHealthPoint() > 0)
-            {
-                characters.push_back(playerBoats[i]->characters[j]);
-            }
+            characters.push_back(playerBoats[i]->characters[j]);
         }
     }
     for (int i = 0; i < enemyBoats.size(); i++)
     {
         for (int j = 0; j < enemyBoats[i]->characters.size(); j++)
         {
-            if (enemyBoats[i]->characters[j]->getHealthPoint() > 0)
-            {
-                characters.push_back(enemyBoats[i]->characters[j]);
-            }
+            characters.push_back(enemyBoats[i]->characters[j]);
         }
     }
 
