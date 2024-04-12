@@ -222,8 +222,8 @@ int main(int argc, char *argv[])
     thread.start();
 
     eventManager = new EventManager();
-    controls = new KeyboardControls(eventManager);
-    //controls = new ControllerControls(eventManager, "COM3");
+    //controls = new KeyboardControls(eventManager);
+    controls = new ControllerControls(eventManager, "COM3");
 
     gameWindow->AddContent(mainMenu);
     gameWindow->AddContent(gameWidget);
@@ -235,7 +235,7 @@ int main(int argc, char *argv[])
 
     gameWindow->ShowContent(6);
 
-    gameWindow->setWindowState(Qt::WindowMaximized);
+    gameWindow->setWindowState(Qt::WindowFullScreen);
     gameWindow->show();
     // Sleep(500);
     //  Lecture de la musique
