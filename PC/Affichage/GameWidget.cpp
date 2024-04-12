@@ -369,10 +369,10 @@ void GameWidget::paintEvent(QPaintEvent* event)
 
     /*end.y = start.y-angle*10;*/
     float anglerad = angle * 3.14 / 180;
-    end.x = start.x + (puissance * 150);
-    end.y = start.y - ((puissance * 150) * std::tan(anglerad));
+    end.x = start.x + ((puissance * 150) * std::cos(anglerad));
+    end.y = start.y - ((puissance * 150) * std::sin(anglerad));
 
-    /* if (end.y > start.y)
+     /*if (end.y > start.y)
     {
         end.y = start.y;
     }
@@ -380,6 +380,7 @@ void GameWidget::paintEvent(QPaintEvent* event)
     {
         end.y = start.y - 150;
     }*/
+
 
     if (LineEnd->x != LineStart->x)
     {

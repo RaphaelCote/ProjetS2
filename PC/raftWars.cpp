@@ -127,6 +127,8 @@ public:
 
         // Main loop
         Sleep(2000); // minimum de 2 secondes sinon, sa crash
+        soundManager->music = introMusic;
+        soundManager->functionDecider = play_Music;
 
         if (((ControllerControls *)controls)->Connected == true)
         {
@@ -193,8 +195,7 @@ int main(int argc, char *argv[])
     gameWidget->LineEnd = &gameWindow->LineEnd;
     gameWidget->LineStart = &gameWindow->LineStart;
     soundManager = new SoundManager();
-    soundManager->music = introMusic;
-    soundManager->functionDecider = play_Music;
+    
     
     QScreen *screen = QGuiApplication::primaryScreen();
     QRect screenGeometry = screen->geometry();
