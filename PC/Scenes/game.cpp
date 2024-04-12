@@ -550,11 +550,6 @@ bool Game::CheckEndCondition()
                 activeLevel->RemoveItemQt(name);
             }
         }
-
-        if (!isAllPlayerDead)
-        {
-            break;
-        }
     }
 
     if (isAllPlayerDead)
@@ -575,11 +570,6 @@ bool Game::CheckEndCondition()
                 std::string name = "EnemyCharacter" + std::to_string(i) + ',' + std::to_string(j);
                 activeLevel->RemoveItemQt(name);
             }
-        }
-
-        if (!isAllEnemyDead)
-        {
-            break;
         }
     }
 
