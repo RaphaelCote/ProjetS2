@@ -250,7 +250,7 @@ void Game::PlayTurn()
         doOnce = false;
         AnimationVersPersonnage(FirstAlivePlayer());
         gameWindow->GetGameWidget()->LineEnd->x= 2000;
-        projectile->bulletStartPosition = FirstAlivePlayer()->getPosition();
+        projectile->bulletStartPosition = FirstAlivePlayer()->getWeaponPosition();
     }
 
     if (isPlayerTurn)
