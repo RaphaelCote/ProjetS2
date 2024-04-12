@@ -7,6 +7,7 @@
 #include "../controls/EventParameters.h"
 #include "scene.h"
 #include "../Game/gameloader.h"
+#include "../Game/character.h"
 class Game : public Scene
 {
 private:
@@ -56,6 +57,7 @@ public:
     bool CheckAvailableProjectile(int type);
     void ShowGameInfo();
     void UpdateWeaponInfo();
+    Character* FirstAlivePlayer();
     void AnimationVersPersonnage(Character* character);
     void AnimationProjectile(Projectile *projectile);
     void AnimationExplosion(Projectile* projectile);

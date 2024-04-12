@@ -235,7 +235,7 @@ int main(int argc, char *argv[])
 
     gameWindow->ShowContent(6);
 
-    gameWindow->setWindowState(Qt::WindowMaximized);
+    gameWindow->setWindowState(Qt::WindowFullScreen);
     gameWindow->show();
     // Sleep(500);
     //  Lecture de la musique

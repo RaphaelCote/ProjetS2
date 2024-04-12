@@ -36,8 +36,10 @@ Projectile *EnemyCharacter::createEnemyProjectile(bool isControllerControls, int
     float random_puissance = (float)(90.0 + (std::rand() % (15))) / 100;
     // cout << "random angleDeg : " << random_angledeg << endl;
     // cout << "random puissance : " << random_puissance << endl;
-    p->setAngleDegre(-45.0 * random_angledeg);
-    p->setPuissance(findV0withAngle(-45.0 * random_angledeg, character) * random_puissance);
+    p->setAngleDegre(-45.0 );
+    p->setPuissance(findV0withAngle(-45.0 , character) /2750);
+    /*p->setAngleDegre(-45.0 * random_angledeg);
+    p->setPuissance(findV0withAngle(-45.0 * random_angledeg, character) * random_puissance / 2828);*/
 
     return p;
 }

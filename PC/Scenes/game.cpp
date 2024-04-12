@@ -130,15 +130,15 @@ void Game::ChangeProjectileType(int typeDif)
 
     if (projectileType == 0)
     {
-        projectile = new Canonball(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition());
+        projectile = new Canonball(FirstAlivePlayer()->getWeaponPosition());
     }
     else if (projectileType == 1)
     {
-        projectile = new Rocket(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition());
+        projectile = new Rocket(FirstAlivePlayer()->getWeaponPosition());
     }
     else if (projectileType == 2)
     {
-        projectile = new Grenade(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition());
+        projectile = new Grenade(FirstAlivePlayer()->getWeaponPosition());
     }
 
     projectile->setAngleDegre(angle);
@@ -200,7 +200,7 @@ void Game::Update()
         std::string s = levelGetter->levels[currentLevelIndex];
         activeLevel = gameloader.getLevelFromJson(levelGetter->levels[currentLevelIndex]);
 
-        projectile = new Canonball(activeLevel->playerBoats[0]->characters[0]->getWeaponPosition());
+        projectile = new Canonball(FirstAlivePlayer()->getWeaponPosition());
 
         gameWindow->GetGameWidget()->minX = 0;
 
@@ -248,14 +248,15 @@ void Game::PlayTurn()
         Sleep(10);
         ShowGameInfo();
         doOnce = false;
-        AnimationVersPersonnage(activeLevel->playerBoats[0]->characters[0]);
+        AnimationVersPersonnage(FirstAlivePlayer());
         gameWindow->GetGameWidget()->LineEnd->x= 2000;
+        projectile->bulletStartPosition = FirstAlivePlayer()->getPosition();
     }
 
     if (isPlayerTurn)
     {
-        gameWindow->LineStart.x= activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().x;
-        gameWindow->LineStart.y = activeLevel->playerBoats[0]->characters[0]->getWeaponPosition().y;
+        gameWindow->LineStart.x= FirstAlivePlayer()->getWeaponPosition().x;
+        gameWindow->LineStart.y = FirstAlivePlayer()->getWeaponPosition().y;
         gameWindow->GetGameWidget()->refresh();
         UpdateWeaponInfo();
     }
@@ -286,33 +287,11 @@ void Game::PlayTurn()
             }
         }
 
-
         if (foundAliveEnemy) {
 
             AnimationVersPersonnage(ec);
 
-            Character* player = activeLevel->playerBoats[0]->characters[0];
-            
-            bool foundAlivePlayer = false;
-            for (int i = 0; i < activeLevel->playerBoats.size(); i++)
-            {
-                for (int j = 0; j < activeLevel->playerBoats[i]->characters.size(); j++)
-                {
-                    if (activeLevel->playerBoats[i]->characters[j]->getHealthPoint() > 0)
-                    {
-                        player = activeLevel->playerBoats[i]->characters[j];
-                        foundAliveEnemy = true;
-                        break;
-                    }
-                }
-
-                if (foundAlivePlayer)
-                {
-                    break;
-                }
-            }
-
-            Projectile *enemyProjectile = ec->createEnemyProjectile(!gameWindow->isKeyboardControls, ((ControllerControls*)controls)->Muon, player);
+            Projectile *enemyProjectile = ec->createEnemyProjectile(!gameWindow->isKeyboardControls, ((ControllerControls*)controls)->Muon, FirstAlivePlayer());
 
             std::vector<Character*> players;
 
@@ -704,6 +683,33 @@ void Game::ShowGameInfo()
     cons->AfficherTexte(std::cout, s3, x, y3, "s3");
     cons->AfficherTexte(std::cout, s4, x, y4, "s4");
     cons->AfficherTexte(std::cout, s5, x, y5, "s5");
+}
+
+Character* Game::FirstAlivePlayer() {
+    Character* player = activeLevel->playerBoats[0]->characters[0];
+
+    bool foundAliveEnemy = false;
+
+    bool foundAlivePlayer = false;
+    for (int i = 0; i < activeLevel->playerBoats.size(); i++)
+    {
+        for (int j = 0; j < activeLevel->playerBoats[i]->characters.size(); j++)
+        {
+            if (activeLevel->playerBoats[i]->characters[j]->getHealthPoint() > 0)
+            {
+                player = activeLevel->playerBoats[i]->characters[j];
+                foundAliveEnemy = true;
+                break;
+            }
+        }
+
+        if (foundAlivePlayer)
+        {
+            break;
+        }
+    }
+
+    return player;
 }
 
 void Game::UpdateWeaponInfo()

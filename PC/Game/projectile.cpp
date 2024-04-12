@@ -151,7 +151,7 @@ bool Projectile::checkIfCharacterHit(Character& character)
 
             // il va falloir modifier cette condition (si elle touche le bateau ou non)
             bulletEndPosition.x = findBulletPositionX(characterPosition.y);
-            bulletEndPosition.y = characterPosition.y;
+            bulletEndPosition.y = 0;
             damageReceived(character);
             return false;
         }
@@ -171,7 +171,7 @@ bool Projectile::checkIfCharacterHit(Character& character)
 
             // il va falloir modifier cette condition (si elle touche le bateau ou non)
             bulletEndPosition.x = findBulletPositionX(characterPosition.y);
-            bulletEndPosition.y = characterPosition.y;
+            bulletEndPosition.y = 0;
             damageReceived(character);
             return false;
         }
@@ -212,7 +212,7 @@ bool Projectile::checkIfCharacterHit(Character& character)
             // pour les coordonnées de la balle, ce sera a changé éventuellement (vérifier si cela a touché bateau ou l'eau)
             // std::cout<<"Premier if angle négatif"<<std::endl;
             bulletEndPosition.x = findBulletPositionX(characterPosition.y);
-            bulletEndPosition.y = characterPosition.y;
+            bulletEndPosition.y = 0;
             damageReceived(character);
             return false;
         }
@@ -231,7 +231,7 @@ bool Projectile::checkIfCharacterHit(Character& character)
             // pour les coordonnées de la balle, ce sera a changé éventuellement (vérifier si cela a touché bateau ou l'eau)
             // std::cout<<"Deuxième else if angle négatif"<<std::endl;
             bulletEndPosition.x = findBulletPositionX(characterPosition.y);
-            bulletEndPosition.y = characterPosition.y;
+            bulletEndPosition.y = 0;
             damageReceived(character);
             return false;
         }
