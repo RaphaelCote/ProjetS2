@@ -27,6 +27,21 @@ MainMenuQt::MainMenuQt() : GenericMenu()
 	vbox->setSpacing(45);
 	vbox->setAlignment(Qt::AlignCenter);
 
+	QScreen* screen = QGuiApplication::primaryScreen();
+	QRect screenGeometry = screen->geometry();
+	int screenWidth = screenGeometry.width();
+	int screenHeight = screenGeometry.height();
+
+	int width = 400;
+
+	Raph_PixMap* image = new Raph_PixMap;
+	image->pix = QPixmap("Images/ControlesManette.png");
+	image->x = screenWidth - (width + 50);
+	image->y = 300;
+	image->name = "controls";
+	image->couche = 1;
+	vectorPixMap.push_back(image);
+
 	setLayout(vbox);
 	update();
 }

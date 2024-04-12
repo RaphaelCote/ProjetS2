@@ -25,7 +25,7 @@ Projectile *EnemyCharacter::createEnemyProjectile(bool isControllerControls, int
     else {
         std::srand(std::time(0));
     }
-    float random_angledeg = (float)(90.0 + (std::rand() % (15))) / 100;
+    float random_angledeg = (float)(85.0 + (std::rand() % (30))) / 100;
 
     if (isControllerControls) {
         std::srand(randomSeed + 7063723);
@@ -33,7 +33,7 @@ Projectile *EnemyCharacter::createEnemyProjectile(bool isControllerControls, int
     else {
         std::srand(std::time(0) + 071234263);
     }
-    float random_puissance = (float)(90.0 + (std::rand() % (15))) / 100;
+    float random_puissance = (float)(85.0 + (std::rand() % (30))) / 100;
     // cout << "random angleDeg : " << random_angledeg << endl;
     // cout << "random puissance : " << random_puissance << endl;
     /*p->setAngleDegre(-45.0);
