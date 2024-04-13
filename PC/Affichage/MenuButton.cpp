@@ -17,7 +17,7 @@ MenuButton::MenuButton(const QString& text, bool sized, QWidget* parent) : QPush
 
 		setSizePolicy(sizePolicy);
 	}
-
+	//ici on style les boutons
 	setStyleSheet("QPushButton {"
 		" border:4px outset; "
 		" border-radius: 8px; "

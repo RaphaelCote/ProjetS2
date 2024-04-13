@@ -184,6 +184,7 @@ void ShopMenu::ClearMenu()
 
 void ShopMenu::Selection()
 {
+    //ici, il a la sélection des articles, donc quand le joueur appuie sur un bouton
     // Vérifier si le joueur a assez d'argent
     if (choice == 0)
     {

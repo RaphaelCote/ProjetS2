@@ -2,7 +2,6 @@
 #define EVENTLISTENER_H
 
 #include "eventParameters.h"
-
 class EventListener
 {
 public:

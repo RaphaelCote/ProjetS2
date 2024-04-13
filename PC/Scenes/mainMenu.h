@@ -3,9 +3,6 @@
 
 #include "menu.h"
 #include "../Controls/eventParameters.h"
-
-
-
 class MainMenu : public Menu
 {
 public:
@@ -26,6 +23,7 @@ public:
     void GotoLevelSelect();
     void GotoShop();
     void ExitGame();
+
 };
 
 #endif

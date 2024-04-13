@@ -2,7 +2,8 @@
 #define MAINMENUQT_H
 
 #include <QtWidgets>
-
+#include "mainMenu.h"
+#include "menu.h"
 #include "GenericMenu.h"
 
 class MainMenuQt : public GenericMenu
@@ -11,6 +12,15 @@ class MainMenuQt : public GenericMenu
 
 public:
     MainMenuQt();
+	MainMenu* mainMenu;
+	//void emitPlayGamePressed();
+	void PLAYGAMEPRESSED();
+
+	
+	/*void levelSelectionPressed();
+	void shopPressed();
+	void closePressed();*/
+
 };
 
 #endif

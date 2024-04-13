@@ -147,14 +147,17 @@ void MainMenu::Selection()
         soundManager->music = gameMusic;
         soundManager->functionDecider = play_Music;
         PlayGame();
+        //emit playGamePressed;
     }
     else if (choice == 1)
     {
         GotoLevelSelect();
+        //emit levelSelectionPressed;
     }
     else if (choice == 2)
     {
         GotoShop();
+        //emit shopPressed;
     }
     else if (choice >= 3)
     {
@@ -162,6 +165,7 @@ void MainMenu::Selection()
         //int y = cons->MaxRows - 4;
         //cons->AfficherTexte(std::cout, "Au plaisir..", &x, &y, "AuPlaisir");
         exit(0);
+        //emit closePressed;
     }
 }
 
