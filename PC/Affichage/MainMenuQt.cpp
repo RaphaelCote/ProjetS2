@@ -54,23 +54,40 @@ void MainMenuQt::connectButtonClicked(int buttonIndex, MainMenu* handler)
 	switch (buttonIndex) {
 	case 0:
 		button = buttons[0];
-		break;
+		connect(button, &QPushButton::clicked, [handler]()
+			{
+				handler->PlayGame();
+			}
+		);
+		return;
 	case 1:
 		button = buttons[1];
-		break;
+		connect(button, &QPushButton::clicked, [handler]()
+			{
+				handler->GotoLevelSelect();
+			}
+		);
+		return;
+		
 	case 2:
 		button = buttons[2];
-		break;
+		connect(button, &QPushButton::clicked, [handler]()
+			{
+				handler->GotoShop();
+			}
+		);
+		return;
 	case 3:
 		button = buttons[3];
-		break;
+		connect(button, &QPushButton::clicked, [handler]()
+			{
+				handler->ExitGame();
+			}
+		);
+		return;
 	default:
 		return; // Invalid button index
 	}
-	connect(button, &QPushButton::clicked, [handler]()
-		{
-			handler->PlayGame();
-		}
-	);
+	
 }
 

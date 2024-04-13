@@ -41,6 +41,9 @@ void MainMenu::OnDisable()
 MainMenu::MainMenu(MainMenuQt* mainMenuQt)
 {
     mainMenuQt->connectButtonClicked(0, this);
+    mainMenuQt->connectButtonClicked(1, this);
+    mainMenuQt->connectButtonClicked(2, this);
+    mainMenuQt->connectButtonClicked(3, this);
 }
 
 void MainMenu::changeSelection(EventParameters ep)
