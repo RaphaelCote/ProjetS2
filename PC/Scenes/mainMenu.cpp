@@ -170,6 +170,7 @@ void MainMenu::PlayGame()
     choice = 0;
     Game *game = (Game *)scenes->at(1);
     game->isNewLevel = true;
+    game->doOnce = true;
     activeScene = 1;
     ShowContentEvent* scEvent = new ShowContentEvent(1);
     QApplication::postEvent(gameWindow, scEvent);

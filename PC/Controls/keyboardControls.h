@@ -7,6 +7,9 @@
 class KeyboardControls : public Controls
 {
 public:
+    float angleKeyboard = 45;
+    float puissanceKeyboard = 0.5;
+
     KeyboardControls(EventManager *em);
     void ListenForControls();
     void ReceiveSerial() {};

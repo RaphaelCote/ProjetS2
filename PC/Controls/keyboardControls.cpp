@@ -16,7 +16,8 @@ KeyboardControls::KeyboardControls(EventManager *em) : Controls(em)
     // GetConsoleMode(consoleHandle, &mode);
     // SetConsoleMode(consoleHandle, mode & (~ENABLE_ECHO_INPUT) & (~ENABLE_LINE_INPUT));
 
-    gameWindow->isKeyboardControls = true;
+    angleKeyboard = 45;
+    puissanceKeyboard = 0.5;
 }
 
 void KeyboardControls::ListenForControls()
@@ -42,12 +43,6 @@ void KeyboardControls::ListenForControls()
 
         if (input == "l")
         {
-            if (activeScene == 1)
-            {
-                Angle(45);
-                Joystick(0.54, 0);
-            }
-
             MainAction();
         }
         else if (input == "w")
@@ -74,5 +69,26 @@ void KeyboardControls::ListenForControls()
         {
             Back();
         }
+        else if (input == "r")
+        {
+            angleKeyboard += 0.5;
+            Angle(angleKeyboard);
+        }
+        else if (input == "f")
+        {
+            angleKeyboard -= 0.5;
+            Angle(angleKeyboard);
+        }
+        else if (input == "t")
+        {
+            puissanceKeyboard += 0.025;
+            Joystick(puissanceKeyboard, 0);
+        }
+        else if (input == "g")
+        {
+            puissanceKeyboard -= 0.025;
+            Joystick(puissanceKeyboard, 0);
+        }
+
     }
 }
