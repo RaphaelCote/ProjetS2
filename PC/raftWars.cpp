@@ -236,8 +236,8 @@ int main(int argc, char *argv[])
     thread.start();
 
     eventManager = new EventManager();
-    //controls = new KeyboardControls(eventManager);
-    controls = new ControllerControls(eventManager, "COM3");
+    controls = new KeyboardControls(eventManager);
+    //controls = new ControllerControls(eventManager, "COM3");
 
     gameWindow->AddContent(mainMenu);
     gameWindow->AddContent(gameWidget);
