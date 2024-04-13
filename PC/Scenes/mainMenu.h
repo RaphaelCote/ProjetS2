@@ -5,6 +5,7 @@
 #include "../Controls/eventParameters.h"
 
 
+class MainMenuQt;
 
 class MainMenu : public Menu
 {
@@ -15,7 +16,7 @@ public:
     void OnEnable();
     void OnDisable();
 
-    MainMenu();
+    MainMenu(MainMenuQt* mainMenu);
     void changeSelection(EventParameters ep);
     void Update();
     void ShowMenu();
@@ -29,3 +30,4 @@ public:
 };
 
 #endif
+

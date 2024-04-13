@@ -8,6 +8,7 @@
 #include "LevelSelectionMenu.h"
 #include "shopMenu.h"
 #include "../Controls/SoundManager.h"
+#include "MainMenuQt.h"
 
 void OnMainMenuMainActionCall(EventParameters ep)
 {
@@ -37,8 +38,9 @@ void MainMenu::OnDisable()
     eventManager->off("Joystick", OnMainMenuJoystickCall);
 }
 
-MainMenu::MainMenu()
+MainMenu::MainMenu(MainMenuQt* mainMenuQt)
 {
+    mainMenuQt->connectButtonClicked(0, this);
 }
 
 void MainMenu::changeSelection(EventParameters ep)
@@ -167,6 +169,10 @@ void MainMenu::Selection()
 
 void MainMenu::PlayGame()
 {
+
+    doOnce = true;
+    ClearMenu();
+    OnDisable();
     choice = 0;
     Game *game = (Game *)scenes->at(1);
     game->isNewLevel = true;

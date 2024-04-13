@@ -54,6 +54,9 @@ using namespace std::chrono;
 
 /*---------------------------- Variables globales ---------------------------*/
 
+MainMenuQt* mainMenu;
+
+
 EventManager *eventManager;
 Tests *tests;
 Controls *controls;
@@ -63,6 +66,11 @@ GameWindow *gameWindow;
 int levelQty;
 int isMoteurOn;
 std::vector<Scene *> *scenes;
+
+
+
+
+
 /*
 Scenes index:
 0 : Main menu
@@ -81,6 +89,10 @@ AffichageConsole *cons;
 std::chrono::duration<double, std::milli> currentclock;
 std::chrono::duration<double, std::milli> lastClock;
 std::chrono::duration<double, std::milli> rcvSerialTimer;
+
+
+
+
 
 class MyThread : public QThread
 {
@@ -103,7 +115,7 @@ public:
         activeScene = 0;
 
         scenes = new std::vector<Scene *>();
-        scenes->push_back(new MainMenu());
+        scenes->push_back(new MainMenu(mainMenu));
         scenes->push_back(new Game());
         scenes->push_back(new LevelSelectionMenu());
         scenes->push_back(new EndGameMenu());
@@ -185,7 +197,7 @@ int main(int argc, char *argv[])
     isMoteurOn = 0;
 
     gameWindow = new GameWindow();
-    MainMenuQt *mainMenu = new MainMenuQt();
+    mainMenu = new MainMenuQt();
     GameWidget *gameWidget = new GameWidget();
     LevelMenu *levelMenu = new LevelMenu();
     EndGameMenuQt *endgameMenu = new EndGameMenuQt();
@@ -195,6 +207,8 @@ int main(int argc, char *argv[])
     gameWidget->LineEnd = &gameWindow->LineEnd;
     gameWidget->LineStart = &gameWindow->LineStart;
     soundManager = new SoundManager();
+
+    
     
     
     QScreen *screen = QGuiApplication::primaryScreen();

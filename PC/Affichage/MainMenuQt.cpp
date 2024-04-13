@@ -1,6 +1,7 @@
 #include "MainMenuQt.h"
 #include "Global.h"
 #include <QtWidgets>
+#include "MainMenu.h"
 
 MainMenuQt::MainMenuQt() : GenericMenu()
 {
@@ -15,6 +16,7 @@ MainMenuQt::MainMenuQt() : GenericMenu()
 	vbox->addItem(new QSpacerItem(20, 20, QSizePolicy::Minimum, QSizePolicy::Fixed));
 
 	buttons[0]->setText("Jouer");
+	/*connect(&(QPushButton)buttons[0], &QPushButton::clicked, this, &MainMenuQt::PLAYEVENT);*/
 	buttons[1]->setText("Selection du niveau");
 	buttons[2]->setText("Magasin");
 	buttons[3]->setText("Quitter");
@@ -45,3 +47,30 @@ MainMenuQt::MainMenuQt() : GenericMenu()
 	setLayout(vbox);
 	update();
 }
+
+void MainMenuQt::connectButtonClicked(int buttonIndex, MainMenu* handler)
+{
+	QPushButton* button = nullptr;
+	switch (buttonIndex) {
+	case 0:
+		button = buttons[0];
+		break;
+	case 1:
+		button = buttons[1];
+		break;
+	case 2:
+		button = buttons[2];
+		break;
+	case 3:
+		button = buttons[3];
+		break;
+	default:
+		return; // Invalid button index
+	}
+	connect(button, &QPushButton::clicked, [handler]()
+		{
+			handler->PlayGame();
+		}
+	);
+}
+
