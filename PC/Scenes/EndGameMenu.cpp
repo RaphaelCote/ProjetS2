@@ -12,9 +12,9 @@
 EndGameMenu::EndGameMenu(EndGameMenuQt* endGameMenu)
 {
     endGameMenu->connectButtonClicked(0, this);
-    /*endGameMenu->connectButtonClicked(1, this);
+    endGameMenu->connectButtonClicked(1, this);
     endGameMenu->connectButtonClicked(2, this);
-    endGameMenu->connectButtonClicked(3, this);*/
+    endGameMenu->connectButtonClicked(3, this);
 }
 
 void OnEndGameMenuMainActionCall(EventParameters ep)
