@@ -7,9 +7,12 @@
 #include "game.h"
 #include "../Affichage/Global.h"
 #include "../Affichage/ShowContentEvent.h"
+#include "PauseMenuQt.h"
 
-PauseMenu::PauseMenu()
+PauseMenu::PauseMenu(PauseMenuQt* pauseMenu)
 {
+    pauseMenu->connectButtonClicked(0, this);
+    pauseMenu->connectButtonClicked(1, this);
 }
 
 void OnPauseMenuMainActionCall(EventParameters)

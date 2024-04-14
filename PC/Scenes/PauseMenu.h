@@ -2,7 +2,7 @@
 #define PAUSEMENU_H
 
 #include "menu.h"
-
+class PauseMenuQt;
 class PauseMenu : public Menu
 {
 public:
@@ -13,7 +13,7 @@ public:
     void OnEnable();
     void OnDisable();
 
-    PauseMenu();
+    PauseMenu(PauseMenuQt* pauseMenu);
     void changeSelection(EventParameters ep);
     void Update();
     void ShowMenu();

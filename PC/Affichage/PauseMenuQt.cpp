@@ -1,5 +1,6 @@
 #include "PauseMenuQt.h"
 #include "Global.h"
+#include "PauseMenu.h"
 #include <QtWidgets>
 
 PauseMenuQt::PauseMenuQt() : GenericMenu()
@@ -19,4 +20,28 @@ PauseMenuQt::PauseMenuQt() : GenericMenu()
 
 	setLayout(vbox);
 	update();
+}
+void PauseMenuQt::connectButtonClicked(int buttonIndex, PauseMenu* handler)
+{
+	QPushButton* button = nullptr;
+	switch (buttonIndex) {
+	case 0:
+		button = buttons[0];
+		connect(button, &QPushButton::clicked, [handler]()
+			{
+				handler->Continu();
+			}
+		);
+		return;
+	case 1:
+		button = buttons[1];
+		connect(button, &QPushButton::clicked, [handler]()
+			{
+				handler->ReturnToMenu();
+			}
+		);
+		return;
+	default:
+		return; // Invalid button index
+	}
 }

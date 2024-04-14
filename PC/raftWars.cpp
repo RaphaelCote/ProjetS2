@@ -57,6 +57,7 @@ using namespace std::chrono;
 MainMenuQt* mainMenu;
 ShopMenuQt* shopMenu;
 EndGameMenuQt* endgameMenu;
+PauseMenuQt* pauseMenu;
 LevelMenu* levelMenu;
 
 EventManager *eventManager;
@@ -121,7 +122,7 @@ public:
         scenes->push_back(new Game());
         scenes->push_back(new LevelSelectionMenu(levelMenu));
         scenes->push_back(new EndGameMenu(endgameMenu));
-        scenes->push_back(new PauseMenu());
+        scenes->push_back(new PauseMenu(pauseMenu));
         scenes->push_back(new ShopMenu(shopMenu));
 
         Sleep(500);
@@ -204,7 +205,7 @@ int main(int argc, char *argv[])
     GameWidget *gameWidget = new GameWidget();
     levelMenu = new LevelMenu();
     endgameMenu = new EndGameMenuQt();
-    PauseMenuQt *pauseMenu = new PauseMenuQt();
+    pauseMenu = new PauseMenuQt();
     
     GenericMenu *loadingScreen = new GenericMenu();
     gameWidget->LineEnd = &gameWindow->LineEnd;
