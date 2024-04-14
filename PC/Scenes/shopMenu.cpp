@@ -189,7 +189,48 @@ void ShopMenu::ClearMenu()
     cons->SupprimerObjet("s13");
     cons->SupprimerObjet("s14");
 }
-
+void ShopMenu::Choix0()
+{
+    inventory->addRockets();
+    ShowMenu();
+    UpdateValuesEvent* uvEvent = new UpdateValuesEvent(5);
+    QApplication::postEvent(gameWindow, uvEvent);
+}
+void ShopMenu::Choix1()
+{
+    inventory->addGrenade();
+    ShowMenu();
+    UpdateValuesEvent* uvEvent = new UpdateValuesEvent(5);
+    QApplication::postEvent(gameWindow, uvEvent);
+}
+void ShopMenu::Choix2()
+{
+    inventory->addShield(1);
+    ShowMenu();
+    UpdateValuesEvent* uvEvent = new UpdateValuesEvent(5);
+    QApplication::postEvent(gameWindow, uvEvent);
+}
+void ShopMenu::Choix3()
+{
+    inventory->addShield(2);
+    ShowMenu();
+    UpdateValuesEvent* uvEvent = new UpdateValuesEvent(5);
+    QApplication::postEvent(gameWindow, uvEvent);
+}
+void ShopMenu::Choix4()
+{
+    inventory->addShield(3);
+    ShowMenu();
+    UpdateValuesEvent* uvEvent = new UpdateValuesEvent(5);
+    QApplication::postEvent(gameWindow, uvEvent);
+}
+void ShopMenu::Choix5()
+{
+    doOnce = true;
+    OnDisable();
+    ClearMenu();
+    Back();
+}
 void ShopMenu::Selection()
 {
     // Vérifier si le joueur a assez d'argent

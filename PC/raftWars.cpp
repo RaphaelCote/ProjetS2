@@ -191,7 +191,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
     qDebug() << "Main thread started";
 
-    inventory = new Inventory(shopMenu);
+    inventory = new Inventory();
     inventory->addGold(2000);
     levelGetter = new LevelGetter();
     levelQty = levelGetter->nbLevel;

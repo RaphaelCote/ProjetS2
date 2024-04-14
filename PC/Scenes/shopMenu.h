@@ -17,7 +17,12 @@ public:
     friend void OnShopMainActionCall(EventParameters);
     friend void OnShopJoystickCall(EventParameters);
     friend void OnShopBackCall(EventParameters);
-
+    void Choix0();
+    void Choix1();
+    void Choix2();
+    void Choix3();
+    void Choix4();
+    void Choix5();
     void OnEnable();
     void OnDisable();
     ShopMenu() {};

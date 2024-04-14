@@ -395,7 +395,7 @@ void ShopMenuQt::UpdateValues() {
 
 	update();
 }
-void ShopMenuQt::connectButtonClicked(int buttonIndex, Inventory* handler)
+void ShopMenuQt::connectButtonClicked(int buttonIndex, ShopMenu* handler)
 {
 	QPushButton* button = nullptr;
 	switch (buttonIndex) {
@@ -404,7 +404,7 @@ void ShopMenuQt::connectButtonClicked(int buttonIndex, Inventory* handler)
 		connect(button, &QPushButton::clicked, [handler]()
 			{
 				
-				handler->addRockets();
+				handler->Choix0();
 			}
 		);
 		return;
@@ -412,7 +412,8 @@ void ShopMenuQt::connectButtonClicked(int buttonIndex, Inventory* handler)
 		button = buttons[1];
 		connect(button, &QPushButton::clicked, [handler]()
 			{
-				handler->addGrenade();
+				
+				handler->Choix1();
 			}
 		);
 		return;
@@ -421,7 +422,8 @@ void ShopMenuQt::connectButtonClicked(int buttonIndex, Inventory* handler)
 		button = buttons[2];
 		connect(button, &QPushButton::clicked, [handler]()
 			{
-				handler->addShield(1);
+				handler->Choix2();
+				//handler->addShield(1);
 			}
 		);
 		return;
@@ -429,7 +431,8 @@ void ShopMenuQt::connectButtonClicked(int buttonIndex, Inventory* handler)
 		button = buttons[3];
 		connect(button, &QPushButton::clicked, [handler]()
 			{
-				handler->addShield(2);
+				handler->Choix3();
+				//handler->addShield(2);
 			}
 		);
 		return;
@@ -437,23 +440,20 @@ void ShopMenuQt::connectButtonClicked(int buttonIndex, Inventory* handler)
 		button = buttons[4];
 		connect(button, &QPushButton::clicked, [handler]()
 			{
-				handler->addShield(3);
+				handler->Choix4();
+				//handler->addShield(3);
 			}
 		);
 		return;
-	//case 5:
-	//	button = buttons[5];
-	//	connect(button, &QPushButton::clicked, [handler]()
-	//		{
-	//			
-	//			//handler->doOnce = true;
-	//			handler->OnDisable();
-	//			handler->ClearMenu();
-	//			handler->Back();
-	//			
-	//		}
-	//	);
-	//	return;
+	case 5:
+		button = buttons[5];
+		connect(button, &QPushButton::clicked, [handler]()
+			{
+				
+				handler->Choix5();
+			}
+		);
+		return;
 		
 
 		return;

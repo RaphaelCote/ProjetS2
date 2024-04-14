@@ -13,7 +13,7 @@ class ShopMenuQt : public GenericMenu
 public:
 	ShopMenuQt();
 	void UpdateValues();
-	void connectButtonClicked(int buttonIndex, Inventory* handler);
+	void connectButtonClicked(int buttonIndex, ShopMenu* handler);
 
 protected:
 	QLabel* moneyLabel;
