@@ -203,6 +203,7 @@ void LevelSelectionMenu::SelectLevel(int level)
     activeScene = 1;
     ShowContentEvent* scEvent = new ShowContentEvent(1);
     QApplication::postEvent(gameWindow, scEvent);
+    OnDisable();
 }
 
 void LevelSelectionMenu::Back()
