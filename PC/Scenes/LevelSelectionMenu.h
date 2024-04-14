@@ -4,6 +4,7 @@
 #include "menu.h"
 #include "game.h"
 
+class LevelMenu;
 class LevelSelectionMenu : public Menu
 {
 public:
@@ -16,12 +17,14 @@ public:
     void OnEnable();
     void OnDisable();
 
-    LevelSelectionMenu();
+    LevelSelectionMenu(LevelMenu *levelSelectQt);
     void changeSelection(EventParameters ep);
     void Update();
     void ShowMenu();
     void ClearMenu();
     void Selection();
+
+    void choixNiveau(int choix);
 
     void SelectLevel(int level);
     void Back();

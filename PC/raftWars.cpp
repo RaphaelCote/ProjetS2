@@ -57,6 +57,7 @@ using namespace std::chrono;
 MainMenuQt* mainMenu;
 ShopMenuQt* shopMenu;
 EndGameMenuQt* endgameMenu;
+LevelMenu* levelMenu;
 
 EventManager *eventManager;
 Tests *tests;
@@ -118,7 +119,7 @@ public:
         scenes = new std::vector<Scene *>();
         scenes->push_back(new MainMenu(mainMenu));
         scenes->push_back(new Game());
-        scenes->push_back(new LevelSelectionMenu());
+        scenes->push_back(new LevelSelectionMenu(levelMenu));
         scenes->push_back(new EndGameMenu(endgameMenu));
         scenes->push_back(new PauseMenu());
         scenes->push_back(new ShopMenu(shopMenu));
@@ -201,7 +202,7 @@ int main(int argc, char *argv[])
     mainMenu = new MainMenuQt();
     shopMenu = new ShopMenuQt();
     GameWidget *gameWidget = new GameWidget();
-    LevelMenu *levelMenu = new LevelMenu();
+    levelMenu = new LevelMenu();
     endgameMenu = new EndGameMenuQt();
     PauseMenuQt *pauseMenu = new PauseMenuQt();
     

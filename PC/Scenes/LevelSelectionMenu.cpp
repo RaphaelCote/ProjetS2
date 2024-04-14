@@ -4,6 +4,7 @@
 #include "../Game/levelGetter.h"
 #include "../Affichage/Global.h"
 #include "../Affichage/ShowContentEvent.h"
+#include <LevelMenu.h>
 
 void OnLevelSelectionMenuMainActionCall(EventParameters ep)
 {
@@ -45,8 +46,10 @@ void LevelSelectionMenu::OnDisable()
     eventManager->off("Back", OnLevelSelectionMenuBackCall);
 }
 
-LevelSelectionMenu::LevelSelectionMenu()
+LevelSelectionMenu::LevelSelectionMenu(LevelMenu* levelSelectQt)
 {
+
+    levelSelectQt->connectButtonClicked(this);
 }
 
 void LevelSelectionMenu::changeSelection(EventParameters ep)
@@ -148,6 +151,26 @@ void LevelSelectionMenu::ClearMenu()
         key += std::to_string(i);
 
         cons->SupprimerObjet(key);
+    }
+}
+
+void LevelSelectionMenu::choixNiveau(int choix)
+{
+    doOnce = true;
+    OnDisable();
+    ClearMenu();
+    choice = choix;
+
+    if (choice < levelGetter->nbLevel)
+    {
+        soundManager->music = gameMusic;
+        soundManager->functionDecider = play_Music;
+
+        SelectLevel(choice);
+    }
+    else if (choice == levelGetter->nbLevel)
+    {
+        Back();
     }
 }
 

@@ -1,6 +1,7 @@
 #include "LevelMenu.h"
 #include "Global.h"
 #include <QtWidgets>
+#include<LevelSelectionMenu.h>
 
 LevelMenu::LevelMenu() : GenericMenu()
 {
@@ -50,4 +51,17 @@ LevelMenu::LevelMenu() : GenericMenu()
 	}
 
 	update();
+}
+
+
+
+void LevelMenu::connectButtonClicked(LevelSelectionMenu* handler)
+{
+	for (int i = 0; i <= levelQty; i++)
+	{
+		connect(buttons[i], &QPushButton::clicked, [handler, i]() 
+			{
+				handler->choixNiveau(i);
+			});
+	}
 }

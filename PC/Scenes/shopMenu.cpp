@@ -52,6 +52,7 @@ ShopMenu::ShopMenu(ShopMenuQt* shopMenuQt)
     shopMenuQt->connectButtonClicked(2, inventory);
     shopMenuQt->connectButtonClicked(3, inventory);
     shopMenuQt->connectButtonClicked(4, inventory);
+    shopMenuQt->connectButtonClicked(5, inventory);
 }
 
 void ShopMenu::changeSelection(EventParameters ep)
