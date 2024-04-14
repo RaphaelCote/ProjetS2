@@ -7,9 +7,14 @@
 #include "shopMenu.h"
 #include "../Affichage/Global.h"
 #include "../Affichage/ShowContentEvent.h"
+#include "EndGameMenuQt.h"
 
-EndGameMenu::EndGameMenu()
+EndGameMenu::EndGameMenu(EndGameMenuQt* endGameMenu)
 {
+    endGameMenu->connectButtonClicked(0, this);
+    /*endGameMenu->connectButtonClicked(1, this);
+    endGameMenu->connectButtonClicked(2, this);
+    endGameMenu->connectButtonClicked(3, this);*/
 }
 
 void OnEndGameMenuMainActionCall(EventParameters ep)
@@ -168,10 +173,13 @@ void EndGameMenu::Selection()
     {
         ReturnToMenu();
     }
-}
+} 
 
 void EndGameMenu::NextLevel()
 {
+    doOnce = true;
+    OnDisable();
+    ShowMenu();
     choice = 0;
     Game *game = (Game *)scenes->at(1);
     game->SetLevelIndex(game->GetLevelIndex() + 1);
@@ -183,6 +191,9 @@ void EndGameMenu::NextLevel()
 
 void EndGameMenu::GotoShop()
 {
+    doOnce = true;
+    OnDisable();
+    ShowMenu();
     choice = 0;
     ShopMenu *shop = (ShopMenu *)scenes->at(5);
     shop->lastMenu = 3;
@@ -193,6 +204,9 @@ void EndGameMenu::GotoShop()
 
 void EndGameMenu::GotoLevelSelect()
 {
+    doOnce = true;
+    OnDisable();
+    ShowMenu();
     choice = 0;
     LevelSelectionMenu *lsm = (LevelSelectionMenu *)scenes->at(2);
     lsm->lastMenu = 3;
@@ -203,6 +217,9 @@ void EndGameMenu::GotoLevelSelect()
 
 void EndGameMenu::ReturnToMenu()
 {
+    doOnce = true;
+    OnDisable();
+    ShowMenu();
     choice = 0;
     activeScene = 0;
     ShowContentEvent* scEvent = new ShowContentEvent(0);

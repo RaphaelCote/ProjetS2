@@ -4,7 +4,7 @@
 #include "../Affichage/Global.h"
 #include "../Affichage/ShowContentEvent.h"
 #include "../Affichage/UpdateValuesEvent.h"
-
+#include "ShopMenuQt.h"
 void OnShopMainActionCall(EventParameters ep)
 {
     Menu *menu = (Menu *)scenes->at(activeScene);
@@ -45,8 +45,13 @@ void ShopMenu::OnDisable()
     eventManager->off("Back", OnShopBackCall);
 }
 
-ShopMenu::ShopMenu()
+ShopMenu::ShopMenu(ShopMenuQt* shopMenuQt)
 {
+    shopMenuQt->connectButtonClicked(0, inventory);
+    shopMenuQt->connectButtonClicked(1, inventory);
+    shopMenuQt->connectButtonClicked(2, inventory);
+    shopMenuQt->connectButtonClicked(3, inventory);
+    shopMenuQt->connectButtonClicked(4, inventory);
 }
 
 void ShopMenu::changeSelection(EventParameters ep)

@@ -55,7 +55,8 @@ using namespace std::chrono;
 /*---------------------------- Variables globales ---------------------------*/
 
 MainMenuQt* mainMenu;
-
+ShopMenuQt* shopMenu;
+EndGameMenuQt* endgameMenu;
 
 EventManager *eventManager;
 Tests *tests;
@@ -118,9 +119,9 @@ public:
         scenes->push_back(new MainMenu(mainMenu));
         scenes->push_back(new Game());
         scenes->push_back(new LevelSelectionMenu());
-        scenes->push_back(new EndGameMenu());
+        scenes->push_back(new EndGameMenu(endgameMenu));
         scenes->push_back(new PauseMenu());
-        scenes->push_back(new ShopMenu());
+        scenes->push_back(new ShopMenu(shopMenu));
 
         Sleep(500);
         /*std::chrono::system_clock::time_point start = std::chrono::high_resolution_clock::now();*/
@@ -190,7 +191,7 @@ int main(int argc, char *argv[])
     QApplication app(argc, argv);
     qDebug() << "Main thread started";
 
-    inventory = new Inventory();
+    inventory = new Inventory(shopMenu);
     inventory->addGold(2000);
     levelGetter = new LevelGetter();
     levelQty = levelGetter->nbLevel;
@@ -198,11 +199,12 @@ int main(int argc, char *argv[])
 
     gameWindow = new GameWindow();
     mainMenu = new MainMenuQt();
+    shopMenu = new ShopMenuQt();
     GameWidget *gameWidget = new GameWidget();
     LevelMenu *levelMenu = new LevelMenu();
-    EndGameMenuQt *endgameMenu = new EndGameMenuQt();
+    endgameMenu = new EndGameMenuQt();
     PauseMenuQt *pauseMenu = new PauseMenuQt();
-    ShopMenuQt *shopMenu = new ShopMenuQt();
+    
     GenericMenu *loadingScreen = new GenericMenu();
     gameWidget->LineEnd = &gameWindow->LineEnd;
     gameWidget->LineStart = &gameWindow->LineStart;

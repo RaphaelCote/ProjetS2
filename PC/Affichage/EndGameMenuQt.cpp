@@ -1,3 +1,4 @@
+#include "EndGameMenu.h"
 #include "EndGameMenuQt.h"
 #include "Global.h"
 #include <QtWidgets>
@@ -56,4 +57,48 @@ void EndGameMenuQt::UpdateValues(bool isWon, int moneyGot) {
 	moneyReceived->setText("Vous avez recu "+ QString::number(moneyGot)+ "$");
 
 	update();
+}
+void EndGameMenuQt::connectButtonClicked(int buttonIndex, EndGameMenu* handler)
+{
+	
+	
+	QPushButton* button = nullptr;
+	switch (buttonIndex) {
+	case 0:
+		button = buttons[0];
+		connect(button, &QPushButton::clicked, [handler]()
+			{
+				handler->NextLevel();
+			}
+		);
+		return;
+	case 1:
+		button = buttons[1];
+		connect(button, &QPushButton::clicked, [handler]()
+			{
+				handler->GotoLevelSelect();
+			}
+		);
+		return;
+	case 2:
+		button = buttons[2];
+		connect(button, &QPushButton::clicked, [handler]()
+			{
+				handler->GotoShop();
+			}
+		);
+		return;
+	case 3:
+		button = buttons[3];
+		connect(button, &QPushButton::clicked, [handler]()
+			{
+				handler->ReturnToMenu();
+			}
+		);
+		return;
+	default:
+		return; // Invalid button index
+	
+	}
+	
 }

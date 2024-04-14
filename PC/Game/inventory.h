@@ -12,7 +12,7 @@
 class Inventory : public ShopMenu
 {
 public:
-    Inventory();
+    Inventory(ShopMenuQt* shopMenu);
 
     int GetPrixRocket();
     int GetPrixGrenade();

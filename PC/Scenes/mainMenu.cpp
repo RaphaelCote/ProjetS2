@@ -186,6 +186,9 @@ void MainMenu::PlayGame()
 
 void MainMenu::GotoLevelSelect()
 {
+    doOnce = true;
+    ClearMenu();
+    OnDisable();
     choice = 0;
     LevelSelectionMenu *lsm = (LevelSelectionMenu *)scenes->at(2);
     lsm->lastMenu = 0;
@@ -196,6 +199,9 @@ void MainMenu::GotoLevelSelect()
 
 void MainMenu::GotoShop()
 {
+    doOnce = true;
+    ClearMenu();
+    OnDisable();
     choice = 0;
     ShopMenu *shop = (ShopMenu *)scenes->at(5);
     shop->lastMenu = 0;

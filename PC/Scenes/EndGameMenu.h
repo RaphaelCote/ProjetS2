@@ -5,7 +5,7 @@
 #include "LevelSelectionMenu.h"
 #include "mainMenu.h"
 
-
+class EndGameMenuQt;
 class EndGameMenu : public Menu
 {
 private:
@@ -21,7 +21,7 @@ public:
     void OnEnable();
     void OnDisable();
 
-    EndGameMenu();
+    EndGameMenu(EndGameMenuQt* endGameMenu);
     void changeSelection(EventParameters ep);
     void Update();
     void ShowMenu();

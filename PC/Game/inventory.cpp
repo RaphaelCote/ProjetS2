@@ -1,7 +1,7 @@
 #include "inventory.h"
 #include "../Affichage/Global.h"
 
-Inventory::Inventory()
+Inventory::Inventory(ShopMenuQt* shopMenu)
 {
     nbRockets = 0;
     nbGrenades = 0;

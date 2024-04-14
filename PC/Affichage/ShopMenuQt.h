@@ -5,8 +5,7 @@
 
 #include "GenericMenu.h"
 #include "inventory.h"
-
-
+class ShopMenu;
 class ShopMenuQt : public GenericMenu
 {
 	Q_OBJECT
@@ -14,6 +13,7 @@ class ShopMenuQt : public GenericMenu
 public:
 	ShopMenuQt();
 	void UpdateValues();
+	void connectButtonClicked(int buttonIndex, Inventory* handler);
 
 protected:
 	QLabel* moneyLabel;

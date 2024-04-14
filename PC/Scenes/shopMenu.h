@@ -7,6 +7,7 @@
 #include "menu.h"
 
 
+class ShopMenuQt;
 class ShopMenu : public Menu
 {
 
@@ -19,8 +20,8 @@ public:
 
     void OnEnable();
     void OnDisable();
-
-    ShopMenu();
+    ShopMenu() {};
+    ShopMenu(ShopMenuQt* shopmenuQt);
     void changeSelection(EventParameters ep);
     void Update();
     void ShowMenu();

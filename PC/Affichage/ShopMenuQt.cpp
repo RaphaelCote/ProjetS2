@@ -1,4 +1,5 @@
 #include "ShopMenuQt.h"
+#include "shopMenu.h"
 #include "Global.h"
 #include <QtWidgets>
 
@@ -393,4 +394,71 @@ void ShopMenuQt::UpdateValues() {
 	}
 
 	update();
+}
+void ShopMenuQt::connectButtonClicked(int buttonIndex, Inventory* handler)
+{
+	QPushButton* button = nullptr;
+	switch (buttonIndex) {
+	case 0:
+		button = buttons[0];
+		connect(button, &QPushButton::clicked, [handler]()
+			{
+				
+				handler->addRockets();
+			}
+		);
+		return;
+	case 1:
+		button = buttons[1];
+		connect(button, &QPushButton::clicked, [handler]()
+			{
+				handler->addGrenade();
+			}
+		);
+		return;
+
+	case 2:
+		button = buttons[2];
+		connect(button, &QPushButton::clicked, [handler]()
+			{
+				handler->addShield(1);
+			}
+		);
+		return;
+	case 3:
+		button = buttons[3];
+		connect(button, &QPushButton::clicked, [handler]()
+			{
+				handler->addShield(2);
+			}
+		);
+		return;
+	case 4:
+		button = buttons[4];
+		connect(button, &QPushButton::clicked, [handler]()
+			{
+				handler->addShield(3);
+			}
+		);
+		return;
+	//case 5:
+	//	button = buttons[5];
+	//	connect(button, &QPushButton::clicked, [handler]()
+	//		{
+	//			
+	//			//handler->doOnce = true;
+	//			handler->OnDisable();
+	//			handler->ClearMenu();
+	//			handler->Back();
+	//			
+	//		}
+	//	);
+	//	return;
+		
+
+		return;
+	default:
+		return; // Invalid button index
+	}
+
 }
