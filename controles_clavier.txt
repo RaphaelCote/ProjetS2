@@ -1,0 +1,24 @@
+controles clavier :
+
+================
+====IMPORTANT=== : Jouer en étant cliqué dans la console
+================
+
+=== Menu === :
+w : Monter dans le menu
+s : Descendre dans le menu
+l : Sélectionner
+b : Retour
+
+=== Jeu === :
+l : tirer
+
+r : Augmenter l'angle
+f : Dimminuer l'angle
+t : Augmenter la puissance
+g : Diminuer la puissance
+
+q : arme précédente
+e : arme suivante
+p : pause
+b : dézoomer / zoomer
