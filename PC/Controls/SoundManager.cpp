@@ -46,15 +46,15 @@ SoundManager::SoundManager()
 	//--------------------------Magouille a frank---------------------//
 	////////////////////////////////////////////////////////////
 	// Create a pair to store MyClass instance and the argument
-	//auto* data = new std::pair<SoundManager*, int>(this, 42);
+	auto* data = new std::pair<SoundManager*, int>(this, 42);
 
-	////// Create a thread and pass the entry point function
-	//HANDLE threadHandle = CreateThread(nullptr, 0, ThreadEntry, data, 0, nullptr);
+	// Create a thread and pass the entry point function
+	HANDLE threadHandle = CreateThread(nullptr, 0, ThreadEntry, data, 0, nullptr);
 
-	//if (threadHandle == nullptr)
-	//{
-	//	std::cerr << "Error creating thread.\n";
-	//}
+	if (threadHandle == nullptr)
+	{
+		std::cerr << "Error creating thread.\n";
+	}
 
 }
 
