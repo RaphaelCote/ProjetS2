@@ -157,6 +157,8 @@ void PauseMenu::Continu()
 {
     choice = 0;
     activeScene = 1;
+    Game* game = (Game*)scenes->at(1);
+    game->doOnce = true;
     ShowContentEvent* scEvent = new ShowContentEvent(1);
     QApplication::postEvent(gameWindow, scEvent);
 }

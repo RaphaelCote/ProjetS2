@@ -13,7 +13,7 @@ using json = nlohmann::json;
 
 #define BAUD 115200       // Frequence de transmission serielle
 #define MSG_MAX_SIZE 1024 // Longueur maximale d'un message
-#define GROSSEUR_TAB_ANGLE 10
+#define GROSSEUR_TAB_ANGLE 5
 
 
 enum etatBoutton

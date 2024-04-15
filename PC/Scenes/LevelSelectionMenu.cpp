@@ -184,6 +184,9 @@ void LevelSelectionMenu::Selection()
     {
         soundManager->music = gameMusic;
         soundManager->functionDecider = play_Music;
+
+        Game* game = (Game*)scenes->at(1);
+        game->doOnce = true;
         
         SelectLevel(choice);
     }
